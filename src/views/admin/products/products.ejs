@@ -1,0 +1,106 @@
+<% extend("../../admin.ejs") %>
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4> Danh sách sản phẩm </h4>
+                                    <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-header end -->
+                <div class="page-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5> Danh sách Sản Phẩm </h5>
+                            <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                    <li><i class="icofont icofont-simple-left "></i></li>
+                                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                    <li><i class="icofont icofont-error close-card"></i></li>
+                                </ul>
+                            </div>
+                            <a href='/admin/products/add-product' type="button"
+                                class="btn btn-primary btn-icon waves-effect waves-light">
+                                <i class="icofont icofont-plus"></i>
+                            </a>
+                        </div>
+                        <div class="card-block table-border-style mt-2">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th> STT </th>
+                                            <th> Ảnh Sản Phẩm </th>
+                                            <th> Tên Sản Phẩm </th>
+                                            <th> Giá(VNĐ) </th>
+                                            <th> Trạng thái </th>
+                                            <th> Số lượng </th>
+                                            <th> hành động </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% products.forEach(function(product, index){ %>
+                                        <tr>
+                                            <th scope="row"><%= index %></th>
+                                            <th> <img class="sp_img" src="/admin/uploads/products/<%= product.image[0] %>" alt=""> </th>
+                                            <td class="font-weight-bold"> <p> <%= product.name %> </p></td>
+                                            <td> <span class="product-price"> <%= product.price %> </span> <span> vnđ
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <label
+                                                    class="label <%= product.status === true ? 'label-success' : 'label-warning' %> ">
+                                                    <%= product.status === true ? 'Còn hàng' : 'Hết hàng' %> </label>
+                                            </td>
+                                            <td> <%= product.quantity %> </td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <a href="/admin/product/edit-product/<%= product.id %>"
+                                                        type="button" class="btn btn-warning" title="Sửa sản phẩm">
+                                                        <i class="icofont icofont-edit"></i> </a>
+                                                    <a href="/admin/product/delete-product/<%= product.id %>"
+                                                        type="button" class="btn btn-danger"> <i
+                                                            class="icofont icofont-ui-delete" title="Xóa sản phẩm"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="styleSelector">
+            </div>
+        </div>
+    </div>
+</div>

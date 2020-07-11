@@ -1,0 +1,213 @@
+<% extend("../../admin.ejs") %>
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4> Chỉnh sửa sản phẩm </h4>
+                                    <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="/admin/products">Danh sách sản phẩm</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-header end -->
+                <div class="page-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5> Chi Tiết Sản Phẩm </h5>
+                            <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                    <li><i class="icofont icofont-simple-left "></i></li>
+                                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                    <li><i class="icofont icofont-error close-card"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-block table-border-style mt-2">
+                            <div class="col-md-12 col-xl-12">
+                                <form action="/admin/product/edit_product/<%= product._id %>" id="product-edit-form"
+                                    method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-5 col-md-12">
+                                            <div class="row">
+                                                <% if (product.image != null) { %>
+                                                <% for (var i = 0; i < product.image.length;  i++ ) { %>
+                                                <div class="col-xs-12 col-sm-3 col-md-2">
+                                                    <div class="card">
+                                                        <img class="card-img-top"
+                                                            src="/assets/images/products/<%= product.image[i] %>"
+                                                            alt="Card image cap" data-index='<%= i %>'
+                                                            data-id="<%= product._id %>">
+                                                        <div class="card-body">
+                                                            <p class="text-center"> <strong> <%= i + 1 %> </strong> </p>
+                                                            <div class="btn-group" role="group"
+                                                                aria-label="Basic example">
+                                                                <button type="button"
+                                                                    class="btn btn-warning btn-block edit-product-image"
+                                                                    title="Sửa hình ảnh" data-toggle="modal"
+                                                                    data-target="#product-image-change">
+                                                                    <i class="icofont icofont-edit"></i>
+                                                                </button>
+                                                                <a href="/admin/product/delete-product-image?id=<%= product._id%>&index=<%= i %>"
+                                                                    type="button" class="btn btn-danger btn-block"
+                                                                    title="Xóa hình ảnh">
+                                                                    <i class="icofont icofont-ui-delete"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+                                                <% } %>
+                                                <% if(product.image == null){%>
+                                                <p>Không có hình ảnh nào</p>
+                                                <% } %>
+
+                                                <!-- Modal -->
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <button type="button" class="btn btn-info show-image-add mb-4"
+                                                        data-toggle="modal" data-target="#product-image-edit"
+                                                        title="Thêm hình ảnh"> <i class="icofont icofont-plus"></i> Thêm
+                                                        hình ảnh
+                                                    </button>
+                                                    <div class="col-xs-12 col-sm-12">
+                                                        <div class="dropzone-edit-more mt-4">
+                                                            <div id="my-awesome-dropzone" class="dropzone">
+                                                            </div>
+                                                            <div id="previews">
+                                                                <div id="template" class="file-row">
+                                                                    <div>
+                                                                        <span class="preview"><img
+                                                                                data-dz-thumbnail /></span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p class="name" data-dz-name></p>
+                                                                        <strong class="error text-danger"
+                                                                            data-dz-errormessage>ERROR</strong>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p class="size" data-dz-size></p>
+                                                                        <div class="progress progress-striped active"
+                                                                            role="progressbar" aria-valuemin="0"
+                                                                            aria-valuemax="100" aria-valuenow="0">
+                                                                            <div class="progress-bar progress-bar-success"
+                                                                                style="width:0%;"
+                                                                                data-dz-uploadprogress>
+                                                                                PROGRESS
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button
+                                                                            class="btn btn-primary start fileinput-button">
+                                                                            <i class="glyphicon glyphicon-upload"></i>
+                                                                            <span>Start</span>
+                                                                        </button>
+                                                                        <button data-dz-remove
+                                                                            class="btn btn-warning cancel">
+                                                                            <i
+                                                                                class="glyphicon glyphicon-ban-circle"></i>
+                                                                            <span>Cancel</span>
+                                                                        </button>
+                                                                        <button data-dz-remove
+                                                                            class="btn btn-danger delete">
+                                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                                            <span>Delete</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <div class="form-group" id="image_path_form">
+
+                                                </div>
+                                                <label class="font-weight-bold" for="product_brand"> Thương Hiệu
+                                                </label>
+                                                <select class="form-control custom-select" name="product_brand"
+                                                    id="product_brand">
+                                                    <option>Choose...</option>
+                                                    <option value="apple"> Apple </option>
+                                                    <option value="samsung"> SamSung </option>
+                                                    <option value="xiaomi"> Xiaomi </option>
+                                                    <option value="oppo"> Oppo </option>
+                                                    <option value="lg"> LG </option>
+                                                </select>
+                                                <script>
+                                                    $("#product_brand").val("<%= product.brand %>");
+                                                    $("#product_brand option[value='<%= product.brand %>']").attr("selected", "selected");
+                                                </script>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="font-weight-bold" for="product_name"> Tên Sản Phẩm
+                                                </label>
+                                                <input type="text" name="product_name" value="<%= product.name %>"
+                                                    class="form-control" placeholder="Tên sản phẩm">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="font-weight-bold" for="product_price"> Giá sản phẩm
+                                                </label>
+                                                <input type="text" name="product_price" value="<%= product.price %>"
+                                                    class="form-control" placeholder="giá sản phẩm">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="font-weight-bold" for="product_count"> Số lượng
+                                                </label>
+                                                <input type="text" name="product_count" value="<%= product.count %>"
+                                                    class="form-control" placeholder="Số lượng">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="font-weight-bold" for="product_count"> Mô tả </label>
+                                                <textarea id="summernote" name="propduct_describes"
+                                                    rows='10'> <%- product.describes %> </textarea>
+                                            </div>
+                                        </div>
+                                        <!-- col end  -->
+                                        <div class="col-xs-12 col-md-12">
+                                            <button type="submit" class="btn btn-primary mt-4 mb-4"
+                                                id="save-button-product-image"
+                                                data-url='/admin/product/product-add-edit/<%= product._id %>'>
+                                                <i class="icofont icofont-save"></i> Lưu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="styleSelector">
+            </div>
+        </div>
+    </div>
+</div>

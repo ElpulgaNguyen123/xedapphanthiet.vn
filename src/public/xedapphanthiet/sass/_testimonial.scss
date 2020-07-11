@@ -1,0 +1,35 @@
+#testimonial {
+
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .testimonial-carousel {
+        .owl-dots {
+            width: 300px;
+            margin: 20px auto 0;
+            .owl-dot{
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                display: inline-block;
+                margin-right: 15px;
+                opacity: .5;
+                cursor: pointer;
+                -webkit-transition: .3s all;
+                transition: .3s all;
+            }
+
+            div:nth-child(0) {
+                background: url(./images/testimonial/testimonial01.png) no-repeat center / cover;
+            }
+            div:nth-child(1) {
+                background: url(../images/testimonial/testimonial02.png) no-repeat center / cover;
+            }
+            div:nth-child(2) {
+                background: url(./images/testimonial/testimonial03.png) no-repeat center / cover;
+            }
+        }
+    }
+
+
+}

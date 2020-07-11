@@ -1,0 +1,162 @@
+#beauticians {
+
+    .single-beauticians {
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        position: relative;
+        width: 100%;
+        border-radius: 5px;
+
+        .social {
+            padding-left: 0px;
+
+            li {
+                display: inline-block;
+                margin-right: 10px;
+
+                a {
+                    width: 35px;
+                    height: 35px;
+                    text-align: center;
+                    background: #fff;
+                    display: block;
+                    border-radius: 50%;
+                    -webkit-transition: .3s;
+                    transition: .3s;
+                    overflow: hidden;
+                    line-height: 38px;
+                    color: $main;
+
+                    &:hover {
+                        color: white;
+                        background: $main;
+                        text-decoration: none;
+
+                        i{
+                            animation: socialFxD 1s forwards;
+                        }
+                    }
+                }
+            }
+        }
+
+        &:hover {
+
+            .img-wrapper {
+                -webkit-transform: rotateY(-180deg);
+                transform: rotateY(-180deg);
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .beautician-content {
+                -webkit-transform: rotateY(0deg);
+                transform: rotateY(0deg);
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+        }
+
+        .beautician-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            background-size: cover;
+            background-position: center;
+            -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            text-align: left;
+            height: 285px;
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            width: 100%;
+            color: #fff;
+            background: #2c3145;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: -3.758px 26.737px 43px 0px rgba(42, 57, 63, 0.15);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+
+            .inner-content {
+                -webkit-perspective: inherit;
+                perspective: inherit;
+                -webkit-transform: translateY(0%) translateZ(60px) scale(0.94);
+                transform: translateY(0%) translateZ(60px) scale(0.94);
+                padding: 7% 0;
+            }
+
+
+        }
+
+        .img-wrapper {
+            -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            -webkit-transform-style: PRESERVE-3D;
+            transform-style: PRESERVE-3D;
+            background-size: cover;
+            background-position: center;
+            -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            text-align: left;
+            height: auto;
+            height: 285px;
+            width: 100%;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0px 1px 4px 0px rgba(44, 49, 59, 0.15);
+            overflow: hidden;
+
+            img {
+                margin: auto;
+                -webkit-perspective: inherit;
+                perspective: inherit;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+            }
+
+            .beautician-footer-text {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                z-index: 1;
+                padding: 20px 30px;
+                border-radius: 0 0 5px 5px;
+            }
+        }
+    }
+
+}

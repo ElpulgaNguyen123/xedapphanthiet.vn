@@ -1,0 +1,26 @@
+#brand {
+
+    .logo-list {
+
+        .logo-item{
+            margin-bottom: 15px;
+        }
+
+        .border-img {
+
+            .thumb-img {
+                display: block;
+                border-radius: 8px;
+                border: #eee solid 1px;
+                box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .1);
+
+                .img-fluid {
+                    max-width: 80%;
+                }
+            }
+
+        }
+
+    }
+
+}

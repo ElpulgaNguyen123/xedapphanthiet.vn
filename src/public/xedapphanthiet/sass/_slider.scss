@@ -1,0 +1,170 @@
+#slider {
+
+    position: relative;
+    background: #66d6e4;
+    padding: 20px 0px;
+
+    .main-top-grid {
+        background: white;
+    }
+
+    .slider {      
+
+        &__bettween {
+            width: 700px;
+            max-width: 700px;
+            padding: 0px;
+
+            img {
+                width: 700px;
+                max-width: 700px;
+            }
+        }
+
+        &__news {
+            width: 220px;
+            max-width: 220px;
+
+            .news-list {
+                padding-top: 15px;
+
+                li {
+                    padding: 5px 0px;
+                    border-bottom: 1px solid grey;
+                    &:last-child {
+                        border: 0px;
+                    }
+                }
+
+                a {
+                    color: #333;
+                    text-decoration: none;
+                }
+                h5 {
+                    font-size: 15px;
+                    max-height: 54px;
+                    overflow: hidden;
+                    font-weight: 600;
+                }
+
+                .card {
+                    .news-text {
+                        min-height: 72px;
+                        font-size: 14px;
+                    }
+                }
+            }
+
+
+            .card {
+                border: 0px;
+            }
+        }
+
+        &__menu {
+
+            width: 220px;
+            max-width: 220px;
+            padding: 0px;
+
+            .main-menu {
+                max-height: 408px;
+                height: 408px;
+
+                .menu-main {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+
+                    .menu-1 {
+
+                        position: relative;
+
+                        .sub-menu {
+                            display: none;
+                            width: 220px;
+                            position: absolute;
+                            top: 0;
+                            left: 190px;
+                            z-index: 100;
+                            box-shadow: 2px 5px 10px 0 rgba(0, 0, 0, .3);
+                            background-color: #fff;
+
+                        }
+
+                        &:hover {
+                            >.sub-menu {
+                                display: block !important;
+                            }
+                        }
+                    }
+
+                    a {
+                        color: #333;
+                        display: block;
+                        padding: 8px 20px;
+                        text-decoration: none;
+                        position: relative;
+
+                        &:hover {
+                            background: $main;
+                            color: white;
+
+                            i {
+                                color: white;
+                            }
+                        }
+
+                        i {
+                            position: absolute;
+                            right: 10px;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        // #top-slider {
+        //     .item {
+        //         .content {
+        //             position: absolute;
+        //             top: 30%;
+        //             left: 10%;
+        //             z-index: 2;
+
+        //             h3 {
+        //                 font-family: 'Dancing Script', cursive;
+        //                 color: $main;
+        //             }
+        //         }
+        //     }
+        // }
+        // .owl-nav {
+        //     position: absolute;
+        //     top: 50%;
+        //     display: flex;
+        //     width: 100%;
+        //     justify-content: space-between;
+
+        //     .owl-prev,
+        //     .owl-next {
+        //         i {
+        //             padding: 9px;
+        //             background: $main;
+        //             margin-left: 20px;
+        //             font-size: 25px;
+        //             border-radius: 50%;
+        //             color: white;
+        //         }
+
+        //     }
+
+        //     .owl-next {
+        //         margin-right: 20px;
+        //     }
+
+        // }
+
+    }
+}

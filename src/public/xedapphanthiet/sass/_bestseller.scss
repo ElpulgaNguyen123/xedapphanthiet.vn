@@ -1,0 +1,98 @@
+#portfolio {
+    
+    background: #f7f7f7;
+    .portfolio-tabs {
+        .nav-tabs {
+            border: none;
+            width: 60%;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #ebebeb;
+            border-bottom: 2px solid #ebebeb;
+            border-radius: 20px;
+
+            .nav-item {
+                width: 16.666666666%;
+            }
+
+            a.nav-link {
+                color: #5e6271;
+                background: #fff;
+                -webkit-transition: .3s all;
+                transition: .3s all;
+                border: none;
+
+                &.active {
+                    background: $main;
+                    color: white;
+                }
+
+                &.active:hover {
+                    color: #fff;
+                    background: $main;
+                }
+            }
+
+
+        }
+    }
+
+    .tab-content {
+        .tab-pane {
+            &.active{
+                @include easeOut();
+            }
+        }
+        ul {
+            list-style: none;
+
+            li {
+                width: 46%;
+                float: left;
+                padding: 15px;
+                -webkit-transition: .3s all;
+                transition: .3s all;
+                border-bottom: 1px dashed #dedede;
+                margin-right: 30px;
+
+                h4 {
+                    margin-top: 14px;
+                    margin-bottom: 8px;
+                    -webkit-transition: .3s all;
+                    transition: .3s all;
+                    color: black;
+
+                    &:hover{
+                        color: $main;
+                        text-decoration: none;
+
+                        a {
+                            text-decoration: none;
+                        }
+                    }
+
+                    .price {
+                        float: right;
+                        font-size: 20px;
+                        font-weight: 700;
+                        font-family: 'Dancing Script', cursive;
+                        color: $main;
+                    }
+                }
+
+                &:hover {
+                    border-radius: 2px;
+                    background: #fff;
+                    box-shadow: -2.505px 17.825px 23px 0px rgba(42, 57, 63, 0.15);
+                    border-color: #fff;
+                }
+
+                img {
+                    float: left;
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+
+}

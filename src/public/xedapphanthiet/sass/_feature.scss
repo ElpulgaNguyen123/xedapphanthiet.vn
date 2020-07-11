@@ -1,0 +1,18 @@
+#feature {
+    .feature {
+        &__list {
+            .product-item {
+                padding-bottom: 20px;
+                a {
+                    color: black;
+                    font-size: 18px;
+                    font-weight: 400;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

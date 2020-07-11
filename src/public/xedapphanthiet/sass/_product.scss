@@ -1,0 +1,35 @@
+    .product-list {
+
+        .product-item {
+            margin-bottom: 20px;
+
+            .product-img {
+                margin-bottom: 10px;
+
+                .thumb-img {
+                    display: block;
+                    border: #eee solid 1px;
+                    border-radius: 8px;
+                    padding: 8px;
+                    margin: 0 auto;
+                }
+            }
+
+            .item-title {
+                a {
+                    color: #333;
+                    font-size: 16px;
+                    font-weight: 200 !important;
+                }
+            }
+
+            .block-prices {
+                .product-price {
+                    font-size: 18px;
+                    color: $main;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
