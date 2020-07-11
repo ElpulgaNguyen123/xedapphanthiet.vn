@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "predevloy":"node app.js",
-    "devloy":"gh-pages -d build",
     "start": "nodemon app.js",
     "build": "node ./bin/www"
   },
