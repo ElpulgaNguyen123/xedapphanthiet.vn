@@ -103,11 +103,38 @@ let resetPasswordGetToken = (req, res, next) => {
     console.log(req.params.token);
 }
 
+let getLogout = (req, res, next) => {
+    req.logout(); // hàm được hỗ trợ bởi passport
+    req.flash('Success', Transuccess.logout_success);
+    res.redirect('/admin/login');
+}
+
+let checkloggedIn = (req, res, next) => {
+    // hàm Authenticated là hàm của passport.
+    if (!req.isAuthenticated()) {
+        return res.redirect("/admin/login");
+    }
+    next(); // hàm next() chuyển sang function tiếp theo.
+}
+
+let checkloggedOut = (req, res, next) => {
+    // hàm Authenticated là hàm của passport.
+    if (req.isAuthenticated()) {
+        return res.redirect("/admin");
+    }
+    next();
+}
+
+
 module.exports = {
     loginController,
     registerController,
     PostRegisterController,
     resetPasswordController,
     PostResetPasswordController,
-    resetPasswordGetToken
+    resetPasswordGetToken,
+
+    checkloggedOut,
+    checkloggedIn,
+    getLogout
 }

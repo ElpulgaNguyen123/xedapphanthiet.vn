@@ -8,6 +8,7 @@ var logger = require('morgan');
 var adminRouter = require('./src/routes/admin');
 var frontendRouter = require('./src/routes/frontend');
 var configviewEngine = require('./src/model/config/viewEngine');
+var passport = require('passport');
 
 // db
 var pool = require('./src/model/config/connectDb');
@@ -24,7 +25,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(connectFlash());
+
 configSession(app);
+
+// khai báo xử dụng passport
+app.use(passport.initialize())
+app.use(passport.session());
 
 // db
 pool.getConnection(function (err, connection) {

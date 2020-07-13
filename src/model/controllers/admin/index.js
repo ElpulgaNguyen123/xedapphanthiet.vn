@@ -12,7 +12,11 @@ var {loginController,
     PostRegisterController,
     resetPasswordController,
     PostResetPasswordController,
-    resetPasswordGetToken} = require('./authController');
+    resetPasswordGetToken,
+    checkloggedOut,
+    checkloggedIn,
+    getLogout
+} = require('./authController');
 
 
 
@@ -34,5 +38,8 @@ module.exports = {
     PostRegisterController,
     resetPasswordController,
     PostResetPasswordController,
-    resetPasswordGetToken
+    resetPasswordGetToken,
+    checkloggedOut,
+    checkloggedIn,
+    getLogout
 }

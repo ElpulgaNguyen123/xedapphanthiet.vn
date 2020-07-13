@@ -28,7 +28,8 @@ let Tranerrors = {
     login_failed : 'Mật khẩu hoặc tài khoản không đúng',
     server_error : 'Server lỗi !',
     Login_success : 'Đăng nhập thành công !',
-    emailinvalid: 'Email này không tồn tại, vui lòng nhập lại !'
+    emailinvalid: 'Email này không tồn tại, vui lòng nhập lại !',
+    userinvalid: 'Tài khoản này không tồn tại'
 
 }
 let Transuccess = {
