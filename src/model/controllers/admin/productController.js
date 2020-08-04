@@ -214,9 +214,9 @@ let addProductPost = (req, res, next) => {
                     await service.queryActionNoParamsreturn(queryType01);
                 }
                 successArr.push(Transuccess.createSuccess('sản phẩm'));
+                req.flash('Success', successArr);
                 return res.redirect('/admin/products');
             }
-            res.status(200).send('Hihi');
         } catch (error) {
             console.log(error);
             return res.status(500).send(error);
