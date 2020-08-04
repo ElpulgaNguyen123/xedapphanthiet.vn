@@ -16,7 +16,8 @@ var {getAllAttribute,
     postAddAttributeValue,
     postDeleteAttributeValue} = require('./attributesController');
 
-var {getAllBrand} = require('./brandController');
+var {getAllBrand,
+    addBrandImage} = require('./brandController');
 
 var { loginController,
     registerController,
@@ -66,6 +67,7 @@ module.exports = {
 
     // Brands
     getAllBrand,
+    addBrandImage,
 
 
     // authencation

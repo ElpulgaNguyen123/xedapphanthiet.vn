@@ -58,6 +58,8 @@ adminRouter.get('/attribute/delete-attribute-value/:id', controller.checkloggedI
 
 //brand start
 adminRouter.get('/brands', controller.checkloggedIn, controller.getAllBrand);
+adminRouter.post('/brand/add-brand', controller.checkloggedIn, controller.addBrandImage);
+
 //brand end
 
 adminRouter.use((req, res, next) => {

@@ -239,11 +239,6 @@ let addProductImage = (req, res, next) => {
                     console.error(e);
                 }
             })
-            console.log(req.files);
-            console.log('Danh sách tên file được upload lên')
-            for (let index = 0; index < req.files.length; index++) {
-                console.log(req.files[index].filename);
-            }
         } catch (error) {
             console.log(error);
             return res.status(500).send(error);
