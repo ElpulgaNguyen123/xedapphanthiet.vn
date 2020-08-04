@@ -326,6 +326,11 @@ ul.nav.nav-tabs.md-tabs.tabs-left {
     display: table-cell;
     width: 70%;
 }
+label.error {
+    color: red;
+    font-weight: 400;
+    margin-top: 5px;
+}
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;

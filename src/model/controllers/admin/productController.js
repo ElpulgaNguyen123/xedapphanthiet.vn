@@ -101,7 +101,7 @@ let addProductAttribute = async (req, res, next) => {
             });
         } else {
             await pool.query(queryattribute, result.id, function (error, results, fields) {
-                result.attributes.push(results);
+                result.attributes = results;
                 result.type = attributeType[0].type;
                 result.attribute_id = results[0].id;
                 result.attribute_name = results[0].attribute_name;
@@ -158,16 +158,14 @@ let addProductPost = (req, res, next) => {
             await service.newProduct(queryNewProduct, productItem);
             // lấy được id sản phẩm vửa tạo.
             var id = await service.getlastProduct('SELECT MAX(ID) as id FROM product');
-            console.log('Sản phẩm mới nhất');
-            console.log(id[0].id);
             // thêm vào chuỗi query;
             if (id[0].id) {
                 // lấy danh sách thuộc tính sản phẩm và id.
                 if (req.body.product_attributes_type02.length > 0) {
-                    console.log(req.body.product_attributes_type02);
                     var gettype02Val = req.body.product_attributes_type02;
                     var attributes = gettype02Val.slice(0, -1);
                     var attributes_arr = attributes.split(",");
+                    console.log(attributes_arr);
                     // thêm vào chuỗi query;
                     var valuestring = '';
                     for (var index = 0; index < attributes_arr.length; index++) {
