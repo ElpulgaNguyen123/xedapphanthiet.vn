@@ -56,6 +56,10 @@ adminRouter.post('/attribute/edit-attribute-value/:id', controller.checkloggedIn
 adminRouter.get('/attribute/delete-attribute-value/:id', controller.checkloggedIn, controller.postDeleteAttributeValue);
 // attribute value end
 
+//brand start
+adminRouter.get('/brands', controller.checkloggedIn, controller.getAllBrand);
+//brand end
+
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {
     title: 'Trang Không tìm thấy'

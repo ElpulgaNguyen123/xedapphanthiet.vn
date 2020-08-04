@@ -331,6 +331,21 @@ label.error {
     font-weight: 400;
     margin-top: 5px;
 }
+.md-tabs a.nav-link.active {
+    color: white !important;
+    font-weight: 800;
+    font-size: 16px;
+    background-image: linear-gradient(to top, #79a3ff 0%, #0956ff 51%, #79a3ff 100%);
+}
+.nav-tabs .slide {
+    background: white;
+    width: calc(100% / 4);
+    height: 4px;
+    position: absolute;
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+    bottom: 0;
+}
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;

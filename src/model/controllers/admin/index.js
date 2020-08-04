@@ -15,7 +15,9 @@ var {getAllAttribute,
     postDeleteAttribute,
     postAddAttributeValue,
     postDeleteAttributeValue} = require('./attributesController');
-// Admin controller / end
+
+var {getAllBrand} = require('./brandController');
+
 var { loginController,
     registerController,
     PostRegisterController,
@@ -60,6 +62,10 @@ module.exports = {
     postDeleteAttribute,
     postAddAttributeValue,
     postDeleteAttributeValue,
+    
+
+    // Brands
+    getAllBrand,
 
 
     // authencation
