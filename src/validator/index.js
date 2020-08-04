@@ -1,7 +1,9 @@
 var  {validateRegister, 
-    validateEmailResetpassword} = require('./authValidator');
+    validateEmailResetpassword,
+    validateChangePassword} = require('./authValidator');
 
 module.exports = {
     validateRegister, 
-    validateEmailResetpassword
+    validateEmailResetpassword,
+    validateChangePassword
 }

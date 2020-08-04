@@ -1,0 +1,107 @@
+<% extend("../../admin.ejs") %>
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
+                                <div class="d-inline">
+                                    <h4>Thông tin người dùng</h4>
+                                    <span>Ut design cung cấp dịch vụ và giải pháp công nghệ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!"><%= title  %></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-header end -->
+
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Thông tin người dùng</h5>
+                                    <span>Cập nhật thông tin người dùng</span>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option" style="width: 35px;">
+                                            <li class=""><i class="icofont icofont-simple-left"></i></li>
+                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                            <li><i class="icofont icofont-error close-card"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-8">
+                                            <div class="another-info">
+                                                <form method="post">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="username"> Họ tên </label>
+                                                        <input type="text" name="username" id="profile-username"
+                                                            class="form-control form-control-normal" value="<%= user.name %>"
+                                                            placeholder="Họ tên">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="username"> Số điện thoại
+                                                        </label>
+                                                        <input type="text" name="phone" value="<%= user.phone %>" id="profile-phone"
+                                                            class="form-control form-control-normal"
+                                                            placeholder="Số điện thoại">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="username"> Email </label>
+                                                        <input type="text" name="email" value="<%= user.email %>" id="profile-email"
+                                                            class="form-control form-control-normal" placeholder="Email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="username"> Địa chỉ
+                                                        </label>
+                                                        <input type="text" name="address" value="<%= user.address %>" id="profile-address"
+                                                            class="form-control form-control-normal" placeholder="Địa chỉ">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="profile-image text-md-center">
+                                                <div class="avatar-change">
+                                                    <img id="image-avatar-preview" src="" alt="">
+                                                </div>
+                                                <img id="image-avatar-info" src="/admin/images/auth/<%= user.avatar %>"
+                                                    alt="">
+                                                <input type="file" id="input-change-avatar">
+                                                <!-- Preview avatar change change -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn hor-grd btn-grd-primary" data-type="danger" data-from="top" data-id="<%= user.user_id %>" data-align="right" id="checkinfo-change" data-dismiss="modal"> Lưu lại</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="styleSelector">
+        </div>
+    </div>
+</div>

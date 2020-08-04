@@ -1,9 +1,29 @@
-var {register_service, 
+var { register_service,
     resetpassword_service,
-    resetPassword} = require('./authService');
+    resetPassword, } = require('./authService');
+
+var { queryAction, 
+    queryActionNoParams, 
+    newProduct,
+    getlastProduct,
+    getLastId,
+    newAttributeVal,
+    getLastsId,
+    queryActionNoParamsreturn} = require('./productservice');
 
 module.exports = {
     register_service,
     resetpassword_service,
-    resetPassword
+    resetPassword,
+
+
+    queryAction,
+    queryActionNoParams,
+    newProduct,
+    getlastProduct,
+    getLastId,
+    newAttributeVal,
+    getLastsId,
+    queryActionNoParamsreturn
+    
 }

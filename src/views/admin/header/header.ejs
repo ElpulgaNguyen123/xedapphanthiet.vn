@@ -52,7 +52,7 @@
                         <li>
                             <div class="media">
                                 <img class="d-flex align-self-center img-radius"
-                                    src="/admin/images/avatar-3.jpg" alt="Generic placeholder image">
+                                    src="/admin/images/auth/<%= user.avatar %>" alt="Generic placeholder image">
                                 <div class="media-body">
                                     <h5 class="notification-user">Joseph William</h5>
                                     <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
@@ -77,33 +77,33 @@
                 </li>
                 <li class="user-profile header-notification">
                     <a href="#!">
-                        <img id="user-image-profile" src="" class="img-radius" alt="User-Profile-Image">
+                        <img id="user-image-profile" src="/admin/images/auth/<%= user.avatar %>" class="img-radius" alt="User-Profile-Image">
                         <i class="ti-angle-down"></i>
                     </a>
                     <ul class="show-notification profile-notification">
-                        <li>
+                        <!-- <li>
                             <a href="#!">
-                                <i class="ti-settings"></i> Settings
+                                <i class="ti-settings"></i> Cài đặt
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="#profile-modal" data-toggle="modal" data-target="#profile-modal">
-                                <i class="ti-user"></i> Profile
+                                <i class="ti-user"></i> Hồ sơ cá nhân
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#">
                                 <i class="ti-email"></i> My Messages
                             </a>
-                        </li>
-                        <li>
+                        </li> -->
+                        <!-- <li>
                             <a href="#">
                                 <i class="ti-lock"></i> Lock Screen
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="/admin/logout">
-                                <i class="ti-layout-sidebar-left"></i> Logout
+                                <i class="ti-layout-sidebar-left"></i> Đăng xuất
                             </a>
                         </li>
                     </ul>

@@ -154,15 +154,17 @@ let resetpassword_service =  (email, protocol, host) => {
 let resetPassword = (token) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let userVerify = await userModel.finByToken(token);
-            var query = `SELECT  FROM user WHERE email = '${email}'`;
+            var query = `SELECT * FROM user WHERE verifyToken = '${token}'`;
             pool.query(query, function (error, rows, fields) {
+                if (error) throw error;
+                if (!rows[0]) {
+                    return reject(Tranerrors.emailinvalid);
+                }
+                resolve(Transuccess.account_actived);
             })
             if (!userVerify) {
                 reject(Tranerrors.account_undefind);
             }
-            await userModel.verifyToken(token);
-            resolve(Transuccess.account_actived);
         } catch (error) {
             console.log('caught', error);
         }

@@ -12,7 +12,12 @@ let validateRegister = [
 let validateEmailResetpassword = [
     check('email', tranvalidation_resetPassword.email_incorrect).isEmail().trim()
 ]
+
+let validateChangePassword = [
+    check('password', tranvalidation_register.password_incorrect).isLength({ min: 6 }).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/),
+]
 module.exports = {
     validateRegister,
-    validateEmailResetpassword
+    validateEmailResetpassword,
+    validateChangePassword
 }

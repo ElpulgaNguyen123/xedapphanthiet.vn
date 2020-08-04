@@ -1,0 +1,283 @@
+<% extend("../../../admin.ejs") %>
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4> <%= attributes.attribute_name %> </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="/admin" title="Trang chủ">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/admin/attributes" title="Thuộc tính">
+                                            Thuộc tính
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><%= attributes.attribute_name %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-header end -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <% if(errors != ""){%>
+                            <% errors.forEach((item) => {%>
+                            <div class="alert alert-danger" role="alert">
+                                <strong class="alert-link"><%- item %></strong>.
+                            </div>
+                            <%})%>
+                            <%}%>
+                                    <% if(success != ""){%>
+                            <% success.forEach((item) => {%>
+                            <div class="alert alert-success" role="alert">
+                                <strong class="alert-link"><%- item %></strong>.
+                            </div>
+                            <%})%>
+                            <%}%>
+                        </div>
+                        <div class="col-md-12 col-lg-4 col-xl-5">
+                            <div class="card project-task">
+                                <div class="card-header">
+                                    <div class="card-header-left ">
+                                        <% if(attributes.type == 1){ %>
+                            <h5 class="mb-5"> Chỉnh sửa <%= attributes.attribute_name %> </h5>
+                            <% } else{ %>
+                            <h5 class="mb-5"><%= attributes.attribute_name %> </h5>
+                            <% } %>
+                        </div>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="icofont icofont-simple-left "></i></li>
+                                <li><i class="icofont icofont-maximize full-card"></i></li>
+                                <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                <li><i class="icofont icofont-error close-card"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <script>
+                        function to_slug(str, id) {
+                            // Chuyển hết sang chữ thường
+                            str = str.toLowerCase();
+                            // xóa dấu
+                            str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                            str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                            str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                            str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                            str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                            str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                            str = str.replace(/(đ)/g, 'd');
+                            // Xóa ký tự đặc biệt
+                            str = str.replace(/([^0-9a-z-\s])/g, '');
+                            // Xóa khoảng trắng thay bằng ký tự -
+                            str = str.replace(/(\s+)/g, '-');
+                            // xóa phần dự - ở đầu
+                            str = str.replace(/^-+/g, '');
+                            // xóa phần dư - ở cuối
+                            str = str.replace(/-+$/g, '');
+                            document.getElementById(id).value = str;
+                            // return
+                            return str;
+                        }
+                    </script>
+                    <div class="card-block p-b-10">
+                        <form action="/admin/attribute/edit-attribute/<%= attributes.id %>" method="POST">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold col-form-label" for="attribute_name">
+                                            <%= attributes.attribute_name %>
+                                        </label>
+                                        <input type="text" name="attribute_name" id="attribute_name"
+                                            onkeyup="to_slug($(this).val(),'attribute_slug')"
+                                            value="<%= attributes.attribute_name %>" class="form-control"
+                                            placeholder="Tên <%= attributes.attribute_name %>" required>
+                                        <small class="form-text text-muted"><%= attributes.attribute_name %>
+                                            sẽ xuất hiện ở
+                                            trên giao diện website của bạn </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold col-form-label" for="attribute_slug">
+                                            Slug
+                                        </label>
+                                        <input type="text" name="attribute_slug" id="attribute_slug"
+                                            class="form-control" placeholder="Slug" value="<%= attributes.slug %>">
+                                        <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
+                                            ngắn gọn của tên <%= attributes.attribute_name %>
+                                        </small>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label class="font-weight-bold col-form-label row" for="attribute_group_id">
+                                            Nhóm thuộc tính
+                                        </label>
+                                        <div class="row">
+                                            <select class="form-control custom-select col-md-12 mb-3"
+                                                name="attribute_group_id" id="attribute_group_id">
+                                                <option selected>Nhóm thuộc tính...</option>
+                                                <% attribute_groups.forEach(function(item, index){ %>
+                                                <option value="<%= item.id %>">
+                                                    <%= item.attribute_group_name %>
+                                                </option>
+                                                <%})%>
+                                                <script>
+                                                    $("#attribute_group_id").val('<%= attributes.attribute_group_id %>');
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label class="font-weight-bold col-form-label row" for="attribute_type_id">
+                                            Kiểu dữ liệu
+                                        </label>
+                                        <div class="row">
+                                            <select class="form-control custom-select col-md-12 mb-3"
+                                                name="attribute_type_id" id="attribute_type_id">
+                                                <option selected>Kiểu dữ liệu ...</option>
+                                                <% attribute_types.forEach(function(item, index){ %>
+                                                <option value="<%= item.id %>">
+                                                    <%= item.attribute_type_name %>
+                                                </option>
+                                                <%})%>
+                                                <script>
+                                                    $("#attribute_type_id").val('<%= attributes.type %>');
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-grd-success mt-3">Lưu
+                                <%= attributes.attribute_name %></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% if(attributes.type == 1){ %>
+            <% } else{ %>
+            <div class="col-md-12 col-lg-8 col-xl-7">
+                <div class="card">
+                    <div class="card-header">
+                        <h5> Danh sách <%= attributes.attribute_name %> </h5>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="icofont icofont-simple-left "></i></li>
+                                <li><i class="icofont icofont-maximize full-card"></i></li>
+                                <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                <li><i class="icofont icofont-error close-card"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-block table-border-style mt-2">
+                        <form action="/admin/attribute/edit-attribute-value/<%= attributes.id %>" method="POST">
+                            <div class="col-sm-12 mb-3">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold col-form-label" for="attribute_name_value">
+                                                Tên <%= attributes.attribute_name %>
+                                            </label>
+                                            <input type="text" name="attribute_name_value" id="attribute_name_value"
+                                                onkeyup="to_slug($(this).val(),'attribute_slug_value')"
+                                                class="form-control" placeholder="Tên <%= attributes.attribute_name %>"
+                                                required>
+                                            <small class="form-text text-muted"> Tên
+                                                <%= attributes.attribute_name %> xẽ xuất
+                                                hiện ở
+                                                trên giao diện website của bạn </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold col-form-label" for="attribute_slug_value">
+                                                Slug
+                                            </label>
+                                            <input type="text" name="attribute_slug_value" id="attribute_slug_value"
+                                                class="form-control" placeholder="Slug">
+                                            <small class="form-text text-muted"> Slug là đường dẫn thân
+                                                thiện và
+                                                ngắn gọn của tên <%= attributes.attribute_name %> </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-grd-success mt-3">Thêm
+                                    <%= attributes.attribute_name %></button>
+                            </div>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th> STT </th>
+                                        <th> Tên </th>
+                                        <th> Slug </th>
+                                        <th> hành động </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% attribute_value.forEach(function(attribute, index){ %>
+                                    <tr>
+                                        <th scope="row"><%= index %></th>
+                                        <td class="font-weight-bold">
+                                            <p> <%= attribute.name %> </p>
+                                        </td>
+                                        <td class="font-weight-bold">
+                                            <p> <%= attribute.slug %> </p>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button id="edit-attrval-confirm" class="btn hor-grd btn-grd-warning"
+                                                    data-url="/admin/attribute/edit-attribute/<%= attribute.id %>"
+                                                    title="Sửa thuộc tính" data-toggle="modal"
+                                                    data-target="#edit-value-modal">
+                                                    <i class="icofont icofont-edit"></i>
+                                                </button>
+                                                <button id="delete-attrval-confirm" class="btn hor-grd btn-grd-danger"
+                                                    data-url="/admin/attribute/delete-attribute-value/<%= attribute.id %>?id_attribute=<%=attributes.id%>"
+                                                    title="Xóa thuộc tính" data-toggle="modal"
+                                                    data-target="#delete-value-modal"> 
+                                                    <i class="icofont icofont-ui-delete"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                    <script>
+                                        $('#delete-attrval-confirm').on('click', function () {
+                                            var url = $(this).attr('data-url');
+                                            $('#link-delete-value').attr('href', url);
+                                        });
+                                    </script>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+<div id="styleSelector">
+</div>
+</div>
+</div>
+</div>
+<%- include("../../modal/attribute-value-delete-modal.ejs") %>
+<%- include("../../modal/attribute-value-edit-modal.ejs") %>

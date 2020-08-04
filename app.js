@@ -22,7 +22,7 @@ configviewEngine(app);
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(connectFlash());
 
@@ -40,12 +40,6 @@ pool.getConnection(function (err, connection) {
 
 app.use('/admin', adminRouter);
 app.use('/', frontendRouter);
-
-app.use((req, res, next) => {
-  res.render('/admin/notfound/notfound', {
-    title: 'Trang Không tìm thấy'
-  })
-})
 
 app.listen(process.env.port || port, function () {
   console.log('app running on...' + port);

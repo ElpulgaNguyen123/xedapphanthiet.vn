@@ -1,0 +1,239 @@
+<% extend("../../../admin.ejs") %>
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4> <%= title %> </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="/admin" title="Trang chủ">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><%= title %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-header end -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-4 col-xl-4">
+                            <div class="card project-task">
+                                <div class="card-header">
+                                    <div class="card-header-left ">
+                                        <h5 class="mb-5"> Thêm thuộc tính sản phẩm </h5>
+                                        <span>Thuật ngữ thuộc tính có thể được gán cho các sản phẩm</span>
+                                        <span> <Strong> Lưu ý : </Strong> Xóa một thuộc tính sẽ xóa nó khỏi tất cả các
+                                            sản phẩm đã được gán, tái tạo một thuộc tính sẽ không tự động quay trở lại
+                                            các sản phẩm.</span>
+                                    </div>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="icofont icofont-simple-left "></i></li>
+                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                            <li><i class="icofont icofont-error close-card"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-block p-b-10">
+                                    <form action="/admin/attribute/add-attribute" method="POST">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold col-form-label" for="attribute_name">
+                                                        Tên thuộc tính
+                                                    </label>
+                                                    <input type="text" name="attribute_name" id="attribute_name"
+                                                        onkeyup="to_slug($(this).val())" class="form-control"
+                                                        placeholder="Tên thuộc tính" required>
+                                                    <small class="form-text text-muted"> Tên thuộc tính xẽ xuất hiện ở
+                                                        trên giao diện website của bạn </small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold col-form-label" for="attribute_slug">
+                                                        Slug
+                                                    </label>
+                                                    <input type="text" name="attribute_slug" id="attribute_slug"
+                                                        class="form-control" placeholder="Slug">
+                                                    <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
+                                                        ngắn gọn của tên thuộc tính </small>
+                                                </div>
+                                                <script>
+                                                    function to_slug(str) {
+                                                        // Chuyển hết sang chữ thường
+                                                        str = str.toLowerCase();
+                                                        // xóa dấu
+                                                        str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                                        str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                                        str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                                        str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                                        str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                                        str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                                        str = str.replace(/(đ)/g, 'd');
+
+                                                        // Xóa ký tự đặc biệt
+                                                        str = str.replace(/([^0-9a-z-\s])/g, '');
+
+                                                        // Xóa khoảng trắng thay bằng ký tự -
+                                                        str = str.replace(/(\s+)/g, '-');
+
+                                                        // xóa phần dự - ở đầu
+                                                        str = str.replace(/^-+/g, '');
+
+                                                        // xóa phần dư - ở cuối
+                                                        str = str.replace(/-+$/g, '');
+                                                        document.getElementById('attribute_slug').value = str;
+                                                        // return
+                                                        return str;
+                                                    }
+                                                </script>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="row">
+                                                        <label class="font-weight-bold col-form-label"
+                                                            for="attribute_group_id">
+                                                        </label>
+                                                        <select class="form-control custom-select col-md-12 mb-3"
+                                                            name="attribute_group_id" id="attribute_group_id">
+                                                            <option selected>Nhóm thuộc tính...</option>
+                                                            <% attribute_groups.forEach(function(item, index){ %>
+                                                            <option value="<%= item.id %>">
+                                                                <%= item.attribute_group_name %>
+                                                            </option>
+                                                            <%})%>
+                                                        </select>
+                                                        <!-- <div class="button-wrap col-md-3 ">
+                                                            <a href="#" type="button" title="Thêm nhóm thuộc tính"
+                                                                class="uk-button btn btn-grd-primary mb-5">
+                                                                <i class="icofont icofont-plus"></i>
+                                                            </a>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="row">
+                                                        <label class="font-weight-bold col-form-label"
+                                                            for="attribute_type_id">
+                                                        </label>
+                                                        <select class="form-control custom-select col-md-12 mb-3"
+                                                            name="attribute_type_id" id="attribute_type_id">
+                                                            <option selected>Kiểu dữ liệu ...</option>
+                                                            <% attribute_types.forEach(function(item, index){ %>
+                                                            <option value="<%= item.id %>">
+                                                                <%= item.attribute_type_name %>
+                                                            </option>
+                                                            <%})%>
+                                                        </select>
+                                                        <!-- <div class="button-wrap col-md-3 ">
+                                                            <a href="#" type="button" title="Thêm nhóm thuộc tính"
+                                                                class="uk-button btn btn-grd-primary mb-5">
+                                                                <i class="icofont icofont-plus"></i>
+                                                            </a>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-grd-success mt-3">Thêm thuộc tính</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-8 col-xl-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5> Danh sách thuộc tính </h5>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="icofont icofont-simple-left "></i></li>
+                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                            <li><i class="icofont icofont-error close-card"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-block table-border-style mt-2">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th> STT </th>
+                                                    <th> Tên </th>
+                                                    <th> Slug </th>
+                                                    <th> Nhóm thuộc tính </th>
+                                                    <th> hành động </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% attributes.forEach(function(attribute, index){ %>
+                                                <tr>
+                                                    <th scope="row"><%= index %></th>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= attribute.attribute_name %> </p>
+                                                    </td>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= attribute.slug %> </p>
+                                                    </td>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= attribute.attribute_group_name %> </p>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <a href="/admin/attribute/edit-attribute/<%= attribute.id %>"
+                                                                class="btn hor-grd btn-grd-warning"
+                                                                title="Sửa thuộc tính">
+                                                                <i class="icofont icofont-edit"></i>
+                                                            </a>
+                                                            <a href="/admin/attribute/delete-attribute/<%= attribute.id %>"
+                                                                id="delete-attr-confirm"
+                                                                class="btn hor-grd btn-grd-danger"
+                                                                data-url="/admin/attribute/delete-attribute/<%= attribute.id %>"
+                                                                title="Xóa thuộc tính"
+                                                                data-target="#delete-attribute-modal"
+                                                                data-toggle="modal">
+                                                                <i class="icofont icofont-ui-delete"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                                <script>
+                                                    $('#delete-attr-confirm').on('click', function (e) {
+                                                        e.preventDefault();
+                                                        var url = $(this).attr('data-url');
+                                                        console.log(url);
+                                                        $('#delete-attribute').attr('href', url);
+                                                    });
+                                                </script>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="styleSelector">
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("../../modal/attribute-delete-modal.ejs") %>

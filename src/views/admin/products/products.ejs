@@ -19,14 +19,32 @@
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
-                                        <a href="index.html">
+                                        <a href="/admin" title="Trang chủ">
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
+                                    <li class="breadcrumb-item"><%= title %>
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <% if(errors != ""){%>
+                            <% errors.forEach((item) => {%>
+                            <div class="alert alert-danger" role="alert">
+                                <strong class="alert-link"><%- item %></strong>.
+                            </div>
+                            <%})%>
+                            <%}%>
+                            <% if(success != ""){%>
+                            <% success.forEach((item) => {%>
+                            <div class="alert alert-success" role="alert">
+                                <strong class="alert-link"><%- item %></strong>.
+                            </div>
+                            <%})%>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -34,7 +52,7 @@
                 <div class="page-body">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Danh sách Sản Phẩm </h5>
+                            <h5> <%= title %> </h5>
                             <div class="card-header-right">
                                 <ul class="list-unstyled card-option">
                                     <li><i class="icofont icofont-simple-left "></i></li>
@@ -51,7 +69,7 @@
                         </div>
                         <div class="card-block table-border-style mt-2">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th> STT </th>
@@ -67,24 +85,38 @@
                                         <% products.forEach(function(product, index){ %>
                                         <tr>
                                             <th scope="row"><%= index %></th>
-                                            <th> <img class="sp_img" src="/admin/uploads/products/<%= product.image[0] %>" alt=""> </th>
-                                            <td class="font-weight-bold"> <p> <%= product.name %> </p></td>
+                                            <% if(product.image.length != ''){ %>
+                                            <th class="product-image">
+                                                <img class="sp_img-<%= product.id%>"
+                                                    src="/admin/uploads/products/<%=JSON.parse(product.image)[0] %>"
+                                                    alt="">
+                                            </th>
+                                            <% } else{ %>
+                                            <th class="product-image">
+                                                <img class="sp_img-<%= product.id%>"
+                                                    src="/admin/images/products/<%= example.png %>" alt="">
+                                            </th>
+                                            <% } %>
+                                            <td class="font-weight-bold">
+                                                <p> <%= product.name %> </p>
+                                            </td>
                                             <td> <span class="product-price"> <%= product.price %> </span> <span> vnđ
                                                 </span>
                                             </td>
                                             <td>
                                                 <label
-                                                    class="label <%= product.status === true ? 'label-success' : 'label-warning' %> ">
-                                                    <%= product.status === true ? 'Còn hàng' : 'Hết hàng' %> </label>
+                                                    class="label text-center <%= product.stock === 1 ? 'label-success' : 'label-warning' %> ">
+                                                    <%= product.stock === 1 ? 'Còn hàng' : 'Hết hàng' %> </label>
                                             </td>
                                             <td> <%= product.quantity %> </td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a href="/admin/product/edit-product/<%= product.id %>"
-                                                        type="button" class="btn btn-warning" title="Sửa sản phẩm">
+                                                        type="button" class="btn hor-grd btn-grd-warning "
+                                                        title="Sửa sản phẩm">
                                                         <i class="icofont icofont-edit"></i> </a>
                                                     <a href="/admin/product/delete-product/<%= product.id %>"
-                                                        type="button" class="btn btn-danger"> <i
+                                                        type="button" class="btn hor-grd btn-grd-danger "> <i
                                                             class="icofont icofont-ui-delete" title="Xóa sản phẩm"></i>
                                                     </a>
                                                 </div>

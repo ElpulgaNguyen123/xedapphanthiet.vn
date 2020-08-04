@@ -15,7 +15,6 @@ let initPassportLocal = () => {
             passReqToCallback: true
         },
         (req, username, password, done) => {
-
             var queryUser = `SELECT * FROM user WHERE email = '${username}'`;
             pool.query(queryUser, async function (error, rows, fields) {
                 try {
@@ -25,19 +24,15 @@ let initPassportLocal = () => {
                         return done(null, false, req.flash("Errors", Tranerrors.userinvalid));
                     }
                     var user = rows[0];
-                    console.log(user);
                     if (user.email = username) {
                         if (user.isActive == 0) {
                             return done(null, false, req.flash("Errors", Tranerrors.account_notActive));// kiểm tra tài khoản đã đăng ký nhưng chưa active.     
                         }
                     }
-
                     let checkpassword = await bcrypt.compare(password, user.user_password);
-                    console.log(checkpassword);
                     if (!checkpassword) {
                         return done(null, false, req.flash("Errors", Tranerrors.login_failed));
                     }
-
                     return done(null, user, req.flash(Transuccess.Login_success));
                 } catch (error) {
                     console.log(error);
@@ -60,9 +55,10 @@ let initPassportLocal = () => {
         pool.query(queryUser, function (error, rows, fields) {
             if (error) throw error;
             if (!rows[0]) {
-                return done(null, user);
+                return done(error, null);
             }
-            return done(error, null);
+            var user = rows[0];
+            return done(null, user);
         })
     });
 }

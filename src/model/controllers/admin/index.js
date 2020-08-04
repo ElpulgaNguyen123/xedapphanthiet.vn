@@ -5,18 +5,37 @@ var { getAllProduct,
     addProductGet,
     addProductPost,
     editProductGet,
-    addProductImage } = require('./productController');
+    addProductImage,
+    addProductAttribute } = require('./productController');
+
+var {getAllAttribute, 
+    postAddAttribute,
+    getEditAttribute,
+    postEditAttribute,
+    postDeleteAttribute,
+    postAddAttributeValue,
+    postDeleteAttributeValue} = require('./attributesController');
 // Admin controller / end
-var {loginController,
+var { loginController,
     registerController,
     PostRegisterController,
     resetPasswordController,
     PostResetPasswordController,
     resetPasswordGetToken,
+    changePasswordController,
+    changePassword,
+
     checkloggedOut,
     checkloggedIn,
     getLogout
 } = require('./authController');
+
+
+var {
+    getUser,
+    updateUserData,
+    updateUserAvatar
+} = require('./userController');
 
 
 
@@ -30,6 +49,17 @@ module.exports = {
     addProductPost,
     editProductGet,
     addProductImage,
+    addProductAttribute,
+
+
+    // attributes
+    getAllAttribute,
+    postAddAttribute,
+    getEditAttribute,
+    postEditAttribute,
+    postDeleteAttribute,
+    postAddAttributeValue,
+    postDeleteAttributeValue,
 
 
     // authencation
@@ -39,7 +69,17 @@ module.exports = {
     resetPasswordController,
     PostResetPasswordController,
     resetPasswordGetToken,
+    changePasswordController,
+    changePassword,
+
+
     checkloggedOut,
     checkloggedIn,
-    getLogout
+    getLogout,
+
+
+    // user
+    getUser,
+    updateUserData,
+    updateUserAvatar
 }

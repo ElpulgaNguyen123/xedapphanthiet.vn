@@ -32,7 +32,6 @@ body {
   overflow-x: hidden;
   color: #353c4e;
   font-family: "Open Sans", sans-serif; }
-
 ul {
   padding-left: 0;
   list-style-type: none;
@@ -179,7 +178,8 @@ p {
   .card .card-header {
     background-color: transparent;
     border-bottom: none;
-    padding: 25px 20px; }
+    padding: 25px 20px;
+    }
     .card .card-header .card-header-left {
       display: inline-block; }
     .card .card-header .card-header-right {
@@ -4078,10 +4078,11 @@ table tbody .border-bottom-info td {
     .header-navbar .navbar-wrapper .navbar-logo .mobile-menu {
       position: absolute;
       right: 22px;
-      border: 1px solid #fff;
+      border: 1px solid #000000;
       border-radius: 50%;
       padding: 5px 9px;
-      top: 24px; }
+      top: 24px;
+      }
     @media only screen and (max-width: 575px) {
       .header-navbar .navbar-wrapper .navbar-logo .mobile-search {
         display: none !important; } }
@@ -6077,7 +6078,8 @@ body[themebg-pattern="pattern9"] {
   border-bottom: 1px solid #444c67;
   border-top: 1px solid #444c67; }
 .pcoded .pcoded-header .navbar-logo[logo-theme="theme1"] {
-  background-color: #303549; }
+  background-color: white;
+  }
 .pcoded .pcoded-header .navbar-logo[logo-theme="theme2"] {
   background-color: #ef5350; }
 .pcoded .pcoded-header .navbar-logo[logo-theme="theme3"] {
@@ -6511,7 +6513,8 @@ body[themebg-pattern="pattern9"] {
   .pcoded .pcoded-header[header-theme="theme1"] a {
     color: #303548; }
   .pcoded .pcoded-header[header-theme="theme1"] .navbar-logo a {
-    color: #fff; }
+    color: black;
+    }
 .pcoded .pcoded-header[header-theme="theme2"] {
   background: #ef5350; }
   .pcoded .pcoded-header[header-theme="theme2"] a {
@@ -14316,7 +14319,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 @media only screen and (min-width: 576px) and (max-width: 1366px) {
   .job-card.card-columns {
     column-count: 2; } }
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 576px) { 
   .header-navbar .navbar-wrapper .navbar-container .header-notification .show-notification, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .show-notification, .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .profile-notification {
     min-width: 280px;
     left: 0;
