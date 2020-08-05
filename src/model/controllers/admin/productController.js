@@ -29,18 +29,16 @@ let getAllProduct = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         pool.query('SELECT * FROM `product', function (error, results, fields) {
             if (error) throw error;
-            // var products = [];
-            // var object = {};
-            // console.log(results);
-            // for (index = 0; index < results.length; index++) {
-            //     var images = JSON.parse(results[0].image);
-            //     object = results[index];
-            //     object.image = images;
-            //     products.push(object);
-            // }
+            var page = parseInt(req.query.page) || 1; // n
+            var perPage = 10; // x
+            var start = (page - 1) * perPage;
+            var end = page * perPage;
+            var totalPage = Math.ceil(results.length / 10);
+            console.log('Tổng số trang !');
+            console.log(totalPage);
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results,
+                products: results.slice(start,end),
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
