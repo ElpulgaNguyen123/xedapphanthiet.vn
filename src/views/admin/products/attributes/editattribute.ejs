@@ -187,7 +187,7 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style mt-2">
-                        <form action="/admin/attribute/edit-attribute-value/<%= attributes.id %>" method="POST">
+                        <form id="attribute-edit-form" action="/admin/attribute/edit-attribute-value/<%= attributes.id %>" method="POST">
                             <div class="col-sm-12 mb-3">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12">
@@ -251,19 +251,13 @@
                                                 <button id="delete-attrval-confirm" class="btn hor-grd btn-grd-danger"
                                                     data-url="/admin/attribute/delete-attribute-value/<%= attribute.id %>?id_attribute=<%=attributes.id%>"
                                                     title="Xóa thuộc tính" data-toggle="modal"
-                                                    data-target="#delete-value-modal"> 
+                                                    data-target="#delete-value-modal">
                                                     <i class="icofont icofont-ui-delete"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
                                     <% }); %>
-                                    <script>
-                                        $('#delete-attrval-confirm').on('click', function () {
-                                            var url = $(this).attr('data-url');
-                                            $('#link-delete-value').attr('href', url);
-                                        });
-                                    </script>
                                 </tbody>
                             </table>
                         </div>
@@ -279,5 +273,48 @@
 </div>
 </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#delete-attrval-confirm').on('click', function () {
+            var url = $(this).attr('data-url');
+            $('#link-delete-value').attr('href', url);
+        });
+
+        // validate attribute form
+        $("#attribute-edit-form").validate({
+            rules: {
+                attribute_name: {
+                    required: true,
+                },
+                attribute_slug: {
+                    required: true,
+                },
+                attribute_group_id: {
+                    required: true
+                },
+                attribute_type_id: {
+                    required: true
+                }
+            },
+            messages: {
+                attribute_name: {
+                    required: "Vui lòng nhập tên thuộc tính",
+                },
+                attribute_slug: {
+                    required: "Vui lòng nhập đường dẫn tối ưu SEO",
+                },
+                attribute_group: {
+                    required: "Vui lòng không bỏ trống nhóm của thuộc tính",
+                },
+                attribute_type_id: {
+                    required: "Vui lòng không bỏ trống loại thuộc tính",
+                }
+            }
+        });
+    });
+
+</script>
+
 <%- include("../../modal/attribute-value-delete-modal.ejs") %>
 <%- include("../../modal/attribute-value-edit-modal.ejs") %>

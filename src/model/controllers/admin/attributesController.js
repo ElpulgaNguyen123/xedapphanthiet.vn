@@ -31,7 +31,9 @@ let getAllAttribute = async (req, res, next) => {
                         attributes: attributes,
                         attribute_types: attribute_types,
                         attribute_groups: attribute_groups,
-                        user: req.user
+                        user: req.user,
+                        errors: req.flash('Errors'),
+                        success: req.flash('Success'),
                     });
                 });
             });
@@ -158,8 +160,9 @@ let postDeleteAttribute = async (req, res, next) => {
             res.redirect('/admin/attributes');
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Không thể xóa');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/attributes');
     }
 }
 

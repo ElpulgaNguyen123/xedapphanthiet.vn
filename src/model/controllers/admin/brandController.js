@@ -105,14 +105,7 @@ let getEditBrand = async (req, res, next) => {
         if (req.file) {
             filename = `${req.file.filename}.webp`;
         }
-        var queryNewBrand = "INSERT INTO brand (name, slug, image) VALUES ?";
-        var brandValues = [
-            [req.body.brand_name,
-            req.body.brand_slug,
-                filename]
-        ];
-        var query = `
-            SELECT * FROM brand WHERE brand.id = ?`;
+        var query = `SELECT * FROM brand WHERE brand.id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
         await pool.query(query, brand_id, function (error, rows, fields) {
             if (error) throw error;
@@ -129,35 +122,71 @@ let getEditBrand = async (req, res, next) => {
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
-let postEditBrand = async (req, res, next) => {
+let postEditBrand = (req, res, next) => {
+    productUploadFile(req, res, async (error) => {
+        try {
+            // Lấy tất cả sản phẩm và hiển thị ra table
+            var arrayError = [],
+                successArr = [];
+            if (req.file) {
+                // resize image before uploads.
+                sharp(`${req.file.destination}/${req.file.filename}`)
+                    .resize(300, 200)
+                    .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
+                        filename = `${req.file.filename}.webp`;
+                        fs.unlinkSync(req.file.path);
+                    });
+            }
+            var filename = '';
+            if (req.file) {
+                filename = `${req.file.filename}.webp`;
+            }
+            else if (req.body.brand_old_image) {
+                filename = `${req.body.brand_old_image}`;
+            }
+            var queryUpdate = `
+            UPDATE brand
+            SET name = ?, 
+            slug = ?, 
+            image = ?
+            WHERE id = ?`
+            var brandValues = [
+            req.body.brand_name,
+            req.body.brand_slug,
+            filename,
+            req.params.id
+            ];
+            await pool.query(queryUpdate, brandValues,  function (error, results, fields) {
+                if (error) throw error;
+                successArr.push(Transuccess.saveSuccess('thuộc tính'));
+                req.flash('Success', successArr);
+                res.redirect('/admin/brands');
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    })
+}
+
+// xóa dữ liệu của 1 brand
+let postDeleteBrand = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
-        var queryUpdate = `
-        UPDATE brand
-        SET name = ?, slug = ?, image = ?  
-        WHERE id = ?;`
-        var brandValues = [
-            [
-                req.body.brand_name,
-                req.body.brand_slug,
-                req.body.brand_image,
-                req.params.id
-            ]
-        ];
-        await pool.query(queryUpdate, brandValues, function (error, results, fields) {
-            if (error) {
-                arrayError.push('Có lỗi xảy ra ' + error);
-                req.flash('errors', arrayError);
-                res.redirect('/admin/brands');
-            };
-            successArr.push(Transuccess.saveSuccess('thuộc tính'));
+        var querydeleteBrand = `
+        DELETE FROM 
+        brand 
+        WHERE id = ${req.params.id}`
+        pool.query(querydeleteBrand, function (error, results, fields) {
+            if (error) throw error;
+            successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
             req.flash('Success', successArr);
-            res.redirect('/admin/attribute/edit-attribute/' + req.params.id);
+            res.redirect('/admin/brands');
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).send(error);
     }
 }
 
@@ -165,5 +194,6 @@ module.exports = {
     getAllBrand,
     addBrandImage,
     postEditBrand,
-    getEditBrand
+    getEditBrand,
+    postDeleteBrand
 };

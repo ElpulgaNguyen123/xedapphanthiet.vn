@@ -60,6 +60,8 @@ adminRouter.get('/attribute/delete-attribute-value/:id', controller.checkloggedI
 adminRouter.get('/brands', controller.checkloggedIn, controller.getAllBrand);
 adminRouter.post('/brand/add-brand', controller.checkloggedIn, controller.addBrandImage);
 adminRouter.get('/brand/edit-brand/:id', controller.checkloggedIn, controller.getEditBrand);
+adminRouter.post('/brand/edit-brand/:id', controller.checkloggedIn, controller.postEditBrand);
+adminRouter.get('/brand/delete-brand/:id', controller.checkloggedIn, controller.postDeleteBrand);
 
 //brand end
 

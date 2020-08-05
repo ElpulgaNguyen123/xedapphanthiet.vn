@@ -96,22 +96,25 @@
                         }
                     </script>
                     <div class="card-block p-b-10">
-                        <form action="/admin/brand/edit-brand/<%= brand.id %>" method="POST" enctype="multipart/form-data">
+                        <form id="brand-edit-form" action="/admin/brand/edit-brand/<%= brand.id %>" method="POST"
+                            enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group text-center">
-                                        <div>
+                                        <div class="image-border">
                                             <% if(brand.image != '' && brand.image != null){ %>
-                                            <img class="sp_img_main>"
-                                                src="/admin/uploads/brands/<%= brand.image %> %>"
+                                            <img class="sp_img_main" src="/admin/uploads/brands/<%= brand.image %>"
                                                 alt="<%= brand.name %>">
+                                            <input type="hidden" name="brand_old_image" value="<%= brand.image %>">
                                             <% } else{ %>
                                             <img class="sp_img_main" src="/admin/images/example.png"
                                                 alt="<%= brand.name %>">
                                             <% } %>
+                                            <button id="trigger_button"
+                                                class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                                hình ảnh...</button>
+                                            <input type="file" id="brand_image" name="brand_image" />
                                         </div>
-                                        <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn hình ảnh...</button>
-                                        <input type="file" id="brand_image" name="brand_image" />
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold col-form-label" for="brand_name">
@@ -128,8 +131,8 @@
                                         <label class="font-weight-bold col-form-label" for="brand_slug">
                                             Slug
                                         </label>
-                                        <input type="text" name="brand_slug" id="brand_slug"
-                                            class="form-control" placeholder="Slug" value="<%= brand.slug %>">
+                                        <input type="text" name="brand_slug" id="brand_slug" class="form-control"
+                                            placeholder="Slug" value="<%= brand.slug %>">
                                         <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
                                             ngắn gọn của tên <%= brand.name %>
                                         </small>
@@ -150,19 +153,26 @@
 </div>
 </div>
 <script>
+
+
     $(document).ready(function () {
 
+        $('#delete-brand-confirm').on('click', function () {
+            var url = $(this).attr('data-url');
+            $('#link-delete-value').attr('href', url);
+        });
+
+        // chọn hình ảnh thay thế cho thương hiệu ============ start
         $('#brand_image').hide();
-        
-        $("#trigger_button").click(function(e){
+        $("#trigger_button").click(function (e) {
             e.preventDefault()
-			$("#brand_image").trigger('click');
-		});
+            $("#brand_image").trigger('click');
+        });
         function getBrandAvatarUpdate() {
             $('#brand_image').bind('change', function () {
                 let fileData = $(this)[0].files[0];
                 let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
-                let limit = 1048576;  // 1 mb 
+                let limit = 1048576; // 1 mb
                 // hàm inArray là dùng để check dữ liệu coi có trùng hay không.
                 if ($.inArray(fileData.type, math) === -1) {
                     notify('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'danger');
@@ -187,6 +197,31 @@
             })
         }
         getBrandAvatarUpdate();
+        // chọn hình ảnh thay thế cho thương hiệu ============ end
+
+        // validate form edit attribute  start=======
+        $("#brand-edit-form").validate({
+            rules: {
+                brand_name: {
+                    required: true,
+                    minlength: 2,
+                },
+                brand_slug: {
+                    required: true,
+                    minlength: 5
+                },
+            },
+            messages: {
+                brand_name: {
+                    required: "Vui lòng không bỏ trống tên thương hiệu",
+                },
+                brand_slug: {
+                    required: "Vui lòng không bỏ trống đường dẫn SEO",
+                },
+            }
+        });
+        // validate form edit attribute end=======
+
 
     });
 </script>

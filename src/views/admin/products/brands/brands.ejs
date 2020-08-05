@@ -52,7 +52,7 @@
                             <div class="card project-task">
                                 <div class="card-header">
                                     <div class="card-header-left ">
-                                        <h5 class="mb-5"> Thêm <%= title %></h5>
+                                        <h5 class="mb-5"> <strong>Thêm <%= title %></strong> </h5>
                             <span> <Strong> Lưu ý : </Strong> Xóa một <%= title %> sẽ xóa nó khỏi tất cả các
                                 sản phẩm đã được gán, tái tạo một thuộc tính sẽ không tự động quay trở lại
                                 các sản phẩm.</span>
@@ -73,14 +73,18 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group text-center">
-                                        <label class="font-weight-bold col-form-label" for="brand_image">
-                                            Chọn hình ảnh cho thương hiệu
-                                        </label>
-                                        <div class="avatar-change">
-                                            <img id="image-avatar-preview" src="" alt="">
+                                        <div class="image-border">
+                                            <label class="font-weight-bold col-form-label" for="brand_image">
+                                                Chọn hình ảnh cho thương hiệu
+                                            </label>
+                                            <div class="avatar-change">
+                                                <img id="image-avatar-preview" src="" alt="">
+                                            </div>
+                                            <button id="trigger_button"
+                                                class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                                hình ảnh...</button>
+                                            <input type="file" id="brand_image" name="brand_image" />
                                         </div>
-                                        <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn hình ảnh...</button>
-                                        <input type="file" id="brand_image" name="brand_image" />
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold col-form-label" for="attribute_name">
@@ -132,7 +136,7 @@
                                     </script>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-grd-success mt-3">Thêm thương hiệu</button>
+                            <button type="submit" class="btn btn-grd-success mt-3">Thêm vào</button>
                         </form>
                     </div>
                 </div>
@@ -140,7 +144,7 @@
             <div class="col-md-12 col-lg-8 col-xl-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5> Danh sách <%= title %> </h5>
+                        <h5> <strong> Danh sách <%= title %></strong></h5>
                         <div class="card-header-right">
                             <ul class="list-unstyled card-option">
                                 <li><i class="icofont icofont-simple-left "></i></li>
@@ -167,7 +171,7 @@
                                     <% brands.forEach(function(brand, index){ %>
                                     <tr>
                                         <th scope="row"><%= index %></th>
-                                        <% if(brand.image != '' && brand.image != null){ %> 
+                                        <% if(brand.image != '' && brand.image != null){ %>
                                         <td class="product-image">
                                             <img class="sp_img-<%= brand.id%>"
                                                 src="/admin/uploads/brands/<%= brand.image %> %>"
@@ -192,7 +196,7 @@
                                                     <i class="icofont icofont-edit"></i>
                                                 </a>
                                                 <a href="/admin/brand/delete-brand/<%= brand.id %>"
-                                                    id="delete-attr-confirm" class="btn hor-grd btn-grd-danger"
+                                                    class="delete-brand-confirm btn hor-grd btn-grd-danger"
                                                     data-url="/admin/brand/delete-brand/<%= brand.id %>"
                                                     title="Xóa thương hiệu" data-target="#delete-brand-modal"
                                                     data-toggle="modal">
@@ -218,15 +222,13 @@
 </div>
 
 <script>
-
+    $('.delete-brand-confirm').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        $('#delete-brand-link').attr('href', url);
+    });
     $(document).ready(function () {
 
-        $('#delete-attr-confirm').on('click', function (e) {
-            e.preventDefault();
-            var url = $(this).attr('data-url');
-            console.log(url);
-            $('#delete-attribute').attr('href', url);
-        });
 
         $("#brand_form").validate({
             rules: {
@@ -251,11 +253,10 @@
             }
         });
 
-       
         // click event to upload image ======================== start
-        $("#trigger_button").click(function(e){
+        $("#trigger_button").click(function (e) {
             e.preventDefault()
-			$("#brand_image").trigger('click');
+            $("#brand_image").trigger('click');
         });
         $('#brand_image').hide();
         function getBrandAvatarUpdate() {
@@ -281,7 +282,7 @@
                     var image_preview = $('#image-avatar-preview');
                     fileReader.onload = function (element) {
                         image_preview.attr('src', element.target.result);
-                        image_preview.css('display','block');
+                        image_preview.css('display', 'block');
                     }
                     fileReader.readAsDataURL(fileData);
                 }
@@ -293,4 +294,4 @@
     });
 </script>
 
-<%- include("../../modal/attribute-delete-modal.ejs") %>
+<%- include("../../modal/brand-delete-modal.ejs") %>

@@ -51,9 +51,8 @@ img#image-avatar-preview {
 }
 
 .product-image img {
-    max-width: 60px;
+    max-width: 80px;
 }
-
 .dropzone-edit-more {
     display: none;
     transition: 0.4s;
@@ -349,6 +348,10 @@ label.error {
 .alert-success {
     color: #155724;
     background-image: linear-gradient(to right, #aacc77 0%, #73993a 51%, #aacc77 100%);
+}
+.image-border {
+    padding: 20px 0px;
+    border: 2px dotted #8080806b;
 }
 @media (min-width: 576px) {
     .modal-dialog.small {

@@ -1,4 +1,4 @@
-<div class="modal fade" id="delete-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete-brand-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog small" role="document">
         <div class="modal-content text-center">
@@ -19,13 +19,14 @@
             </div>
             <div class="modal-body">
                 <h3> <strong> Xóa </strong></h3>
-                Bạn có chắc muốn xóa ?<span> <Strong> Lưu ý : </Strong> Xóa một <%= title %> sẽ xóa nó khỏi tất cả các
+                Bạn có chắc muốn xóa ?
+                <span> <Strong> Lưu ý : </Strong> Xóa một <%= title %> sẽ xóa nó khỏi tất cả các
                     sản phẩm đã được gán, tái tạo lại một thuộc tính sẽ không tự động quay trở lại
                     các sản phẩm.</span>
             </div>
             <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn hor-grd btn-grd-inverse" data-dismiss="modal">Hủy</button>
-                <a id="link-delete-value" href="#" class="btn hor-grd btn-grd-danger ">Xóa</a>
+                <a id="delete-brand-link" href="#" class="btn hor-grd btn-grd-danger ">Xóa</a>
             </div>
         </div>
     </div>

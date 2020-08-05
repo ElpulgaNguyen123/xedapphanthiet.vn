@@ -32,6 +32,22 @@
                 <!-- Page-header end -->
                 <div class="page-body">
                     <div class="row">
+                        <div class="col-sm-12">
+                            <% if(errors != ""){%>
+                            <% errors.forEach((item) => {%>
+                            <div class="alert alert-danger" role="alert">
+                                <strong class="alert-link"><%- item %></strong>.
+                            </div>
+                            <%})%>
+                            <%}%>
+                            <% if(success != ""){%>
+                            <% success.forEach((item) => {%>
+                            <div class="alert alert-success" role="alert">
+                                <strong class="alert-link"><%- item %></strong>.
+                            </div>
+                            <%})%>
+                            <%}%>
+                        </div>
                         <div class="col-md-12 col-lg-4 col-xl-4">
                             <div class="card project-task">
                                 <div class="card-header">
@@ -53,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="card-block p-b-10">
-                                    <form action="/admin/attribute/add-attribute" method="POST">
+                                    <form id="attribute_form" action="/admin/attribute/add-attribute" method="POST">
                                         <div class="row">
                                             <div class="col-xs-12 col-md-12">
                                                 <div class="form-group">
@@ -108,132 +124,161 @@
                                                     <div class="row">
                                                         <label class="font-weight-bold col-form-label"
                                                             for="attribute_group_id">
+                                                            Chọn nhóm thuộc tính
                                                         </label>
                                                         <select class="form-control custom-select col-md-12 mb-3"
                                                             name="attribute_group_id" id="attribute_group_id">
-                                                            <option selected>Nhóm thuộc tính...</option>
+                                                            
                                                             <% attribute_groups.forEach(function(item, index){ %>
-                                                            <option value="<%= item.id %>">
-                                                                <%= item.attribute_group_name %>
-                                                            </option>
-                                                            <%})%>
-                                                        </select>
-                                                        <!-- <div class="button-wrap col-md-3 ">
-                                                            <a href="#" type="button" title="Thêm nhóm thuộc tính"
-                                                                class="uk-button btn btn-grd-primary mb-5">
-                                                                <i class="icofont icofont-plus"></i>
-                                                            </a>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-sm-12">
-                                                    <div class="row">
-                                                        <label class="font-weight-bold col-form-label"
-                                                            for="attribute_type_id">
-                                                        </label>
-                                                        <select class="form-control custom-select col-md-12 mb-3"
-                                                            name="attribute_type_id" id="attribute_type_id">
-                                                            <option selected>Kiểu dữ liệu ...</option>
-                                                            <% attribute_types.forEach(function(item, index){ %>
-                                                            <option value="<%= item.id %>">
-                                                                <%= item.attribute_type_name %>
-                                                            </option>
-                                                            <%})%>
-                                                        </select>
-                                                        <!-- <div class="button-wrap col-md-3 ">
-                                                            <a href="#" type="button" title="Thêm nhóm thuộc tính"
-                                                                class="uk-button btn btn-grd-primary mb-5">
-                                                                <i class="icofont icofont-plus"></i>
-                                                            </a>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-grd-success mt-3">Thêm thuộc tính</button>
-                                    </form>
-                                </div>
-                            </div>
+                            <option value="<%= item.id %>">
+                                <%= item.attribute_group_name %>
+                            </option>
+                            <%})%>
+                            </select>
+
                         </div>
-                        <div class="col-md-12 col-lg-8 col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5> Danh sách thuộc tính </h5>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="icofont icofont-simple-left "></i></li>
-                                            <li><i class="icofont icofont-maximize full-card"></i></li>
-                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                            <li><i class="icofont icofont-error close-card"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-block table-border-style mt-2">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th> STT </th>
-                                                    <th> Tên </th>
-                                                    <th> Slug </th>
-                                                    <th> Nhóm thuộc tính </th>
-                                                    <th> hành động </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% attributes.forEach(function(attribute, index){ %>
-                                                <tr>
-                                                    <th scope="row"><%= index %></th>
-                                                    <td class="font-weight-bold">
-                                                        <p> <%= attribute.attribute_name %> </p>
-                                                    </td>
-                                                    <td class="font-weight-bold">
-                                                        <p> <%= attribute.slug %> </p>
-                                                    </td>
-                                                    <td class="font-weight-bold">
-                                                        <p> <%= attribute.attribute_group_name %> </p>
-                                                    </td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a href="/admin/attribute/edit-attribute/<%= attribute.id %>"
-                                                                class="btn hor-grd btn-grd-warning"
-                                                                title="Sửa thuộc tính">
-                                                                <i class="icofont icofont-edit"></i>
-                                                            </a>
-                                                            <a href="/admin/attribute/delete-attribute/<%= attribute.id %>"
-                                                                id="delete-attr-confirm"
-                                                                class="btn hor-grd btn-grd-danger"
-                                                                data-url="/admin/attribute/delete-attribute/<%= attribute.id %>"
-                                                                title="Xóa thuộc tính"
-                                                                data-target="#delete-attribute-modal"
-                                                                data-toggle="modal">
-                                                                <i class="icofont icofont-ui-delete"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% }); %>
-                                                <script>
-                                                    $('#delete-attr-confirm').on('click', function (e) {
-                                                        e.preventDefault();
-                                                        var url = $(this).attr('data-url');
-                                                        console.log(url);
-                                                        $('#delete-attribute').attr('href', url);
-                                                    });
-                                                </script>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <div class="row">
+                            <label class="font-weight-bold col-form-label" for="attribute_type_id">
+                                Chọn loại thuộc tính
+                            </label>
+                            <select class="form-control custom-select col-md-12 mb-3" name="attribute_type_id"
+                                id="attribute_type_id">
+
+                                <% attribute_types.forEach(function(item, index){ %>
+                                <option value="<%= item.id %>">
+                                    <%= item.attribute_type_name %>
+                                </option>
+                                <%})%>
+                            </select>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="styleSelector">
+            <button type="submit" class="btn btn-grd-success mt-3">Thêm thuộc tính</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-lg-8 col-xl-8">
+    <div class="card">
+        <div class="card-header">
+            <h5> Danh sách thuộc tính </h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left "></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-block table-border-style mt-2">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th> STT </th>
+                            <th> Tên </th>
+                            <th> Slug </th>
+                            <th> Nhóm thuộc tính </th>
+                            <th> hành động </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% attributes.forEach(function(attribute, index){ %>
+                        <tr>
+                            <th scope="row"><%= index %></th>
+                            <td class="font-weight-bold">
+                                <p> <%= attribute.attribute_name %> </p>
+                            </td>
+                            <td class="font-weight-bold">
+                                <p> <%= attribute.slug %> </p>
+                            </td>
+                            <td class="font-weight-bold">
+                                <p> <%= attribute.attribute_group_name %> </p>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="/admin/attribute/edit-attribute/<%= attribute.id %>"
+                                        class="btn hor-grd btn-grd-warning" title="Sửa thuộc tính">
+                                        <i class="icofont icofont-edit"></i>
+                                    </a>
+                                    <a href="/admin/attribute/delete-attribute/<%= attribute.id %>"
+                                        class="delete-attr-confirm btn hor-grd btn-grd-danger"
+                                        data-url="/admin/attribute/delete-attribute/<%= attribute.id %>"
+                                        title="Xóa thuộc tính" data-target="#delete-attribute-modal"
+                                        data-toggle="modal">
+                                        <i class="icofont icofont-ui-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }); %>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+</div>
+</div>
+</div>
+<div id="styleSelector">
+</div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.delete-attr-confirm').on('click', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('data-url');
+            console.log(url);
+            $('#link-delete-value').attr('href', url);
+        });
+
+        // validate attribute form
+        $("#attribute_form").validate({
+            rules: {
+                attribute_name: {
+                    required: true,
+                    minlength: 2,
+                },
+                attribute_slug: {
+                    required: true,
+                    minlength: 5
+                },
+                attribute_group_id: {
+                    required: true
+                },
+                attribute_type_id: {
+                    required: true
+                }
+            },
+            messages: {
+                attribute_name: {
+                    required: "Vui lòng nhập tên thuộc tính",
+                    minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
+                },
+                attribute_slug: {
+                    required: "Vui lòng nhập đường dẫn tối ưu SEO",
+                    minlength: "Đường dẫn tối ưu phải có ít nhất 2 ký tự"
+                },
+                attribute_group: {
+                    required: "Vui lòng chọn nhóm của thuộc tính",
+                },
+                attribute_type_id: {
+                    required: "Vui lòng chọn kiểu thuộc tính",
+                }
+            }
+        });
+    });
+
+</script>
+
 <%- include("../../modal/attribute-delete-modal.ejs") %>
