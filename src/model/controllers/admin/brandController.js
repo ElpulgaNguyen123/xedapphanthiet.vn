@@ -25,7 +25,6 @@ var storage = multer.diskStorage({
 
 var productUploadFile = multer({ storage: storage }).single('brand_image');
 
-
 // get all products
 let getAllBrand = async (req, res, next) => {
     try {
@@ -34,6 +33,8 @@ let getAllBrand = async (req, res, next) => {
             res.render('admin/products/brands/brands', {
                 title: 'Thương hiệu',
                 brands: rows,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
                 user: req.user
             });
         });
@@ -47,25 +48,122 @@ let getAllBrand = async (req, res, next) => {
 // thêm hình ảnh cho thương hiệu
 let addBrandImage = (req, res, next) => {
     productUploadFile(req, res, (error) => {
+
         try {
+            var arrayError = [],
+                successArr = [];
             if (req.file) {
                 // resize image before uploads.
-                sharp(req.file.path).resize(300, 200).toBuffer(function (err, buffer) {
-                    fs.writeFile(file.path, buffer, function (e) {
+                sharp(`${req.file.destination}/${req.file.filename}`)
+                    .resize(300, 200)
+                    .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
+                        filename = `${req.file.filename}.webp`;
+                        fs.unlinkSync(req.file.path);
                     });
-                });
             }
-            req.flash('Success', successArr);
-            res.redirect('/admin/brands');
+            var filename = '';
+            if (req.file) {
+                filename = `${req.file.filename}.webp`;
+            }
+            var queryNewBrand = "INSERT INTO brand (name, slug, image) VALUES ?";
+            var brandValues = [
+                [req.body.brand_name,
+                req.body.brand_slug,
+                    filename]
+            ];
+            pool.query(queryNewBrand, [brandValues], function (error, results, fields) {
+                if (error) throw error;
+                successArr.push(Transuccess.createSuccess('Thương hiệu'));
+                req.flash('Success', successArr);
+                res.redirect('/admin/brands');
+            });
         } catch (error) {
             console.log(error);
-            return res.status(500).send(error);
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
         }
-
     })
+}
+
+// lấy thông tin chỉnh sửa thương hiệu
+let getEditBrand = async (req, res, next) => {
+    try {
+        var brand_id = req.params.id;
+        var arrayError = [],
+            successArr = [];
+        if (req.file) {
+            // resize image before uploads.
+            sharp(`${req.file.destination}/${req.file.filename}`)
+                .resize(300, 200)
+                .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
+                    filename = `${req.file.filename}.webp`;
+                    fs.unlinkSync(req.file.path);
+                });
+        }
+        var filename = '';
+        if (req.file) {
+            filename = `${req.file.filename}.webp`;
+        }
+        var queryNewBrand = "INSERT INTO brand (name, slug, image) VALUES ?";
+        var brandValues = [
+            [req.body.brand_name,
+            req.body.brand_slug,
+                filename]
+        ];
+        var query = `
+            SELECT * FROM brand WHERE brand.id = ?`;
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        await pool.query(query, brand_id, function (error, rows, fields) {
+            if (error) throw error;
+            res.render('admin/products/brands/editbrand', {
+                brand: rows[0],
+                user: req.user,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
+            });
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+// lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
+let postEditBrand = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var arrayError = [],
+            successArr = [];
+        var queryUpdate = `
+        UPDATE brand
+        SET name = ?, slug = ?, image = ?  
+        WHERE id = ?;`
+        var brandValues = [
+            [
+                req.body.brand_name,
+                req.body.brand_slug,
+                req.body.brand_image,
+                req.params.id
+            ]
+        ];
+        await pool.query(queryUpdate, brandValues, function (error, results, fields) {
+            if (error) {
+                arrayError.push('Có lỗi xảy ra ' + error);
+                req.flash('errors', arrayError);
+                res.redirect('/admin/brands');
+            };
+            successArr.push(Transuccess.saveSuccess('thuộc tính'));
+            req.flash('Success', successArr);
+            res.redirect('/admin/attribute/edit-attribute/' + req.params.id);
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = {
     getAllBrand,
     addBrandImage,
+    postEditBrand,
+    getEditBrand
 };

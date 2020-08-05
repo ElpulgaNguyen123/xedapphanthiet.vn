@@ -8,8 +8,8 @@
 }
 
 img#image-avatar-preview {
-    width: 100px;
-    height: 100px;
+    max-width: 80%;
+    margin: auto;
     display: none;
 }
 .table-border-style .table {
@@ -345,6 +345,10 @@ label.error {
     -webkit-transition: left 0.3s ease-out;
     transition: left 0.3s ease-out;
     bottom: 0;
+}
+.alert-success {
+    color: #155724;
+    background-image: linear-gradient(to right, #aacc77 0%, #73993a 51%, #aacc77 100%);
 }
 @media (min-width: 576px) {
     .modal-dialog.small {
