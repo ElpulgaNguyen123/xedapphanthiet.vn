@@ -34,11 +34,17 @@ let getAllProduct = async (req, res, next) => {
             var start = (page - 1) * perPage;
             var end = page * perPage;
             var totalPage = Math.ceil(results.length / 10);
+            var pageDistance = page + 3;
+            // if(pageDistance = totalPage){
+            //     pageDistance = totalPage;
+            // }
             console.log('Tổng số trang !');
             console.log(totalPage);
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
                 products: results.slice(start,end),
+                pages:pageDistance,
+                page : page,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user

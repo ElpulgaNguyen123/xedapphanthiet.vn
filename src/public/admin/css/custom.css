@@ -353,6 +353,39 @@ label.error {
     padding: 20px 0px;
     border: 2px dotted #8080806b;
 }
+
+/* form search css start */
+.input-group.form-search {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    float: left;
+    max-width: 40%;
+}
+.input-group.form-search .form-control{
+        padding: 12px;
+}
+.input-group.form-search .input-group-addon {
+    background-color: #303548;
+    color: white;
+    padding-top: 13px;
+}
+.input-group.form-search span {
+    margin-top: 0px;
+}
+/* form search css end */
+.page-item.active .page-link {
+    background-color: #303548;
+    border-color: #303548;
+    color: white !important;
+}  
+.page-link {
+    color: #222 !important;
+}
+a.btn {
+    color: white;
+}
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;
