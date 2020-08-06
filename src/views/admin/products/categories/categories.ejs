@@ -68,14 +68,14 @@
                         </div>
                     </div>
                     <div class="card-block p-b-10">
-                        <form action="/admin/brand/add-brand" id="brand_form" method="POST"
+                        <form action="/admin/category/add-category" id="categories_form" method="POST"
                             enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group text-center">
                                         <div class="image-border">
                                             <label class="font-weight-bold col-form-label" for="brand_image">
-                                                Chọn hình ảnh cho thương hiệu
+                                                Chọn hình ảnh cho Danh mục
                                             </label>
                                             <div class="avatar-change">
                                                 <img id="image-avatar-preview" src="" alt="">
@@ -83,24 +83,24 @@
                                             <button id="trigger_button"
                                                 class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
                                                 hình ảnh...</button>
-                                            <input type="file" id="brand_image" name="brand_image" />
+                                            <input type="file" id="category_image" name="category_image" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="brand_name">
+                                        <label class="font-weight-bold col-form-label" for="attribute_name">
                                             Tên <%= title %>
                                         </label>
-                                        <input type="text" name="brand_name" id="brand_name"
+                                        <input type="text" name="category_name" id="category_name"
                                             onkeyup="to_slug($(this).val())" class="form-control"
                                             placeholder="Tên <%= title %>" required>
                                         <small class="form-text text-muted"> Tên <%= title %> xẽ xuất hiện ở
                                             trên giao diện website của bạn </small>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="attribute_slug">
+                                        <label class="font-weight-bold col-form-label" for="category_slug">
                                             Slug
                                         </label>
-                                        <input type="text" name="brand_slug" id="brand_slug" class="form-control"
+                                        <input type="text" name="category_slug" id="category_slug" class="form-control"
                                             placeholder="Slug">
                                         <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
                                             ngắn gọn của tên thuộc tính </small>
@@ -129,7 +129,7 @@
 
                                             // xóa phần dư - ở cuối
                                             str = str.replace(/-+$/g, '');
-                                            document.getElementById('brand_slug').value = str;
+                                            document.getElementById('category_slug').value = str;
                                             // return
                                             return str;
                                         }
@@ -168,37 +168,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% brands.forEach(function(brand, index){ %>
+                                    <% categories.forEach(function(category, index){ %>
                                     <tr>
                                         <th scope="row"><%= index %></th>
-                                        <% if(brand.image != '' && brand.image != null){ %>
+                                        <% if(category.image != '' && category.image != null){ %>
                                         <td class="product-image">
-                                            <img class="sp_img-<%= brand.id%>"
-                                                src="/admin/uploads/brands/<%= brand.image %> %>"
-                                                alt="<%= brand.name %>">
+                                            <img class="sp_img-<%= category.id%>"
+                                                src="/uploads/categories/<%= category.image %> %>"
+                                                alt="<%= category.category_name %>">
                                         </td>
                                         <% } else{ %>
                                         <td class="product-image">
-                                            <img class="sp_img-<%= brand.id%>" src="/admin/images/example.png"
-                                                alt="<%= brand.name %>">
+                                            <img class="sp_img-<%= category.id%>" src="/admin/images/example.png"
+                                                alt="<%= category.category_name %>">
                                         </td>
                                         <% } %>
                                         <td class="font-weight-bold">
-                                            <p> <%= brand.name %> </p>
+                                            <p> <%= category.category_name %> </p>
                                         </td>
                                         <td class="font-weight-bold">
-                                            <p> <%= brand.slug %> </p>
+                                            <p> <%= category.category_slug %> </p>
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="/admin/brand/edit-brand/<%= brand.id %>"
-                                                    class="btn hor-grd btn-grd-warning" title="Sửa thương hiệu">
+                                                <a href="/admin/category/edit-category/<%= category.id %>"
+                                                    class="btn hor-grd btn-grd-warning" title="Sửa danh mục">
                                                     <i class="icofont icofont-edit"></i>
                                                 </a>
-                                                <a href="/admin/brand/delete-brand/<%= brand.id %>"
+                                                <a href="/admin/category/delete-category/<%= category.id %>"
                                                     class="delete-brand-confirm btn hor-grd btn-grd-danger"
-                                                    data-url="/admin/brand/delete-brand/<%= brand.id %>"
-                                                    title="Xóa thương hiệu" data-target="#delete-brand-modal"
+                                                    data-url="/admin/category/delete-category/<%= category.id %>"
+                                                    title="Xóa danh mục" data-target="#delete-category-modal"
                                                     data-toggle="modal">
                                                     <i class="icofont icofont-ui-delete"></i>
                                                 </a>
@@ -222,31 +222,31 @@
 </div>
 
 <script>
-    $('.delete-brand-confirm').on('click', function (e) {
+    $('.delete-category-confirm').on('click', function (e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
-        $('#delete-brand-link').attr('href', url);
+        $('#delete-category-link').attr('href', url);
     });
     $(document).ready(function () {
-        $("#brand_form").validate({
+
+
+        $("#categories_form").validate({
             rules: {
-                brand_name: {
+                category_name: {
                     required: true,
                     minlength: 2,
                 },
-                brand_slug: {
-                    required: true,
-                    minlength: 5
+                category_slug: {
+                    required: true
                 },
             },
             messages: {
-                brand_name: {
-                    required: "Vui lòng nhập tên thương hiệu",
-                    minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
+                category_name: {
+                    required: "Vui lòng nhập Danh mục",
+                    minlength: "Tên Danh mục phải có ít nhất 2 ký tự"
                 },
-                brand_slug: {
-                    required: "Vui lòng nhập đường dẫn tối ưu SEO",
-                    minlength: "Đường dẫn tối ưu phải có ít nhất 2 ký tự"
+                category_slug: {
+                    required: "Vui lòng nhập đường dẫn tối ưu SEO"
                 },
             }
         });
@@ -254,11 +254,11 @@
         // click event to upload image ======================== start
         $("#trigger_button").click(function (e) {
             e.preventDefault()
-            $("#brand_image").trigger('click');
+            $("#category_image").trigger('click');
         });
-        $('#brand_image').hide();
+        $('#category_image').hide();
         function getBrandAvatarUpdate() {
-            $('#brand_image').bind('change', function () {
+            $('#category_image').bind('change', function () {
                 let fileData = $(this)[0].files[0];
                 let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
                 let limit = 1048576;  // 1 mb 

@@ -323,7 +323,8 @@ ul.nav.nav-tabs.md-tabs.tabs-left {
 
 .tabs-left, .tabs-left-content, .tabs-right, .tabs-right-content {
     display: table-cell;
-    width: 70%;
+    width: 75%;
+    border: 1px solid #80808047;
 }
 label.error {
     color: red;

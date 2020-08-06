@@ -62,8 +62,15 @@ adminRouter.post('/brand/add-brand', controller.checkloggedIn, controller.addBra
 adminRouter.get('/brand/edit-brand/:id', controller.checkloggedIn, controller.getEditBrand);
 adminRouter.post('/brand/edit-brand/:id', controller.checkloggedIn, controller.postEditBrand);
 adminRouter.get('/brand/delete-brand/:id', controller.checkloggedIn, controller.postDeleteBrand);
+//brand end
+
+
+//brand start
+adminRouter.get('/categories', controller.checkloggedIn, controller.getAllCategories);
+adminRouter.post('/category/add-category', controller.checkloggedIn, controller.addCategory);
 
 //brand end
+
 
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {
