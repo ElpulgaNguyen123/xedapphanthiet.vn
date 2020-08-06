@@ -22,6 +22,9 @@ var {getAllBrand,
     getEditBrand,
     postDeleteBrand} = require('./brandController');
 
+    var {getAllCategories,
+        addCategory }= require('./categoriesController');
+
 var { loginController,
     registerController,
     PostRegisterController,
@@ -74,6 +77,10 @@ module.exports = {
     postEditBrand,
     getEditBrand,
     postDeleteBrand,
+
+    // Categories
+    getAllCategories,
+    addCategory,
 
 
     // authencation

@@ -118,6 +118,13 @@
                                             <td class="font-weight-bold">
                                                 <p> <%= product.name %> </p>
                                             </td>
+                                            <script>
+                                                function curencyFormart(number, id) {
+                                                    var numberFormat = numeral(number).format('0,0');
+                                                    console.log(numberFormat);
+                                                    $('#' + id).val(numberFormat);
+                                                }
+                                            </script>
                                             <td> <span class="product-price"> <%= product.price %> </span> <span> vnđ
                                                 </span>
                                             </td>

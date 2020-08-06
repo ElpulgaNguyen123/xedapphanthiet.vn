@@ -10,7 +10,7 @@ var fs = require('fs');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, 'src/public/uploads/brands');
+        cb(null, 'src/public/uploads/categories');
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -22,17 +22,16 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
-var productUploadFile = multer({ storage: storage }).single('brand_image');
+var productUploadFile = multer({ storage: storage }).single('category_image');
 
 // get all products
-let getAllBrand = async (req, res, next) => {
+let getAllCategories = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM `brand', function (error, rows, fields) {
+        await pool.query('SELECT * FROM `categories', function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/products/brands/brands', {
-                title: 'Thương hiệu',
-                brands: rows,
+            res.render('admin/products/categories/categories', {
+                title: 'Danh mục',
+                categories: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -46,9 +45,8 @@ let getAllBrand = async (req, res, next) => {
 }
 
 // thêm hình ảnh cho thương hiệu
-let addBrandImage = (req, res, next) => {
+let addCategory = (req, res, next) => {
     productUploadFile(req, res, (error) => {
-
         try {
             var arrayError = [],
                 successArr = [];
@@ -65,17 +63,17 @@ let addBrandImage = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}.webp`;
             }
-            var queryNewBrand = "INSERT INTO brand (name, slug, image) VALUES ?";
-            var brandValues = [
-                [req.body.brand_name,
-                req.body.brand_slug,
+            var queryNewCategory = "INSERT INTO categories (category_name, category_slug, image) VALUES ?";
+            var categoryValues = [
+                [req.body.category_name,
+                req.body.category_slug,
                     filename]
             ];
-            pool.query(queryNewBrand, [brandValues], function (error, results, fields) {
+            pool.query(queryNewCategory, [categoryValues], function (error, results, fields) {
                 if (error) throw error;
-                successArr.push(Transuccess.createSuccess('Thương hiệu'));
+                successArr.push(Transuccess.createSuccess('Danh mục'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/brands');
+                res.redirect('/admin/categories');
             });
         } catch (error) {
             console.log(error);
@@ -191,9 +189,6 @@ let postDeleteBrand = async (req, res, next) => {
 }
 
 module.exports = {
-    getAllBrand,
-    addBrandImage,
-    postEditBrand,
-    getEditBrand,
-    postDeleteBrand
+    getAllCategories,
+    addCategory
 };

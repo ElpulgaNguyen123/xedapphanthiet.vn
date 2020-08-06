@@ -228,15 +228,29 @@
                                                                         id="product_slug" class="form-control"
                                                                         placeholder="Tên sản phẩm" required>
                                                                 </div>
+                                                                <script>
+                                                                    function curencyFormart(number, id) {
+                                                                        // var numberFormat = new Number(number).toLocaleString(
+                                                                        // { style: 'currency', currency: 'VND', maximumFractionDigits: 12, minimumFractionDigits: 12 });
+                                                                        var numberFormat = new Intl.NumberFormat('vn', { style: 'currency', currency: 'VND' }).format(number);
+                                                                        // var numberFormat = numeral(number).format('0,0');
+                                                                        $('#product_price').val(number);
+                                                                        if (isNaN(number)) {
+                                                                            var value = $('#product_price').val();
+                                                                            $('#' + id).val(value);
+                                                                        }
+                                                                        $('#' + id).attr('placeholder', numberFormat);
+
+                                                                    }
+                                                                </script>
                                                                 <div class="form-group">
                                                                     <label class="font-weight-bold required-form"
                                                                         for="product_price"> Giá sản
                                                                         phẩm
                                                                     </label>
-                                                                    <input type="number" maxlength="12"
-                                                                        name="product_price" id="product_price"
-                                                                        class="form-control" placeholder="giá sản phẩm"
-                                                                        required>
+                                                                    <input type="number" name="product_price"
+                                                                        id="product_price" class="form-control"
+                                                                        placeholder="giá sản phẩm" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="font-weight-bold"
@@ -265,92 +279,106 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-12 mt-4">
-                                                                <h4 class="sub-title"> Dữ liệu sản phẩm  </h4>
+                                                                <h4 class="sub-title"> Dữ liệu sản phẩm </h4>
                                                                 <ul class="nav nav-tabs md-tabs tabs-left b-none"
-                                                                role="tablist">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active" data-toggle="tab"
-                                                                        href="#seotab" role="tab">Seo website</a>
-                                                                    <div class="slide"></div>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" data-toggle="tab"
-                                                                        href="#techinfotab" role="tab">Thuộc tính kỹ
-                                                                        thuật</a>
-                                                                    <div class="slide"></div>
-                                                                </li>
-                                                            </ul>
-                                                            <!-- Tab panes -->
-                                                            <div class="tab-content tabs-left-content card-block">
-                                                                <div class="tab-pane active" id="seotab" role="tabpanel">
-                                                                    <div class="form-group">
-                                                                        <label class="font-weight-bold"
-                                                                            for="product_meta_title">
-                                                                            Meta title </label>
-                                                                        <input type="text" name="product_meta_title"
-                                                                            id="product_meta_title" class="form-control"
-                                                                            placeholder="Thẻ meta-title">
-                                                                        <small class="text-muted"> Thẻ meta title dùng để
-                                                                            tối ưu hóa SEO
-                                                                        </small>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="font-weight-bold"
-                                                                            for="product_meta_keyword">
-                                                                            Thẻ Meta keyswords </label>
-                                                                        <input type="text" name="product_meta_keyword"
-                                                                            id="product_meta_keyword" class="form-control"
-                                                                            placeholder="Thẻ meta keywords">
-                                                                        <small class="text-muted"> Thẻ meta keywords dùng để
-                                                                            tối ưu hóa
-                                                                            SEO
-                                                                        </small>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="font-weight-bold"
-                                                                            for="product_meta_description">
-                                                                            Thẻ Meta description </label>
-                                                                        <input type="text" name="product_meta_description"
-                                                                            id="product_meta_description"
-                                                                            class="form-control"
-                                                                            placeholder="Thẻ meta keywords">
-                                                                        <small class="text-muted"> Thẻ meta description dùng
-                                                                            để tối ưu
-                                                                            hóa SEO
-                                                                        </small>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="tab-pane" id="techinfotab" role="tabpanel">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-2 col-form-label">Thuộc
-                                                                            tính</label>
-                                                                        <div class="col-sm-8">
-                                                                            <select name="select_attribute"
-                                                                                id="select_attribute" class="form-control">
-                                                                                <option value="0" disabled> Chọn thêm thuộc
-                                                                                    tính
-                                                                                </option>
-                                                                                <% attributes.forEach(function(attribute, index){ %>
-                                                                                <option value="<%= attribute.id %>">
-                                                                                    <%= attribute.attribute_name %>
-                                                                                </option>
-                                                                                <%})%>
-                                                                            </select>
+                                                                    role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" data-toggle="tab"
+                                                                            href="#seotab" role="tab"> <strong>Seo
+                                                                                website</strong></a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" data-toggle="tab"
+                                                                            href="#techinfotab" role="tab">
+                                                                            <strong>Thuộc tính kỹ
+                                                                                thuật</strong> </a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content tabs-left-content card-block">
+                                                                    <div class="tab-pane active" id="seotab"
+                                                                        role="tabpanel">
+                                                                        <div class="form-group">
+                                                                            <label class="font-weight-bold"
+                                                                                for="product_meta_title">
+                                                                                Meta title </label>
+                                                                            <input type="text" name="product_meta_title"
+                                                                                id="product_meta_title"
+                                                                                class="form-control"
+                                                                                placeholder="Thẻ meta-title">
+                                                                            <small class="text-muted"> Thẻ meta title
+                                                                                dùng để
+                                                                                tối ưu hóa SEO
+                                                                            </small>
                                                                         </div>
-                                                                        <div class="col-sm-2">
-                                                                            <button type="button" id="add_more_attribute"
-                                                                                class="btn hor-grd btn-grd-primary"><i
-                                                                                    class="icofont icofont-plus-circle"></i>
-                                                                            </button>
+                                                                        <div class="form-group">
+                                                                            <label class="font-weight-bold"
+                                                                                for="product_meta_keyword">
+                                                                                Thẻ Meta keyswords </label>
+                                                                            <input type="text"
+                                                                                name="product_meta_keyword"
+                                                                                id="product_meta_keyword"
+                                                                                class="form-control"
+                                                                                placeholder="Thẻ meta keywords">
+                                                                            <small class="text-muted"> Thẻ meta keywords
+                                                                                dùng để
+                                                                                tối ưu hóa
+                                                                                SEO
+                                                                            </small>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="font-weight-bold"
+                                                                                for="product_meta_description">
+                                                                                Thẻ Meta description </label>
+                                                                            <input type="text"
+                                                                                name="product_meta_description"
+                                                                                id="product_meta_description"
+                                                                                class="form-control"
+                                                                                placeholder="Thẻ meta keywords">
+                                                                            <small class="text-muted"> Thẻ meta
+                                                                                description dùng
+                                                                                để tối ưu
+                                                                                hóa SEO
+                                                                            </small>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="attribute_product">
+                                                                    <div class="tab-pane" id="techinfotab"
+                                                                        role="tabpanel">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-2 col-form-label">Thuộc
+                                                                                tính</label>
+                                                                            <div class="col-sm-8">
+                                                                                <select name="select_attribute"
+                                                                                    id="select_attribute"
+                                                                                    class="form-control">
+                                                                                    <option value="0" disabled> Chọn
+                                                                                        thêm thuộc
+                                                                                        tính
+                                                                                    </option>
+                                                                                    <% attributes.forEach(function(attribute, index){ %>
+                                                                                    <option value="<%= attribute.id %>">
+                                                                                        <%= attribute.attribute_name %>
+                                                                                    </option>
+                                                                                    <%})%>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <button type="button"
+                                                                                    id="add_more_attribute"
+                                                                                    class="btn hor-grd btn-grd-primary"><i
+                                                                                        class="icofont icofont-plus-circle"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="attribute_product">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                             </div>
                                                         </div>
-                                                       
+
                                                     </form>
                                                     <button type="submit" id="dropzoneSubmit"
                                                         class="btn hor-grd btn-grd-success mt-4">
@@ -368,31 +396,31 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4> <strong>Category</strong> </h4>
-                                    <span>Thêm danh mục cho sản phẩm</span>
+                                    <span>Chọn danh mục cho sản phẩm</span>
                                     <div class="card-header-right">
                                         <i class="icofont icofont-spinner-alt-5"></i>
                                     </div>
                                 </div>
                                 <div class="card-block">
                                     <div class="form-check">
-                                        <input type="checkbox" class="checkscate form-check-input" onclick="getValue()"
-                                            value="${id}" id="${id}" checked>
-                                        <label class="form-check-label" for="category-name">Đua</label>
+                                        <input type="radio" name="category-name" id="01" class="form-check-input"
+                                            value="" checked>
+                                        <label class="form-check-label" for="01">Đua</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="checkscate form-check-input" onclick="getValue()"
-                                            value="${id}" id="${id}" checked>
-                                        <label class="form-check-label" for="category-name">Địa hình</label>
+                                        <input type="radio" name="category-name" id="02" class="form-check-input"
+                                            value="${id}">
+                                        <label class="form-check-label" for="02">Địa hình</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="checkscate form-check-input" onclick="getValue()"
-                                            value="${id}" id="${id}" checked>
-                                        <label class="form-check-label" for="category-name">Đường phố</label>
+                                        <input type="radio" name="category-name" id="03" class="form-check-input"
+                                            value="${id}">
+                                        <label class="form-check-label" for="03">Đường phố</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="checkscate form-check-input" onclick="getValue()"
-                                            value="${id}" id="${id}" checked>
-                                        <label class="form-check-label" for="category-name">Trẻ em</label>
+                                        <input type="radio" name="category-name" id="04" class="form-check-input"
+                                            value="${id}">
+                                        <label class="form-check-label" for="04">Trẻ em</label>
                                     </div>
                                 </div>
                             </div>
@@ -450,8 +478,7 @@
 
     // A $( document ).ready() block.
     $(document).ready(function () {
-
-        //start validate product form
+        // expected output: "￥123,457"
         $("#product_form").validate({
             rules: {
                 product_name: {

@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-var productUploadFile = multer({ storage: storage }).any('product-images', 10);
+var productUploadFile = multer({ storage: storage }).any('product-images', 4);
 // Lấy danh sách sản phẩm.
 let getAllProduct = async (req, res, next) => {
     try {
