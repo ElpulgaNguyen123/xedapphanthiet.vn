@@ -46,7 +46,6 @@ let getAllCategories = async (req, res, next) => {
         });
     }
 }
-
 // thêm hình ảnh cho thương hiệu
 let addCategory = (req, res, next) => {
     productUploadFile(req, res, (error) => {
