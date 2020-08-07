@@ -1,0 +1,36 @@
+<div class="modal fade" id="image-edit-modal" tabindex="-1" role="dialog" aria-labelledby="product-image-change"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body mt-4">
+                <div class="product-image text-md-center">
+                    <div class="form-group text-center">
+                        <div class="image-border">
+                            <div class="avatar-change">
+                                <img id="image-avatar-preview" src="" alt="">
+                            </div>
+                            <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                hình khác...</button>
+                            <input type="file" id="brand_image" name="brand_image" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="iconss">
+                        <i id="click-change-icons" class="icofont icofont-edit"></i>
+                    </div>
+                    <div class="avatar-change">
+                        <img id="product-avatar-preview" src="" alt="">
+                    </div>
+                    <img src="" alt="" id="product-avatar" data-index="">
+                    <input name="product-avatar" class="invisible" type="file" id="product-change-avatar">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i
+                        class="icofont icofont-ui-close"></i> </button>
+                <button type="button" class="btn btn-primary" id="save-button-product-image-modal">
+                    <i class="icofont icofont-save"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

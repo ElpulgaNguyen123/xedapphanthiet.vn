@@ -289,7 +289,7 @@ let editProductGet = async (req, res, next) => {
             }
             res.render('admin/products/editProduct', {
                 title: 'Chỉnh Sửa Sản Phẩm',
-                product: rows,
+                product: rows[0],
                 attributesValue:attributesValue,
                 attributes : attributes,
                 categories:categories,
@@ -306,11 +306,56 @@ let editProductGet = async (req, res, next) => {
     }
 }
 
+// chỉnh sửa hình ảnh đã được chọn
+let editProductImage = (req, res, next) => {
+    productUpdateFile(req, res, async (error) => {
+        try {
+            if (req.file) {
+
+                console.log('Thông tin hình ảnh cần chỉnh sửa');
+                console.log(req.params.id);
+                console.log(req.query.index);
+                var result = {
+                    id : req.params.id,
+                    index : req.query.index
+                }
+                // await sharp(req.file.path).resize(290, 385).toBuffer(function (err, buffer) {
+                //     fs.writeFile(req.file.path, buffer, function (e) {
+                //     });
+                // });
+                // // Cập nhật sư, cập nhật hình ảnh và đường dẫn.
+                // let oldproduct = await productsModel.findProductById(req.params.id);
+                // oldproduct.image[req.body.index] = req.file.filename;
+                // oldproduct.updateAt = Date.now();
+                // let userOldImage = oldproduct.image[req.body.index]; // Path to delete avatar update
+                // let userupdate = await service.updateProductImageService(req.params.id, oldproduct);
+                // await fsExtras.remove(`${app.directory_product}/${userOldImage}`);
+
+                // let result = {
+                //     message: Transuccess.product_updated,
+                //     imageSrc: req.file.filename
+                // }
+                return res.status(200).send(result);
+
+            } else {
+                console.log('không có kết quả !');
+            }
+            return res.status(500).send(error);
+
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+        // Everything went fine.
+    })
+}
+
 module.exports = {
     getAllProduct,
     addProductGet,
     addProductPost,
     editProductGet,
     addProductImage,
-    addProductAttribute
+    addProductAttribute,
+    editProductImage
 };
