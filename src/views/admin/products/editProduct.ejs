@@ -27,6 +27,8 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="/admin/products">Danh sách sản phẩm</a>
                                     </li>
+                                    <li class="breadcrumb-item"><%= title %>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -54,39 +56,37 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-5 col-md-12">
                                             <div class="row">
-                                                <% if (product.image != null) { %>
-                                                <% for (var i = 0; i < product.image.length;  i++ ) { %>
-                                                <div class="col-xs-12 col-sm-3 col-md-2">
-                                                    <div class="card">
-                                                        <img class="card-img-top"
-                                                            src="/assets/images/products/<%= product.image[i] %>"
-                                                            alt="Card image cap" data-index='<%= i %>'
-                                                            data-id="<%= product._id %>">
-                                                        <div class="card-body">
-                                                            <p class="text-center"> <strong> <%= i + 1 %> </strong> </p>
-                                                            <div class="btn-group" role="group"
-                                                                aria-label="Basic example">
-                                                                <button type="button"
-                                                                    class="btn btn-warning btn-block edit-product-image"
-                                                                    title="Sửa hình ảnh" data-toggle="modal"
-                                                                    data-target="#product-image-change">
-                                                                    <i class="icofont icofont-edit"></i>
-                                                                </button>
-                                                                <a href="/admin/product/delete-product-image?id=<%= product._id%>&index=<%= i %>"
-                                                                    type="button" class="btn btn-danger btn-block"
-                                                                    title="Xóa hình ảnh">
-                                                                    <i class="icofont icofont-ui-delete"></i>
-                                                                </a>
+                                                <% if(images_count != 0){ %>
+                                                    <% for (var i = 0; i < images_count; i++ ) { %>
+                                                    <div class="col-xs-12 col-sm-3 col-md-2">
+                                                        <div class="card">
+                                                            <img class="card-img-top"
+                                                                src="/public/uploads/products/<%= images[i] %>"
+                                                                alt="Card image cap" data-index='<%= i %>'
+                                                                data-id="<%= product._id %>">
+                                                            <div class="card-body">
+                                                                <p class="text-center"> <strong> Hình ảnh <%= i + 1 %> </strong> </p>
+                                                                <div class="btn-group" role="group"
+                                                                    aria-label="Basic example">
+                                                                    <button type="button"
+                                                                        class="btn btn-warning edit-product-image"
+                                                                        title="Sửa hình ảnh" data-toggle="modal"
+                                                                        data-target="#product-image-change">
+                                                                        <i class="icofont icofont-edit"></i>
+                                                                    </button>
+                                                                    <a href="/admin/product/delete-product-image?id=<%= product._id%>&index=<%= i %>"
+                                                                        type="button" class="btn btn-danger"
+                                                                        title="Xóa hình ảnh">
+                                                                        <i class="icofont icofont-ui-delete"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <% } %>
-                                                <% } %>
-                                                <% if(product.image == null){%>
+                                                    <% } %>
+                                                <% }else{ %>
                                                 <p>Không có hình ảnh nào</p>
                                                 <% } %>
-
                                                 <!-- Modal -->
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                                     <button type="button" class="btn btn-info show-image-add mb-4"

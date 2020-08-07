@@ -107,7 +107,6 @@ let newProduct = (query, items) => {
     })
 }
 
-
 let getlastProduct = (query, items) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -124,6 +123,24 @@ let getlastProduct = (query, items) => {
     })
 }
 
+// lấy danh sách thuộc tính của sản phẩm
+let getProductAttributes = (query) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            pool.query(query, function (error, rows, fields) {
+                if (error) throw error;
+                if (!rows) {
+                    reject('Có lỗi xảy ra');
+                }
+                console.log(rows);
+                return resolve(rows);
+            })
+        } catch (error) {
+            console.log('caught', error);
+        }
+    })
+}
+
 module.exports = {
     queryAction,
     queryActionNoParams,
@@ -132,5 +149,6 @@ module.exports = {
     getLastId,
     getLastsId,
     newAttributeVal,
-    queryActionNoParamsreturn
+    queryActionNoParamsreturn,
+    getProductAttributes
 }

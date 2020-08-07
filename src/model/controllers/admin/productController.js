@@ -1,7 +1,7 @@
 var pool = require('../../config/connectDb');
 var app = require('../../config/app');
 var multer = require('multer');
-var {uuid} = require('uuid4');
+var { uuid } = require('uuid4');
 var service = require('../../../services');
 var { Transuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
@@ -22,6 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
+
 var productUploadFile = multer({ storage: storage }).any('product-images', 4);
 // Lấy danh sách sản phẩm.
 let getAllProduct = async (req, res, next) => {
@@ -234,6 +235,7 @@ let addProductPost = (req, res, next) => {
         }
     })
 }
+
 // Thêm hình ảnh sản phẩm
 let addProductImage = (req, res, next) => {
     productUploadFile(req, res, (error) => {
@@ -263,19 +265,44 @@ let addProductImage = (req, res, next) => {
 let editProductGet = async (req, res, next) => {
     let successArr = [];
     try {
-        var query = `SELECT * FROM product where id= ${req.params.id}`;
-        pool.query(query, function (error, results, fields) {
+        var product_id = req.params.id;
+        var query = `SELECT * FROM product where id= ${product_id}`;
+        var queryattributes = `SELECT prd_attribute_value.name, 
+        attributes.attribute_name FROM prd_attribute_value 
+        INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
+        INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
+        WHERE prd_attribute.product_id = ${product_id}`;
+        var queryattributes = 'SELECT * FROM `attributes';
+        var querycategories = 'SELECT * FROM `categories';
+
+
+        var attributesValue = await service.getProductAttributes(queryattributes);
+        var attributes = await service.queryActionNoParams(queryattributes);
+        var categories = await service.queryActionNoParams(querycategories);
+        pool.query(query, function (error, rows, fields) {
             if (error) throw error;
-            console.log(results);
+            var images = '';
+            var count = '';
+            if(rows[0].image != ''){
+                images = JSON.parse(rows[0].image);
+                count = Object.keys(images).length;
+            }
             res.render('admin/products/editProduct', {
                 title: 'Chỉnh Sửa Sản Phẩm',
-                product: results,
+                product: rows,
+                attributesValue:attributesValue,
+                attributes : attributes,
+                categories:categories,
+                images : images,
+                images_count : count,
                 user: req.user
             })
         })
     } catch (error) {
         console.log(error);
-        return res.status(500).send('Lôi');
+        res.render('admin/notfound/notfound', {
+            title: 'Trang Không tìm thấy'
+        });
     }
 }
 
