@@ -211,6 +211,24 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <label class="font-weight-bold"
+                                                                        for="product_categories">
+                                                                        Danh mục
+                                                                    </label>
+                                                                    <div class="categogy-border">
+                                                                        <% categories.forEach(function(category, index){ %>
+                                                                        <div class="form-check">
+                                                                            <input type="radio" name="product_category"
+                                                                                id="<%= category.id %>"
+                                                                                class="form-check-input"
+                                                                                value="<%= category.id %>">
+                                                                            <label class="form-check-label"
+                                                                                for="<%= category.id %>"><%= category.category_name %></label>
+                                                                        </div>
+                                                                        <%})%>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label class="font-weight-bold required-form"
                                                                         for="product_name"> Tên Sản
                                                                         Phẩm
@@ -227,6 +245,7 @@
                                                                     <input type="text" name="product_slug"
                                                                         id="product_slug" class="form-control"
                                                                         placeholder="Tên sản phẩm" required>
+                                                                    <small> Slug, đường dẫn tối ưu SEO </small>
                                                                 </div>
                                                                 <script>
                                                                     function curencyFormart(number, id) {
@@ -240,7 +259,6 @@
                                                                             $('#' + id).val(value);
                                                                         }
                                                                         $('#' + id).attr('placeholder', numberFormat);
-
                                                                     }
                                                                 </script>
                                                                 <div class="form-group">
@@ -392,39 +410,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-xl-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4> <strong>Category</strong> </h4>
-                                    <span>Chọn danh mục cho sản phẩm</span>
-                                    <div class="card-header-right">
-                                        <i class="icofont icofont-spinner-alt-5"></i>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    <div class="form-check">
-                                        <input type="radio" name="category-name" id="01" class="form-check-input"
-                                            value="" checked>
-                                        <label class="form-check-label" for="01">Đua</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" name="category-name" id="02" class="form-check-input"
-                                            value="${id}">
-                                        <label class="form-check-label" for="02">Địa hình</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" name="category-name" id="03" class="form-check-input"
-                                            value="${id}">
-                                        <label class="form-check-label" for="03">Đường phố</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" name="category-name" id="04" class="form-check-input"
-                                            value="${id}">
-                                        <label class="form-check-label" for="04">Trẻ em</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -495,6 +480,9 @@
                 },
                 product_brand: {
                     required: true,
+                },
+                product_category: {
+                    required: true
                 }
             },
             messages: {
@@ -512,6 +500,9 @@
                 },
                 product_brand: {
                     required: "Vui lòng chọn hãng sản xuất",
+                },
+                product_category: {
+                    required: 'Vui lòng chọn danh mục cho sản phẩm'
                 }
             }
         });

@@ -12,6 +12,7 @@ var { queryAction,
     queryActionNoParamsreturn} = require('./productservice');
 
     var {queryActionBrandDelete} = require('./brandService');
+    var {queryActionCategoryDelete} = require('./categoryService');
 
 module.exports = {
     register_service,
@@ -31,8 +32,7 @@ module.exports = {
 
 
     // brand service
-    queryActionBrandDelete
+    queryActionBrandDelete,
+    queryActionCategoryDelete
 
-
-    
 }

@@ -8,7 +8,6 @@ var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
 
-
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);

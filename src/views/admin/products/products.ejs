@@ -67,7 +67,7 @@
                             <!-- Example split danger button -->
                             <div class="input-group form-search">
                                 <span class="input-group-addon btn-inverse" id="name"><i class="icofont icofont-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Tìm kiếm" title="" data-toggle="tooltip" data-original-title="Enter your name">
+                                <input type="text" class="form-control" placeholder="Tìm sản phẩm" title="" data-toggle="tooltip" data-original-title="Tìm sản phẩm...">
                             </div>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-inverse btn-outline-inverse">Sắp xếp</button>
@@ -103,16 +103,16 @@
                                         <% products.forEach(function(product, index){ %>
                                         <tr>
                                             <th scope="row"><%= index %></th>
-                                            <% if(product.image.length != ''){ %>
+                                            <% if(product.image.length != 0){ %>
                                             <th class="product-image">
                                                 <img class="sp_img-<%= product.id%>"
-                                                    src="/admin/uploads/products/<%=JSON.parse(product.image)[0] %>"
+                                                    src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>"
                                                     alt="">
                                             </th>
                                             <% } else{ %>
                                             <th class="product-image">
                                                 <img class="sp_img-<%= product.id%>"
-                                                    src="/admin/images/products/example.png" alt="">
+                                                    src="/public/admin/images/example.png" alt="">
                                             </th>
                                             <% } %>
                                             <td class="font-weight-bold">

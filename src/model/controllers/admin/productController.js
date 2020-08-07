@@ -1,7 +1,7 @@
 var pool = require('../../config/connectDb');
 var app = require('../../config/app');
 var multer = require('multer');
-var uuidv4 = require('uuid4');
+var {uuid} = require('uuid4');
 var service = require('../../../services');
 var { Transuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
@@ -10,7 +10,7 @@ var fs = require('fs');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, 'src/public/admin/uploads/products');
+        cb(null, app.directory_products);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -42,9 +42,9 @@ let getAllProduct = async (req, res, next) => {
             console.log(totalPage);
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results.slice(start,end),
-                pages:pageDistance,
-                page : page,
+                products: results.slice(start, end),
+                pages: pageDistance,
+                page: page,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -60,15 +60,19 @@ let getAllProduct = async (req, res, next) => {
 let addProductGet = async (req, res, next) => {
     try {
         var queryattributes = 'SELECT * FROM `attributes';
+        var querycategories = 'SELECT * FROM `categories';
         var attributes = await service.queryActionNoParams(queryattributes);
+        var categories = await service.queryActionNoParams(querycategories);
         pool.query('SELECT * FROM `brand', function (error, results, fields) {
             res.render('admin/products/addproduct', {
                 title: 'Thêm sản phẩm',
                 brands: results,
                 attributes: attributes,
+                categories: categories,
                 user: req.user
             });
         });
+
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
@@ -125,26 +129,28 @@ let addProductPost = (req, res, next) => {
         try {
             productItem[0] = req.body.product_sku;
             productItem[1] = req.body.product_brand;
-            productItem[2] = req.body.product_name;
-            productItem[3] = req.body.product_slug;
-            productItem[4] = req.body.product_price;
-            productItem[5] = `${req.body.image_path}`;
-            productItem[6] = req.body.propduct_description;
-            productItem[7] = req.body.short_description;
-            productItem[8] = req.body.product_meta_title;
-            productItem[9] = req.body.product_meta_keyword;
-            productItem[10] = req.body.product_meta_description;
+            productItem[2] = req.body.product_category;
+            productItem[3] = req.body.product_name;
+            productItem[4] = req.body.product_slug;
+            productItem[5] = req.body.product_price;
+            productItem[6] = `${req.body.image_path}`;
+            productItem[7] = req.body.propduct_description;
+            productItem[8] = req.body.short_description;
+            productItem[9] = req.body.product_meta_title;
+            productItem[10] = req.body.product_meta_keyword;
+            productItem[11] = req.body.product_meta_description;
             if (req.body.product_quantity <= 0) {
-                productItem[11] = 0;
+                productItem[12] = 0;
             }
-            productItem[11] = 1;
-            productItem[12] = req.body.product_quantity;
+            productItem[12] = 1;
+            productItem[13] = req.body.product_quantity;
 
             var queryNewProduct = `
             INSERT INTO 
             product(
                 sku, 
                 brand_id,
+                category_id,
                 name,
                 slug, 
                 price, 
@@ -156,7 +162,7 @@ let addProductPost = (req, res, next) => {
                 meta_description,
                 stock,
                 quantity)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
             // tạo mới sản phẩm
             await service.newProduct(queryNewProduct, productItem);
@@ -222,8 +228,9 @@ let addProductPost = (req, res, next) => {
                 return res.redirect('/admin/products');
             }
         } catch (error) {
-            console.log(error);
-            return res.status(500).send(error);
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
         }
     })
 }
@@ -232,17 +239,19 @@ let addProductImage = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
             //thực hiện báo về cho protend;
-            req.files.map(async (file) => {
-                // đường dẫn lưu ảnh
-                try {
-                    await sharp(file.path).resize(850, 850).toBuffer(function (err, buffer) {
-                        fs.writeFile(file.path, buffer, function (e) {
+            if (req.files) {
+                req.files.map(async (file) => {
+                    // đường dẫn lưu ảnh
+                    try {
+                        await sharp(file.path).resize(850, 850).toBuffer(function (err, buffer) {
+                            fs.writeFile(file.path, buffer, function (e) {
+                            });
                         });
-                    });
-                } catch (e) {
-                    console.error(e);
-                }
-            })
+                    } catch (e) {
+                        console.error(e);
+                    }
+                });
+            }
         } catch (error) {
             console.log(error);
             return res.status(500).send(error);

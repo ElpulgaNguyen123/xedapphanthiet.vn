@@ -68,7 +68,9 @@ adminRouter.get('/brand/delete-brand/:id', controller.checkloggedIn, controller.
 //brand start
 adminRouter.get('/categories', controller.checkloggedIn, controller.getAllCategories);
 adminRouter.post('/category/add-category', controller.checkloggedIn, controller.addCategory);
-
+adminRouter.get('/category/edit-category/:id', controller.checkloggedIn, controller.getEditCategory);
+adminRouter.post('/category/edit-category/:id', controller.checkloggedIn, controller.postEditCategory);
+adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, controller.postDeleteCategory);
 //brand end
 
 
