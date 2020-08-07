@@ -174,12 +174,12 @@
                                         <% if(brand.image != '' && brand.image != null){ %>
                                         <td class="product-image">
                                             <img class="sp_img-<%= brand.id%>"
-                                                src="/admin/uploads/brands/<%= brand.image %> %>"
+                                                src="/public/uploads/brands/<%= brand.image %>"
                                                 alt="<%= brand.name %>">
                                         </td>
                                         <% } else{ %>
                                         <td class="product-image">
-                                            <img class="sp_img-<%= brand.id%>" src="/admin/images/example.png"
+                                            <img class="sp_img-<%= brand.id%>" src="/admin/public/images/example.png"
                                                 alt="<%= brand.name %>">
                                         </td>
                                         <% } %>

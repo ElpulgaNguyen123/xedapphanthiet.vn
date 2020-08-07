@@ -2,15 +2,17 @@ var pool = require('../../config/connectDb');
 var app = require('../../config/app');
 var service = require('../../../services');
 var multer = require('multer');
+var { uuid } = require('uuidv4');
 var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
+var fsExtras = require('fs-extra');
 
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, 'src/public/uploads/brands');
+        cb(null, app.directory_brands);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -18,13 +20,10 @@ var storage = multer.diskStorage({
         if (match.indexOf(file.mimetype) === -1) {
             return cb(error, null);
         }
-        //let fileName = `${file.fieldname}-${uuidv4()}-${Date.now()}-${file.originalname}`;
         cb(null, file.originalname);
     }
 });
-
 var productUploadFile = multer({ storage: storage }).single('brand_image');
-
 // get all products
 let getAllBrand = async (req, res, next) => {
     try {
@@ -52,18 +51,18 @@ let addBrandImage = (req, res, next) => {
         try {
             var arrayError = [],
                 successArr = [];
+            var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(300, 200)
-                    .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
-                        filename = `${req.file.filename}.webp`;
+                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
             }
             var filename = '';
             if (req.file) {
-                filename = `${req.file.filename}.webp`;
+                filename = `${req.file.filename}-${generatecode}.webp`;
             }
             var queryNewBrand = "INSERT INTO brand (name, slug, image) VALUES ?";
             var brandValues = [
@@ -85,27 +84,13 @@ let addBrandImage = (req, res, next) => {
         }
     })
 }
-
 // lấy thông tin chỉnh sửa thương hiệu
 let getEditBrand = async (req, res, next) => {
     try {
         var brand_id = req.params.id;
         var arrayError = [],
             successArr = [];
-        if (req.file) {
-            // resize image before uploads.
-            sharp(`${req.file.destination}/${req.file.filename}`)
-                .resize(300, 200)
-                .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
-                    filename = `${req.file.filename}.webp`;
-                    fs.unlinkSync(req.file.path);
-                });
-        }
-        var filename = '';
-        if (req.file) {
-            filename = `${req.file.filename}.webp`;
-        }
-        var query = `SELECT * FROM brand WHERE brand.id = ?`;
+        var query = `SELECT * FROM brand WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
         await pool.query(query, brand_id, function (error, rows, fields) {
             if (error) throw error;
@@ -128,18 +113,21 @@ let postEditBrand = (req, res, next) => {
             // Lấy tất cả sản phẩm và hiển thị ra table
             var arrayError = [],
                 successArr = [];
+            var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(300, 200)
-                    .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
-                        filename = `${req.file.filename}.webp`;
+                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
+                        if (req.body.brand_old_image) {
+                            await fsExtras.remove(`${app.directory_brands}/${req.body.brand_old_image}`);
+                        }
                     });
             }
             var filename = '';
             if (req.file) {
-                filename = `${req.file.filename}.webp`;
+                filename = `${req.file.filename}-${generatecode}.webp`;
             }
             else if (req.body.brand_old_image) {
                 filename = `${req.body.brand_old_image}`;
@@ -151,12 +139,12 @@ let postEditBrand = (req, res, next) => {
             image = ?
             WHERE id = ?`
             var brandValues = [
-            req.body.brand_name,
-            req.body.brand_slug,
-            filename,
-            req.params.id
+                req.body.brand_name,
+                req.body.brand_slug,
+                filename,
+                req.params.id
             ];
-            await pool.query(queryUpdate, brandValues,  function (error, results, fields) {
+            await pool.query(queryUpdate, brandValues, function (error, results, fields) {
                 if (error) throw error;
                 successArr.push(Transuccess.saveSuccess('thuộc tính'));
                 req.flash('Success', successArr);
@@ -174,12 +162,22 @@ let postDeleteBrand = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
+
+        var brand_id = req.params.id;
+        var query = `SELECT * FROM brand WHERE id = ?`;
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var Image_delete = await service.queryActionBrandDelete(query, brand_id);
+
         var querydeleteBrand = `
         DELETE FROM 
         brand 
-        WHERE id = ${req.params.id}`
-        pool.query(querydeleteBrand, function (error, results, fields) {
+        WHERE id = ${brand_id}`
+
+        pool.query(querydeleteBrand, async function (error, results, fields) {
             if (error) throw error;
+            if (Image_delete != null || Image_delete != '') {
+                await fsExtras.remove(`${app.directory_brands}/${Image_delete}`);
+            }
             successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
             req.flash('Success', successArr);
             res.redirect('/admin/brands');
