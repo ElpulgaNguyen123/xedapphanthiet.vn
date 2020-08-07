@@ -24,7 +24,9 @@ var {getAllBrand,
 
     var {getAllCategories,
         addCategory,
-        getEditCategory }= require('./categoriesController');
+        getEditCategory,
+        postEditCategory,
+        postDeleteCategory}= require('./categoriesController');
 
 var { loginController,
     registerController,
@@ -70,6 +72,7 @@ module.exports = {
     postDeleteAttribute,
     postAddAttributeValue,
     postDeleteAttributeValue,
+    postDeleteCategory,
     
 
     // Brands
@@ -83,6 +86,7 @@ module.exports = {
     getAllCategories,
     addCategory,
     getEditCategory,
+    postEditCategory,
 
 
     // authencation

@@ -174,7 +174,7 @@
                                         <% if(category.image != '' && category.image != null){ %>
                                         <td class="product-image">
                                             <img class="sp_img-<%= category.id%>"
-                                                src="/uploads/categories/<%= category.image %> %>"
+                                                src="/public/uploads/categories/<%= category.image %> %>"
                                                 alt="<%= category.category_name %>">
                                         </td>
                                         <% } else{ %>
@@ -196,7 +196,7 @@
                                                     <i class="icofont icofont-edit"></i>
                                                 </a>
                                                 <a href="/admin/category/delete-category/<%= category.id %>"
-                                                    class="delete-brand-confirm btn hor-grd btn-grd-danger"
+                                                    class="delete-category-confirm btn hor-grd btn-grd-danger"
                                                     data-url="/admin/category/delete-category/<%= category.id %>"
                                                     title="Xóa danh mục" data-target="#delete-category-modal"
                                                     data-toggle="modal">
@@ -228,13 +228,10 @@
         $('#delete-category-link').attr('href', url);
     });
     $(document).ready(function () {
-
-
         $("#categories_form").validate({
             rules: {
                 category_name: {
                     required: true,
-                    minlength: 2,
                 },
                 category_slug: {
                     required: true
@@ -242,8 +239,7 @@
             },
             messages: {
                 category_name: {
-                    required: "Vui lòng nhập Danh mục",
-                    minlength: "Tên Danh mục phải có ít nhất 2 ký tự"
+                    required: "Vui lòng nhập Danh mục"
                 },
                 category_slug: {
                     required: "Vui lòng nhập đường dẫn tối ưu SEO"
@@ -292,4 +288,4 @@
     });
 </script>
 
-<%- include("../../modal/brand-delete-modal.ejs") %>
+<%- include("../../modal/category-delete-modal.ejs") %>

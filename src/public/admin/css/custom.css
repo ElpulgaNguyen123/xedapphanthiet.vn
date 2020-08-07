@@ -387,6 +387,15 @@ label.error {
 a.btn {
     color: white;
 }
+.categogy-border {
+    padding: 15px;
+    border: 1.5px dotted #8080802e;
+    position: relative;
+}
+label#product_category-error {
+    position: absolute;
+    bottom: -90px;
+}
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;

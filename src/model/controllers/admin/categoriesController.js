@@ -3,9 +3,10 @@ var app = require('../../config/app');
 var service = require('../../../services');
 var multer = require('multer');
 var { uuid } = require('uuidv4');
-var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../lang/vi');
+var { Transuccess} = require('../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
+var fsExtras = require('fs-extra');
 
 
 var storage = multer.diskStorage({
@@ -40,8 +41,9 @@ let getAllCategories = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        res.render('admin/notfound/notfound', {
+            title: 'Trang Không tìm thấy'
+        });
     }
 }
 
@@ -51,7 +53,7 @@ let addCategory = (req, res, next) => {
         try {
             var arrayError = [],
                 successArr = [];
-                var generatecode = uuid();
+            var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
@@ -77,7 +79,6 @@ let addCategory = (req, res, next) => {
                 res.redirect('/admin/categories');
             });
         } catch (error) {
-            console.log(error);
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
             });
@@ -88,94 +89,110 @@ let addCategory = (req, res, next) => {
 // lấy thông tin chỉnh sửa thương hiệu
 let getEditCategory = async (req, res, next) => {
     try {
-        var brand_id = req.params.id;
-        var query = `SELECT * FROM brand WHERE brand.id = ?`;
+        var category_id = req.params.id;
+        var query = `SELECT * FROM categories WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, brand_id, function (error, rows, fields) {
+        await pool.query(query, category_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/products/catogories/editcategory', {
-                brand: rows[0],
+            res.render('admin/products/categories/editcategory', {
+                category: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             });
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        res.render('admin/notfound/notfound', {
+            title: 'Trang Không tìm thấy'
+        });
     }
 }
+
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
-let postEditBrand = (req, res, next) => {
+let postEditCategory = (req, res, next) => {
     productUploadFile(req, res, async (error) => {
         try {
             // Lấy tất cả sản phẩm và hiển thị ra table
             var arrayError = [],
                 successArr = [];
+            var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(300, 200)
-                    .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
-                        filename = `${req.file.filename}.webp`;
+                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
+                        if (req.body.category_old_image) {
+                            await fsExtras.remove(`${app.directory_categories}/${req.body.category_old_image}`);
+                        }
                     });
             }
             var filename = '';
             if (req.file) {
-                filename = `${req.file.filename}.webp`;
+                filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            else if (req.body.brand_old_image) {
-                filename = `${req.body.brand_old_image}`;
+            else if (req.body.category_old_image) {
+                filename = `${req.body.category_old_image}`;
             }
             var queryUpdate = `
-            UPDATE brand
-            SET name = ?, 
-            slug = ?, 
+            UPDATE categories
+            SET category_name = ?, 
+            category_slug = ?, 
             image = ?
             WHERE id = ?`
-            var brandValues = [
-            req.body.brand_name,
-            req.body.brand_slug,
-            filename,
-            req.params.id
+            var categoryValues = [
+                req.body.category_name,
+                req.body.category_slug,
+                filename,
+                req.params.id
             ];
-            await pool.query(queryUpdate, brandValues,  function (error, results, fields) {
+            await pool.query(queryUpdate, categoryValues, function (error, results, fields) {
                 if (error) throw error;
-                successArr.push(Transuccess.saveSuccess('thuộc tính'));
+                successArr.push(Transuccess.saveSuccess('danh mục'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/brands');
+                res.redirect('/admin/categories');
             });
         } catch (error) {
-            console.log(error);
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
         }
     })
 }
 
 // xóa dữ liệu của 1 brand
-let postDeleteBrand = async (req, res, next) => {
+let postDeleteCategory = async (req, res, next) => {
     try {
-        // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
-        var querydeleteBrand = `
+
+        var category_id = req.params.id; 
+        var query = `SELECT * FROM categories WHERE id = ?`;
+        var Image_delete = await service.queryActionCategoryDelete(query, category_id);
+        var querydeleteCategory = `
         DELETE FROM 
-        brand 
-        WHERE id = ${req.params.id}`
-        pool.query(querydeleteBrand, function (error, results, fields) {
+        categories 
+        WHERE id = ${category_id}`
+        pool.query(querydeleteCategory, async function (error, results, fields) {
             if (error) throw error;
-            successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
+            if (Image_delete != null || Image_delete != '') {
+                await fsExtras.remove(`${app.directory_categories}/${Image_delete}`);
+            }
+            successArr.push(Transuccess.deleteSuccess('Danh mục'));
             req.flash('Success', successArr);
-            res.redirect('/admin/brands');
+            res.redirect('/admin/categories');
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        res.render('admin/notfound/notfound', {
+            title: 'Trang Không tìm thấy'
+        });
     }
 }
 
 module.exports = {
     getAllCategories,
     addCategory,
-    getEditCategory
+    getEditCategory,
+    postEditCategory,
+    postDeleteCategory
 };

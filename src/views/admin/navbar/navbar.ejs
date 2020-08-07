@@ -3,8 +3,8 @@
     <div class="pcoded-inner-navbar main-menu">
         <div class="">
             <div class="main-menu-header">
-                <img class="img-40 img-radius" id="main-menu-header-profile" src="/admin/images/auth/<%= user.avatar %>"
-                    alt="User-Profile-Image">
+                <img class="img-40 img-radius" id="main-menu-header-profile"
+                    src="/public/admin/images/auth/<%= user.avatar %>" alt="User-Profile-Image">
                 <div class="user-details">
                     <span id="username-info"> <%= user.name %> </span>
                     <span id="more-details">Doanh nghiệp<i class="ti-angle-down"></i></span>
@@ -36,103 +36,49 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            <li class="pcoded-hasmenu ">
+            <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main"></span>Cửa hàng
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                    <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Xe Đạp</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
                 <ul class="pcoded-submenu">
-                    <li class="pcoded-hasmenu ">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Xe đạp</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="">
-                                <a href="/admin/products">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Tất cả xe đạp</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/admin/products/add-product">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Thêm xe đạp</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/admin/categories" title="Danh mục mục sản phẩm">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Danh mục sản phẩm</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/admin/attributes">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Thuộc tính</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="pcoded-hasmenu ">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Phụ kiện</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="">
-                                <a href="/admin/products">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Tất cả phụ kiện</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/admin/products/add-product">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Thêm phụ kiện</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/admin/categories" title="Danh mục mục sản phẩm">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Danh mục sản phẩm</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/admin/attributes">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                        data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Thuộc tính</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="/admin/brands">
+                    <li class=" ">
+                        <a href="/admin/products/add-product" title="Thêm xe đạp">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Thương hiệu</span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Thêm xe đạp</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="/admin/products" title="Tất cả xe đạp">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Tất cả xe đạp</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="/admin/categories" title="Danh mục">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Danh mục</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="admin/attributes"> <title>Thuộc tính</title>
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Thuộc tính</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <a href="/admin/brands" title="Thương hiệu"> 
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>P</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main"> Thương hiệu </span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
             </li>
             <li>
                 <a href="/admin/sliders">

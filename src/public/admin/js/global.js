@@ -48,7 +48,6 @@ function notify(message, type) {
         }
     });
 };
-
 function getUserAvatarUpdate() {
 
     $('#input-change-avatar').bind('change', function () {
@@ -315,18 +314,20 @@ $(document).ready(function () {
             url: "/admin/product/add-product-image", // Set the url
             method: 'POST',
             paramName: "product-images",
-            maxFiles: 10,
+            maxFiles: 4,
             maxFilesize: 1024,
             uploadMultiple: true,
             thumbnailWidth: 80,
             thumbnailHeight: 80,
             parallelUploads: 20,
+            renameFilename: function (filename) {
+                return new Date().getTime() + '_' + filename;
+            },
             previewTemplate: previewTemplate,
             autoQueue: false, // Make sure the files aren't queued until manually added
             previewsContainer: "#previews", // Define the container to display the previews
             clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
         });
-
        
         // thực hiện thêm hình ảnh
         $('#dropzoneSubmit').on('click', function (e) {
@@ -336,6 +337,7 @@ $(document).ready(function () {
                 for (var index = 0; index < myDropzone.files.length; index++) {
                     imgPathArrr.push(myDropzone.files[index].upload.filename);
                 }
+                console.log(imgPathArrr);
                 var ImageJson = Object.assign({}, imgPathArrr);
                 // thiết lập dữ liệu cho input bên frontend để truyền lên server
                 $('#image_path').val(JSON.stringify(ImageJson));
