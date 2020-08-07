@@ -11,12 +11,15 @@ var { queryAction,
     getLastsId,
     queryActionNoParamsreturn} = require('./productservice');
 
+    var {queryActionBrandDelete} = require('./brandService');
+
 module.exports = {
     register_service,
     resetpassword_service,
     resetPassword,
 
 
+    // product service
     queryAction,
     queryActionNoParams,
     newProduct,
@@ -24,6 +27,12 @@ module.exports = {
     getLastId,
     newAttributeVal,
     getLastsId,
-    queryActionNoParamsreturn
+    queryActionNoParamsreturn,
+
+
+    // brand service
+    queryActionBrandDelete
+
+
     
 }

@@ -2,6 +2,7 @@ var pool = require('../../config/connectDb');
 var app = require('../../config/app');
 var service = require('../../../services');
 var multer = require('multer');
+var { uuid } = require('uuidv4');
 var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
@@ -10,7 +11,7 @@ var fs = require('fs');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, 'src/public/uploads/categories');
+        cb(null, app.directory_categories);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -50,18 +51,18 @@ let addCategory = (req, res, next) => {
         try {
             var arrayError = [],
                 successArr = [];
+                var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(300, 200)
-                    .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
-                        filename = `${req.file.filename}.webp`;
+                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
             }
             var filename = '';
             if (req.file) {
-                filename = `${req.file.filename}.webp`;
+                filename = `${req.file.filename}-${generatecode}.webp`;
             }
             var queryNewCategory = "INSERT INTO categories (category_name, category_slug, image) VALUES ?";
             var categoryValues = [
@@ -85,29 +86,14 @@ let addCategory = (req, res, next) => {
 }
 
 // lấy thông tin chỉnh sửa thương hiệu
-let getEditBrand = async (req, res, next) => {
+let getEditCategory = async (req, res, next) => {
     try {
         var brand_id = req.params.id;
-        var arrayError = [],
-            successArr = [];
-        if (req.file) {
-            // resize image before uploads.
-            sharp(`${req.file.destination}/${req.file.filename}`)
-                .resize(300, 200)
-                .toFile(`${req.file.destination}/${req.file.filename}.webp`, (err, info) => {
-                    filename = `${req.file.filename}.webp`;
-                    fs.unlinkSync(req.file.path);
-                });
-        }
-        var filename = '';
-        if (req.file) {
-            filename = `${req.file.filename}.webp`;
-        }
         var query = `SELECT * FROM brand WHERE brand.id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
         await pool.query(query, brand_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/products/brands/editbrand', {
+            res.render('admin/products/catogories/editcategory', {
                 brand: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
@@ -190,5 +176,6 @@ let postDeleteBrand = async (req, res, next) => {
 
 module.exports = {
     getAllCategories,
-    addCategory
+    addCategory,
+    getEditCategory
 };

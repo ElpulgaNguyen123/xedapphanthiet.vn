@@ -103,9 +103,9 @@
                                     <div class="form-group text-center">
                                         <div class="image-border">
                                             <% if(brand.image != '' && brand.image != null){ %>
-                                            <img class="sp_img_main" src="/admin/uploads/brands/<%= brand.image %>"
+                                            <img class="sp_img_main" src="/public/uploads/brands/<%= brand.image %>"
                                                 alt="<%= brand.name %>">
-                                            <input type="hidden" name="brand_old_image" value="<%= brand.image %>">
+                                                <input type="hidden" name="brand_old_image" value="<%= brand.image %>">
                                             <% } else{ %>
                                             <img class="sp_img_main" src="/admin/images/example.png"
                                                 alt="<%= brand.name %>">
