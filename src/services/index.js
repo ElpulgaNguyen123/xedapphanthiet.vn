@@ -10,7 +10,8 @@ var { queryAction,
     newAttributeVal,
     getLastsId,
     queryActionNoParamsreturn,
-    getProductAttributes} = require('./productservice');
+    getProductAttributes,
+    getImageProduct} = require('./productservice');
 
     var {queryActionBrandDelete} = require('./brandService');
     var {queryActionCategoryDelete} = require('./categoryService');
@@ -31,6 +32,7 @@ module.exports = {
     getLastsId,
     queryActionNoParamsreturn,
     getProductAttributes,
+    getImageProduct,
 
 
     // brand service

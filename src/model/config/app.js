@@ -7,5 +7,4 @@ var app = {
     avatar_type :['image/png','image/jpg', 'image/jpeg','image/webp'],
     avatar_limit_size : 1048576,
 }
-
 module.exports = app

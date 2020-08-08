@@ -140,7 +140,22 @@ let getProductAttributes = (query) => {
         }
     })
 }
-
+// lấy tên của hình ảnh được chọn để cập nhật hoặc thay đổi
+let getImageProduct = (query) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            pool.query(query, function (error, rows, fields) {
+                if (error) throw error;
+                if (!rows) {
+                    reject('Có lỗi xảy ra');
+                }
+                return resolve(rows);
+            })
+        } catch (error) {
+            console.log('caught', error);
+        }
+    })
+}
 module.exports = {
     queryAction,
     queryActionNoParams,
@@ -150,5 +165,7 @@ module.exports = {
     getLastsId,
     newAttributeVal,
     queryActionNoParamsreturn,
-    getProductAttributes
+    getProductAttributes,
+
+    getImageProduct
 }

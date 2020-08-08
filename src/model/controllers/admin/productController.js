@@ -24,6 +24,8 @@ var storage = multer.diskStorage({
 });
 
 var productUploadFile = multer({ storage: storage }).any('product-images', 4);
+var productUpdateFile = multer({ storage: storage }).single('product-image', 1);
+
 // Lấy danh sách sản phẩm.
 let getAllProduct = async (req, res, next) => {
     try {
@@ -36,11 +38,6 @@ let getAllProduct = async (req, res, next) => {
             var end = page * perPage;
             var totalPage = Math.ceil(results.length / 10);
             var pageDistance = page + 3;
-            // if(pageDistance = totalPage){
-            //     pageDistance = totalPage;
-            // }
-            console.log('Tổng số trang !');
-            console.log(totalPage);
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
                 products: results.slice(start, end),
@@ -312,35 +309,36 @@ let editProductImage = (req, res, next) => {
         try {
             if (req.file) {
 
-                console.log('Thông tin hình ảnh cần chỉnh sửa');
-                console.log(req.params.id);
-                console.log(req.query.index);
-                var result = {
-                    id : req.params.id,
-                    index : req.query.index
-                }
-                // await sharp(req.file.path).resize(290, 385).toBuffer(function (err, buffer) {
-                //     fs.writeFile(req.file.path, buffer, function (e) {
-                //     });
-                // });
-                // // Cập nhật sư, cập nhật hình ảnh và đường dẫn.
-                // let oldproduct = await productsModel.findProductById(req.params.id);
-                // oldproduct.image[req.body.index] = req.file.filename;
-                // oldproduct.updateAt = Date.now();
-                // let userOldImage = oldproduct.image[req.body.index]; // Path to delete avatar update
-                // let userupdate = await service.updateProductImageService(req.params.id, oldproduct);
-                // await fsExtras.remove(`${app.directory_product}/${userOldImage}`);
-
-                // let result = {
-                //     message: Transuccess.product_updated,
-                //     imageSrc: req.file.filename
-                // }
-                return res.status(200).send(result);
-
             } else {
                 console.log('không có kết quả !');
             }
-            return res.status(500).send(error);
+            var product_id = req.params.id;
+            var query = `SELECT image from product WHERE id = ${product_id}`
+            var imageLink = await service.getImageProduct(query);
+            
+            var Obj = JSON.parse(imageLink[0].image);
+
+            var result = {
+                id : req.params.id,
+                index : req.query.index,
+                imageName : Obj[0]
+            }
+            // await sharp(req.file.path).resize(290, 385).toBuffer(function (err, buffer) {
+            //     fs.writeFile(req.file.path, buffer, function (e) {
+            //     });
+            // });
+            // // Cập nhật sư, cập nhật hình ảnh và đường dẫn.
+            // let oldproduct = await productsModel.findProductById(req.params.id);
+            // oldproduct.image[req.body.index] = req.file.filename;
+            // oldproduct.updateAt = Date.now();
+            // let userOldImage = oldproduct.image[req.body.index]; // Path to delete avatar update
+            // let userupdate = await service.updateProductImageService(req.params.id, oldproduct);
+            // await fsExtras.remove(`${app.directory_product}/${userOldImage}`);
+            // let result = {
+            //     message: Transuccess.product_updated,
+            //     imageSrc: req.file.filename
+            // }
+            return res.status(200).send(result);
 
         } catch (error) {
             console.log(error);

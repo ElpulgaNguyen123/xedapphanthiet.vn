@@ -109,76 +109,12 @@ function userAvatarUpdate(id) {
     })
 }
 
-// update user info change
-function userInfoUpdate(id) {
-    $.ajax({
-        url: '/admin/update-user/' + id,
-        type: 'POST',
-        data: userInfo,
-        success: function (result) {
-            // sao chép lại tất cả các cả thuộc tính update cho đối tượng gốc trên Frontend
-            // oringinUserInfo = Object.assign(oringinUserInfo, userInfo);
-            // $('#username-info').text(userInfo.userName);
-            // $('$user-image-profile').text(userInfo.userName);
-            notify(result, 'success');
-        },
-        error: function (error) {
-            console.log(error);
-            notify(error, 'danger');
-        }
-    });
-}
 
 // ============================================================================================
 
 // Products action
 let productItem = {};
 var productImage = null;
-
-function getProductImageUpdate() {
-
-    $('#product-change-avatar').bind('change', function () {
-        let fileData = $(this)[0].files[0];
-        let math = ["image/png", "image/jpg", "image/jpeg"];
-        let limit = 1048576;  // 1 mb 
-        // hàm inArray là dùng để chekc dữ liệu coi có trùng hay không.
-        if ($.inArray(fileData.type, math) === -1) {
-            notify('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'danger');
-            $(this).val(null);
-            return false;
-        }
-        if (fileData.size > limit) {
-            notify('Dung lượng ảnh quá lớn', 'danger');
-            $(this).val(null);
-            return false;
-        }
-        // kiểm tra xem trình duyệt có hỗ trợ file reader hay không
-        if (typeof (FileReader) != 'undefine') {
-            var fileReader = new FileReader();
-            // hình ảnh preview sau khi chọn file;
-            var image_preview = $('#product-avatar-preview');
-            var originImage = $('#product-avatar');
-
-            fileReader.onload = function (element) {
-                image_preview.attr('src', element.target.result);
-                image_preview.css('display', 'block');
-                originImage.css('display', 'none');
-            }
-
-            var formData = new FormData(); // Currently empty
-            formData.append('product-image', fileData);
-            var index_image = $('#product-avatar').attr('data-index');
-            formData.append('index', index_image);
-            productImage = formData;
-            console.log(productImage);
-            // sau khi xong hết mọi thứ thì đưa vào fileReader để đọc.
-            // Truyền `File` vào đối tượng `FileReader` và chỉ thị đọc ra dữ liệu dưới dạng `data URL`
-            // Sau khi load thành công sẽ thực hiện đoạn code trong `onload` function phía trên
-            fileReader.readAsDataURL(fileData);
-        }
-    });
-    let images_src = $('#image-avatar-info').attr('src');
-}
 
 // thực hiện update hình ảnh của sản phẩm
 function postProductImageUpdate(id, srcItem) {
@@ -218,9 +154,6 @@ function addProduct() {
 
 $(document).ready(function () {
     // PRODUCT ADD FORM SUBMIT;
-    // $('#dropzoneSubmit').on('click', function () {
-    //     $('#product_form').submit();
-    // })
     // user Action start
     // ==========================================
 
@@ -256,28 +189,14 @@ $(document).ready(function () {
     // product Action START
     // ==========================================
     addProduct();
-    getProductImageUpdate();
+    // getProductImageUpdate();
     // khai báo thứ tự hình ảnh để upload
     var id_image = '',
         img_item_afterload = null;
-    // thực hiện click và lấy đường dẫn URL lên cho hình ảnh modal
-    $('.edit-product-image').bind('click', function () {
-        var image_show = $('#product-avatar');
-        var index_image = $(this).parent().parent().prev().attr('data-index');
-        id_image = $(this).parent().parent().prev().attr('data-id');
-        var src_img = $(this).parent().parent().prev().attr('src');
-        img_item_afterload = $(this).parent().parent().prev();
-        image_show.attr('src', src_img);
-        image_show.attr('data-index', index_image);
-    });
 
     // thực hiện gửi data lên server và back lại cho client
     $('#save-button-product-image-modal').on('click', function () {
         postProductImageUpdate(id_image, img_item_afterload);
-    });
-    // thực hiện gán sự kiện lấy file cho hình ảnh thay đổi avatar
-    $("#click-change-icons").click(function () {
-        $("#product-change-avatar").trigger('click');
     });
 
     $('.show-image-add').on('click', function () {

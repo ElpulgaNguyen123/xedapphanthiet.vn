@@ -96,7 +96,7 @@
                                                         title="Thêm hình ảnh"> <i class="icofont icofont-plus"></i> Thêm
                                                         hình ảnh
                                                     </button>
-                                                    <div class="col-xs-12 col-sm-12">
+                                                    <!-- <div class="col-xs-12 col-sm-12">
                                                         <div class="dropzone-edit-more mt-4">
                                                             <div id="my-awesome-dropzone" class="dropzone">
                                                             </div>
@@ -144,7 +144,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -217,16 +217,33 @@
 
         function updateProductImage(url) {
             $.ajax({
-                url:url,
+                url: url,
                 type: 'GET',
                 cache: false,
                 contentType: false, // kiểu dữ liệu được đửa lên
                 processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
                 success: function (result) {
-                    // cập nhật ngay lập tức avatar trên giao diện
-                    // $('#image-avatar-info').attr('src', 'assets/images/auth/' + result.imageSrc);
-                    // $('#main-menu-header-profile').attr('src', 'assets/images/auth/' + result.imageSrc);
-                    alert(result.id);
+                    $('#image-view').attr('src', `/public/uploads/products/${result.imageName}`);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+        // thực hiện update hình ảnh của sản phẩm
+        function postProductImageUpdate(id, srcItem) {
+            var url = '/admin/product/edit_product_image/' + id;
+            $.ajax({
+                url: url,
+                type: 'put',
+                cache: false,
+                contentType: false, // kiểu dữ liệu được đửa lên
+                processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
+                data: productImage,
+                success: function (result) {
+                    var urlImage = '/assets/images/products/' + result.imageSrc;
+                    srcItem.attr('src', urlImage);
+                    $('#product-image-change').modal('hide');
                 },
                 error: function (error) {
                     console.log(error);
@@ -236,12 +253,11 @@
 
         $('.edit-product-image').bind('click', function () {
             var url = $(this).attr('data-url');
-            console.log(url);
             updateProductImage(url);
         });
 
         function getProductImageUpdate() {
-            $('#product-change-avatar').bind('change', function () {
+            $('#product_image').bind('change', function () {
                 let fileData = $(this)[0].files[0];
                 let math = ["image/png", "image/jpg", "image/jpeg"];
                 let limit = 1048576;  // 1 mb 
@@ -263,30 +279,24 @@
 
                     var fileReader = new FileReader();
                     // hình ảnh preview sau khi chọn file;
-                    var image_preview = $('#product-avatar-preview');
-                    var originImage = $('#product-avatar');
-
+                    var image_preview = $('#image-view');
                     fileReader.onload = function (element) {
                         image_preview.attr('src', element.target.result);
-                        image_preview.css('display', 'block');
-                        originImage.css('display', 'none');
                     }
-
                     var formData = new FormData(); // Currently empty
                     formData.append('product-image', fileData);
                     var index_image = $('#product-avatar').attr('data-index');
                     formData.append('index', index_image);
                     productImage = formData;
-                    console.log(productImage);
-                    // sau khi xong hết mọi thứ thì đưa vào fileReader để đọc.
-                    // Truyền `File` vào đối tượng `FileReader` và chỉ thị đọc ra dữ liệu dưới dạng `data URL`
-                    // Sau khi load thành công sẽ thực hiện đoạn code trong `onload` function phía trên
                     fileReader.readAsDataURL(fileData);
                 }
             });
-
-            let images_src = $('#image-avatar-info').attr('src');
         }
+        $('#trigger_button').on('click', function () {
+            $('#product_image').trigger('click', getProductImageUpdate());
+        })
+
     });
 </script>
+
 <%- include("../modal/image-edit-modal.ejs") %>
