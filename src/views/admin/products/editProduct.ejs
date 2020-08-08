@@ -215,6 +215,8 @@
 <script>
     $(document).ready(function () {
 
+        var imageData = null;
+
         function updateProductImage(url) {
             $.ajax({
                 url: url,
@@ -231,30 +233,35 @@
             })
         }
         // thực hiện update hình ảnh của sản phẩm
-        function postProductImageUpdate(id, srcItem) {
-            var url = '/admin/product/edit_product_image/' + id;
+        function postProductImageUpdate(url, data) {
             $.ajax({
                 url: url,
-                type: 'put',
+                type: 'POST',
                 cache: false,
                 contentType: false, // kiểu dữ liệu được đửa lên
                 processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
-                data: productImage,
+                data: data,
                 success: function (result) {
-                    var urlImage = '/assets/images/products/' + result.imageSrc;
-                    srcItem.attr('src', urlImage);
-                    $('#product-image-change').modal('hide');
+                    $('#image-edit-modal').modal('hide');
                 },
                 error: function (error) {
                     console.log(error);
                 }
             })
         }
-
+       
         $('.edit-product-image').bind('click', function () {
             var url = $(this).attr('data-url');
+            $('#save-button-product-image-modal').attr('href', url);
             updateProductImage(url);
         });
+
+        
+        $('#save-button-product-image-modal').on('click', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            postProductImageUpdate(url, imageData);
+        })
 
         function getProductImageUpdate() {
             $('#product_image').bind('change', function () {
@@ -268,7 +275,6 @@
                     $(this).val(null);
                     return false;
                 }
-
                 if (fileData.size > limit) {
                     console.log('Dung lượng ảnh quá lớn');
                     $(this).val(null);
@@ -285,9 +291,8 @@
                     }
                     var formData = new FormData(); // Currently empty
                     formData.append('product-image', fileData);
-                    var index_image = $('#product-avatar').attr('data-index');
-                    formData.append('index', index_image);
-                    productImage = formData;
+                    imageData = formData;
+
                     fileReader.readAsDataURL(fileData);
                 }
             });

@@ -114,29 +114,6 @@ function userAvatarUpdate(id) {
 
 // Products action
 let productItem = {};
-var productImage = null;
-
-// thực hiện update hình ảnh của sản phẩm
-function postProductImageUpdate(id, srcItem) {
-
-    var url = '/admin/product/edit_product_image/' + id;
-    $.ajax({
-        url: url,
-        type: 'put',
-        cache: false,
-        contentType: false, // kiểu dữ liệu được đửa lên
-        processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
-        data: productImage,
-        success: function (result) {
-            var urlImage = '/assets/images/products/' + result.imageSrc;
-            srcItem.attr('src', urlImage);
-            $('#product-image-change').modal('hide');
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
-}
 
 function addProduct() {
 
@@ -195,9 +172,7 @@ $(document).ready(function () {
         img_item_afterload = null;
 
     // thực hiện gửi data lên server và back lại cho client
-    $('#save-button-product-image-modal').on('click', function () {
-        postProductImageUpdate(id_image, img_item_afterload);
-    });
+
 
     $('.show-image-add').on('click', function () {
         $('.dropzone-edit-more').toggleClass('show');
