@@ -132,7 +132,6 @@ let getProductAttributes = (query) => {
                 if (!rows) {
                     reject('Có lỗi xảy ra');
                 }
-                console.log(rows);
                 return resolve(rows);
             })
         } catch (error) {

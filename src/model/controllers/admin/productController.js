@@ -272,11 +272,16 @@ let editProductGet = async (req, res, next) => {
         WHERE prd_attribute.product_id = ${product_id}`;
         var queryattributes = 'SELECT * FROM `attributes';
         var querycategories = 'SELECT * FROM `categories';
+        var querybrands = 'SELECT * FROM brand';
 
 
         var attributesValue = await service.getProductAttributes(queryattributes);
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
+        var brands = await service.queryActionNoParams(querybrands);
+        console.log(brands)
+
+        // lấy danh sách hình ảnh của sản phẩm.
         pool.query(query, function (error, rows, fields) {
             if (error) throw error;
             var images = '';
@@ -291,6 +296,7 @@ let editProductGet = async (req, res, next) => {
                 attributesValue: attributesValue,
                 attributes: attributes,
                 categories: categories,
+                brands : brands,
                 images: images,
                 images_count: count,
                 user: req.user
