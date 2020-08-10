@@ -425,17 +425,18 @@
 
 
     var ProductAttrArr = [];
+    var id_attribues = [];
 
     var type01 = function (id, name) {
         return `
-        <div class="form-group row">
+        <div class="form-group row" id=attr_${id} data-id="${id}">
         <label class="font-weight-bold col-sm-3" for="product_meta_description">
             ${name}
         </label>
         <input type="text" name="product_${id}" class="form-control col-sm-7"
             placeholder="${name}">
             <div class="col-sm-2">
-                <button class="btn btn-danger btn-outline-danger btn-minus float-right"><i
+                <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
                         class="icofont icofont-minus-circle"></i>
                 </button>
         </div>
@@ -553,7 +554,6 @@
 
                     } else {
                         // nếu loại danh sách là text thì cho vào loại text.
-                        var id_attribues = [];
                         var attributes = result.attributes;
                         $('.attribute_product').append(type01(attributes[0].id, attributes[0].attribute_name));
                         var formcontrolAttribute = $('#product_attributes_type01').val();
@@ -561,15 +561,15 @@
                         ProductAttrArr.push(`attr_${result.attribute_id}`);
                         // trường hợp input đã có dữ liệu
                         if (formcontrolAttribute.length > 0) {
-                            var objectform = JSON.parse(formcontrolAttribute);
-                            objectform.push(attributes[0].id);
-                            $('#product_attributes_type01').val(JSON.stringify(objectform));
+                            id_attribues = JSON.parse(formcontrolAttribute);
+                            id_attribues.push(attributes[0].id);
+                            $('#product_attributes_type01').val(JSON.stringify(id_attribues));
                         } else {
                             // trường hợp input chưa có dữ liệu
                             id_attribues.push(attributes[0].id);
                             $('#product_attributes_type01').val(JSON.stringify(id_attribues));
-                            console.log(JSON.stringify(id_attribues));
                         }
+                        console.log(id_attribues);
                     }
                 },
                 error: function (error) {
@@ -591,14 +591,22 @@
             getAttributeServer(valueSelect);
         });
         // end send attribute id ======================
+        
         // start remove attribute id ==================
-        $(document).on("click", ".minus-button", function() {
+        $(document).on("click", ".minus-button", function () {
             var parent = $(this).parent().parent();
             var parentId = parent.attr('id');
             var idParentSelect = parent.attr('data-id');
             $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
             $(`#${parentId}`).remove();
-            getValue();
+
+            // xóa id của attribute trước khi đưa lên server
+            var index = id_attribues.indexOf(parseInt(idParentSelect));
+            if (index != -1) {
+                id_attribues.splice(index, 1);
+                $('#product_attributes_type01').val(JSON.stringify(id_attribues));
+            }
+
         })
         // end remove attribute id ==================
     });
