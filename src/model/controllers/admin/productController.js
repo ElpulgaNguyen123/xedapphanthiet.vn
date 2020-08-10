@@ -265,21 +265,36 @@ let editProductGet = async (req, res, next) => {
     try {
         var product_id = req.params.id;
         var query = `SELECT * FROM product where id= ${product_id}`;
-        var queryattributes = `SELECT prd_attribute_value.name, 
-        attributes.attribute_name FROM prd_attribute_value 
+        var queryattributesValue = `SELECT prd_attribute_value.name, 
+        attributes.attribute_name, prd_attribute_value.id, attributes.id as attribute_id ,attributes.attribute_name, attributes.type as type 
+        FROM prd_attribute_value 
+        INNER JOIN prd_attribute 
+        ON prd_attribute.attribute_value_id = prd_attribute_value.id 
+        INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id
+        WHERE prd_attribute.product_id = ${product_id}`;
+
+
+        var queryProductAttributes = `SELECT DISTINCT attributes.id, 
+        attributes.attribute_name, type 
+        FROM prd_attribute_value 
         INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
         INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
         WHERE prd_attribute.product_id = ${product_id}`;
+
+
         var queryattributes = 'SELECT * FROM `attributes';
         var querycategories = 'SELECT * FROM `categories';
         var querybrands = 'SELECT * FROM brand';
 
 
-        var attributesValue = await service.getProductAttributes(queryattributes);
+        var attributesValue = await service.getProductAttributes(queryattributesValue);
+        var productAttributes = await service.getProductAttributes(queryProductAttributes);
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
         var brands = await service.queryActionNoParams(querybrands);
-        console.log(brands)
+        console.log('Danh sách thuộc tính sản phẩm');
+        console.log(attributesValue);
+        console.log(productAttributes);
 
         // lấy danh sách hình ảnh của sản phẩm.
         pool.query(query, function (error, rows, fields) {
@@ -294,13 +309,14 @@ let editProductGet = async (req, res, next) => {
                 title: 'Chỉnh Sửa Sản Phẩm',
                 product: rows[0],
                 attributesValue: attributesValue,
+                productAttributes : productAttributes,
                 attributes: attributes,
                 categories: categories,
                 brands : brands,
                 images: images,
                 images_count: count,
                 user: req.user
-            })
+            });
         })
     } catch (error) {
         console.log(error);
