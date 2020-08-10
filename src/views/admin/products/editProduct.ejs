@@ -262,13 +262,6 @@
                                                     </div>
                                                 </div>
                                                 <!-- col end  -->
-                                                <div class="col-xs-12 col-md-12">
-                                                    <button type="submit" class="btn btn-primary mt-4 mb-4"
-                                                        id="save-button-product-image"
-                                                        data-url='/admin/product/product-add-edit/<%= product._id %>'>
-                                                        <i class="icofont icofont-save"></i> Lưu
-                                                    </button>
-                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 mt-4">
@@ -353,8 +346,16 @@
                                                                         <%})%>
                                                                     </select>
                                                                 </div>
+                                                                <div class="col-sm-2">
+                                                                    <button type="button"
+                                                                        id="add_more_attribute"
+                                                                        class="btn hor-grd btn-grd-primary"><i
+                                                                            class="icofont icofont-plus-circle"></i>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                             <div class="attribute_product">
+                                                                <%if(productAttributes.length > 0){%>
                                                                 <% productAttributes.forEach(function(attribute_child, index){ %>
                                                                 <% if(attribute_child.type == 2){%>
                                                                 <div class="form-group row">
@@ -373,7 +374,7 @@
                                                                                 for="<%= attribute.id %>"><%= attribute.name %></label>
                                                                         </div>
                                                                         <%}%>
-                                                                        <%})%>
+                                                                    <%})%>
                                                                     </div>
                                                                 </div>
                                                                 <%}else if(attribute_child.type == 1){%>
@@ -387,6 +388,12 @@
                                                                 </div>
                                                                 <%}%>
                                                                 <%})%>
+                                                                <%}else{%>
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        <strong class="alert-link"> Không có thuộc tính ! </strong>.
+                                                                    </div>
+                                                                <%}%>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>

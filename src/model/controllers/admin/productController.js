@@ -80,7 +80,6 @@ let addProductGet = async (req, res, next) => {
 // thêm thuộc tính vào sản phẩm
 let addProductAttribute = async (req, res, next) => {
     try {
-
         var result = {
             message: 'Thành công rồi !',
             attributes: [],
@@ -104,6 +103,7 @@ let addProductAttribute = async (req, res, next) => {
                 result.attribute_id = results[0].attribute_id;
                 result.attribute_name = results[0].attribute_name;
                 result.type = attributeType[0].type;
+                
                 return res.status(200).send(result);
             });
         } else {

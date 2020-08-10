@@ -281,7 +281,8 @@
                                                                         placeholder="Số lượng">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="font-weight-bold" for="propduct_description">
+                                                                    <label class="font-weight-bold"
+                                                                        for="propduct_description">
                                                                         Mô tả
                                                                     </label>
                                                                     <textarea id="summernote" id="propduct_description"
@@ -420,22 +421,36 @@
     </div>
 </div>
 <script>
+
+
+
+    var ProductAttrArr = [];
+
     var type01 = function (id, name) {
         return `
         <div class="form-group row">
         <label class="font-weight-bold col-sm-3" for="product_meta_description">
-            ${name} </label>
+            ${name}
+        </label>
         <input type="text" name="product_${id}" class="form-control col-sm-7"
             placeholder="${name}">
+            <div class="col-sm-2">
+                <button class="btn btn-danger btn-outline-danger btn-minus float-right"><i
+                        class="icofont icofont-minus-circle"></i>
+                </button>
+        </div>
     </div>
     `
     }
-    var type02 = function (id) {
+    var type02 = function (id, name) {
         return `
-        <div class="form-group row">
-            <label class="col-sm-12 col-form-label mb-3"> Màu sắc </label>
+        <div class="form-group row" id=attr_${id} data-id="${id}">
+            <label class="col-sm-12 col-form-label attribute-label mb-3"> ${name} 
+                <div class="minus-button btn btn-danger btn-outline-danger float-right"><i
+                        class="icofont icofont-minus-circle"></i>
+                </div>
+            </label>
             <div class="attribute_list_${id} col-sm-12">
-               
             </div>
         </div>
     `
@@ -450,7 +465,6 @@
         </div>
     `
     }
-
     function getValue() {
         var checks = $('.checks');
         var str = '';
@@ -459,7 +473,11 @@
                 str += `${checks[i].value},`;
             }
         }
+
         $('#product_attributes_type02').val(str);
+        var value = $('#product_attributes_type02').val();
+        console.log('Dữ liệu cập nhật !');
+        console.log(value);
     }
 
     // A $( document ).ready() block.
@@ -524,22 +542,25 @@
                     // nếu loại sản phẩm là danh sách thì cho vào danh sách
                     if (result.type == 2) {
                         var attributes = result.attributes;
-                        $('.attribute_product').append(type02(result.attribute_id));
+                        $('.attribute_product').append(type02(result.attribute_id, result.attribute_name));
                         var list_attributes = $(`.attribute_list_${result.id}`);
                         for (var index = 0; index < attributes.length; index++) {
                             list_attributes.append(type02_attributes(attributes[index].id, attributes[index].name));
                         }
+                        // thêm id thuộc tính vào mảng html
+                        ProductAttrArr.push(`attr_${result.attribute_id}`);
                         getValue();
-                    } else {
 
+                    } else {
                         // nếu loại danh sách là text thì cho vào loại text.
                         var id_attribues = [];
                         var attributes = result.attributes;
                         $('.attribute_product').append(type01(attributes[0].id, attributes[0].attribute_name));
                         var formcontrolAttribute = $('#product_attributes_type01').val();
+                        // thêm id thuộc tính vào mảng html
+                        ProductAttrArr.push(`attr_${result.attribute_id}`);
                         // trường hợp input đã có dữ liệu
                         if (formcontrolAttribute.length > 0) {
-                            console.log('Lúc này đã có dữ liệu');
                             var objectform = JSON.parse(formcontrolAttribute);
                             objectform.push(attributes[0].id);
                             $('#product_attributes_type01').val(JSON.stringify(objectform));
@@ -557,7 +578,6 @@
             })
         }
         // end ajax ==================
-
         // start send attribute id ==================
         $('#add_more_attribute').on('click', function (e) {
             e.preventDefault();
@@ -570,8 +590,17 @@
             // đưa id thuộc tính lên cho server
             getAttributeServer(valueSelect);
         });
-        // end send attribute id ==================
-
+        // end send attribute id ======================
+        // start remove attribute id ==================
+        $(document).on("click", ".minus-button", function() {
+            var parent = $(this).parent().parent();
+            var parentId = parent.attr('id');
+            var idParentSelect = parent.attr('data-id');
+            $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
+            $(`#${parentId}`).remove();
+            getValue();
+        })
+        // end remove attribute id ==================
     });
     // end off document of ready ===========================
 
