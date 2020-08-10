@@ -103,7 +103,7 @@ let addProductAttribute = async (req, res, next) => {
                 result.attribute_id = results[0].attribute_id;
                 result.attribute_name = results[0].attribute_name;
                 result.type = attributeType[0].type;
-                
+
                 return res.status(200).send(result);
             });
         } else {
@@ -309,10 +309,10 @@ let editProductGet = async (req, res, next) => {
                 title: 'Chỉnh Sửa Sản Phẩm',
                 product: rows[0],
                 attributesValue: attributesValue,
-                productAttributes : productAttributes,
+                productAttributes: productAttributes,
                 attributes: attributes,
                 categories: categories,
-                brands : brands,
+                brands: brands,
                 images: images,
                 images_count: count,
                 user: req.user
@@ -325,19 +325,20 @@ let editProductGet = async (req, res, next) => {
         });
     }
 }
-
 //  lấy hình ảnh được sửa update để gửi xuống cho client
 let editProductImage = (req, res, next) => {
     productUpdateFile(req, res, async (error) => {
         try {
             var product_id = req.params.id;
+            var image_index = req.query.index;
             var query = `SELECT image from product WHERE id = ${product_id}`
             var imageLink = await service.getImageProduct(query);
+            console.log(imageLink);
             var Obj = JSON.parse(imageLink[0].image);
             var result = {
                 id: req.params.id,
                 index: req.query.index,
-                imageName: Obj[0]
+                imageName: Obj[image_index],
             }
             return res.status(200).send(result);
 
@@ -358,23 +359,21 @@ let updateProductImagePost = (req, res, next) => {
                 var index = req.query.index;
                 sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(850, 850)
-                    .toFile(`${req.file.destination}/${req.file.filename}-${Date.now()}`, (err, info) => {
+                    .toFile(`${req.file.destination}/${Date.now()}-${req.file.filename}`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
                 var filename = '';
                 if (req.file) {
-                    filename = `${req.file.filename}-${Date.now()}`;
+                    filename = `${Date.now()}-${req.file.filename}`;
                 }
                 var query = `SELECT image from product WHERE id = ${product_id}`
                 var imageLink = await service.getImageProduct(query);
                 // lấy da được object.
                 var Obj = JSON.parse(imageLink[0].image);
                 var old_image = Obj[index];
-                console.log(old_image);
                 Obj[index] = filename;
                 Obj = JSON.stringify(Obj);
                 await fsExtras.remove(`${app.directory_products}/${old_image}`);
-
                 var ProductValues = [
                     Obj,
                     product_id
@@ -383,7 +382,7 @@ let updateProductImagePost = (req, res, next) => {
                 UPDATE product
                 SET image = ? 
                 WHERE id = ?`
-                await pool.query(queryUpdateImage, ProductValues,function (error, results, fields) {
+                await pool.query(queryUpdateImage, ProductValues, function (error, results, fields) {
                     if (error) throw error;
                     let result = {
                         message: Transuccess.product_updated,
@@ -391,7 +390,7 @@ let updateProductImagePost = (req, res, next) => {
                     }
                     return res.status(200).send(result);
                 });
-               
+
             } else {
                 console.log('không có kết quả !');
             }
@@ -404,6 +403,43 @@ let updateProductImagePost = (req, res, next) => {
     })
 }
 
+// Xóa cụ thể hình ảnh sản phẩm
+let deleteProductImage = async (req, res, next) => {
+    let successArr = [];
+    try {
+        var product_id = req.params.id;
+        var index = req.query.index;
+        var query = `SELECT image from product WHERE id = ${product_id}`
+        var imageLink = await service.getImageProduct(query);
+
+        var Obj = JSON.parse(imageLink[0].image);
+        var old_image = Obj[index];
+        console.log(Obj);
+        delete Obj[`${index}`];
+        await fsExtras.remove(`${app.directory_products}/${old_image}`);
+        Obj = JSON.stringify(Obj);
+        var ProductValues = [
+            Obj,
+            product_id
+        ];
+        var queryUpdateImage = `
+        UPDATE product
+        SET image = ? 
+        WHERE id = ?`
+        await pool.query(queryUpdateImage, ProductValues, function (error, results, fields) {
+            if (error) throw error;
+            successArr.push(Transuccess.deleteSuccess('Xóa hình ảnh thành công !'));
+            req.flash('Success', successArr);
+            return res.redirect('/admin/product/edit-product/' + product_id);
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Lôi');
+    }
+}
+
+
 module.exports = {
     getAllProduct,
     addProductGet,
@@ -412,5 +448,6 @@ module.exports = {
     addProductImage,
     addProductAttribute,
     editProductImage,
-    updateProductImagePost
+    updateProductImagePost,
+    deleteProductImage
 };

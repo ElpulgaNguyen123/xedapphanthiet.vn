@@ -53,109 +53,66 @@
                                     </div>
                                 </div>
                                 <div class="card-block table-border-style mt-2">
+                                    <div class="col-sm-12 col-xl-12">
+                                        <div class="row">
+                                            <% if(images_count != 0){ %>
+                                                <% for (var i = 0; i < images_count; i++ ) { %>
+                                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                                    <div class="card">
+                                                        <img class="card-img-top"
+                                                            src="/public/uploads/products/<%= images[i] %>" alt="Card image cap"
+                                                            data-index='<%= i %>' data-id="<%= product._id %>">
+                                                        <div class="card-body">
+                                                            <p class="text-center"> <strong> Hình ảnh
+                                                                    <%= i + 1 %>
+                                                                </strong> </p>
+                                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                                <button type="button" class="btn btn-warning edit-product-image"
+                                                                    title="Sửa hình ảnh" data-toggle="modal"
+                                                                    data-url="/admin/product/edit-product-image/<%= product.id %>?index=<%= i %>"
+                                                                    data-target="#image-edit-modal">
+                                                                    <i class="icofont icofont-edit"></i>
+                                                                </button>
+                                                                <a href="/admin/product/delete-product-image/<%= product.id%>?index=<%= i %>"
+                                                                    type="button" class="btn btn-danger" title="Xóa hình ảnh">
+                                                                    <i class="icofont icofont-ui-delete"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+                                                <% }else{ %>
+                                                <p>Không có hình ảnh nào</p>
+                                                <% } %>
+                                        </div>
+                                        <button type="button" class="btn btn-info show-image-add mb-4"
+                                            data-toggle="modal" data-target="#product-image-edit" title="Thêm hình ảnh">
+                                            <i class="icofont icofont-plus"></i>
+                                            Thêm
+                                            hình ảnh
+                                        </button>
+                                    </div>
                                     <div class="col-md-12 col-xl-12">
                                         <form action="/admin/product/edit_product/<%= product._id %>"
                                             id="product-edit-form" method="POST" enctype="multipart/form-data">
                                             <div class="row">
-                                                <div class="col-xs-12 col-sm-5 col-md-12">
-                                                    <div class="row">
-                                                        <% if(images_count != 0){ %>
-                                                        <% for (var i = 0; i < images_count; i++ ) { %>
-                                                        <div class="col-xs-12 col-sm-4 col-md-3">
-                                                            <div class="card">
-                                                                <img class="card-img-top"
-                                                                    src="/public/uploads/products/<%= images[i] %>"
-                                                                    alt="Card image cap" data-index='<%= i %>'
-                                                                    data-id="<%= product._id %>">
-                                                                <div class="card-body">
-                                                                    <p class="text-center"> <strong> Hình ảnh
-                                                                            <%= i + 1 %>
-                                                                        </strong> </p>
-                                                                    <div class="btn-group" role="group"
-                                                                        aria-label="Basic example">
-                                                                        <button type="button"
-                                                                            class="btn btn-warning edit-product-image"
-                                                                            title="Sửa hình ảnh" data-toggle="modal"
-                                                                            data-url="/admin/product/edit-product-image/<%= product.id %>?index=<%= i %>"
-                                                                            data-target="#image-edit-modal">
-                                                                            <i class="icofont icofont-edit"></i>
-                                                                        </button>
-                                                                        <a href="/admin/product/delete-product-image?id=<%= product.id%>&index=<%= i %>"
-                                                                            type="button" class="btn btn-danger"
-                                                                            title="Xóa hình ảnh">
-                                                                            <i class="icofont icofont-ui-delete"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <% } %>
-                                                        <% }else{ %>
-                                                        <p>Không có hình ảnh nào</p>
-                                                        <% } %>
-                                                        <!-- Modal -->
-                                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                                            <button type="button"
-                                                                class="btn btn-info show-image-add mb-4"
-                                                                data-toggle="modal" data-target="#product-image-edit"
-                                                                title="Thêm hình ảnh"> <i
-                                                                    class="icofont icofont-plus"></i>
-                                                                Thêm
-                                                                hình ảnh
-                                                            </button>
-                                                            <!-- <div class="col-xs-12 col-sm-12">
-                                                                <div class="dropzone-edit-more mt-4">
-                                                                    <div id="my-awesome-dropzone" class="dropzone">
-                                                                    </div>
-                                                                    <div id="previews">
-                                                                        <div id="template" class="file-row">
-                                                                            <div>
-                                                                                <span class="preview"><img
-                                                                                        data-dz-thumbnail /></span>
-                                                                            </div>
-                                                                            <div>
-                                                                                <p class="name" data-dz-name></p>
-                                                                                <strong class="error text-danger"
-                                                                                    data-dz-errormessage>ERROR</strong>
-                                                                            </div>
-                                                                            <div>
-                                                                                <p class="size" data-dz-size></p>
-                                                                                <div class="progress progress-striped active"
-                                                                                    role="progressbar" aria-valuemin="0"
-                                                                                    aria-valuemax="100" aria-valuenow="0">
-                                                                                    <div class="progress-bar progress-bar-success"
-                                                                                        style="width:0%;"
-                                                                                        data-dz-uploadprogress>
-                                                                                        PROGRESS
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div>
-                                                                                <button
-                                                                                    class="btn btn-primary start fileinput-button">
-                                                                                    <i class="glyphicon glyphicon-upload"></i>
-                                                                                    <span>Start</span>
-                                                                                </button>
-                                                                                <button data-dz-remove
-                                                                                    class="btn btn-warning cancel">
-                                                                                    <i
-                                                                                        class="glyphicon glyphicon-ban-circle"></i>
-                                                                                    <span>Cancel</span>
-                                                                                </button>
-                                                                                <button data-dz-remove
-                                                                                    class="btn btn-danger delete">
-                                                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                                                    <span>Delete</span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="image_path" id="image_path"
+                                                            class="form-control"
+                                                            placeholder="Đường dẫn sản phẩm">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="product_attributes_type02"
+                                                            id="product_attributes_type02" class="form-control"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="product_attributes_type01"
+                                                            id="product_attributes_type01" class="form-control"
+                                                            placeholder="">
+                                                    </div>
                                                     <div class="form-group">
                                                         <label class="font-weight-bold required-form" for="product_sku">
                                                             Sku
@@ -347,8 +304,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <button type="button"
-                                                                        id="add_more_attribute"
+                                                                    <button type="button" id="add_more_attribute"
                                                                         class="btn hor-grd btn-grd-primary"><i
                                                                             class="icofont icofont-plus-circle"></i>
                                                                     </button>
@@ -359,8 +315,14 @@
                                                                 <% productAttributes.forEach(function(attribute_child, index){ %>
                                                                 <% if(attribute_child.type == 2){%>
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-12 col-form-label mb-3">
-                                                                        <%= attribute_child.attribute_name%> </label>
+                                                                    <label
+                                                                        class="col-sm-12 attribute-label col-form-label mb-3">
+                                                                        <%= attribute_child.attribute_name%>
+                                                                        <div
+                                                                            class="minus-button btn btn-danger btn-outline-danger float-right">
+                                                                            <i class="icofont icofont-minus-circle"></i>
+                                                                        </div>
+                                                                    </label>
                                                                     <div class="attribute_list_${id} col-sm-12">
                                                                         <% attributesValue.forEach(function(attribute, index){ %>
                                                                         <% if(attribute.attribute_id == attribute_child.id){%>
@@ -374,26 +336,31 @@
                                                                                 for="<%= attribute.id %>"><%= attribute.name %></label>
                                                                         </div>
                                                                         <%}%>
-                                                                    <%})%>
+                                                                        <%})%>
                                                                     </div>
                                                                 </div>
-                                                                <%}else if(attribute_child.type == 1){%>
+                                                                <%}else{%>
+                                                                <% attributesValue.forEach(function(attribute, index){ %>
+                                                                <% if(attribute.type == 1){%>
                                                                 <div class="form-group row">
                                                                     <label class="font-weight-bold col-sm-3"
                                                                         for="product_meta_description">
-                                                                        ${name} </label>
-                                                                    <input type="text" name="product_${id}"
+                                                                        <%= attribute_child.attribute_name %> </label>
+                                                                    <input type="text" value="<%= attribute.name  %>"
+                                                                        name="product_<%= productAttributes.id %>"
                                                                         class="form-control col-sm-7"
-                                                                        placeholder="${name}">
+                                                                        placeholder="<%= productAttributes.name %>">
                                                                 </div>
                                                                 <%}%>
                                                                 <%})%>
-                                                                <%}else{%>
-                                                                    <div class="alert alert-danger" role="alert">
-                                                                        <strong class="alert-link"> Không có thuộc tính ! </strong>.
-                                                                    </div>
                                                                 <%}%>
-                                                                
+                                                                    <%})%>
+                                                                <%}else{%>
+                                                                <div class="alert alert-danger" role="alert">
+                                                                    <strong class="alert-link"> Không có thuộc tính !
+                                                                    </strong>.
+                                                                </div>
+                                                                <%}%>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -448,6 +415,7 @@
                 data: data,
                 success: function (result) {
                     $('#image-edit-modal').modal('hide');
+                    imageData = null;
                 },
                 error: function (error) {
                     console.log(error);
@@ -455,6 +423,7 @@
             })
         }
 
+        // lấy đường link truyển cho ajax
         $('.edit-product-image').bind('click', function () {
             var url = $(this).attr('data-url');
             $('#save-button-product-image-modal').attr('href', url);
@@ -471,7 +440,7 @@
         function getProductImageUpdate() {
             $('#product_image').bind('change', function () {
                 let fileData = $(this)[0].files[0];
-                let math = ["image/png", "image/jpg", "image/jpeg"];
+                let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
                 let limit = 1048576;  // 1 mb 
 
                 // hàm inArray là dùng để chekc dữ liệu coi có trùng hay không.
