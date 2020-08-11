@@ -102,21 +102,21 @@
                                     <tbody>
                                         <% products.forEach(function(product, index){ %>
                                         <tr>
-                                            <th scope="row"><%= index %></th>
+                                            <td scope="row"><%= index %></th>
                                             <% if(product.image.length != 0){ %>
                                             <th class="product-image">
                                                 <img class="sp_img-<%= product.id%>"
                                                     src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>"
                                                     alt="">
-                                            </th>
+                                            </td>
                                             <% } else{ %>
-                                            <th class="product-image">
+                                            <td class="product-image">
                                                 <img class="sp_img-<%= product.id%>"
                                                     src="/public/admin/images/example.png" alt="">
-                                            </th>
+                                            </td>
                                             <% } %>
                                             <td class="font-weight-bold">
-                                                <p> <%= product.name %> </p>
+                                                <p class="text-break"> <%= product.name %> </p>
                                             </td>
                                             <script>
                                                 function curencyFormart(number, id) {

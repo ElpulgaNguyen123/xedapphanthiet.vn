@@ -357,7 +357,7 @@ let updateProductImagePost = (req, res, next) => {
             if (req.file) {
                 var product_id = req.params.id;
                 var index = req.query.index;
-                sharp(`${req.file.destination}/${req.file.filename}`)
+                await sharp(`${req.file.destination}/${req.file.filename}`)
                     .resize(850, 850)
                     .toFile(`${req.file.destination}/${Date.now()}-${req.file.filename}`, (err, info) => {
                         fs.unlinkSync(req.file.path);
@@ -386,11 +386,11 @@ let updateProductImagePost = (req, res, next) => {
                     if (error) throw error;
                     let result = {
                         message: Transuccess.product_updated,
-                        imageSrc: req.file.filename
+                        imageSrc: filename,
+                        idImage : `image_${product_id}_${index}`
                     }
                     return res.status(200).send(result);
                 });
-
             } else {
                 console.log('không có kết quả !');
             }

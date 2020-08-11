@@ -51,7 +51,10 @@ img#image-avatar-preview {
 }
 
 .product-image img {
-    max-width: 200px;
+    max-width: 100px;
+}
+.product-image-preview img {
+    max-width: 300px;
 }
 .dropzone-edit-more {
     display: none;
@@ -143,7 +146,7 @@ a.btn.hor-grd {
 
 
 .modal {
-    top: 30% !important;
+    top: 10% !important;
     position: fixed;
     top: 0;
     right: 0;
@@ -405,6 +408,21 @@ label#product_category-error {
 .attribute-label {
     font-size: 14px;
     border: 1px solid #8080801c;
+}
+
+td p.text-break {
+    word-break: break-all;
+    line-height: unset;
+    margin-right: 0px;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+.table-bordered td{
+    border: 1px solid #e9ecef;
+    max-width: 300px;
 }
 @media (min-width: 576px) {
     .modal-dialog.small {
