@@ -39,7 +39,7 @@ adminRouter.get('/products/add-product', controller.checkloggedIn, controller.ch
 adminRouter.post('/product/add-product-image', controller.checkloggedIn, controller.addProductImage);
 adminRouter.post('/products/add-product', controller.checkloggedIn, controller.addProductPost);
 adminRouter.get('/product/edit-product/:id', controller.checkloggedIn, controller.editProductGet);
-adminRouter.post('/product/edit-product/:id', controller.checkloggedIn, controller.editProductGet);
+adminRouter.post('/product/edit-product/:id', controller.checkloggedIn, controller.editProductPost);
 adminRouter.post('/product/add-product-attribute/:id', controller.checkloggedIn, controller.addProductAttribute);
 adminRouter.get('/product/edit-product-image/:id', controller.checkloggedIn, controller.editProductImage);
 adminRouter.post('/product/edit-product-image/:id', controller.checkloggedIn, controller.updateProductImagePost);

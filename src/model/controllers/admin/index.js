@@ -9,7 +9,8 @@ var { getAllProduct,
     addProductAttribute,
     editProductImage,
     updateProductImagePost,
-    deleteProductImage } = require('./productController');
+    deleteProductImage,
+    editProductPost } = require('./productController');
 
 var {getAllAttribute, 
     postAddAttribute,
@@ -68,6 +69,7 @@ module.exports = {
     editProductImage,
     updateProductImagePost,
     deleteProductImage,
+    editProductPost,
 
 
     // attributes

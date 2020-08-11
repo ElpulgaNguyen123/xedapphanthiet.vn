@@ -53,6 +53,7 @@
                                     </div>
                                 </div>
                                 <div class="card-block table-border-style mt-2">
+                                    <!-- start product images -->
                                     <div class="col-sm-12 col-xl-12">
                                         <div class="row">
                                             <% if(images_count != 0){ %>
@@ -93,15 +94,92 @@
                                             </div>
                                             <% } %>
                                         </div>
-                                        <button type="button" class="btn btn-info show-image-add mb-4"
+                                        <!-- <button type="button" class="btn btn-info show-image-add mb-4"
                                             data-toggle="modal" data-target="#product-image-edit" title="Thêm hình ảnh">
                                             <i class="icofont icofont-plus"></i>
                                             Thêm
                                             hình ảnh
-                                        </button>
+                                        </button> -->
                                     </div>
+                                    <!-- end product images  -->
+                                    <!-- start add product images -->
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div id="actions" class="row mb-4">
+                                            <div class="col-lg-7">
+                                                <div class="control-button d-flex">
+                                                    <!-- The fileinput-button span is used to style the file input field as button -->
+                                                    <span class="btn mr-2 btn-success fileinput-button dz-clickable">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                        <span><i class="icofont icofont-plus-circle"></i>&nbsp;Thêm
+                                                            Ảnh...</span>
+                                                    </span>
+                                                    <button type="submit" class="btn btn-primary mr-2 start">
+                                                        <i class="glyphicon glyphicon-upload"></i>
+                                                        <span><i class="icofont icofont-upload"></i>&nbsp;Upload
+                                                            tất
+                                                            cả</span>
+                                                    </button>
+                                                    <button type="reset" class="btn btn-warning cancel" disabled>
+                                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                                        <span><i class="icofont icofont-ui-remove">&nbsp;</i>Hủy
+                                                            tất
+                                                            cả</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <!-- The global file processing state -->
+                                                <span class="fileupload-process">
+                                                    <div id="total-progress" class="progress progress-striped active"
+                                                        role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                                        aria-valuenow="0" style="opacity: 0;">
+                                                        <div class="progress-bar progress-bar-success"
+                                                            style="width: 100%;" data-dz-uploadprogress="">
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
+                                        <div class="table table-striped" class="files" id="previews">
+                                            <div class="template file-row d-flex">
+                                                <!-- This is used as the file preview template -->
+                                                <div class="flex-1">
+                                                    <span class="preview"><img data-dz-thumbnail /></span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="name" data-dz-name></p>
+                                                    <strong class="error text-danger" data-dz-errormessage></strong>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="size" data-dz-size></p>
+                                                    <div class="progress progress-striped active" role="progressbar"
+                                                        aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                        <div class="progress-bar progress-bar-success" style="width:0%;"
+                                                            data-dz-uploadprogress></div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-3">
+                                                    <button class="btn btn-primary start">
+                                                        <i class="glyphicon glyphicon-upload"></i>
+                                                        <span>Lưu</span>
+                                                    </button>
+                                                    <button data-dz-remove class="btn btn-warning cancel">
+                                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                                        <span>Hủy</span>
+                                                    </button>
+                                                    <button data-dz-remove class="btn btn-danger delete">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                        <span>Xóa</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <!-- end add product image -->
+                                      <!-- start add product info -->
                                     <div class="col-md-12 col-xl-12">
-                                        <form action="/admin/product/edit_product/<%= product._id %>"
+                                        <form action="/admin/product/edit-product/<%= product.id %>"
                                             id="product-edit-form" method="POST" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -136,15 +214,15 @@
                                                         <select class="form-control custom-select" name="product_brand"
                                                             id="product_brand">
                                                             <% brands.forEach(function(brand, index){ %>
-                                                            <% if(product.brand_id == brand.id ){%>
-                                                            <option value="<%= brand.id %>" selected>
-                                                                <%= brand.name %>
-                                                            </option>
-                                                            <%}else {%>
-                                                            <option value="<%= brand.id %>">
-                                                                <%= brand.name %>
-                                                            </option>
-                                                            <%}%>
+                                                                <% if(product.brand_id == brand.id ){%>
+                                                                <option value="<%= brand.id %>" selected>
+                                                                    <%= brand.name %>
+                                                                </option>
+                                                                <%}else {%>
+                                                                <option value="<%= brand.id %>">
+                                                                    <%= brand.name %>
+                                                                </option>
+                                                                <%}%>
                                                             <%})%>
                                                         </select>
                                                     </div>
@@ -198,7 +276,7 @@
                                                             Giá sản phẩm
                                                         </label>
                                                         <input type="text" name="product_price"
-                                                            value="<%= product.price %>" class="form-control"
+                                                            value="<%= product.price %>" id="product_price" class="form-control"
                                                             placeholder="giá sản phẩm">
                                                     </div>
                                                     <div class="form-group">
@@ -362,10 +440,9 @@
                                                                 <%}%>
                                                                     <%})%>
                                                                 <%}else{%>
-                                                                <div class="alert alert-danger" role="alert">
-                                                                    <strong class="alert-link"> Không có thuộc tính !
-                                                                    </strong>.
-                                                                </div>
+                                                                    <div class="alert alert-info" role="alert">
+                                                                        Chưa có thuộc tính nào !
+                                                                      </div>
                                                                 <%}%>
                                                             </div>
                                                         </div>
@@ -373,12 +450,13 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <button type="submit" id="dropzoneSubmit"
+                                        <button type="submit" id="dropzoneEditProductSubmit"
                                         class="btn hor-grd btn-grd-success mt-4 mb-4">
                                         <span><i class="icofont icofont-save"></i></span>
                                         Lưu lại
                                     </button>
                                     </div>
+                                     <!-- end add product info -->
                                 </div>
                             </div>
                         </div>
@@ -446,6 +524,8 @@
             }
             $('#product_attributes_type02').val(str);
             var value = $('#product_attributes_type02').val();
+            console.log('Danh sách dữ liệu của loại dữ liệu');
+            console.log(value);
         }
 
         // gửi thông tin hình ảnh lên cho server và đưa về model.
@@ -657,6 +737,7 @@
             var idParentSelect = parent.attr('data-id');
             $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
             $(`#${parentId}`).remove();
+            getValue();
 
             // xóa id của attribute trước khi đưa lên server
             var index = id_attribues.indexOf(parseInt(idParentSelect));

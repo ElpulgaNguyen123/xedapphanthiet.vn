@@ -97,13 +97,19 @@ let addProductAttribute = async (req, res, next) => {
         var queryAttributeType = `SELECT type FROM attributes WHERE attributes.id = ?`;
         var queryattribute = `SELECT * FROM attributes WHERE attributes.id = ?`;
         var attributeType = await service.queryAction(queryAttributeType, result.id);
+
+        console.log('Loại thuộc tính');
+        console.log(attributeType);
+        
+
         if (attributeType[0].type == 2) {
             await pool.query(queryattributeValue, result.id, function (error, results, fields) {
                 result.attributes = results;
                 result.attribute_id = results[0].attribute_id;
                 result.attribute_name = results[0].attribute_name;
                 result.type = attributeType[0].type;
-
+                console.log('Danh sách thuộc tính sản phẩm');
+                console.log(result);
                 return res.status(200).send(result);
             });
         } else {
@@ -215,8 +221,6 @@ let addProductPost = (req, res, next) => {
                     for (var index = 0; index < attributeType01.length; index++) {
                         valueProduct += `(${id[0].id}, ${lastvalueIds[index].id}),`;
                     }
-                    console.log('Danh sách thuộc tính sản phẩm và dữ liệu thuộc tính')
-                    console.log(valueProduct);
                     var strproductAdd = valueProduct.slice(0, -1);
                     var queryType01 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
                     ${strproductAdd}`;
@@ -292,9 +296,6 @@ let editProductGet = async (req, res, next) => {
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
         var brands = await service.queryActionNoParams(querybrands);
-        console.log('Danh sách thuộc tính sản phẩm');
-        console.log(attributesValue);
-        console.log(productAttributes);
 
         // lấy danh sách hình ảnh của sản phẩm.
         pool.query(query, function (error, rows, fields) {
@@ -325,6 +326,125 @@ let editProductGet = async (req, res, next) => {
         });
     }
 }
+// edit product post
+let editProductPost = (req, res, next) => {
+    let productItem = [];
+    let successArr = [];
+    productUploadFile(req, res, async (error) => {
+        try {
+            productItem[0] = req.body.product_sku;
+            productItem[1] = req.body.product_brand;
+            productItem[2] = req.body.product_category;
+            productItem[3] = req.body.product_name;
+            productItem[4] = req.body.product_slug;
+            productItem[5] = req.body.product_price;
+            productItem[6] = `${req.body.image_path}`;
+            productItem[7] = req.body.propduct_description;
+            productItem[8] = req.body.short_description;
+            productItem[9] = req.body.product_meta_title;
+            productItem[10] = req.body.product_meta_keyword;
+            productItem[11] = req.body.product_meta_description;
+            if (req.body.product_quantity <= 0) {
+                productItem[12] = 0;
+            }
+            productItem[12] = 1;
+            productItem[13] = req.body.product_quantity;
+
+            console.log('Danh sách thông tin sản phẩm');
+            console.log(productItem);
+
+            console.log('Danh sách thuộc tính sản phẩm');
+            console.log(req.body.product_attributes_type02);
+            console.log(req.body.product_attributes_type01);
+
+            var queryNewProduct = `
+            INSERT INTO 
+            product(
+                sku, 
+                brand_id,
+                category_id,
+                name,
+                slug, 
+                price, 
+                image, 
+                description, 
+                short_description,
+                meta_title,
+                meta_keywords,
+                meta_description,
+                stock,
+                quantity)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+
+            // // tạo mới sản phẩm
+            // await service.newProduct(queryNewProduct, productItem);
+            // // lấy được id sản phẩm vửa tạo.
+            // var id = await service.getlastProduct('SELECT MAX(ID) as id FROM product');
+            // // thêm vào chuỗi query;
+            // if (id[0].id) {
+            //     // lấy danh sách thuộc tính sản phẩm và id.
+            //     if (req.body.product_attributes_type02.length > 0) {
+            //         var gettype02Val = req.body.product_attributes_type02;
+            //         var attributes = gettype02Val.slice(0, -1);
+            //         var attributes_arr = attributes.split(",");
+            //         console.log(attributes_arr);
+            //         // thêm vào chuỗi query;
+            //         var valuestring = '';
+            //         for (var index = 0; index < attributes_arr.length; index++) {
+            //             valuestring += `(${id[0].id}, ${attributes_arr[index]}),`;
+            //         }
+            //         // xóa ký tự , cuối chuỗi.
+            //         var str = valuestring.slice(0, -1);
+            //         var queryType02 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
+            //         ${str}`;
+            //         await service.queryActionNoParamsreturn(queryType02);
+            //     }
+            //     if (req.body.product_attributes_type01.length > 0) {
+            //         var attributeType01 = JSON.parse(req.body.product_attributes_type01);
+
+            //         // lấy id cuối cùng dữ liệu thuộc tính vừa được khởi tạo.
+            //         var queryLastId = 'SELECT MAX(ID) as id FROM prd_attribute_value';
+            //         var lastId = await service.getLastId(queryLastId);
+            //         var lastIdRow = lastId[0].id;
+
+            //         // lấy danh sách dữ liệu thuộc tính mới cập nhật vào bảng product_attribute_value;
+            //         var valueStringValue = ''
+            //         for (var index = 0; index < attributeType01.length; index++) {
+            //             var newsattr = eval(`req.body.product_${attributeType01[index]}`);
+            //             valueStringValue += `(${attributeType01[index]}, '${newsattr}'),`;
+            //         }
+            //         // thêm dữ liệu thuộc tính mới vào bảng dữ liệu thuộc tính.
+            //         var str = valueStringValue.slice(0, -1);
+            //         var queryAddAtrrVal = `INSERT INTO prd_attribute_value(attribute_id, name) VALUES 
+            //         ${str}`;
+
+            //         await service.newAttributeVal(queryAddAtrrVal);
+            //         // lấy danh sách các id của dữ liệu thuộc tính vừa thêm vào
+            //         var lastsIdInsert = `SELECT id from prd_attribute_value where id > ${lastIdRow}`
+            //         var lastvalueIds = await service.getLastsId(lastsIdInsert);
+
+            //         // thêm dữ liệu vào cho sản Phẩm
+            //         var valueProduct = '';
+            //         for (var index = 0; index < attributeType01.length; index++) {
+            //             valueProduct += `(${id[0].id}, ${lastvalueIds[index].id}),`;
+            //         }
+            //         var strproductAdd = valueProduct.slice(0, -1);
+            //         var queryType01 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
+            //         ${strproductAdd}`;
+            //         await service.queryActionNoParamsreturn(queryType01);
+            //     }
+            //     successArr.push(Transuccess.createSuccess('sản phẩm'));
+            //     req.flash('Success', successArr);
+            //     return res.redirect('/admin/products');
+            // }
+        } catch (error) {
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
+        }
+    })
+}
+
 //  lấy hình ảnh được sửa update để gửi xuống cho client
 let editProductImage = (req, res, next) => {
     productUpdateFile(req, res, async (error) => {
@@ -400,7 +520,7 @@ let updateProductImagePost = (req, res, next) => {
             return res.status(500).send(error);
         }
         // Everything went fine.
-    })
+    });
 }
 
 // Xóa cụ thể hình ảnh sản phẩm
@@ -425,7 +545,7 @@ let deleteProductImage = async (req, res, next) => {
         var queryUpdateImage = `
         UPDATE product
         SET image = ? 
-        WHERE id = ?`
+        WHERE id = ?`;
         await pool.query(queryUpdateImage, ProductValues, function (error, results, fields) {
             if (error) throw error;
             successArr.push(Transuccess.deleteSuccess('Xóa hình ảnh thành công !'));
@@ -449,5 +569,6 @@ module.exports = {
     addProductAttribute,
     editProductImage,
     updateProductImagePost,
-    deleteProductImage
+    deleteProductImage,
+    editProductPost
 };

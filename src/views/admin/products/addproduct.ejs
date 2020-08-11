@@ -526,7 +526,7 @@
 
         //end validate product form
 
-        // start ajax ==================
+        // start ajax, hàm gửi thông tin thuộc tính lên cho server.
         function getAttributeServer(id) {
             $.ajax({
                 url: '/admin/product/add-product-attribute/' + id,
@@ -575,6 +575,7 @@
         }
         // end ajax ==================
         // start send attribute id ==================
+        // lấy thông tin của id thuộc tính và gửi lên server.
         $('#add_more_attribute').on('click', function (e) {
             e.preventDefault();
             var options = $('#select_attribute option');
@@ -589,12 +590,15 @@
         // end send attribute id ======================
         
         // start remove attribute id ==================
+        // xóa id thuộc tính khi không muốn thêm nữa.
         $(document).on("click", ".minus-button", function () {
             var parent = $(this).parent().parent();
             var parentId = parent.attr('id');
             var idParentSelect = parent.attr('data-id');
             $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
             $(`#${parentId}`).remove();
+            // cập nhật lại danh sách dữ liệu loại 2(type 2);
+            getValue();
 
             // xóa id của attribute trước khi đưa lên server
             var index = id_attribues.indexOf(parseInt(idParentSelect));
@@ -602,11 +606,9 @@
                 id_attribues.splice(index, 1);
                 $('#product_attributes_type01').val(JSON.stringify(id_attribues));
             }
-
         })
         // end remove attribute id ==================
     });
     // end off document of ready ===========================
-
 </script>
 © 2020 GitHub, Inc.

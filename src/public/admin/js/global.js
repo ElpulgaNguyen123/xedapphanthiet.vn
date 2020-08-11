@@ -240,6 +240,25 @@ $(document).ready(function () {
             $('.start').click();
         });
 
+        // edit product submit.
+        $('#dropzoneEditProductSubmit').on('click', function (e) {
+            myDropzone.processQueue();
+            console.log('Đã click');
+            var imgPathArrr = [];
+            if (myDropzone.files != "") {
+                for (var index = 0; index < myDropzone.files.length; index++) {
+                    imgPathArrr.push(myDropzone.files[index].upload.filename);
+                }
+                console.log(imgPathArrr);
+                var ImageJson = Object.assign({}, imgPathArrr);
+                // thiết lập dữ liệu cho input bên frontend để truyền lên server
+                $('#image_path').val(JSON.stringify(ImageJson));
+            }else {
+                $("#product-edit-form").submit();
+                //$('.start').click();
+            }
+        });
+
         // thực hiện update hoặc thêm hình ảnh.
         $('#save-button-product-image').on('click', function (param) {
             urlOption = $(this).attr('data-url');
