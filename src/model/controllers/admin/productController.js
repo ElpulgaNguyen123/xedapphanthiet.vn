@@ -267,7 +267,9 @@ let editProductGet = async (req, res, next) => {
         var product_id = req.params.id;
         var query = `SELECT * FROM product where id= ${product_id}`;
         var queryattributesValue = `SELECT prd_attribute_value.name, 
-        attributes.attribute_name, prd_attribute_value.id, attributes.id as attribute_id ,attributes.attribute_name, attributes.type as type 
+        attributes.attribute_name, prd_attribute_value.id, attributes.id as attribute_id, 
+        attributes.attribute_name, 
+        attributes.type as type 
         FROM prd_attribute_value 
         INNER JOIN prd_attribute 
         ON prd_attribute.attribute_value_id = prd_attribute_value.id 
@@ -285,9 +287,11 @@ let editProductGet = async (req, res, next) => {
         var querycategories = 'SELECT * FROM `categories';
         var querybrands = 'SELECT * FROM brand';
 
-        var attributesValue = await service.getProductAttributes(queryattributesValue);
-
-        // lấy ra danh sách thuộc tính
+        // danh sách dữ liệu thuộc tính sản phẩm
+        var attributesValues = await service.getProductAttributes(queryattributesValue);
+        console.log('Danh sách dữ liệu thuộc tính');
+        console.log(attributesValues);
+        // lấy ra danh sách thuộc tính của sản phẩm
         var productAttributes = await service.getProductAttributes(queryProductAttributes);
         console.log('Danh sách thuộc tính');
         console.log(productAttributes);
@@ -308,13 +312,14 @@ let editProductGet = async (req, res, next) => {
         LEFT JOIN attributes 
         ON prd_attribute_value.attribute_id=attributes.id 
         WHERE attributes.id = ?`;
+
+        // danh sách thuộc tính loại 2 của sản phẩm
         var attributeValueArr = [];
         for(var i = 0; i  < idtype02.length; i++){
             var x = await service.queryAction(queryattributeValue, idtype02[i]);
-            console.log(x);
             attributeValueArr.push(x);
         }
-        console.log('mảng tổng hợp !');
+        console.log('Danh sách thuộc tính lại 02');
         console.log(attributeValueArr);
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
@@ -332,7 +337,7 @@ let editProductGet = async (req, res, next) => {
             var option =  {
                 title: 'Chỉnh Sửa Sản Phẩm',
                 product: rows[0],
-                attributesValue: attributesValue,
+                attributesValues: attributesValues,
                 productAttributes: productAttributes,
                 attributes: attributes,
                 categories: categories,

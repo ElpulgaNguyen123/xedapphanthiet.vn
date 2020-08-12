@@ -410,138 +410,68 @@
                                                                 }
                                                             </script>
                                                             <div class="attribute_product">
+                                                                <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
 
-
-                                                                <!-- danh sách id và thông tin của thuộc tính loại 2 -->
-                                                                <% productAttributes.forEach(function(attribute_child, index){ %>
-                                                                <% if(attribute_child.type == 2){%>
                                                                 <div class="form-group row">
                                                                     <label
-                                                                        class="col-sm-12 attribute-label col-form-label mb-3">
-                                                                        <strong><%= attribute_child.attribute_name%></strong>
+                                                                        class="col-sm-12 col-form-label attribute-label mb-3">
+                                                                        <%= attributeValueAr[0].attribute_name  %>
                                                                         <div
                                                                             class="minus-button btn btn-danger btn-outline-danger float-right">
                                                                             <i class="icofont icofont-minus-circle"></i>
                                                                         </div>
                                                                     </label>
-                                                                    <div class="attribute_list_${id} col-sm-12">
-                                                                        <% attributeValueArr.forEach(function(attributeValues, index){ %>
-                                                                            <% attributeValues.forEach(function(attributeValue, index){ %>
-                                                                            <% if (attributeValue.attribute_id == attribute_child.id){ %>
-                                                                                <div class="form-check">
-                                                                                    <input type="checkbox"
-                                                                                        class="checks form-check-input"
-                                                                                        onclick="getValue()"
-                                                                                        value=""
-                                                                                        id="">
-                                                                                    <label class="form-check-label"
-                                                                                        for="">hihi</label>
-                                                                                </div>
-                                                                            <%}%>
+                                                                  
+                                                                        <% attributeValueAr.forEach(function(attributeValueA, index){ %>
+                                                                            <div class="attribute_list_${id} col-sm-12">
+                                                                            <% attributesValues.forEach(function(attributesValue, index){ %>
+                                                                                <% if(attributesValue.type == 2){ %>
+                                                                                    <% if(attributesValue.attribute_id == attributeValueA.attribute_id){ %>
+                                                                                        <% if(attributesValue.name == attributeValueA.name){ %>
+                                                                                          <p> hihi </p>
+                                                                                        <% } %>
+                                                                                    <% } %>
+                                                                                <% } %>
                                                                             <% }) %>
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox"
+                                                                                    class="checks form-check-input"
+                                                                                    onclick="getValue()" value="${id}"
+                                                                                    id="${id}" checked>
+                                                                                <label class="form-check-label"
+                                                                                    for="${id}"><%= attributeValueA.name %></label>
+                                                                            </div>
+                                                                        </div>
                                                                         <% }) %>
-                                                                        <% attributesValue.forEach(function(attribute, index){ %>
-                                                                        <% if(attribute.attribute_id == attribute_child.id){%>
-                                                                        <div class="form-check">
-                                                                            <input type="checkbox"
-                                                                                class="checks form-check-input"
-                                                                                onclick="getValue()"
-                                                                                value="<%= attribute.id %>"
-                                                                                id="<%= attribute.id %>" checked>
-                                                                            <label class="form-check-label"
-                                                                                for="<%= attribute.id %>"><%= attribute.name %></label>
-                                                                        </div>
-                                                                        <%}%>
-                                                                        <%})%>
-                                                                    </div>
+                                                                    
                                                                 </div>
-                                                                <%}%>
                                                                 <% }) %>
+                                                                <!-- danh sách thuộc tính sản phẩm start -->
+                                                                <% attributesValues.forEach(function(attributesValue, index){ %>
+                                                                <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
+                                                                <% if(attributesValue.type == 2){ %>
 
+                                                                <!-- danh sách thuộc tính sản phẩm gốc / start -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                <%if(productAttributes.length > 0){%>
-                                                                <% productAttributes.forEach(function(attribute_child, index){ %>
-                                                                <% if(attribute_child.type == 2){%>
-                                                                <div class="form-group row">
-                                                                    <label
-                                                                        class="col-sm-12 attribute-label col-form-label mb-3">
-                                                                        <strong><%= attribute_child.attribute_name%></strong>
-
-                                                                        <div
-                                                                            class="minus-button btn btn-danger btn-outline-danger float-right">
-                                                                            <i class="icofont icofont-minus-circle"></i>
-                                                                        </div>
-                                                                    </label>
-                                                                    <div class="attribute_list_${id} col-sm-12">
-                                                                        <% attributesValue.forEach(function(attribute, index){ %>
-                                                                        <% if(attribute.attribute_id == attribute_child.id){%>
-                                                                        <div class="form-check">
-                                                                            <input type="checkbox"
-                                                                                class="checks form-check-input"
-                                                                                onclick="getValue()"
-                                                                                value="<%= attribute.id %>"
-                                                                                id="<%= attribute.id %>" checked>
-                                                                            <label class="form-check-label"
-                                                                                for="<%= attribute.id %>"><%= attribute.name %></label>
-                                                                        </div>
-                                                                        <%}%>
-                                                                        <%})%>
-                                                                    </div>
-                                                                </div>
-                                                                <%}else{%>
-                                                                <% attributesValue.forEach(function(attribute, index){ %>
-                                                                <% if(attribute.type == 1){%>
-                                                                <div class="form-group row">
-                                                                    <label class="font-weight-bold col-sm-3"
-                                                                        for="product_meta_description">
-                                                                        <%= attribute_child.attribute_name %> </label>
-                                                                    <input type="text" value="<%= attribute.name  %>"
-                                                                        name="product_<%= productAttributes.id %>"
-                                                                        class="form-control col-sm-7"
-                                                                        placeholder="<%= productAttributes.name %>">
-                                                                </div>
-                                                                <%}%>
-                                                                <%})%>
-                                                                <%}%>
-                                                                    <%})%>
-                                                                <%}else{%>
-                                                                <div class="alert alert-info" role="alert">
-                                                                    Chưa có thuộc tính nào !
-                                                                </div>
-                                                                <%}%>
-                                                            </div>
+                                                                <!-- danh sách thuộc tính sản phẩm gốc / end -->
+                                                                <!-- kết thức type = 2 -->
+                                                                <% }else if(attributesValue.type == 1){ %>
+                                                                <p> <%= attributesValue.attribute_name %> type 01 </p>
+                                                                <% } %>
+                                                                <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
+                                                                <% }) %> </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                         <button type="submit" id="dropzoneEditProductSubmit"
-                                        class="btn hor-grd btn-grd-success mt-4 mb-4">
-                                        <span><i class="icofont icofont-save"></i></span>
-                                        Lưu lại
-                                    </button>
+                                            class="btn hor-grd btn-grd-success mt-4 mb-4">
+                                            <span><i class="icofont icofont-save"></i></span>
+                                            Lưu lại
+                                        </button>
                                     </div>
-                                     <!-- end add product info -->
+                                    <!-- end add product info -->
                                 </div>
                             </div>
                         </div>
