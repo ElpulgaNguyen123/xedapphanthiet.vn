@@ -98,18 +98,12 @@ let addProductAttribute = async (req, res, next) => {
         var queryattribute = `SELECT * FROM attributes WHERE attributes.id = ?`;
         var attributeType = await service.queryAction(queryAttributeType, result.id);
 
-        console.log('Loại thuộc tính');
-        console.log(attributeType);
-        
-
         if (attributeType[0].type == 2) {
             await pool.query(queryattributeValue, result.id, function (error, results, fields) {
                 result.attributes = results;
                 result.attribute_id = results[0].attribute_id;
                 result.attribute_name = results[0].attribute_name;
                 result.type = attributeType[0].type;
-                console.log('Danh sách thuộc tính sản phẩm');
-                console.log(result);
                 return res.status(200).send(result);
             });
         } else {
@@ -376,67 +370,92 @@ let editProductPost = (req, res, next) => {
                 quantity)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
-            // // tạo mới sản phẩm
-            // await service.newProduct(queryNewProduct, productItem);
-            // // lấy được id sản phẩm vửa tạo.
-            // var id = await service.getlastProduct('SELECT MAX(ID) as id FROM product');
-            // // thêm vào chuỗi query;
-            // if (id[0].id) {
-            //     // lấy danh sách thuộc tính sản phẩm và id.
-            //     if (req.body.product_attributes_type02.length > 0) {
-            //         var gettype02Val = req.body.product_attributes_type02;
-            //         var attributes = gettype02Val.slice(0, -1);
-            //         var attributes_arr = attributes.split(",");
-            //         console.log(attributes_arr);
-            //         // thêm vào chuỗi query;
-            //         var valuestring = '';
-            //         for (var index = 0; index < attributes_arr.length; index++) {
-            //             valuestring += `(${id[0].id}, ${attributes_arr[index]}),`;
-            //         }
-            //         // xóa ký tự , cuối chuỗi.
-            //         var str = valuestring.slice(0, -1);
-            //         var queryType02 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
-            //         ${str}`;
-            //         await service.queryActionNoParamsreturn(queryType02);
-            //     }
-            //     if (req.body.product_attributes_type01.length > 0) {
-            //         var attributeType01 = JSON.parse(req.body.product_attributes_type01);
+            var product_id = req.params.id;
+            var queryattribute = `SELECT prd_attribute_value.name, 
+            attributes.attribute_name, 
+            attributes.type as attribute_type, 
+            prd_attribute.product_id 
+            FROM prd_attribute_value 
+            INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
+            INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
+            WHERE prd_attribute.product_id = ${product_id}`;
 
-            //         // lấy id cuối cùng dữ liệu thuộc tính vừa được khởi tạo.
-            //         var queryLastId = 'SELECT MAX(ID) as id FROM prd_attribute_value';
-            //         var lastId = await service.getLastId(queryLastId);
-            //         var lastIdRow = lastId[0].id;
+            var prd_attributes = await service.queryActionNoParams(queryattribute);
+            console.log('Danh sách thuộc tính sản phẩm đã tồn tại================');
+            console.log(prd_attributes);
+            
+            // thêm vào chuỗi query;
+            if (product_id) {
+                // lấy danh sách thuộc tính sản phẩm và id.
+                if (req.body.product_attributes_type02.length > 0) {
+                    // lấy danh sách thuộc tính loại 2 của sản phẩm
 
-            //         // lấy danh sách dữ liệu thuộc tính mới cập nhật vào bảng product_attribute_value;
-            //         var valueStringValue = ''
-            //         for (var index = 0; index < attributeType01.length; index++) {
-            //             var newsattr = eval(`req.body.product_${attributeType01[index]}`);
-            //             valueStringValue += `(${attributeType01[index]}, '${newsattr}'),`;
-            //         }
-            //         // thêm dữ liệu thuộc tính mới vào bảng dữ liệu thuộc tính.
-            //         var str = valueStringValue.slice(0, -1);
-            //         var queryAddAtrrVal = `INSERT INTO prd_attribute_value(attribute_id, name) VALUES 
-            //         ${str}`;
 
-            //         await service.newAttributeVal(queryAddAtrrVal);
-            //         // lấy danh sách các id của dữ liệu thuộc tính vừa thêm vào
-            //         var lastsIdInsert = `SELECT id from prd_attribute_value where id > ${lastIdRow}`
-            //         var lastvalueIds = await service.getLastsId(lastsIdInsert);
 
-            //         // thêm dữ liệu vào cho sản Phẩm
-            //         var valueProduct = '';
-            //         for (var index = 0; index < attributeType01.length; index++) {
-            //             valueProduct += `(${id[0].id}, ${lastvalueIds[index].id}),`;
-            //         }
-            //         var strproductAdd = valueProduct.slice(0, -1);
-            //         var queryType01 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
-            //         ${strproductAdd}`;
-            //         await service.queryActionNoParamsreturn(queryType01);
-            //     }
-            //     successArr.push(Transuccess.createSuccess('sản phẩm'));
-            //     req.flash('Success', successArr);
-            //     return res.redirect('/admin/products');
-            // }
+                    // lấy danh sách thuộc tính loại 2 client đưa lên.
+                    var gettype02Val = req.body.product_attributes_type02;
+                    var attributes = gettype02Val.slice(0, -1);
+                    // đưa danh sách id thành mảng.
+                    var attributes_arr = attributes.split(",");
+                    for (var i = 0; i < arr.length; i++) {
+                        var name = arr[i];
+                        if (name == value) {
+                            result = 'Exist';
+                            break;
+                        }
+                    }
+                    // thêm vào chuỗi query;
+                    var valuestring = '';
+                    for (var index = 0; index < attributes_arr.length; index++) {
+                        valuestring += `(${product_id}, ${attributes_arr[index]}),`;
+                    }
+                    // xóa ký tự , cuối chuỗi.
+                    var str = valuestring.slice(0, -1);
+                    var queryType02 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
+                    ${str}`;
+                    console.log('Danh sách id dữ liệu loại 1');
+                    console.log(req.body.product_attributes_type02);
+                    //await service.queryActionNoParamsreturn(queryType02);
+                }
+                if (req.body.product_attributes_type01.length > 0) {
+                    var attributeType01 = JSON.parse(req.body.product_attributes_type01);
+                    console.log('Danh sách id dữ liệu loại 1');
+                    console.log(req.body.product_attributes_type01);
+                    // lấy id cuối cùng dữ liệu thuộc tính vừa được khởi tạo.
+                    // var queryLastId = 'SELECT MAX(ID) as id FROM prd_attribute_value';
+                    // var lastId = await service.getLastId(queryLastId);
+                    // var lastIdRow = lastId[0].id;
+
+                    // lấy danh sách dữ liệu thuộc tính mới cập nhật vào bảng product_attribute_value;
+                    // var valueStringValue = ''
+                    // for (var index = 0; index < attributeType01.length; index++) {
+                    //     var newsattr = eval(`req.body.product_${attributeType01[index]}`);
+                    //     valueStringValue += `(${attributeType01[index]}, '${newsattr}'),`;
+                    // }
+                    // thêm dữ liệu thuộc tính mới vào bảng dữ liệu thuộc tính.
+                    // var str = valueStringValue.slice(0, -1);
+                    // var queryAddAtrrVal = `INSERT INTO prd_attribute_value(attribute_id, name) VALUES 
+                    // ${str}`;
+
+                    // await service.newAttributeVal(queryAddAtrrVal);
+                    // lấy danh sách các id của dữ liệu thuộc tính vừa thêm vào
+                    // var lastsIdInsert = `SELECT id from prd_attribute_value where id > ${lastIdRow}`
+                    // var lastvalueIds = await service.getLastsId(lastsIdInsert);
+
+                    // thêm dữ liệu vào cho sản Phẩm
+                    // var valueProduct = '';
+                    // for (var index = 0; index < attributeType01.length; index++) {
+                    //     valueProduct += `(${id[0].id}, ${lastvalueIds[index].id}),`;
+                    // }
+                    // var strproductAdd = valueProduct.slice(0, -1);
+                    // var queryType01 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
+                    // ${strproductAdd}`;
+                    // await service.queryActionNoParamsreturn(queryType01);
+                }
+                successArr.push(Transuccess.createSuccess('sản phẩm'));
+                req.flash('Success', successArr);
+                return res.redirect('/admin/products');
+            }
         } catch (error) {
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
@@ -507,7 +526,7 @@ let updateProductImagePost = (req, res, next) => {
                     let result = {
                         message: Transuccess.product_updated,
                         imageSrc: filename,
-                        idImage : `image_${product_id}_${index}`
+                        idImage: `image_${product_id}_${index}`
                     }
                     return res.status(200).send(result);
                 });
