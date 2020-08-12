@@ -89,11 +89,14 @@ let addProductAttribute = async (req, res, next) => {
             id: req.body.id
         }
         var queryattributeValue = `
-        SELECT prd_attribute_value.id, prd_attribute_value.name, attributes.id as attribute_id, attribute_name 
+        SELECT prd_attribute_value.id, 
+        prd_attribute_value.name, 
+        attributes.id as attribute_id, attribute_name 
         FROM prd_attribute_value 
         LEFT JOIN attributes 
         ON prd_attribute_value.attribute_id=attributes.id 
         WHERE attributes.id = ?`;
+
         var queryAttributeType = `SELECT type FROM attributes WHERE attributes.id = ?`;
         var queryattribute = `SELECT * FROM attributes WHERE attributes.id = ?`;
         var attributeType = await service.queryAction(queryAttributeType, result.id);
@@ -271,23 +274,48 @@ let editProductGet = async (req, res, next) => {
         INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id
         WHERE prd_attribute.product_id = ${product_id}`;
 
-
+        // lấy danh sách các thuộc tính cửa sản phẩm
         var queryProductAttributes = `SELECT DISTINCT attributes.id, 
         attributes.attribute_name, type 
         FROM prd_attribute_value 
         INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
         INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
         WHERE prd_attribute.product_id = ${product_id}`;
-
-
         var queryattributes = 'SELECT * FROM `attributes';
         var querycategories = 'SELECT * FROM `categories';
         var querybrands = 'SELECT * FROM brand';
 
-
         var attributesValue = await service.getProductAttributes(queryattributesValue);
-        console.log(attributesValue);
+
+        // lấy ra danh sách thuộc tính
         var productAttributes = await service.getProductAttributes(queryProductAttributes);
+        console.log('Danh sách thuộc tính');
+        console.log(productAttributes);
+        //var attributesValueType02 = await service.queryActionNoParams(queryattributeValueType02);
+        var idtype02 = [];
+        // tìm xem danh sách thuộc tính xem có loại danh sách ko 
+        // nếu có đưa vào mảng.
+        for (var i = 0; i < productAttributes.length; i++) {
+            if (productAttributes[i].type == 2) {
+                idtype02.push(productAttributes[i].id);
+            }
+        }
+        var queryattributeValue = `
+        SELECT prd_attribute_value.id, 
+        prd_attribute_value.name, 
+        attributes.id as attribute_id, attribute_name 
+        FROM prd_attribute_value 
+        LEFT JOIN attributes 
+        ON prd_attribute_value.attribute_id=attributes.id 
+        WHERE attributes.id = ?`;
+        var attributeValueArr = [];
+        for(var i = 0; i  < idtype02.length; i++){
+            var x = await service.queryAction(queryattributeValue, idtype02[i]);
+            console.log(x);
+            attributeValueArr.push(x);
+        }
+        console.log('mảng tổng hợp !');
+        console.log(attributeValueArr);
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
         var brands = await service.queryActionNoParams(querybrands);
@@ -301,7 +329,7 @@ let editProductGet = async (req, res, next) => {
                 images = JSON.parse(rows[0].image);
                 count = Object.keys(images).length;
             }
-            res.render('admin/products/editProduct', {
+            var option =  {
                 title: 'Chỉnh Sửa Sản Phẩm',
                 product: rows[0],
                 attributesValue: attributesValue,
@@ -309,10 +337,12 @@ let editProductGet = async (req, res, next) => {
                 attributes: attributes,
                 categories: categories,
                 brands: brands,
+                attributeValueArr:attributeValueArr,
                 images: images,
                 images_count: count,
                 user: req.user
-            });
+            }
+            res.render('admin/products/editProduct', option);
         })
     } catch (error) {
         console.log(error);
@@ -383,7 +413,7 @@ let editProductPost = (req, res, next) => {
             INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
             WHERE prd_attribute.product_id = ${product_id}`;
             // lấy ra danh sách thuộc tính hiên tại của sản phẩm
-            var prd_attributes = await service.queryActionNoParams(queryattribute);            
+            var prd_attributes = await service.queryActionNoParams(queryattribute);
             // thêm vào chuỗi query;
             if (product_id) {
                 // lấy danh sách thuộc tính sản phẩm và id.
@@ -410,7 +440,7 @@ let editProductPost = (req, res, next) => {
                         var value = prdAttrType02.indexOf(parseInt(attributes_arr[i]));
                         if (value == -1) {
                             newAttribute_arr.push(attributes_arr[i]);
-                        }else if(value != -1){
+                        } else if (value != -1) {
                             oldAttribute_arr.push(parseInt(attributes_arr[i]));
                         }
                     }
@@ -423,7 +453,7 @@ let editProductPost = (req, res, next) => {
                     }
                     // thêm vào chuỗi query;
                     // nếu có thuộc tính mới được thêm vào thì chèn vào sản phẩm.
-                    if(newAttribute_arr.length > 0){
+                    if (newAttribute_arr.length > 0) {
                         var valuestring = '';
                         for (var index = 0; index < newAttribute_arr.length; index++) {
                             valuestring += `(${product_id}, ${newAttribute_arr[index]}),`;
@@ -432,10 +462,10 @@ let editProductPost = (req, res, next) => {
                         var str = valuestring.slice(0, -1);
                         var queryType02 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
                         ${str}`;
-                        await service.queryActionNoParamsreturn(queryType02);                        
+                        await service.queryActionNoParamsreturn(queryType02);
                     }
                     // nếu có thuộc tính nào bị xóa đi thì đưa vào trường hợp này.
-                    if(deleteAttribute_arr.length > 0){
+                    if (deleteAttribute_arr.length > 0) {
                         var queryDelete = `DELETE FROM 
                         prd_attribute 
                         WHERE product_id = ${product_id}  

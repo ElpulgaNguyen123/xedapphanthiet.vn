@@ -410,13 +410,83 @@
                                                                 }
                                                             </script>
                                                             <div class="attribute_product">
+
+
+                                                                <!-- danh sách id và thông tin của thuộc tính loại 2 -->
+                                                                <% productAttributes.forEach(function(attribute_child, index){ %>
+                                                                <% if(attribute_child.type == 2){%>
+                                                                <div class="form-group row">
+                                                                    <label
+                                                                        class="col-sm-12 attribute-label col-form-label mb-3">
+                                                                        <strong><%= attribute_child.attribute_name%></strong>
+                                                                        <div
+                                                                            class="minus-button btn btn-danger btn-outline-danger float-right">
+                                                                            <i class="icofont icofont-minus-circle"></i>
+                                                                        </div>
+                                                                    </label>
+                                                                    <div class="attribute_list_${id} col-sm-12">
+                                                                        <% attributeValueArr.forEach(function(attributeValues, index){ %>
+                                                                            <% attributeValues.forEach(function(attributeValue, index){ %>
+                                                                            <% if (attributeValue.attribute_id == attribute_child.id){ %>
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox"
+                                                                                        class="checks form-check-input"
+                                                                                        onclick="getValue()"
+                                                                                        value=""
+                                                                                        id="">
+                                                                                    <label class="form-check-label"
+                                                                                        for="">hihi</label>
+                                                                                </div>
+                                                                            <%}%>
+                                                                            <% }) %>
+                                                                        <% }) %>
+                                                                        <% attributesValue.forEach(function(attribute, index){ %>
+                                                                        <% if(attribute.attribute_id == attribute_child.id){%>
+                                                                        <div class="form-check">
+                                                                            <input type="checkbox"
+                                                                                class="checks form-check-input"
+                                                                                onclick="getValue()"
+                                                                                value="<%= attribute.id %>"
+                                                                                id="<%= attribute.id %>" checked>
+                                                                            <label class="form-check-label"
+                                                                                for="<%= attribute.id %>"><%= attribute.name %></label>
+                                                                        </div>
+                                                                        <%}%>
+                                                                        <%})%>
+                                                                    </div>
+                                                                </div>
+                                                                <%}%>
+                                                                <% }) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                                 <%if(productAttributes.length > 0){%>
                                                                 <% productAttributes.forEach(function(attribute_child, index){ %>
                                                                 <% if(attribute_child.type == 2){%>
                                                                 <div class="form-group row">
                                                                     <label
                                                                         class="col-sm-12 attribute-label col-form-label mb-3">
-                                                                        <%= attribute_child.attribute_name%>
+                                                                        <strong><%= attribute_child.attribute_name%></strong>
+
                                                                         <div
                                                                             class="minus-button btn btn-danger btn-outline-danger float-right">
                                                                             <i class="icofont icofont-minus-circle"></i>
@@ -424,9 +494,6 @@
                                                                     </label>
                                                                     <div class="attribute_list_${id} col-sm-12">
                                                                         <% attributesValue.forEach(function(attribute, index){ %>
-                                                                        <% if(attribute.attribute_id == 2){%>
-                                                                        <p>Danh sách Attribute có id bằng 2 <%= attribute.name %></p>
-                                                                        <%}%>
                                                                         <% if(attribute.attribute_id == attribute_child.id){%>
                                                                         <div class="form-check">
                                                                             <input type="checkbox"
@@ -513,7 +580,7 @@
         var type02 = function (id, name) {
             return `
         <div class="form-group row" id=attr_${id} data-id="${id}">
-            <label class="col-sm-12 col-form-label attribute-label mb-3"> ${name} 
+            <label class="col-sm-12 col-form-label attribute-label mb-3"> <strong>${name} </strong> 
                 <div class="minus-button btn btn-danger btn-outline-danger float-right"><i
                         class="icofont icofont-minus-circle"></i>
                 </div>
