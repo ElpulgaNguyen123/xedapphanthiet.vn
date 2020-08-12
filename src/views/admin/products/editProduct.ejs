@@ -176,8 +176,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <!-- end add product image -->
-                                      <!-- start add product info -->
+                                    <!-- end add product image -->
+                                    <!-- start add product info -->
                                     <div class="col-md-12 col-xl-12">
                                         <form action="/admin/product/edit-product/<%= product.id %>"
                                             id="product-edit-form" method="POST" enctype="multipart/form-data">
@@ -214,15 +214,15 @@
                                                         <select class="form-control custom-select" name="product_brand"
                                                             id="product_brand">
                                                             <% brands.forEach(function(brand, index){ %>
-                                                                <% if(product.brand_id == brand.id ){%>
-                                                                <option value="<%= brand.id %>" selected>
-                                                                    <%= brand.name %>
-                                                                </option>
-                                                                <%}else {%>
-                                                                <option value="<%= brand.id %>">
-                                                                    <%= brand.name %>
-                                                                </option>
-                                                                <%}%>
+                                                            <% if(product.brand_id == brand.id ){%>
+                                                            <option value="<%= brand.id %>" selected>
+                                                                <%= brand.name %>
+                                                            </option>
+                                                            <%}else {%>
+                                                            <option value="<%= brand.id %>">
+                                                                <%= brand.name %>
+                                                            </option>
+                                                            <%}%>
                                                             <%})%>
                                                         </select>
                                                     </div>
@@ -276,8 +276,8 @@
                                                             Giá sản phẩm
                                                         </label>
                                                         <input type="text" name="product_price"
-                                                            value="<%= product.price %>" id="product_price" class="form-control"
-                                                            placeholder="giá sản phẩm">
+                                                            value="<%= product.price %>" id="product_price"
+                                                            class="form-control" placeholder="giá sản phẩm">
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="font-weight-bold" for="product_quantity"> Số
@@ -394,6 +394,21 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
+                                                            <script>
+                                                                function getValue() {
+                                                                    var checks = $('.checks');
+                                                                    var str = '';
+                                                                    for (i = 0; i < checks.length; i++) {
+                                                                        if (checks[i].checked === true) {
+                                                                            str += `${checks[i].value},`;
+                                                                        }
+                                                                    }
+                                                                    $('#product_attributes_type02').val(str);
+                                                                    var value = $('#product_attributes_type02').val();
+                                                                    console.log('Danh sách dữ liệu của loại dữ liệu');
+                                                                    console.log(value);
+                                                                }
+                                                            </script>
                                                             <div class="attribute_product">
                                                                 <%if(productAttributes.length > 0){%>
                                                                 <% productAttributes.forEach(function(attribute_child, index){ %>
@@ -409,6 +424,9 @@
                                                                     </label>
                                                                     <div class="attribute_list_${id} col-sm-12">
                                                                         <% attributesValue.forEach(function(attribute, index){ %>
+                                                                        <% if(attribute.attribute_id == 2){%>
+                                                                        <p>Danh sách Attribute có id bằng 2 <%= attribute.name %></p>
+                                                                        <%}%>
                                                                         <% if(attribute.attribute_id == attribute_child.id){%>
                                                                         <div class="form-check">
                                                                             <input type="checkbox"
@@ -440,9 +458,9 @@
                                                                 <%}%>
                                                                     <%})%>
                                                                 <%}else{%>
-                                                                    <div class="alert alert-info" role="alert">
-                                                                        Chưa có thuộc tính nào !
-                                                                      </div>
+                                                                <div class="alert alert-info" role="alert">
+                                                                    Chưa có thuộc tính nào !
+                                                                </div>
                                                                 <%}%>
                                                             </div>
                                                         </div>
@@ -514,20 +532,6 @@
                 for="${id}">${name}</label>
         </div>`
         }
-        function getValue() {
-            var checks = $('.checks');
-            var str = '';
-            for (i = 0; i < checks.length; i++) {
-                if (checks[i].checked === true) {
-                    str += `${checks[i].value},`;
-                }
-            }
-            $('#product_attributes_type02').val(str);
-            var value = $('#product_attributes_type02').val();
-            console.log('Danh sách dữ liệu của loại dữ liệu');
-            console.log(value);
-        }
-
         // gửi thông tin hình ảnh lên cho server và đưa về model.
         function updateProductImage(url) {
             $.ajax({
