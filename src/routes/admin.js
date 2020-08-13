@@ -77,6 +77,25 @@ adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, contr
 //brand end
 
 
+
+
+/*=============================================
+=            Website template / start        =
+=============================================*/
+
+// slider /start ==============================================
+adminRouter.get('/slider', controller.checkloggedIn, controller.getAllBrand);
+adminRouter.post('/slider/add-slider', controller.checkloggedIn, controller.addBrandImage);
+adminRouter.get('/slider/edit-slider/:id', controller.checkloggedIn, controller.getEditBrand);
+adminRouter.post('/slider/edit-slider/:id', controller.checkloggedIn, controller.postEditBrand);
+adminRouter.get('/slider/delete-slider/:id', controller.checkloggedIn, controller.postDeleteBrand);
+// slider / end ==============================================
+
+/*=====   Website template / end  ======*/
+
+
+
+
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {
     title: 'Trang Không tìm thấy'

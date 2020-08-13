@@ -381,7 +381,7 @@
                                                                             tính
                                                                         </option>
                                                                         <% attributes.forEach(function(attribute, index){ %>
-                                                                        <option value="<%= attribute.id %>">
+                                                                        <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
                                                                             <%= attribute.attribute_name %>
                                                                         </option>
                                                                         <%})%>
@@ -396,7 +396,6 @@
                                                             </div>
                                                             <script>
                                                                 function getValue() {
-
                                                                     var checks = $('.checks');
                                                                     var str = '';
                                                                     for (i = 0; i < checks.length; i++) {
@@ -412,23 +411,26 @@
                                                             </script>
                                                             <div class="attribute_product">
                                                                 <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
-                                                                <div class="form-group row">
+                                                                <div class="form-group row" id="attr_<%= attributeValueAr[0].attribute_id %>" data-id="<%= attributeValueAr[0].attribute_id %>">
                                                                     <label
                                                                         class="col-sm-12 col-form-label attribute-label mb-3">
-                                                                        <%= attributeValueAr[0].attribute_name  %>
+                                                                        <strong>
+                                                                            <%= attributeValueAr[0].attribute_name  %>
+                                                                        </strong>
+
                                                                         <div
                                                                             class="minus-button btn btn-danger btn-outline-danger float-right">
                                                                             <i class="icofont icofont-minus-circle"></i>
                                                                         </div>
                                                                     </label>
                                                                     <% attributeValueAr.forEach(function(attributeValueA, index){ %>
-                                                                    <div class="attribute_list_${id} col-sm-12">
+                                                                    <div class="attribute_list_<%= attributeValueA.id %> col-sm-12">
                                                                         <div class="form-check">
                                                                             <label class="form-check-label"
                                                                                 for="product_attr<%= attributeValueA.id %>"><%= attributeValueA.name %></label>
                                                                             <input type="checkbox"
                                                                                 class="checks form-check-input"
-                                                                                onclick="getValue()" value="${id}"
+                                                                                onclick="getValue()" value="<%= attributeValueA.id %>"
                                                                                 id="product_attr<%= attributeValueA.id %>">
                                                                         </div>
                                                                     </div>
@@ -439,9 +441,18 @@
                                                                 <% attributesValues.forEach(function(attributesValue, index){ %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
                                                                 <% if(attributesValue.type == 1){ %>
-                                                                <p> <%= attributesValue.attribute_name %> type 01 </p>
-
-
+                                                                    <div class="form-group row" id="attr_<%= attributesValue.id %>" data-id="${id}">
+                                                                        <label class="font-weight-bold col-sm-3" for="product_meta_description">
+                                                                           <strong> <%= attributesValue.attribute_name %> </strong>
+                                                                        </label>
+                                                                        <input type="text" value="<%= attributesValue.name %>" name="product_${id}" class="form-control col-sm-7"
+                                                                            placeholder="${name}">
+                                                                            <div class="col-sm-2">
+                                                                                <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
+                                                                                        class="icofont icofont-minus-circle"></i>
+                                                                                </button>
+                                                                        </div>
+                                                                    </div>
                                                                 <% } %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
                                                                 <% }) %> </div>
@@ -469,6 +480,8 @@
     </div>
 </div>
 <script>
+
+    // thiết lập các dữ liệu thuộc tính loại 2 cho checked
     function setCheckValue() {
         var idtype02 = '<%= producidtype02 %>';
         var idtype02arr = idtype02.split(",");
@@ -477,11 +490,30 @@
             $(`#product_attr${idtype02arr[i]}`).attr('checked', 'checked')
         }
     }
+    function setOptions() { 
+            var idAttribute = '<%= idtype02Arr %>';
+            var idAttributeArr = idAttribute.split(",");
+            var options = $('#select_attribute option');
+            for (i = 0; i < idAttributeArr.length; i++) {
+               $(`#op_${idAttributeArr[i]}`).attr('disabled', true);
+            }
+            // var valueSelect = $('#select_attribute').val();
+            // if (!valueSelect) {
+            //     return false;
+            // }
+            // $("#select_attribute option:selected").attr('disabled', true);
+            // // đưa id thuộc tính lên cho server
+            // getAttributeServer(valueSelect);
+     }
+     // lấy thông tin của id thuộc tính và gửi lên server.
+
     $(document).ready(function () {
         // ==================================================================
         // thiết lập checkbox checked cho id loại 2
         setCheckValue();
         // ==================================================================
+        // disabled các option mà thuộc tính đã có rồi.
+        setOptions();
 
         var imageData = null;
         var ProductAttrArr = [];

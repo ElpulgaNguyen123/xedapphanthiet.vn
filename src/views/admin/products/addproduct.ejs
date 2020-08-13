@@ -379,7 +379,7 @@
                                                                                         tính
                                                                                     </option>
                                                                                     <% attributes.forEach(function(attribute, index){ %>
-                                                                                    <option value="<%= attribute.id %>">
+                                                                                    <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
                                                                                         <%= attribute.attribute_name %>
                                                                                     </option>
                                                                                     <%})%>
@@ -474,7 +474,6 @@
                 str += `${checks[i].value},`;
             }
         }
-
         $('#product_attributes_type02').val(str);
         var value = $('#product_attributes_type02').val();
     }

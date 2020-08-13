@@ -288,8 +288,13 @@ let editProductGet = async (req, res, next) => {
         var querycategories = 'SELECT * FROM `categories';
         var querybrands = 'SELECT * FROM brand';
 
-        // lấy ra danh sách thuộc tính của sản phẩm
-        var productAttributes = await service.getProductAttributes(queryProductAttributes);        
+        // lấy ra danh sách thuộc tính và id thuộc tính có trong sản phẩm.
+        var productAttributes = await service.getProductAttributes(queryProductAttributes);
+        var idtype02Arr = [];
+        for(var i = 0; i  < productAttributes.length; i++){
+            idtype02Arr.push(productAttributes[i].id);
+        }
+         
          // danh sách dữ liệu thuộc tính sản phẩm
         var attributesValues = await service.getProductAttributes(queryattributesValue);
 
@@ -325,6 +330,7 @@ let editProductGet = async (req, res, next) => {
             attributeValueArr.push(x);
         }
 
+        
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
         var brands = await service.queryActionNoParams(querybrands);
@@ -343,6 +349,7 @@ let editProductGet = async (req, res, next) => {
                 attributesValues: attributesValues,
                 productAttributes: productAttributes,
                 attributes: attributes,
+                idtype02Arr:idtype02Arr,
                 categories: categories,
                 brands: brands,
                 producidtype02:producidtype02,
