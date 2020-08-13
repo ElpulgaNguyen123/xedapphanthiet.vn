@@ -30,7 +30,6 @@ let queryActionNoParams = (query) => {
         }
     })
 }
-
 let queryActionNoParamsreturn = (query) => {
     return new Promise(async (resolve, reject) => {
         try {

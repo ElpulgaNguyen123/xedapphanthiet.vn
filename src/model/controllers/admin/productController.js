@@ -266,6 +266,7 @@ let editProductGet = async (req, res, next) => {
     try {
         var product_id = req.params.id;
         var query = `SELECT * FROM product where id= ${product_id}`;
+        // query danh sách dữ liệu thuộc tính của sản phẩm.
         var queryattributesValue = `SELECT prd_attribute_value.name, 
         attributes.attribute_name, prd_attribute_value.id, attributes.id as attribute_id, 
         attributes.attribute_name, 
@@ -287,23 +288,19 @@ let editProductGet = async (req, res, next) => {
         var querycategories = 'SELECT * FROM `categories';
         var querybrands = 'SELECT * FROM brand';
 
-        // danh sách dữ liệu thuộc tính sản phẩm
-        var attributesValues = await service.getProductAttributes(queryattributesValue);
-        console.log('Danh sách dữ liệu thuộc tính');
-        console.log(attributesValues);
         // lấy ra danh sách thuộc tính của sản phẩm
-        var productAttributes = await service.getProductAttributes(queryProductAttributes);
-        console.log('Danh sách thuộc tính');
-        console.log(productAttributes);
-        //var attributesValueType02 = await service.queryActionNoParams(queryattributeValueType02);
-        var idtype02 = [];
-        // tìm xem danh sách thuộc tính xem có loại danh sách ko 
-        // nếu có đưa vào mảng.
-        for (var i = 0; i < productAttributes.length; i++) {
-            if (productAttributes[i].type == 2) {
-                idtype02.push(productAttributes[i].id);
+        var productAttributes = await service.getProductAttributes(queryProductAttributes);        
+         // danh sách dữ liệu thuộc tính sản phẩm
+        var attributesValues = await service.getProductAttributes(queryattributesValue);
+
+        // lấy ra id loại 2 của sản phẩm đưa xuống client dể hiển thị lên checkbox
+        var producidtype02 = [];
+        for (var i = 0; i < attributesValues.length; i++) {
+            if (attributesValues[i].type == 2) {
+                producidtype02.push(attributesValues[i].id);
             }
         }
+       
         var queryattributeValue = `
         SELECT prd_attribute_value.id, 
         prd_attribute_value.name, 
@@ -313,18 +310,24 @@ let editProductGet = async (req, res, next) => {
         ON prd_attribute_value.attribute_id=attributes.id 
         WHERE attributes.id = ?`;
 
+         // tìm xem danh sách thuộc tính xem có loại 2 ko 
+        // nếu có đưa vào mảng.
+        var idtype02 = [];
+        for (var i = 0; i < productAttributes.length; i++) {
+            if (productAttributes[i].type == 2) {
+                idtype02.push(productAttributes[i].id);
+            }
+        }
         // danh sách thuộc tính loại 2 của sản phẩm
         var attributeValueArr = [];
         for(var i = 0; i  < idtype02.length; i++){
             var x = await service.queryAction(queryattributeValue, idtype02[i]);
             attributeValueArr.push(x);
         }
-        console.log('Danh sách thuộc tính lại 02');
-        console.log(attributeValueArr);
+
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
         var brands = await service.queryActionNoParams(querybrands);
-
         // lấy danh sách hình ảnh của sản phẩm.
         pool.query(query, function (error, rows, fields) {
             if (error) throw error;
@@ -342,6 +345,7 @@ let editProductGet = async (req, res, next) => {
                 attributes: attributes,
                 categories: categories,
                 brands: brands,
+                producidtype02:producidtype02,
                 attributeValueArr:attributeValueArr,
                 images: images,
                 images_count: count,

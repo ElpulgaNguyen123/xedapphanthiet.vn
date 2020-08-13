@@ -396,6 +396,7 @@
                                                             </div>
                                                             <script>
                                                                 function getValue() {
+
                                                                     var checks = $('.checks');
                                                                     var str = '';
                                                                     for (i = 0; i < checks.length; i++) {
@@ -411,7 +412,6 @@
                                                             </script>
                                                             <div class="attribute_product">
                                                                 <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
-
                                                                 <div class="form-group row">
                                                                     <label
                                                                         class="col-sm-12 col-form-label attribute-label mb-3">
@@ -421,42 +421,27 @@
                                                                             <i class="icofont icofont-minus-circle"></i>
                                                                         </div>
                                                                     </label>
-                                                                  
-                                                                        <% attributeValueAr.forEach(function(attributeValueA, index){ %>
-                                                                            <div class="attribute_list_${id} col-sm-12">
-                                                                            <% attributesValues.forEach(function(attributesValue, index){ %>
-                                                                                <% if(attributesValue.type == 2){ %>
-                                                                                    <% if(attributesValue.attribute_id == attributeValueA.attribute_id){ %>
-                                                                                        <% if(attributesValue.name == attributeValueA.name){ %>
-                                                                                          <p> hihi </p>
-                                                                                        <% } %>
-                                                                                    <% } %>
-                                                                                <% } %>
-                                                                            <% }) %>
-                                                                            <div class="form-check">
-                                                                                <input type="checkbox"
-                                                                                    class="checks form-check-input"
-                                                                                    onclick="getValue()" value="${id}"
-                                                                                    id="${id}" checked>
-                                                                                <label class="form-check-label"
-                                                                                    for="${id}"><%= attributeValueA.name %></label>
-                                                                            </div>
+                                                                    <% attributeValueAr.forEach(function(attributeValueA, index){ %>
+                                                                    <div class="attribute_list_${id} col-sm-12">
+                                                                        <div class="form-check">
+                                                                            <label class="form-check-label"
+                                                                                for="product_attr<%= attributeValueA.id %>"><%= attributeValueA.name %></label>
+                                                                            <input type="checkbox"
+                                                                                class="checks form-check-input"
+                                                                                onclick="getValue()" value="${id}"
+                                                                                id="product_attr<%= attributeValueA.id %>">
                                                                         </div>
-                                                                        <% }) %>
-                                                                    
+                                                                    </div>
+                                                                    <% }) %>
                                                                 </div>
                                                                 <% }) %>
                                                                 <!-- danh sách thuộc tính sản phẩm start -->
                                                                 <% attributesValues.forEach(function(attributesValue, index){ %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
-                                                                <% if(attributesValue.type == 2){ %>
-
-                                                                <!-- danh sách thuộc tính sản phẩm gốc / start -->
-
-                                                                <!-- danh sách thuộc tính sản phẩm gốc / end -->
-                                                                <!-- kết thức type = 2 -->
-                                                                <% }else if(attributesValue.type == 1){ %>
+                                                                <% if(attributesValue.type == 1){ %>
                                                                 <p> <%= attributesValue.attribute_name %> type 01 </p>
+
+
                                                                 <% } %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
                                                                 <% }) %> </div>
@@ -484,10 +469,21 @@
     </div>
 </div>
 <script>
+    function setCheckValue() {
+        var idtype02 = '<%= producidtype02 %>';
+        var idtype02arr = idtype02.split(",");
+        // thiết lập các thuộc tính loại 2 của sản phẩm checked.
+        for (i = 0; i < idtype02arr.length; i++) {
+            $(`#product_attr${idtype02arr[i]}`).attr('checked', 'checked')
+        }
+    }
     $(document).ready(function () {
+        // ==================================================================
+        // thiết lập checkbox checked cho id loại 2
+        setCheckValue();
+        // ==================================================================
 
         var imageData = null;
-
         var ProductAttrArr = [];
         var id_attribues = [];
 
@@ -739,19 +735,14 @@
             $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
             $(`#${parentId}`).remove();
             getValue();
-
             // xóa id của attribute trước khi đưa lên server
             var index = id_attribues.indexOf(parseInt(idParentSelect));
             if (index != -1) {
                 id_attribues.splice(index, 1);
                 $('#product_attributes_type01').val(JSON.stringify(id_attribues));
             }
-
         })
         // end remove attribute id ==================
-
-
-
     });
 </script>
 
