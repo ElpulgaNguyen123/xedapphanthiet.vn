@@ -84,11 +84,11 @@ adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, contr
 =============================================*/
 
 // slider /start ==============================================
-adminRouter.get('/slider', controller.checkloggedIn, controller.getAllBrand);
-adminRouter.post('/slider/add-slider', controller.checkloggedIn, controller.addBrandImage);
-adminRouter.get('/slider/edit-slider/:id', controller.checkloggedIn, controller.getEditBrand);
-adminRouter.post('/slider/edit-slider/:id', controller.checkloggedIn, controller.postEditBrand);
-adminRouter.get('/slider/delete-slider/:id', controller.checkloggedIn, controller.postDeleteBrand);
+adminRouter.get('/slides', controller.checkloggedIn, controller.getAllSlide);
+adminRouter.post('/slide/add-slide', controller.checkloggedIn, controller.addSlide);
+adminRouter.get('/slide/edit-slide/:id', controller.checkloggedIn, controller.getEditBrand);
+adminRouter.post('/slide/edit-slide/:id', controller.checkloggedIn, controller.postEditBrand);
+adminRouter.get('/slide/delete-slide/:id', controller.checkloggedIn, controller.postDeleteBrand);
 // slider / end ==============================================
 
 /*=====   Website template / end  ======*/

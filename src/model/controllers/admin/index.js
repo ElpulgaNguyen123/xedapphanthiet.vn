@@ -54,6 +54,13 @@ var {
 } = require('./userController');
 
 
+// website
+var {
+    getAllSlide,
+    addSlide
+} = require('./website/sliderController');
+
+
 
 module.exports = {
 
@@ -116,5 +123,10 @@ module.exports = {
     // user
     getUser,
     updateUserData,
-    updateUserAvatar
+    updateUserAvatar,
+
+
+    // website
+    getAllSlide,
+    addSlide
 }
