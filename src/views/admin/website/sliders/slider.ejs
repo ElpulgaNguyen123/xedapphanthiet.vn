@@ -170,7 +170,7 @@
                                         <% if(slide.image != '' && slide.image != null){ %>
                                         <td class="product-image">
                                             <img class="sp_img-<%= slide.id%>"
-                                                src="/public/uploads/sliders/<%= slide.image %>"
+                                                src="/public/uploads/slides/<%= slide.image %>"
                                                 alt="<%= slide.name %>">
                                         </td>
                                         <% } else{ %>
@@ -226,14 +226,14 @@
     $(document).ready(function () {
         $("#slide_form").validate({
             rules: {
-                slide_link: {
+                slide_image: {
                     required: true,
                 },
                 slide_name: {
                     required: true,
                     minlength: 2,
                 },
-                brand_link: {
+                slide_link: {
                     required: true
                 },
             },

@@ -427,6 +427,16 @@ td p.text-break {
 .image-border img {
     max-width: 80%;
 }
+.col-form-label {
+   display: block;
+}
+.btn.btn-out-dotted {
+    outline: 1px dotted #fff;
+    outline-offset: -5px;
+    display: block;
+    margin: auto;
+}
+
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;
