@@ -57,7 +57,9 @@ var {
 // website
 var {
     getAllSlide,
-    addSlide
+    addSlide,
+    getEditSlide,
+    postEditSlide
 } = require('./website/sliderController');
 
 
@@ -128,5 +130,7 @@ module.exports = {
 
     // website
     getAllSlide,
-    addSlide
+    addSlide,
+    getEditSlide,
+    postEditSlide
 }

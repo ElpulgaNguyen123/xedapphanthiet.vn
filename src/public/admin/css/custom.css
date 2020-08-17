@@ -424,6 +424,9 @@ td p.text-break {
     border: 1px solid #e9ecef;
     max-width: 300px;
 }
+.image-border img {
+    max-width: 80%;
+}
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;

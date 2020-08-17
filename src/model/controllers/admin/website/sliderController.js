@@ -84,17 +84,17 @@ let addSlide = (req, res, next) => {
     })
 }
 // lấy thông tin chỉnh sửa thương hiệu
-let getEditBrand = async (req, res, next) => {
+let getEditSlide = async (req, res, next) => {
     try {
-        var brand_id = req.params.id;
+        var slide_id = req.params.id;
         var arrayError = [],
             successArr = [];
-        var query = `SELECT * FROM brand WHERE id = ?`;
+        var query = `SELECT * FROM slide WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, brand_id, function (error, rows, fields) {
+        await pool.query(query, slide_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/products/brands/editbrand', {
-                brand: rows[0],
+            res.render('admin/website/sliders/edit-slider', {
+                slide: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -129,7 +129,7 @@ let postEditSlide = (req, res, next) => {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
             else if (req.body.brand_old_image) {
-                filename = `${req.body.brand_old_image}`;
+                filename = `${req.body.slide_old_image}`;
             }
             var queryUpdate = `
             UPDATE slide
@@ -137,17 +137,17 @@ let postEditSlide = (req, res, next) => {
             link = ?, 
             image = ?
             WHERE id = ?`
-            var brandValues = [
-                req.body.brand_name,
-                req.body.brand_slug,
+            var slideValues = [
+                req.body.slide_name,
+                req.body.slide_link,
                 filename,
                 req.params.id
             ];
-            await pool.query(queryUpdate, brandValues, function (error, results, fields) {
+            await pool.query(queryUpdate, slideValues, function (error, results, fields) {
                 if (error) throw error;
-                successArr.push(Transuccess.saveSuccess('thuộc tính'));
+                successArr.push(Transuccess.saveSuccess('Slide'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/brands');
+                res.redirect('/admin/slides');
             });
         } catch (error) {
             console.log(error);
@@ -189,5 +189,7 @@ let postDeleteBrand = async (req, res, next) => {
 
 module.exports = {
     getAllSlide,
-    addSlide
+    addSlide,
+    getEditSlide,
+    postEditSlide
 };

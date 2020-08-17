@@ -3,7 +3,7 @@ var app = {
     directory_products : 'src/public/uploads/products',
     directory_brands : 'src/public/uploads/brands',
     directory_categories : 'src/public/uploads/categories',
-    directory_sliders : 'src/public/uploads/sliders',
+    directory_sliders : 'src/public/uploads/slides',
     avatar_type :['image/png','image/jpg', 'image/jpeg','image/webp'],
     avatar_limit_size : 1048576,
 }
