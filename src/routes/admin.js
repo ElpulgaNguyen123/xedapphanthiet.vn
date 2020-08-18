@@ -5,6 +5,7 @@ var controller = require('../model/controllers/admin');
 var passport = require('passport');
 var { initPassportLocal } = require('../model/controllers/admin/passportController');
 
+
 initPassportLocal();
 // authencation ===============
 adminRouter.get('/login', controller.checkloggedOut, controller.loginController);
@@ -67,7 +68,6 @@ adminRouter.post('/brand/edit-brand/:id', controller.checkloggedIn, controller.p
 adminRouter.get('/brand/delete-brand/:id', controller.checkloggedIn, controller.postDeleteBrand);
 //brand end
 
-
 //brand start
 adminRouter.get('/categories', controller.checkloggedIn, controller.getAllCategories);
 adminRouter.post('/category/add-category', controller.checkloggedIn, controller.addCategory);
@@ -75,10 +75,6 @@ adminRouter.get('/category/edit-category/:id', controller.checkloggedIn, control
 adminRouter.post('/category/edit-category/:id', controller.checkloggedIn, controller.postEditCategory);
 adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, controller.postDeleteCategory);
 //brand end
-
-
-
-
 /*=============================================
 =            Website template / start        =
 =============================================*/
@@ -89,9 +85,10 @@ adminRouter.get('/slide/edit-slide/:id', controller.checkloggedIn, controller.ge
 adminRouter.post('/slide/edit-slide/:id', controller.checkloggedIn, controller.postEditSlide);
 adminRouter.get('/slide/delete-slide/:id', controller.checkloggedIn, controller.postDeleteSlide);
 // slider / end ==============================================
+
+// Blog
+adminRouter.get('/blog', controller.checkloggedIn, controller.getAllBlog);
 /*=====   Website template / end  ======*/
-
-
 
 
 adminRouter.use((req, res, next) => {

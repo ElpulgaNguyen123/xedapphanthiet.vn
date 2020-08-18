@@ -63,6 +63,11 @@ var {
     postDeleteSlide
 ,} = require('./website/sliderController');
 
+// website
+var {
+    getAllBlog
+,} = require('./website/blogController');
+
 
 
 module.exports = {
@@ -134,5 +139,9 @@ module.exports = {
     addSlide,
     getEditSlide,
     postEditSlide,
-    postDeleteSlide
+    postDeleteSlide,
+
+
+    // Blog
+    getAllBlog
 }

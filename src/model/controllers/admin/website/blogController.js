@@ -23,13 +23,13 @@ var storage = multer.diskStorage({
     }
 });
 var productUploadFile = multer({ storage: storage }).single('slide_image');
-// get all products
-let getAllSlide = async (req, res, next) => {
+// get all Blog
+let getAllBlog = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM `slide', function (error, rows, fields) {
+        await pool.query('SELECT * FROM `blog', function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/sliders/slider', {
-                title: 'Slide',
+            res.render('admin/website/blog/blog', {
+                title: 'Blog',
                 slides: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -185,9 +185,5 @@ let postDeleteSlide = async (req, res, next) => {
     }
 }
 module.exports = {
-    getAllSlide,
-    addSlide,
-    getEditSlide,
-    postEditSlide,
-    postDeleteSlide
+    getAllBlog,
 };
