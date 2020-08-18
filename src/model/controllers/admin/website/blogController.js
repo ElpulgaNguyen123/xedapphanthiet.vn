@@ -11,7 +11,7 @@ var fsExtras = require('fs-extra');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, app.directory_slides);
+        cb(null, app.directory_blogs);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-var productUploadFile = multer({ storage: storage }).single('slide_image');
+var productUploadFile = multer({ storage: storage }).single('blog_image');
 // get all Blog
 let getAllBlog = async (req, res, next) => {
     try {
@@ -30,7 +30,7 @@ let getAllBlog = async (req, res, next) => {
             if (error) throw error;
             res.render('admin/website/blog/blog', {
                 title: 'Blog',
-                slides: rows,
+                blogs: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -42,10 +42,25 @@ let getAllBlog = async (req, res, next) => {
     }
 }
 
+// dẫn đến trang thêm blog
+let addBlogGet = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var user = req.user || {};
+        res.render('admin/website/blog/add-blog', {
+            title: 'Thêm bài viết',
+            errors: req.flash('Errors'),
+            success: req.flash('Success'),
+            user: user
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
 // thêm hình ảnh cho thương hiệu
-let addSlide = (req, res, next) => {
+let addBlogPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
-
         try {
             var arrayError = [],
                 successArr = [];
@@ -53,7 +68,7 @@ let addSlide = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
+                    .resize(950, 500)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -62,17 +77,27 @@ let addSlide = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            var queryNew = "INSERT INTO slide (name, link, image) VALUES ?";
-            var slideValues = [
-                [req.body.slide_name,
-                req.body.slide_link,
-                    filename]
+            let current_datetime = new Date()
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            var queryNew = `INSERT INTO blog (title,slug, 
+                content, 
+                short_description, image, 
+                author, create_at) VALUES ?`;
+            var blogValues = [
+                [req.body.blog_title,
+                req.body.blog_slug,
+                req.body.blog_content,
+                req.body.short_description,
+                    filename,
+                req.body.blog_author,
+                formatted_date]
             ];
-            pool.query(queryNew, [slideValues], function (error, results, fields) {
+           
+            pool.query(queryNew, [blogValues], function (error, results, fields) {
                 if (error) throw error;
-                successArr.push(Transuccess.createSuccess('Slide'));
+                successArr.push(Transuccess.createSuccess('Blog'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/slides');
+                res.redirect('/admin/blog');
             });
         } catch (error) {
             console.log(error);
@@ -83,17 +108,17 @@ let addSlide = (req, res, next) => {
     })
 }
 // lấy thông tin chỉnh sửa thương hiệu
-let getEditSlide = async (req, res, next) => {
+let getEditBlog = async (req, res, next) => {
     try {
-        var slide_id = req.params.id;
+        var blog_id = req.params.id;
         var arrayError = [],
             successArr = [];
-        var query = `SELECT * FROM slide WHERE id = ?`;
+        var query = `SELECT * FROM blog WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, slide_id, function (error, rows, fields) {
+        await pool.query(query, blog_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/sliders/edit-slider', {
-                slide: rows[0],
+            res.render('admin/website/blog/edit-blog', {
+                blog: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -186,4 +211,7 @@ let postDeleteSlide = async (req, res, next) => {
 }
 module.exports = {
     getAllBlog,
+    addBlogGet,
+    addBlogPost,
+    getEditBlog
 };

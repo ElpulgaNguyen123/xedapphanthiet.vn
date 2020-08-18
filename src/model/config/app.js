@@ -4,6 +4,7 @@ var app = {
     directory_brands : 'src/public/uploads/brands',
     directory_categories : 'src/public/uploads/categories',
     directory_slides : 'src/public/uploads/slides',
+    directory_blogs : 'src/public/uploads/blogs',
     avatar_type :['image/png','image/jpg', 'image/jpeg','image/webp'],
     avatar_limit_size : 1048576,
 }

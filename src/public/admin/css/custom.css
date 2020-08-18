@@ -436,6 +436,28 @@ td p.text-break {
     display: block;
     margin: auto;
 }
+/* Writer start*/
+.write_title {
+    font-size: 30px;
+    border: 0px;
+}
+.write_title:focus {
+    border: 0px;
+}
+.write_title.write_title_small {
+    font-size: 17px;
+}
+/* Writer end*/
+td.font-weight-bold {
+    word-break: break-all;
+    line-height: unset;
+    margin-right: 0px;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
 
 @media (min-width: 576px) {
     .modal-dialog.small {

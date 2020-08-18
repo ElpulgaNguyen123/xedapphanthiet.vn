@@ -33,263 +33,93 @@
                 <!-- Page-header end -->
                 <div class="page-body">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <% if(errors != ""){%>
-                            <% errors.forEach((item) => {%>
-                            <div class="alert alert-danger" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
-                            <% if(success != ""){%>
-                            <% success.forEach((item) => {%>
-                            <div class="alert alert-success" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
-                        </div>
-                        <div class="col-md-12 col-lg-4 col-xl-4">
-                            <div class="card project-task">
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="card">
                                 <div class="card-header">
-                                    <div class="card-header-left ">
-                                        <h5 class="mb-5"> <strong>Thêm <%= title %></strong> </h5>
-                        </div>
-                        <div class="card-header-right">
-                            <ul class="list-unstyled card-option">
-                                <li><i class="icofont icofont-simple-left "></i></li>
-                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                <li><i class="icofont icofont-error close-card"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-block p-b-10">
-                        <form action="/admin/slide/add-slide" id="slide_form" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group text-center">
-                                        <div class="image-border">
-                                            <label class="font-weight-bold col-form-label" for="slide_image">
-                                                Chọn hình ảnh cho slide
-                                            </label>
-                                            <div class="avatar-change">
-                                                <img id="image-avatar-preview" src="" alt="">
-                                            </div>
-                                            <button id="trigger_button"
-                                                class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
-                                                hình ảnh...</button>
-                                            <input type="file" id="slide_image" name="slide_image" required/>
-                                        </div>
+                                    <h5> <strong> Danh sách <%= title %></strong></h5>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="icofont icofont-simple-left "></i></li>
+                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                            <li><i class="icofont icofont-error close-card"></i></li>
+                                        </ul>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="slide_name">
-                                            Tên <%= title %>
-                                        </label>
-                                        <input type="text" name="slide_name" id="slide_name"
-                                            class="form-control"
-                                            placeholder="Tên <%= title %>" required>
-                                        
+                                </div>
+                                <div class="card-block table-border-style mt-2">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th> STT </th>
+                                                    <th> Hình ảnh </th>
+                                                    <th> Tên bài viết </th>
+                                                    <th> Mô tả ngắn </th>
+                                                    <th> hành động </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% blogs.forEach(function(blog, index){ %>
+                                                <tr>
+                                                    <th scope="row"><%= index %></th>
+                                                    <% if(blog.image != '' && blog.image != null){ %>
+                                                    <td class="product-image">
+                                                        <img class="sp_img-<%= blog.id%>"
+                                                            src="/public/uploads/blogs/<%= blog.image %>"
+                                                            alt="<%= blog.title %>">
+                                                    </td>
+                                                    <% } else{ %>
+                                                    <td class="product-image">
+                                                        <img class="sp_img-<%= blog.id%>"
+                                                            src="/admin/public/images/example.png"
+                                                            alt="<%= blog.title %>">
+                                                    </td>
+                                                    <% } %>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= blog.title %> </p>
+                                                    </td>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= blog.short_description %> </p>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <a href="/admin/blog/edit-blog/<%= blog.id %>"
+                                                                class="btn hor-grd btn-grd-warning" title="Sửa blog">
+                                                                <i class="icofont icofont-edit"></i>
+                                                            </a>
+                                                            <a href="/admin/slide/delete-blog/<%= blog.id %>"
+                                                                class="delete-blog-confirm btn hor-grd btn-grd-danger"
+                                                                data-url="/admin/blog/delete-blog/<%= blog.id %>"
+                                                                title="Xóa blog" data-target="#blog-delete-modal"
+                                                                data-toggle="modal">
+                                                                <i class="icofont icofont-ui-delete"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="slide_link">
-                                            Link
-                                        </label>
-                                        <input type="text" name="slide_link" id="slide_link" class="form-control"
-                                            placeholder="Nhập link cho slide" required>
-                                        <small class="form-text text-muted"> Link là đường dẫn đến bài viết, sản phẩm, hoặc danh sách mà slide mô tả </small>
-                                    </div>
-                                    <script>
-                                        function to_slug(str) {
-                                            // Chuyển hết sang chữ thường
-                                            str = str.toLowerCase();
-                                            // xóa dấu
-                                            str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
-                                            str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
-                                            str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
-                                            str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
-                                            str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
-                                            str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
-                                            str = str.replace(/(đ)/g, 'd');
-
-                                            // Xóa ký tự đặc biệt
-                                            str = str.replace(/([^0-9a-z-\s])/g, '');
-
-                                            // Xóa khoảng trắng thay bằng ký tự -
-                                            str = str.replace(/(\s+)/g, '-');
-
-                                            // xóa phần dự - ở đầu
-                                            str = str.replace(/^-+/g, '');
-
-                                            // xóa phần dư - ở cuối
-                                            str = str.replace(/-+$/g, '');
-                                            document.getElementById('brand_slug').value = str;
-                                            // return
-                                            return str;
-                                        }
-                                    </script>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-grd-success mt-3">Thêm vào</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-8 col-xl-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5> <strong> Danh sách <%= title %></strong></h5>
-                        <div class="card-header-right">
-                            <ul class="list-unstyled card-option">
-                                <li><i class="icofont icofont-simple-left "></i></li>
-                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                <li><i class="icofont icofont-error close-card"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-block table-border-style mt-2">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th> STT </th>
-                                        <th> Hình ảnh </th>
-                                        <th> Tên </th>
-                                        <th> Link </th>
-                                        <th> hành động </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% slides.forEach(function(slide, index){ %>
-                                    <tr>
-                                        <th scope="row"><%= index %></th>
-                                        <% if(slide.image != '' && slide.image != null){ %>
-                                        <td class="product-image">
-                                            <img class="sp_img-<%= slide.id%>"
-                                                src="/public/uploads/slides/<%= slide.image %>"
-                                                alt="<%= slide.name %>">
-                                        </td>
-                                        <% } else{ %>
-                                        <td class="product-image">
-                                            <img class="sp_img-<%= slide.id%>" src="/admin/public/images/example.png"
-                                                alt="<%= slide.name %>">
-                                        </td>
-                                        <% } %>
-                                        <td class="font-weight-bold">
-                                            <p> <%= slide.name %> </p>
-                                        </td>
-                                        <td class="font-weight-bold">
-                                            <p> <%= slide.link %> </p>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="/admin/slide/edit-slide/<%= slide.id %>"
-                                                    class="btn hor-grd btn-grd-warning" title="Sửa slide">
-                                                    <i class="icofont icofont-edit"></i>
-                                                </a>
-                                                <a href="/admin/slide/delete-slide/<%= slide.id %>"
-                                                    class="delete-slide-confirm btn hor-grd btn-grd-danger"
-                                                    data-url="/admin/slide/delete-slide/<%= slide.id %>"
-                                                    title="Xóa slide" data-target="#slide-delete-modal"
-                                                    data-toggle="modal">
-                                                    <i class="icofont icofont-ui-delete"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <% }); %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <div id="styleSelector">
             </div>
         </div>
     </div>
 </div>
-<div id="styleSelector">
-</div>
-</div>
-</div>
-</div>
 
 <script>
-    $('.delete-slide-confirm').on('click', function (e) {
+    $('.delete-blog-confirm').on('click', function (e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
-        $('#delete-slide-link').attr('href', url);
-    });
-    $(document).ready(function () {
-        $("#slide_form").validate({
-            rules: {
-                slide_image: {
-                    required: true,
-                },
-                slide_name: {
-                    required: true,
-                    minlength: 2,
-                },
-                slide_link: {
-                    required: true
-                },
-            },
-            messages: {
-                slide_image: {
-                    required: 'Bạn chưa chọn ảnh cho slide',
-                },
-                slide_name: {
-                    required: "Vui lòng nhập tên thương hiệu",
-                    minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
-                },
-                slide_link: {
-                    required: "Vui lòng nhập đường dẫn cho slide"
-                },
-            }
-        });
-
-        // click event to upload image ======================== start
-        $("#trigger_button").click(function (e) {
-            e.preventDefault()
-            $("#slide_image").trigger('click');
-        });
-        $('#slide_image').hide();
-        function getBrandAvatarUpdate() {
-            $('#slide_image').bind('change', function () {
-                let fileData = $(this)[0].files[0];
-                let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
-                let limit = 1048576;  // 1 mb 
-                // hàm inArray là dùng để check dữ liệu coi có trùng hay không.
-                if ($.inArray(fileData.type, math) === -1) {
-                    notify('Kiểu ảnh không hợp lệ, chỉ chấp nhận kiểu jpg hoặc png', 'danger');
-                    $(this).val(null);
-                    return false;
-                }
-                if (fileData.size > limit) {
-                    notify('Dung lượng ảnh quá lớn', 'danger');
-                    $(this).val(null);
-                    return false;
-                }
-                // kiểm tra xem trình duyệt có hỗ trợ file reader hay không
-                if (typeof (FileReader) != 'undefine') {
-                    var fileReader = new FileReader();
-                    // hình ảnh preview sau khi chọn file;
-                    var image_preview = $('#image-avatar-preview');
-                    fileReader.onload = function (element) {
-                        image_preview.attr('src', element.target.result);
-                        image_preview.css('display', 'block');
-                    }
-                    fileReader.readAsDataURL(fileData);
-                }
-            })
-        }
-        getBrandAvatarUpdate();
-        // click event to upload image ======================== end
-
+        $('#delete-blog-link').attr('href', url);
     });
 </script>
 
-<%- include("../../modal/slide-delete-modal.ejs") %>
+<%- include("../../modal/blog-delete-modal.ejs") %>

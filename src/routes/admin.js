@@ -88,8 +88,13 @@ adminRouter.get('/slide/delete-slide/:id', controller.checkloggedIn, controller.
 
 // Blog
 adminRouter.get('/blog', controller.checkloggedIn, controller.getAllBlog);
-/*=====   Website template / end  ======*/
+adminRouter.get('/blog/add-blog', controller.checkloggedIn, controller.addBlogGet);
+adminRouter.post('/blog/add-blog', controller.checkloggedIn, controller.addBlogPost);
+adminRouter.get('/blog/edit-blog/:id', controller.checkloggedIn, controller.getEditBlog);
 
+
+
+/*=====   Website template / end  ======*/
 
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {

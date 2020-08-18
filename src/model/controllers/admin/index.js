@@ -65,9 +65,11 @@ var {
 
 // website
 var {
-    getAllBlog
+    getAllBlog,
+    addBlogGet,
+    addBlogPost,
+    getEditBlog
 ,} = require('./website/blogController');
-
 
 
 module.exports = {
@@ -143,5 +145,8 @@ module.exports = {
 
 
     // Blog
-    getAllBlog
+    getAllBlog,
+    addBlogGet,
+    addBlogPost,
+    getEditBlog
 }
