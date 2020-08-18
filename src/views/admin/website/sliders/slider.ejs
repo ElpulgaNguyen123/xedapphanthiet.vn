@@ -192,9 +192,9 @@
                                                     <i class="icofont icofont-edit"></i>
                                                 </a>
                                                 <a href="/admin/slide/delete-slide/<%= slide.id %>"
-                                                    class="delete-brand-confirm btn hor-grd btn-grd-danger"
+                                                    class="delete-slide-confirm btn hor-grd btn-grd-danger"
                                                     data-url="/admin/slide/delete-slide/<%= slide.id %>"
-                                                    title="Xóa slide" data-target="#delete-brand-modal"
+                                                    title="Xóa slide" data-target="#slide-delete-modal"
                                                     data-toggle="modal">
                                                     <i class="icofont icofont-ui-delete"></i>
                                                 </a>
@@ -218,10 +218,10 @@
 </div>
 
 <script>
-    $('.delete-brand-confirm').on('click', function (e) {
+    $('.delete-slide-confirm').on('click', function (e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
-        $('#delete-brand-link').attr('href', url);
+        $('#delete-slide-link').attr('href', url);
     });
     $(document).ready(function () {
         $("#slide_form").validate({
@@ -292,4 +292,4 @@
     });
 </script>
 
-<%- include("../../modal/brand-delete-modal.ejs") %>
+<%- include("../../modal/slide-delete-modal.ejs") %>

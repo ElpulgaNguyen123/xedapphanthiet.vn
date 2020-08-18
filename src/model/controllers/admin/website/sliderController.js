@@ -124,11 +124,12 @@ let postEditSlide = (req, res, next) => {
                         }
                     });
             }
+
             var filename = '';
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            else if (req.body.brand_old_image) {
+            else if (req.body.slide_old_image) {
                 filename = `${req.body.slide_old_image}`;
             }
             var queryUpdate = `
@@ -156,40 +157,39 @@ let postEditSlide = (req, res, next) => {
 }
 
 // xóa dữ liệu của 1 brand
-let postDeleteBrand = async (req, res, next) => {
+let postDeleteSlide = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
 
-        var brand_id = req.params.id;
-        var query = `SELECT * FROM brand WHERE id = ?`;
+        var slide_id = req.params.id;
+        var query = `SELECT * FROM slide WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        var Image_delete = await service.queryActionBrandDelete(query, brand_id);
-
-        var querydeleteBrand = `
+        var Image_delete = await service.queryActionSlideDelete(query, slide_id);
+        var querydeleteSlide = `
         DELETE FROM 
-        brand 
-        WHERE id = ${brand_id}`
+        slide
+        WHERE id = ${slide_id}`;
 
-        pool.query(querydeleteBrand, async function (error, results, fields) {
+        pool.query(querydeleteSlide, async function (error, results, fields) {
             if (error) throw error;
             if (Image_delete != null || Image_delete != '') {
-                await fsExtras.remove(`${app.directory_brands}/${Image_delete}`);
+                await fsExtras.remove(`${app.directory_slides}/${Image_delete}`);
             }
-            successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
+            successArr.push(Transuccess.deleteSuccess('Slide'));
             req.flash('Success', successArr);
-            res.redirect('/admin/brands');
+            res.redirect('/admin/slides');
         });
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
     }
 }
-
 module.exports = {
     getAllSlide,
     addSlide,
     getEditSlide,
-    postEditSlide
+    postEditSlide,
+    postDeleteSlide
 };

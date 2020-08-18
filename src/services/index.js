@@ -14,6 +14,7 @@ var { queryAction,
     getImageProduct} = require('./productservice');
 
     var {queryActionBrandDelete} = require('./brandService');
+    var {queryActionSlideDelete} = require('./slideService');
     var {queryActionCategoryDelete} = require('./categoryService');
 
 module.exports = {
@@ -37,5 +38,6 @@ module.exports = {
 
     // brand service
     queryActionBrandDelete,
-    queryActionCategoryDelete
+    queryActionCategoryDelete,
+    queryActionSlideDelete
 }

@@ -87,7 +87,7 @@ adminRouter.get('/slides', controller.checkloggedIn, controller.getAllSlide);
 adminRouter.post('/slide/add-slide', controller.checkloggedIn, controller.addSlide);
 adminRouter.get('/slide/edit-slide/:id', controller.checkloggedIn, controller.getEditSlide);
 adminRouter.post('/slide/edit-slide/:id', controller.checkloggedIn, controller.postEditSlide);
-adminRouter.get('/slide/delete-slide/:id', controller.checkloggedIn, controller.postDeleteBrand);
+adminRouter.get('/slide/delete-slide/:id', controller.checkloggedIn, controller.postDeleteSlide);
 // slider / end ==============================================
 /*=====   Website template / end  ======*/
 

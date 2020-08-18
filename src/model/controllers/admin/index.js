@@ -59,8 +59,9 @@ var {
     getAllSlide,
     addSlide,
     getEditSlide,
-    postEditSlide
-} = require('./website/sliderController');
+    postEditSlide,
+    postDeleteSlide
+,} = require('./website/sliderController');
 
 
 
@@ -128,9 +129,10 @@ module.exports = {
     updateUserAvatar,
 
 
-    // website
+    // website / slide
     getAllSlide,
     addSlide,
     getEditSlide,
-    postEditSlide
+    postEditSlide,
+    postDeleteSlide
 }
