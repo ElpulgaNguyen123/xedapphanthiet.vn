@@ -318,11 +318,16 @@ let editProductGet = async (req, res, next) => {
          // tìm xem danh sách thuộc tính xem có loại 2 ko 
         // nếu có đưa vào mảng.
         var idtype02 = [];
+        var idtype01 = [];
         for (var i = 0; i < productAttributes.length; i++) {
             if (productAttributes[i].type == 2) {
                 idtype02.push(productAttributes[i].id);
+            }else if(productAttributes[i].type == 1){
+                idtype01.push(productAttributes[i].id);
             }
         }
+        console.log('Danh sách thuộc tính loai 1');
+        console.log(idtype01);
         // danh sách thuộc tính loại 2 của sản phẩm
         var attributeValueArr = [];
         for(var i = 0; i  < idtype02.length; i++){
@@ -350,6 +355,7 @@ let editProductGet = async (req, res, next) => {
                 productAttributes: productAttributes,
                 attributes: attributes,
                 idtype02Arr:idtype02Arr,
+                idtype01Arr : idtype01,
                 categories: categories,
                 brands: brands,
                 producidtype02:producidtype02,
@@ -391,8 +397,6 @@ let editProductPost = (req, res, next) => {
             productItem[12] = 1;
             productItem[13] = req.body.product_quantity;
 
-            console.log('Danh sách thông tin sản phẩm');
-            console.log(productItem);
 
             console.log('Danh sách thuộc tính sản phẩm loại 2');
             console.log(req.body.product_attributes_type02);
@@ -480,15 +484,20 @@ let editProductPost = (req, res, next) => {
                         ${str}`;
                         await service.queryActionNoParamsreturn(queryType02);
                     }
-                    // nếu có thuộc tính nào bị xóa đi thì đưa vào trường hợp này.
+                    // nếu có thuộc tính nào bị xóa đi thì đưa vào trường hợp này và xóa đi
                     if (deleteAttribute_arr.length > 0) {
+                        var valuestring = '';
+                        for (var index = 0; index < deleteAttribute_arr.length; index++) {
+                            valuestring += `${deleteAttribute_arr[index]},`;
+                        }
+                        var str = valuestring.slice(0, -1);
                         var queryDelete = `DELETE FROM 
                         prd_attribute 
                         WHERE product_id = ${product_id}  
-                        AND  = 0 `;
+                        AND attribute_value_id IN (${str})`;
+                        await service.queryActionNoParamsreturn(queryDelete);
                     }
-
-                    //await service.queryActionNoParamsreturn(queryType02);
+                   
                 }
                 if (req.body.product_attributes_type01.length > 0) {
                     var attributeType01 = JSON.parse(req.body.product_attributes_type01);

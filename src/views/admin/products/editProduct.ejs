@@ -194,7 +194,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="hidden" name="product_attributes_type01"
-                                                            id="product_attributes_type01" class="form-control"
+                                                            id="product_attributes_type01" value="<%= idtype01Arr %>" class="form-control"
                                                             placeholder="">
                                                     </div>
                                                     <div class="form-group">
@@ -440,11 +440,11 @@
                                                                 <% attributesValues.forEach(function(attributesValue, index){ %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
                                                                 <% if(attributesValue.type == 1){ %>
-                                                                    <div class="form-group row" id="attr_<%= attributesValue.id %>" data-id="${id}">
+                                                                    <div class="form-group row" id="attr_<%= attributesValue.id %>" data-id="<%= attributesValue.id %>">
                                                                         <label class="font-weight-bold col-sm-3" for="product_meta_description">
                                                                            <strong> <%= attributesValue.attribute_name %> </strong>
                                                                         </label>
-                                                                        <input type="text" value="<%= attributesValue.name %>" name="product_${id}" class="form-control col-sm-7"
+                                                                        <input type="text" value="<%= attributesValue.name %>" name="product_<%= attributesValue.id %>" class="form-control col-sm-7"
                                                                             placeholder="${name}">
                                                                             <div class="col-sm-2">
                                                                                 <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
@@ -517,6 +517,12 @@
         var imageData = null;
         var ProductAttrArr = [];
         var id_attribues = [];
+
+        // gán danh sách id loại 1 cho input form.
+        var idTyoe01Element = $('#product_attributes_type01');
+        var idType01 = idTyoe01Element.val();
+        var idtype01Arr = idType01.split(",");
+        id_attribues = idtype01Arr;
 
         var type01 = function (id, name) {
             return `
@@ -648,6 +654,7 @@
                 }
             });
         }
+
         $('#trigger_button').on('click', function () {
             $('#product_image').trigger('click', getProductImageUpdate());
         });
@@ -717,19 +724,20 @@
                         // thêm id thuộc tính vào mảng html
                         ProductAttrArr.push(`attr_${result.attribute_id}`);
                         getValue();
-
                     } else {
                         // nếu loại danh sách là text thì cho vào loại text.
                         var attributes = result.attributes;
                         $('.attribute_product').append(type01(attributes[0].id, attributes[0].attribute_name));
                         var formcontrolAttribute = $('#product_attributes_type01').val();
-                        // thêm id thuộc tính vào mảng html
                         ProductAttrArr.push(`attr_${result.attribute_id}`);
                         // trường hợp input đã có dữ liệu
                         if (formcontrolAttribute.length > 0) {
-                            id_attribues = JSON.parse(formcontrolAttribute);
-                            id_attribues.push(attributes[0].id);
-                            $('#product_attributes_type01').val(JSON.stringify(id_attribues));
+                            //id_attribues = JSON.parse(formcontrolAttribute);
+                            var idAdd = result.attribute_id;
+                            id_attribues.push(id.toString());
+                            idTyoe01Element.val(JSON.stringify(id_attribues));
+                            console.log(idTyoe01Element.val());
+                          
                         } else {
                             // trường hợp input chưa có dữ liệu
                             id_attribues.push(attributes[0].id);
@@ -758,7 +766,8 @@
         // end send attribute id ======================
 
         // start remove attribute id ==================
-        $(document).on("click", ".minus-button", function () {
+        $(document).on("click", ".minus-button", function (e) {
+            e.preventDefault()
             var parent = $(this).parent().parent();
             var parentId = parent.attr('id');
             var idParentSelect = parent.attr('data-id');
@@ -770,7 +779,7 @@
             if (index != -1) {
                 id_attribues.splice(index, 1);
                 $('#product_attributes_type01').val(JSON.stringify(id_attribues));
-            }
+            }z
         })
         // end remove attribute id ==================
     });
