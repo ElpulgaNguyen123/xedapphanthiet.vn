@@ -86,13 +86,14 @@ adminRouter.post('/slide/edit-slide/:id', controller.checkloggedIn, controller.p
 adminRouter.get('/slide/delete-slide/:id', controller.checkloggedIn, controller.postDeleteSlide);
 // slider / end ==============================================
 
-// Blog
+// Blog / start
 adminRouter.get('/blog', controller.checkloggedIn, controller.getAllBlog);
 adminRouter.get('/blog/add-blog', controller.checkloggedIn, controller.addBlogGet);
 adminRouter.post('/blog/add-blog', controller.checkloggedIn, controller.addBlogPost);
 adminRouter.get('/blog/edit-blog/:id', controller.checkloggedIn, controller.getEditBlog);
-
-
+adminRouter.post('/blog/edit-blog/:id', controller.checkloggedIn, controller.postEditBlog);
+adminRouter.get('/blog/delete-blog/:id', controller.checkloggedIn, controller.postDeleteBlog);
+// Blog / end
 
 /*=====   Website template / end  ======*/
 

@@ -68,8 +68,9 @@ var {
     getAllBlog,
     addBlogGet,
     addBlogPost,
-    getEditBlog
-,} = require('./website/blogController');
+    getEditBlog,
+    postEditBlog,
+    postDeleteBlog} = require('./website/blogController');
 
 
 module.exports = {
@@ -148,5 +149,7 @@ module.exports = {
     getAllBlog,
     addBlogGet,
     addBlogPost,
-    getEditBlog
+    getEditBlog,
+    postEditBlog,
+    postDeleteBlog
 }

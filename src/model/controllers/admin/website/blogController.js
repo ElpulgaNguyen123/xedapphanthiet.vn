@@ -130,7 +130,7 @@ let getEditBlog = async (req, res, next) => {
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
-let postEditSlide = (req, res, next) => {
+let postEditBlog = (req, res, next) => {
     productUploadFile(req, res, async (error) => {
         try {
             // Lấy tất cả sản phẩm và hiển thị ra table
@@ -143,8 +143,8 @@ let postEditSlide = (req, res, next) => {
                     .resize(300, 200)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
-                        if (req.body.slide_old_image) {
-                            await fsExtras.remove(`${app.directory_slides}/${req.body.slide_old_image}`);
+                        if (req.body.blog_old_image) {
+                            await fsExtras.remove(`${app.directory_blogs}/${req.body.blog_old_image}`);
                         }
                     });
             }
@@ -153,26 +153,39 @@ let postEditSlide = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            else if (req.body.slide_old_image) {
-                filename = `${req.body.slide_old_image}`;
+            else if (req.body.blog_old_image) {
+                filename = `${req.body.blog_old_image}`;
             }
+
+            let current_datetime = new Date()
+            let formatted_date_update = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+
             var queryUpdate = `
-            UPDATE slide
-            SET name = ?, 
-            link = ?, 
-            image = ?
+            UPDATE blog
+            SET title = ?, 
+            slug = ?, 
+            content = ?,
+            short_description = ?,
+            image = ?,
+            author = ?,
+            update_at = ?
             WHERE id = ?`
-            var slideValues = [
-                req.body.slide_name,
-                req.body.slide_link,
-                filename,
-                req.params.id
-            ];
-            await pool.query(queryUpdate, slideValues, function (error, results, fields) {
+            var blogValues = [
+                req.body.blog_title,
+                    req.body.blog_slug,
+                    req.body.blog_content,
+                    req.body.short_description,
+                        filename,
+                    req.body.blog_author,
+                    formatted_date_update,
+                    req.params.id
+                
+            ]
+            await pool.query(queryUpdate, blogValues, function (error, results, fields) {
                 if (error) throw error;
-                successArr.push(Transuccess.saveSuccess('Slide'));
+                successArr.push(Transuccess.saveSuccess('BLog'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/slides');
+                res.redirect('/admin/blog');
             });
         } catch (error) {
             console.log(error);
@@ -181,28 +194,28 @@ let postEditSlide = (req, res, next) => {
 }
 
 // xóa dữ liệu của 1 brand
-let postDeleteSlide = async (req, res, next) => {
+let postDeleteBlog = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
 
-        var slide_id = req.params.id;
-        var query = `SELECT * FROM slide WHERE id = ?`;
+        var blog_id = req.params.id;
+        var query = `SELECT * FROM blog WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        var Image_delete = await service.queryActionSlideDelete(query, slide_id);
-        var querydeleteSlide = `
+        var Image_delete = await service.queryActionBlogelete(query, blog_id);
+        var querydeleteblog = `
         DELETE FROM 
-        slide
-        WHERE id = ${slide_id}`;
-        pool.query(querydeleteSlide, async function (error, results, fields) {
+        blog
+        WHERE id = ${blog_id}`;
+        pool.query(querydeleteblog, async function (error, results, fields) {
             if (error) throw error;
             if (Image_delete != null || Image_delete != '') {
-                await fsExtras.remove(`${app.directory_slides}/${Image_delete}`);
+                await fsExtras.remove(`${app.directory_blogs}/${Image_delete}`);
             }
-            successArr.push(Transuccess.deleteSuccess('Slide'));
+            successArr.push(Transuccess.deleteSuccess('Blog'));
             req.flash('Success', successArr);
-            res.redirect('/admin/slides');
+            res.redirect('/admin/blog');
         });
     } catch (error) {
         console.log(error);
@@ -213,5 +226,7 @@ module.exports = {
     getAllBlog,
     addBlogGet,
     addBlogPost,
-    getEditBlog
+    getEditBlog,
+    postEditBlog,
+    postDeleteBlog
 };

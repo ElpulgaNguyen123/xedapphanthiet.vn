@@ -80,7 +80,7 @@
                                             <% if(blog.image != '' && blog.image != null){ %>
                                             <img class="sp_img_main" src="/public/uploads/blogs/<%= blog.image %>"
                                                 alt="<%= blog.title %>">
-                                            <input type="hidden" name="blog_old_image" value="<%= blog.title %>">
+                                            <input type="hidden" name="blog_old_image" value="<%= blog.image %>">
                                             <% } else{ %>
                                             <img class="sp_img_main" src="/admin/images/example.png"
                                                 alt="<%= blog.name %>">
@@ -93,21 +93,23 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold col-form-label" for="blog_title">
-                                            <%= blog.title %>
+                                            Title
                                         </label>
-                                        <input type="text" name="blog_title" id="blog_title" value="<%= blog.title %>"
+                                        <textarea type="text" name="blog_title" id="blog_title"
                                             onkeyup="to_slug($(this).val())" class="form-control write_title"
-                                            placeholder="Tên <%= blog.title %>" required>
+                                            placeholder="Tên <%= blog.title %>" required> <%= blog.title %> </textarea>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold col-form-label" for="blog_slug">
-                                            Link
+                                            SLug
                                         </label>
                                         <input type="text" name="blog_slug" id="blog_slug"
                                             class="form-control write_title write_title_small" placeholder="Slug"
                                             value="<%= blog.slug %>" readonly required>
                                     </div>
                                     <div class="form-group">
+                                        <label class="font-weight-bold" for="short_description">
+                                           Tác giả </label>
                                         <input type="text" name="blog_author" id="blog_author"
                                             class="form-control write_title write_title_small"
                                             value="<%= blog.author %>" placeholder="Tác giả">
@@ -115,16 +117,16 @@
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="short_description">
                                             Mô tả ngắn </label>
-                                        <input type="text" name="short_description" id="short_description"
-                                            class="form-control" value="<%= blog.short_description %>"
-                                            placeholder="Mô tả ngắn" required>
+                                        <textarea type="text" name="short_description" id="short_description"
+                                            class="form-control write_title write_title_small" rows="4"
+                                            placeholder="Mô tả ngắn" required> <%= blog.short_description %> </textarea>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="blog_content">
                                             Mô tả
                                         </label>
                                         <textarea id="summernote" id="blog_content"
-                                            name="blog_content"> <%- blog.content %> </textarea>
+                                            name="blog_content"> <%= blog.content %> </textarea>
                                     </div>
                                     <script>
                                         function to_slug(str) {
@@ -173,11 +175,6 @@
 <script>
     $(document).ready(function () {
 
-        $('#delete-brand-confirm').on('click', function () {
-            var url = $(this).attr('data-url');
-            $('#link-delete-value').attr('href', url);
-        });
-
         // chọn hình ảnh thay thế cho thương hiệu ============ start
         $('#blog_image').hide();
         $("#trigger_button").click(function (e) {
@@ -216,22 +213,41 @@
         // chọn hình ảnh thay thế cho thương hiệu ============ end
 
         // validate form edit attribute  start=======
-        $("#slide-edit-form").validate({
+        $("#blog-edit-form").validate({
             rules: {
-                slide_name: {
+                blog_image: {
+                    required: true,
+                },
+                blog_title: {
                     required: true,
                     minlength: 2,
                 },
-                slide_link: {
+                blog_slug: {
+                    required: true
+                },
+                short_description: {
+                    required: true
+                },
+                blog_content: {
                     required: true
                 },
             },
             messages: {
-                slide_name: {
-                    required: "Vui lòng không bỏ trống tên thương hiệu",
+                blog_image: {
+                    required: 'Bạn chưa chọn ảnh cho slide',
                 },
-                slide_link: {
-                    required: "Vui lòng không bỏ trống đường dẫn SEO",
+                blog_title: {
+                    required: "Vui lòng nhập tiêu đề cho bài viết",
+                    minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
+                },
+                blog_slug: {
+                    required: "Vui lòng nhập đường dẫn cho slide"
+                },
+                short_description: {
+                    required: "Vui lòng nhập mô tả ngắn"
+                },
+                blog_content: {
+                    required: "Vui lòng nhập nội dung bài viết"
                 },
             }
         });
