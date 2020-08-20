@@ -194,8 +194,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="hidden" name="product_attributes_type01"
-                                                            id="product_attributes_type01" value="<%= idtype01Arr %>" class="form-control"
-                                                            placeholder="">
+                                                            id="product_attributes_type01" value="<%= idtype01Arr %>"
+                                                            class="form-control" placeholder="">
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="font-weight-bold required-form" for="product_sku">
@@ -381,7 +381,8 @@
                                                                             tính
                                                                         </option>
                                                                         <% attributes.forEach(function(attribute, index){ %>
-                                                                        <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
+                                                                        <option id="op_<%=attribute.id%>"
+                                                                            value="<%= attribute.id %>">
                                                                             <%= attribute.attribute_name %>
                                                                         </option>
                                                                         <%})%>
@@ -411,7 +412,9 @@
                                                             </script>
                                                             <div class="attribute_product">
                                                                 <% attributeValueArr.forEach(function(attributeValueAr, index){ %>
-                                                                <div class="form-group row" id="attr_<%= attributeValueAr[0].attribute_id %>" data-id="<%= attributeValueAr[0].attribute_id %>">
+                                                                <div class="form-group row"
+                                                                    id="attr_<%= attributeValueAr[0].attribute_id %>"
+                                                                    data-id="<%= attributeValueAr[0].attribute_id %>">
                                                                     <label
                                                                         class="col-sm-12 col-form-label attribute-label mb-3">
                                                                         <strong>
@@ -423,13 +426,15 @@
                                                                         </div>
                                                                     </label>
                                                                     <% attributeValueAr.forEach(function(attributeValueA, index){ %>
-                                                                    <div class="attribute_list_<%= attributeValueA.id %> col-sm-12">
+                                                                    <div
+                                                                        class="attribute_list_<%= attributeValueA.id %> col-sm-12">
                                                                         <div class="form-check">
                                                                             <label class="form-check-label"
                                                                                 for="product_attr<%= attributeValueA.id %>"><%= attributeValueA.name %></label>
                                                                             <input type="checkbox"
                                                                                 class="checks form-check-input"
-                                                                                onclick="getValue()" value="<%= attributeValueA.id %>"
+                                                                                onclick="getValue()"
+                                                                                value="<%= attributeValueA.id %>"
                                                                                 id="product_attr<%= attributeValueA.id %>">
                                                                         </div>
                                                                     </div>
@@ -440,18 +445,26 @@
                                                                 <% attributesValues.forEach(function(attributesValue, index){ %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
                                                                 <% if(attributesValue.type == 1){ %>
-                                                                    <div class="form-group row" id="attr_<%= attributesValue.attribute_id %>" data-id="<%= attributesValue.attribute_id %>">
-                                                                        <label class="font-weight-bold col-sm-3" for="product_meta_description">
-                                                                           <strong> <%= attributesValue.attribute_name %> </strong>
-                                                                        </label>
-                                                                        <input type="text" value="<%= attributesValue.name %>" name="product_<%= attributesValue.attribute_id %>" class="form-control col-sm-7"
-                                                                            placeholder="Nhập giá trị thuộc tính">
-                                                                            <div class="col-sm-2">
-                                                                                <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
-                                                                                        class="icofont icofont-minus-circle"></i>
-                                                                                </button>
-                                                                        </div>
+                                                                <div class="form-group row"
+                                                                    id="attr_<%= attributesValue.attribute_id %>"
+                                                                    data-id="<%= attributesValue.attribute_id %>">
+                                                                    <label class="font-weight-bold col-sm-3"
+                                                                        for="product_meta_description">
+                                                                        <strong> <%= attributesValue.attribute_name %>
+                                                                        </strong>
+                                                                    </label>
+                                                                    <input type="text"
+                                                                        value="<%= attributesValue.name %>"
+                                                                        name="product_<%= attributesValue.attribute_id %>"
+                                                                        class="form-control col-sm-7"
+                                                                        placeholder="Nhập giá trị thuộc tính">
+                                                                    <div class="col-sm-2">
+                                                                        <button
+                                                                            class="minus-button btn btn-danger btn-outline-danger float-right"><i
+                                                                                class="icofont icofont-minus-circle"></i>
+                                                                        </button>
                                                                     </div>
+                                                                </div>
                                                                 <% } %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / end -->
                                                                 <% }) %> </div>
@@ -489,23 +502,30 @@
             $(`#product_attr${idtype02arr[i]}`).attr('checked', 'checked')
         }
     }
-    function setOptions() { 
-            var idAttribute = '<%= idtype02Arr %>';
-            var idAttributeArr = idAttribute.split(",");
-            var options = $('#select_attribute option');
-            for (i = 0; i < idAttributeArr.length; i++) {
-               $(`#op_${idAttributeArr[i]}`).attr('disabled', true);
-            }
-            // var valueSelect = $('#select_attribute').val();
-            // if (!valueSelect) {
-            //     return false;
-            // }
-            // $("#select_attribute option:selected").attr('disabled', true);
-            // // đưa id thuộc tính lên cho server
-            // getAttributeServer(valueSelect);
-     }
-     // lấy thông tin của id thuộc tính và gửi lên server.
+    function setOptions() {
+        var idAttribute = '<%= idtype02Arr %>';
+        var idAttributeArr = idAttribute.split(",");
+        var options = $('#select_attribute option');
+        for (i = 0; i < idAttributeArr.length; i++) {
+            $(`#op_${idAttributeArr[i]}`).attr('disabled', true);
+        }
+        // var valueSelect = $('#select_attribute').val();
+        // if (!valueSelect) {
+        //     return false;
+        // }
+        // $("#select_attribute option:selected").attr('disabled', true);
+        // // đưa id thuộc tính lên cho server
+        // getAttributeServer(valueSelect);
+    }
+    // lấy thông tin của id thuộc tính và gửi lên server.
 
+    function fortmartType01Remove(id, idArr, element) {
+        var index = idArr.indexOf(id.toString());
+        if (index != -1) {
+            idArr.splice(index, 1);
+            element.val(JSON.stringify(idArr));
+        }
+    }
     $(document).ready(function () {
         // ==================================================================
         // thiết lập checkbox checked cho id loại 2
@@ -522,8 +542,8 @@
         var idTyoe01Element = $('#product_attributes_type01');
         var idType01 = idTyoe01Element.val();
         var idtype01Arr = idType01.split(",");
+        idTyoe01Element.val(JSON.stringify(idtype01Arr));
         id_attribues = idtype01Arr;
-
         var type01 = function (id, name) {
             return `
         <div class="form-group row" id=attr_${id} data-id="${id}">
@@ -732,16 +752,16 @@
                         ProductAttrArr.push(`attr_${result.attribute_id}`);
                         // trường hợp input đã có dữ liệu
                         if (formcontrolAttribute.length > 0) {
-                            //id_attribues = JSON.parse(formcontrolAttribute);
+                            id_attribues = JSON.parse(formcontrolAttribute);
                             var idAdd = result.attribute_id;
                             id_attribues.push(id.toString());
                             idTyoe01Element.val(JSON.stringify(id_attribues));
-                            console.log(idTyoe01Element.val());
-                          
                         } else {
                             // trường hợp input chưa có dữ liệu
-                            id_attribues.push(attributes[0].id);
-                            $('#product_attributes_type01').val(JSON.stringify(id_attribues));
+                            id_attribues.push(attributes[0].id.toString());
+                            id_attribues.splice(0,1);
+                            idTyoe01Element.val(JSON.stringify(id_attribues));
+                            console.log(idTyoe01Element.val());
                         }
                     }
                 },
@@ -774,13 +794,8 @@
             $("#select_attribute option[value=" + idParentSelect + "]").attr('disabled', false);
             $(`#${parentId}`).remove();
             getValue();
+            fortmartType01Remove(idParentSelect, id_attribues, idTyoe01Element);
             // xóa id của attribute trước khi đưa lên server
-            var index = id_attribues.indexOf(idParentSelect);
-            console.log(index);
-            if (index != -1) {
-                id_attribues.splice(index, 1);
-                idTyoe01Element.val(JSON.stringify(id_attribues));
-            }
         })
         // end remove attribute id ==================
     });
