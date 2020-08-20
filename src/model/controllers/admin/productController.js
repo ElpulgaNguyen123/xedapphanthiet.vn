@@ -335,6 +335,8 @@ let editProductGet = async (req, res, next) => {
             attributeValueArr.push(x);
         }
 
+        console.log('Danh sách thuộc tính loai 1');
+        console.log(attributesValues);
         
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
@@ -397,12 +399,6 @@ let editProductPost = (req, res, next) => {
             productItem[12] = 1;
             productItem[13] = req.body.product_quantity;
 
-
-            console.log('Danh sách thuộc tính sản phẩm loại 2');
-            console.log(req.body.product_attributes_type02);
-            console.log('Danh sách thuộc tính sản phẩm loại 1');
-            console.log(req.body.product_attributes_type01);
-
             var queryNewProduct = `
             INSERT INTO 
             product(
@@ -427,7 +423,8 @@ let editProductPost = (req, res, next) => {
             attributes.attribute_name, 
             attributes.type as attribute_type, 
             prd_attribute.product_id,
-            prd_attribute_value.id as attributevalueId 
+            prd_attribute_value.id as attributevalueId,
+            attributes.id as attribute_id 
             FROM prd_attribute_value 
             INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
             INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
@@ -444,7 +441,7 @@ let editProductPost = (req, res, next) => {
                     var attributes = gettype02Val.slice(0, -1);
                     var attributes_arr = attributes.split(",");
                     var newAttribute_arr = [];
-                    var oldAttribute_arr = [];
+                    var oldAttribute02_arr = [];
                     var deleteAttribute_arr = [];
                     // đưa danh sách id thành mảng.
                     // danh sách thuộc tính sản phẩm loại 2
@@ -461,12 +458,12 @@ let editProductPost = (req, res, next) => {
                         if (value == -1) {
                             newAttribute_arr.push(attributes_arr[i]);
                         } else if (value != -1) {
-                            oldAttribute_arr.push(parseInt(attributes_arr[i]));
+                            oldAttribute02_arr.push(parseInt(attributes_arr[i]));
                         }
                     }
                     // so sánh thuộc tính đã tồn tại của sản phẩm có bị xóa thuộc tính không ?
                     for (var i = 0; i < prdAttrType02.length; i++) {
-                        var value = oldAttribute_arr.indexOf(prdAttrType02[i]);
+                        var value = oldAttribute02_arr.indexOf(prdAttrType02[i]);
                         if (value == -1) {
                             deleteAttribute_arr.push(prdAttrType02[i]);
                         }
@@ -500,9 +497,45 @@ let editProductPost = (req, res, next) => {
                    
                 }
                 if (req.body.product_attributes_type01.length > 0) {
-                    var attributeType01 = JSON.parse(req.body.product_attributes_type01);
+
                     console.log('Danh sách id dữ liệu loại 1');
                     console.log(req.body.product_attributes_type01);
+
+                    var attributeType01 = JSON.parse(req.body.product_attributes_type01);
+                    var oldAttribute01_arr = [];
+                    var deleteAttribute_arr = [];
+                    var prdAttrType01 = [];
+                    var newAttribute_arr = [];
+                    // lấy danh sách id của thuộc tính đã tồn tại.
+                    for (var i = 0; i < prd_attributes.length; i++) {
+                        if (prd_attributes[i].attribute_type == 1) {
+                            prdAttrType01.push(prd_attributes[i].attribute_id);
+                        }
+                    }
+
+                    console.log('Danh sách thuộc tính loại 1 đã có trên sản phẩm');
+                    console.log(prdAttrType01);
+
+
+                    // lấy ra danh sách thuộc tính loại 1 mới được thêm vào.
+                    for (var i = 0; i < attributeType01.length; i++) {
+                        var value = prdAttrType01.indexOf(parseInt(attributeType01[i]));
+                        if (value == -1) {
+                            newAttribute_arr.push(parseInt(attributeType01[i]));
+                        } else if (value != -1) {
+                            oldAttribute01_arr.push(parseInt(attributeType01[i]));
+                        }
+                    }
+                    console.log('Danh sách thuộc tính mới được thêm vào.');
+                    console.log(newAttribute_arr);
+                    // so sánh thuộc tính đã tồn tại của sản phẩm có bị xóa thuộc tính không ?
+                    // nếu có thì xóa thuộc tính đó đi.
+                    for (var i = 0; i < prdAttrType02.length; i++) {
+                        var value = oldAttribute01_arr.indexOf(prdAttrType02[i]);
+                        if (value == -1) {
+                            deleteAttribute_arr.push(prdAttrType02[i]);
+                        }
+                    }
                     // lấy id cuối cùng dữ liệu thuộc tính vừa được khởi tạo.
                     // var queryLastId = 'SELECT MAX(ID) as id FROM prd_attribute_value';
                     // var lastId = await service.getLastId(queryLastId);

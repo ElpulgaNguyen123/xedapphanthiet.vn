@@ -440,12 +440,12 @@
                                                                 <% attributesValues.forEach(function(attributesValue, index){ %>
                                                                 <!-- nếu thuộc tính có type = 2 thì đưa vào if / start -->
                                                                 <% if(attributesValue.type == 1){ %>
-                                                                    <div class="form-group row" id="attr_<%= attributesValue.id %>" data-id="<%= attributesValue.id %>">
+                                                                    <div class="form-group row" id="attr_<%= attributesValue.attribute_id %>" data-id="<%= attributesValue.attribute_id %>">
                                                                         <label class="font-weight-bold col-sm-3" for="product_meta_description">
                                                                            <strong> <%= attributesValue.attribute_name %> </strong>
                                                                         </label>
-                                                                        <input type="text" value="<%= attributesValue.name %>" name="product_<%= attributesValue.id %>" class="form-control col-sm-7"
-                                                                            placeholder="${name}">
+                                                                        <input type="text" value="<%= attributesValue.name %>" name="product_<%= attributesValue.attribute_id %>" class="form-control col-sm-7"
+                                                                            placeholder="Nhập giá trị thuộc tính">
                                                                             <div class="col-sm-2">
                                                                                 <button class="minus-button btn btn-danger btn-outline-danger float-right"><i
                                                                                         class="icofont icofont-minus-circle"></i>
@@ -775,11 +775,12 @@
             $(`#${parentId}`).remove();
             getValue();
             // xóa id của attribute trước khi đưa lên server
-            var index = id_attribues.indexOf(parseInt(idParentSelect));
+            var index = id_attribues.indexOf(idParentSelect);
+            console.log(index);
             if (index != -1) {
                 id_attribues.splice(index, 1);
-                $('#product_attributes_type01').val(JSON.stringify(id_attribues));
-            }z
+                idTyoe01Element.val(JSON.stringify(id_attribues));
+            }
         })
         // end remove attribute id ==================
     });
