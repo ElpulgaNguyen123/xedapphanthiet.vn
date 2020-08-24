@@ -15,7 +15,7 @@ function updateUserInfo() {
         userInfo.name = $(this).val();
     })
     $('#profile-email').bind('change', function () {
-        userInfo.email = $(this).val();
+        userInfo.email = $(this).val();image_path
     })
     $('#profile-phone').bind('change', function () {
         userInfo.phone = $(this).val();
@@ -235,13 +235,30 @@ $(document).ready(function () {
                 var ImageJson = Object.assign({}, imgPathArrr);
                 // thiết lập dữ liệu cho input bên frontend để truyền lên server
                 $('#image_path').val(JSON.stringify(ImageJson));
+                console.log($('#image_path').val())
             }
             $("#product_form").submit();
             $('.start').click();
         });
 
-        // edit product submit.
         $('#dropzoneEditProductSubmit').on('click', function (e) {
+            myDropzone.processQueue();
+            var imgPathArrr = [];
+            if (myDropzone.files != "") {
+                for (var index = 0; index < myDropzone.files.length; index++) {
+                    imgPathArrr.push(myDropzone.files[index].upload.filename);
+                }
+                console.log(imgPathArrr);
+                var ImageJson = Object.assign({}, imgPathArrr);
+                // thiết lập dữ liệu cho input bên frontend để truyền lên server
+                $('#image_path').val(JSON.stringify(ImageJson));
+            }
+            $("#product-edit-form").submit();
+            $('.start').click();
+        });
+
+        // edit product submit.
+        $('#dropzoneEditProductSubmitss').on('click', function (e) {
             myDropzone.processQueue();
             console.log('Đã click');
             var imgPathArrr = [];
