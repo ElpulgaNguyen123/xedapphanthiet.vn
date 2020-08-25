@@ -265,7 +265,22 @@ let addProductImage = (req, res, next) => {
 let editProductGet = async (req, res, next) => {
     let successArr = [];
     try {
-        var product_id = req.params.id;
+        var product_id =  parseInt(req.params.id);
+        console.log(typeof product_id);
+        if (typeof product_id !== "number") {
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
+        }
+        var queryCheckId = `SELECT id FROM product WHERE id = ${req.params.id}`;
+        var idProduct = await service.queryActionNoParams(queryCheckId);
+
+        if (idProduct.length <= 0) {
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
+        }
+
         var query = `SELECT * FROM product where id= ${product_id}`;
         // query danh sách dữ liệu thuộc tính của sản phẩm.
         var queryattributesValue = `SELECT prd_attribute_value.name, 
@@ -365,7 +380,6 @@ let editProductGet = async (req, res, next) => {
             res.render('admin/products/editProduct', option);
         })
     } catch (error) {
-        console.log(error);
         res.render('admin/notfound/notfound', {
             title: 'Trang Không tìm thấy'
         });
@@ -377,50 +391,6 @@ let editProductPost = (req, res, next) => {
     let successArr = [];
     productUploadFile(req, res, async (error) => {
         try {
-            productItem[0] = req.body.product_sku;
-            productItem[1] = req.body.product_brand;
-            productItem[2] = req.body.product_category;
-            productItem[3] = req.body.product_name;
-            productItem[4] = req.body.product_slug;
-            productItem[5] = req.body.product_price;
-
-            var query = `SELECT image from product WHERE id = ${req.params.id}`
-            var imageLink = await service.getImageProduct(query);
-            console.log(imageLink);
-
-            // kiểm tra hình ảnh up lên vào cập nhật vàn danh sách
-            if (imageLink.image == '') {
-                productItem[6] = JSON.stringify(`${req.body.image_path}`);
-            } else if (imageLink[0].image && req.body.image_path.length > 0) {
-                ;
-                var Obj = JSON.parse(imageLink[0].image);
-                var Obj2 = JSON.parse(req.body.image_path);
-                var count = Object.keys(Obj).length;
-                var array = [];
-                for (x in Obj2) {
-                    Obj[`${count - 1}`] = Obj2[x];
-                    array.push(Obj2[x]);
-                }
-                for (var index = 0; index <= array.length - 1; index++) {
-                    Obj[`${count}`] = array[index];
-                    count++;
-                }
-                productItem[6] = JSON.stringify(Obj);
-            }
-
-            productItem[7] = req.body.propduct_description;
-            productItem[8] = req.body.short_description;
-            productItem[9] = req.body.product_meta_title;
-            productItem[10] = req.body.product_meta_keyword;
-            productItem[11] = req.body.product_meta_description;
-            if (req.body.product_quantity <= 0) {
-                productItem[12] = 0;
-            }
-            productItem[12] = 1;
-            productItem[13] = req.body.product_quantity;
-            productItem[14] = req.params.id;
-
-
             var product_id = req.params.id;
             var queryattribute = `SELECT prd_attribute_value.name, 
             attributes.attribute_name, 
@@ -435,7 +405,7 @@ let editProductPost = (req, res, next) => {
             // lấy ra danh sách thuộc tính hiên tại của sản phẩm
             var prd_attributes = await service.queryActionNoParams(queryattribute);
             // thêm vào chuỗi query;
-            if (product_id) {
+            
                 // lấy danh sách thuộc tính sản phẩm và id.
                 if (req.body.product_attributes_type02.length > 0) {
                     // lấy danh sách thuộc tính loại 2 của sản phẩm
@@ -500,7 +470,7 @@ let editProductPost = (req, res, next) => {
                         await service.queryActionNoParamsreturn(queryDelete);
                     }
                 }
-                if (req.body.product_attributes_type01.length > 0) {
+                if (req.body.product_attributes_type01.length > 4) {
 
                     var attributefromInput = req.body.product_attributes_type01;
                     var attributeType01 = JSON.parse(attributefromInput);
@@ -614,9 +584,7 @@ let editProductPost = (req, res, next) => {
                         console.log('Không có sự thay đổi nào !');
                     }
                 }
-            }
-
-
+            
             var queryUpdate = `UPDATE product
             SET  
             sku = ?, 
@@ -635,16 +603,57 @@ let editProductPost = (req, res, next) => {
             quantity = ?
             WHERE id = ?`;
 
+            productItem[0] = req.body.product_sku;
+            productItem[1] = req.body.product_brand;
+            productItem[2] = req.body.product_category;
+            productItem[3] = req.body.product_name;
+            productItem[4] = req.body.product_slug;
+            productItem[5] = req.body.product_price;
+
+            var query = `SELECT image from product WHERE id = ${req.params.id}`
+            var imageLink = await service.getImageProduct(query);
+            // kiểm tra hình ảnh up lên vào cập nhật vàn danh sách
+            console.log(imageLink);
+            if (imageLink[0].image == '' && req.body.image_path != '') {
+                productItem[6] = req.body.image_path;
+            }
+            else if (imageLink[0].image != '' && req.body.image_path != '') {
+                var Obj = JSON.parse(imageLink[0].image);
+                var Obj2 = JSON.parse(req.body.image_path);
+                var count = Object.keys(Obj).length;
+                var array = [];
+                for (x in Obj2) {
+                    Obj[`${count - 1}`] = Obj2[x];
+                    array.push(Obj2[x]);
+                }
+                for (var index = 0; index <= array.length - 1; index++) {
+                    Obj[`${count}`] = array[index];
+                    count++;
+                }
+                productItem[6] = JSON.stringify(Obj);
+            } else {
+                productItem[6] = imageLink[0].image;
+            }
+            productItem[7] = req.body.propduct_description;
+            productItem[8] = req.body.short_description;
+            productItem[9] = req.body.product_meta_title;
+            productItem[10] = req.body.product_meta_keyword;
+            productItem[11] = req.body.product_meta_description;
+            if (req.body.product_quantity <= 0) {
+                productItem[12] = 0;
+            }
+            productItem[12] = 1;
+            productItem[13] = req.body.product_quantity;
+            productItem[14] = req.params.id;
+
             await pool.query(queryUpdate, productItem, function (error, results, fields) {
                 if (error) throw error;
-                successArr.push(Transuccess.createSuccess(' '));
+                successArr.push(Transuccess.createSuccess(' Chỉnh sửa sản phẩm thành công '));
                 req.flash('Success', successArr);
                 return res.redirect('/admin/products');
             });
 
-
         } catch (error) {
-            console.log(error);
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
             });
@@ -669,8 +678,9 @@ let editProductImage = (req, res, next) => {
             return res.status(200).send(result);
 
         } catch (error) {
-            console.log(error);
-            return res.status(500).send(error);
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
         }
         // Everything went fine.
     })
@@ -717,13 +727,12 @@ let updateProductImagePost = (req, res, next) => {
                     }
                     return res.status(200).send(result);
                 });
-            } else {
-                console.log('không có kết quả !');
             }
 
         } catch (error) {
-            console.log(error);
-            return res.status(500).send(error);
+            res.render('admin/notfound/notfound', {
+                title: 'Trang Không tìm thấy'
+            });
         }
         // Everything went fine.
     });

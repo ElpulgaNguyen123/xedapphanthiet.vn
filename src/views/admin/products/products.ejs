@@ -29,23 +29,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <% if(errors != ""){%>
-                            <% errors.forEach((item) => {%>
-                            <div class="alert alert-danger" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
-                            <% if(success != ""){%>
-                            <% success.forEach((item) => {%>
-                            <div class="alert alert-success" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <% if(errors != ""){%>
+                        <% errors.forEach((item) => {%>
+                        <div class="alert alert-danger" role="alert">
+                            <strong class="alert-link"><%- item %></strong>.
                         </div>
+                        <%})%>
+                        <%}%>
+                        <% if(success != ""){%>
+                        <% success.forEach((item) => {%>
+                        <div class="alert alert-success" role="alert">
+                            <strong class="alert-link"><%- item %></strong>.
+                        </div>
+                        <%})%>
+                        <%}%>
                     </div>
                 </div>
                 <!-- Page-header end -->
@@ -103,7 +103,7 @@
                                         <% products.forEach(function(product, index){ %>
                                         <tr>
                                             <td scope="row"><%= index %></th>
-                                            <% if(product.image.length != 0){ %>
+                                            <% if(product.image.length > 0){ %>
                                             <th class="product-image">
                                                 <img class="sp_img-<%= product.id%>"
                                                     src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>"

@@ -21,7 +21,8 @@ let queryActionNoParams = (query) => {
             pool.query(query, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
-                    reject([]);
+                    console.log(rows);
+                    return resolve(rows);
                 }
                 return resolve(rows);
             })
@@ -140,10 +141,10 @@ let getProductAttributes = (query) => {
 }
 // lấy tên của hình ảnh được chọn để cập nhật hoặc thay đổi
 let getImageProduct = (query) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         try {
             pool.query(query, function (error, rows, fields) {
-                if (error) throw error;
+                if (error) throw 'Lỗi';
                 if (!rows) {
                     reject('Có lỗi xảy ra');
                 }
