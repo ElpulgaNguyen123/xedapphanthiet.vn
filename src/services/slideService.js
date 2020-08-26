@@ -16,6 +16,8 @@ let queryActionSlideDelete = (query, params) => {
     })
 }
 
+
+// get all slider
 let getAllSlide = (query) => {
     return new Promise(async (resolve, reject) => {
         try {

@@ -154,6 +154,26 @@ let getImageProduct = (query) => {
         }
     })
 }
+
+
+// Frontend
+
+let getAllCategoryProduct = (query) => {
+    return new Promise((resolve, reject) => {
+        try {
+            pool.query(query, function (error, rows, fields) {
+                if (error) throw 'Lỗi';
+                if (!rows) {
+                    return resolve(rows);
+                }
+                return resolve(rows);
+            })
+        } catch (error) {
+            console.log('caught', error);
+        }
+    })
+}
+
 module.exports = {
     queryAction,
     queryActionNoParams,
@@ -165,5 +185,6 @@ module.exports = {
     queryActionNoParamsreturn,
     getProductAttributes,
 
-    getImageProduct
+    getImageProduct,
+    getAllCategoryProduct
 }
