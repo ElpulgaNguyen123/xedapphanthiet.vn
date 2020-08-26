@@ -266,7 +266,6 @@ let editProductGet = async (req, res, next) => {
     let successArr = [];
     try {
         var product_id =  parseInt(req.params.id);
-        console.log(typeof product_id);
         if (typeof product_id !== "number") {
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
@@ -357,9 +356,10 @@ let editProductGet = async (req, res, next) => {
             if (error) throw error;
             var images = '';
             var count = '';
+            var imagesArr = [];
             if (rows[0].image != '') {
                 images = JSON.parse(rows[0].image);
-                count = Object.keys(images).length;
+                imagesArr = Object.keys(images); 
             }
             var option = {
                 title: 'Chỉnh Sửa Sản Phẩm',
@@ -374,7 +374,7 @@ let editProductGet = async (req, res, next) => {
                 producidtype02: producidtype02,
                 attributeValueArr: attributeValueArr,
                 images: images,
-                images_count: count,
+                imagearr : imagesArr,
                 user: req.user
             }
             res.render('admin/products/editProduct', option);
@@ -749,19 +749,21 @@ let deleteProductImage = async (req, res, next) => {
 
         var Obj = JSON.parse(imageLink[0].image);
         var old_image = Obj[index];
-        console.log(Obj);
-        delete Obj[`${index}`];
-        await fsExtras.remove(`${app.directory_products}/${old_image}`);
+        delete Obj[index];
+        //await fsExtras.remove(`${app.directory_products}/${old_image}`);
         Obj = JSON.stringify(Obj);
         var ProductValues = [
             Obj,
             product_id
         ];
+        console.log('Danh sách hình ảnh');
+        console.log(Obj);
         var queryUpdateImage = `
         UPDATE product
-        SET image = ? 
-        WHERE id = ?`;
-        await pool.query(queryUpdateImage, ProductValues, function (error, results, fields) {
+        SET image = '${Obj}' 
+        WHERE id = ${product_id}`;
+
+        await pool.query(queryUpdateImage, function (error, results, fields) {
             if (error) throw error;
             successArr.push(Transuccess.deleteSuccess('Xóa hình ảnh thành công !'));
             req.flash('Success', successArr);

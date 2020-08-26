@@ -56,17 +56,21 @@
                                     <!-- start product images -->
                                     <div class="col-sm-12 col-xl-12">
                                         <div class="row">
-                                            <% if(images_count != 0){ %>
-                                            <% for (var i = 0; i < images_count; i++ ) { %>
+                                            <% if(imagearr.length > 0){ %>
+                                            <% for (var i = 0; i < imagearr.length ; i++ ) { %>
                                             <div class="col-xs-12 col-sm-4 col-md-3">
+                                                <p> <%= imagearr %> </p>
+                                                <p> <%= product.image %> </p>
                                                 <div class="card">
                                                     <img class="card-img-top" id="image_<%= product.id %>_<%= i %>"
-                                                        src="/public/uploads/products/<%= images[i] %>"
+                                                        src="/public/uploads/products/<%= images[imagearr[i]] %>"
                                                         alt="Card image cap" data-index='<%= i %>'>
                                                     <div class="card-body">
-                                                        <p class="text-center"> <strong> Hình ảnh
+                                                        <p class="text-center"> 
+                                                            <strong> Hình ảnh
                                                                 <%= i + 1 %>
-                                                            </strong> </p>
+                                                            </strong> 
+                                                        </p>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <button type="button"
                                                                 class="btn btn-warning edit-product-image"
