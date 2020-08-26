@@ -13,10 +13,14 @@ var { queryAction,
     getProductAttributes,
     getImageProduct} = require('./productservice');
 
-    var {queryActionBrandDelete} = require('./brandService');
-    var {queryActionSlideDelete} = require('./slideService');
+    var {queryActionBrandDelete,
+        getAllBrand} = require('./brandService');
+    var {queryActionSlideDelete,
+    getAllSlide} = require('./slideService');
     var {queryActionBlogelete} = require('./blogService');
     var {queryActionCategoryDelete} = require('./categoryService');
+
+
 
 module.exports = {
     register_service,
@@ -39,7 +43,9 @@ module.exports = {
 
     // brand service
     queryActionBrandDelete,
+    getAllBrand,
     queryActionCategoryDelete,
     queryActionSlideDelete,
+    getAllSlide,
     queryActionBlogelete
 }

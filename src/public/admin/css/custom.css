@@ -459,6 +459,10 @@ td.font-weight-bold {
     word-wrap: break-word;
 }
 
+a {
+ cursor: pointer;
+}
+
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 300px;

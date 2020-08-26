@@ -176,7 +176,8 @@ $(document).ready(function () {
 
     $('.show-image-add').on('click', function () {
         $('.dropzone-edit-more').toggleClass('show');
-    })
+    });
+    
     // summernote editor
     $('#summernote').summernote({
         placeholder: 'Chi tiết sản phẩm',
@@ -193,9 +194,7 @@ $(document).ready(function () {
     /*=============================================
     =            Tags input auto complete           =
     =============================================*/
-    $('#select-color').selectize({
-        sortField: 'text'
-    });
+
     /*=====  Tags Input auto complete ======*/
    
     if (document.querySelector(".template")) {

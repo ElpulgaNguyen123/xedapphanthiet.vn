@@ -27,7 +27,6 @@ var storage = multer.diskStorage({
 
 var productUploadFile = multer({ storage: storage }).any('product-images', 4);
 var productUpdateFile = multer({ storage: storage }).single('product-image', 1);
-
 // Lấy danh sách sản phẩm.
 let getAllProduct = async (req, res, next) => {
     try {

@@ -21,7 +21,6 @@ let queryActionNoParams = (query) => {
             pool.query(query, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
-                    console.log(rows);
                     return resolve(rows);
                 }
                 return resolve(rows);

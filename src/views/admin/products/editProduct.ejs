@@ -59,12 +59,10 @@
                                             <% if(imagearr.length > 0){ %>
                                             <% for (var i = 0; i < imagearr.length ; i++ ) { %>
                                             <div class="col-xs-12 col-sm-4 col-md-3">
-                                                <p> <%= imagearr %> </p>
-                                                <p> <%= product.image %> </p>
                                                 <div class="card">
                                                     <img class="card-img-top" id="image_<%= product.id %>_<%= i %>"
                                                         src="/public/uploads/products/<%= images[imagearr[i]] %>"
-                                                        alt="Card image cap" data-index='<%= i %>'>
+                                                        alt="Card image cap" data-index='<%= imagearr[i] %>'>
                                                     <div class="card-body">
                                                         <p class="text-center"> 
                                                             <strong> Hình ảnh
@@ -76,11 +74,11 @@
                                                                 class="btn btn-warning edit-product-image"
                                                                 title="Sửa hình ảnh" data-toggle="modal"
                                                                 data-id="image_<%= product.id %>_<%= i %>"
-                                                                data-url="/admin/product/edit-product-image/<%= product.id %>?index=<%= i %>"
+                                                                data-url="/admin/product/edit-product-image/<%= product.id %>?index=<%= imagearr[i] %>"
                                                                 data-target="#image-edit-modal">
                                                                 <i class="icofont icofont-edit"></i>
                                                             </button>
-                                                            <a href="/admin/product/delete-product-image/<%= product.id%>?index=<%= i %>"
+                                                            <a href="/admin/product/delete-product-image/<%= product.id%>?index=<%= imagearr[i] %>"
                                                                 type="button" class="btn btn-danger"
                                                                 title="Xóa hình ảnh">
                                                                 <i class="icofont icofont-ui-delete"></i>

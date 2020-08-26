@@ -1,0 +1,13 @@
+<section id="sl">
+    <div class="container-fluid">
+        <div class="row slOw">
+            <div class="slOw__sl owl-carousel has-owl">
+                <% slides.forEach(function(slide){ %>
+                    <div class="slOw__is">
+                        <img src="/public/uploads/slides/<%= slide.image %>" alt="">
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</section>

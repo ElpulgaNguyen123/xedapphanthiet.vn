@@ -1,0 +1,20 @@
+<section id="brand" class="brand pd-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="section-title text-left mb-5">
+                    <h2 class="text_P text-main ut_bold"> MUA THEO THƯƠNG HIỆU </h2>
+                </div>
+            </div>
+            <% brands.forEach(function(brand){ %>
+            <div class="col-6 col-sm-3 col-md-2">
+                <div class="brand__item">
+                    <a href="products.html">
+                        <img src="/public/uploads/brands/<%= brand.image %>" alt="">
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</section>

@@ -53,7 +53,7 @@ let addSlide = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
+                    .resize(1920, 625)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -115,7 +115,7 @@ let postEditSlide = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
+                .resize(1920, 625)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
                         if (req.body.slide_old_image) {
