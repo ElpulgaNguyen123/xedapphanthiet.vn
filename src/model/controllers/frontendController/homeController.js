@@ -8,11 +8,18 @@ let FrhomeController = async (req, res, next) => {
 
         var slideQuery = 'SELECT * FROM slide';
         var brandQuery = 'SELECT * FROM brand';
-        var productStreetQuery = 'SELECT * FROM `product` WHERE category_id = 1';
+        var productStreetQuery = 'SELECT *, categories.category_name FROM product INNER JOIN categories ON categories.id = product.category_id WHERE categories.id = 1';
+        var productRaceQuery = 'SELECT * FROM `product` WHERE category_id = 2';
+        var productChildQuery = 'SELECT * FROM `product` WHERE category_id = 3';
 
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const streets = await service.getAllCategoryProduct(productStreetQuery);
+        const racestype = await service.getAllCategoryProduct(productRaceQuery);
+        const childstype = await service.getAllCategoryProduct(productChildQuery);
+
+        console.log(streets[0]);
+
 
         pool.query('SELECT * FROM `user', function (error, results, fields) {
             if (error) throw error;
@@ -21,6 +28,9 @@ let FrhomeController = async (req, res, next) => {
                 slides : slide,
                 brands : brand.slice(0, 8),
                 streets : streets.slice(0,6),
+                streetsTitle : streets[0],
+                races : racestype.slice(0,6),
+                childs : childstype.slice(0,6),
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             })
