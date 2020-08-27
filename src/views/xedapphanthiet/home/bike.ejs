@@ -24,7 +24,7 @@
                 <div class="col-sm-12 col-md-12">
                     <div class="soph__box">
                         <div class="section-title text-left">
-                            <h3 class="soph__title text_P text-white ut_bold"> <%= streetsTitle.category_name %>  </h3>
+                            <h3 class="soph__title text_P text-white ut_bold"> <%= streetsTitle.category_name %> </h3>
                             <a href="bikes.html" class="link-more"> <span>Xem thêm&nbsp;</span><i
                                     class="icofont-long-arrow-right"></i></a>
                         </div>
@@ -34,23 +34,25 @@
                                 <div class="soph__it">
                                     <div class="soph__img">
                                         <a href="bikes-details.html" title="<%= street.name %>">
-                                            <img src="/public/uploads/products/<%=JSON.parse(street.image)[0] %>" alt="<%= street.name %>">
+                                            <img src="/public/uploads/products/<%= JSON.parse(street.image)[0]  %>"
+                                                alt="<%= street.name %>">
                                         </a>
                                     </div>
                                     <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html" title="<%= street.name %>"> <%= street.name %> </a>
+                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html"
+                                                title="<%= street.name %>"> <%= street.name %> </a>
                                         </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
+                                        <p class="line-clamp"> <%= street.short_description %> </p>
                                         <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
+                                            <div class="price ut_bold text-secondary"><%= street.price %> <sup>VNĐ<sup></sup></div>
+                                            <% if(street.quantity > 0) {%>
+                                                <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                    (<%= street.quantity %>)
+                                                </span>
+                                            <% }else{ %>
+                                                <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                                </span>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
@@ -85,29 +87,31 @@
                         <div class="soph__lst">
                             <div class="soph__1 owl-carousel has-owl owl-theme">
                                 <% races.forEach(function(race){ %>
-                                    <div class="soph__it">
-                                        <div class="soph__img">
-                                            <a href="bikes-details.html" title="<%= race.name %>">
-                                                <img src="/public/uploads/products/<%=JSON.parse(race.image)[0] %>" alt="<%= race.name %>">
-                                            </a>
-                                        </div>
-                                        <div class="soph__ct">
-                                            <h3 class="soph__tt ut_bold"> <a href="product-detail.html" title="<%= race.name %>"> <%= race.name %> </a>
-                                            </h3>
-                                            <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                                Corporis
-                                                voluptatum
-                                                dolore at. Illum
-                                                iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                                assumenda. Ab
-                                                blanditiis temporibus nihil quasi, ex expedita.</p>
-                                            <div class="soph-box d-flex">
-                                                <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                                <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                                </span>
-                                            </div>
-                                        </div>
+                                <div class="soph__it">
+                                    <div class="soph__img">
+                                        <a href="bikes-details.html" title="<%= race.name %>">
+                                            <img src="/public/uploads/products/<%=JSON.parse(race.image)[0] %>"
+                                                alt="<%= race.name %>">
+                                        </a>
                                     </div>
+                                    <div class="soph__ct">
+                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html"
+                                                title="<%= race.name %>"> <%= race.name %> </a>
+                                        </h3>
+                                        <p class="line-clamp"><%= race.short_description	 %></p>
+                                            <div class="soph-box d-flex">
+                                                <div class="price ut_bold text-secondary"><%= race.price %> <sup>VNĐ<sup></div>
+                                                <% if(race.quantity > 0) {%>
+                                                    <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                        (<%= race.quantity %>)
+                                                    </span>
+                                                <% }else{ %>
+                                                    <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                                    </span>
+                                                <% } %>
+                                            </div>
+                                    </div>
+                                </div>
                                 <% }); %>
                             </div>
                         </div>
@@ -138,251 +142,33 @@
                         </div>
                         <div class="soph__lst">
                             <div class="soph__1 owl-carousel has-owl owl-theme">
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <ul class="color">
-                                            <li><a href="bikes-details.html"></a></li>
-                                            <li><a href="bikes-details.html"></a></li>
-                                            <li><a href="bikes-details.html"></a></li>
-                                        </ul>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
+                                <% childs.forEach(function(child){ %>
+                                    <div class="soph__it">
+                                        <div class="soph__img">
+                                            <a href="bikes-details.html" title="<%= child.name %>">
+                                                <img src="/public/uploads/products/<%=JSON.parse(child.image)[0] %>"
+                                                    alt="<%= child.name %>">
+                                            </a>
+                                        </div>
+                                        <div class="soph__ct">
+                                            <h3 class="soph__tt ut_bold"> <a href="product-detail.html"
+                                                    title="<%= child.name %>"> <%= child.name %> </a>
+                                            </h3>
+                                            <p class="line-clamp"><%= child.short_description %></p>
+                                                <div class="soph-box d-flex">
+                                                    <div class="price ut_bold text-secondary"><%= child.price %> <sup>VNĐ<sup></div>
+                                                    <% if(child.quantity > 0) {%>
+                                                        <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                            (<%= child.quantity %>)
+                                                        </span>
+                                                    <% }else{ %>
+                                                        <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                                        </span>
+                                                    <% } %>
+                                                </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="soph__it">
-                                    <div class="soph__img">
-                                        <a href="bikes-details.html">
-                                            <img src="images/products/01.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html">Xe
-                                                Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa, Bánh 700c – 2020</a>
-                                        </h3>
-                                        <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Corporis
-                                            voluptatum
-                                            dolore at. Illum
-                                            iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
-                                            assumenda. Ab
-                                            blanditiis temporibus nihil quasi, ex expedita.</p>
-                                        <ul class="soph__color">
-                                            <li> <span class="red"></span> </li>
-                                            <li> <span class="yellow"></span> </li>
-                                            <li> <span class="blue"></span> </li>
-                                            <li> <span class="black"></span> </li>
-                                        </ul>
-                                        <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
-                                            <span class="status text-right"><i class="icofont-cube"></i> còn (25)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <% }); %>
                             </div>
                         </div>
                     </div>

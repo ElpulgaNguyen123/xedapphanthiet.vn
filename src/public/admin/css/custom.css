@@ -462,6 +462,20 @@ td.font-weight-bold {
 a {
  cursor: pointer;
 }
+.price-format {
+    font-size: 20px;
+    font-weight: 600;
+    color: #FF5722;
+}
+.price-show {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ac5033;
+}
+sup {
+    vertical-align: super;
+    font-size: 9px;
+}
 
 @media (min-width: 576px) {
     .modal-dialog.small {

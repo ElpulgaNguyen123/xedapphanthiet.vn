@@ -230,14 +230,13 @@ $(document).ready(function () {
                 for (var index = 0; index < myDropzone.files.length; index++) {
                     imgPathArrr.push(myDropzone.files[index].upload.filename);
                 }
-                console.log(imgPathArrr);
                 var ImageJson = Object.assign({}, imgPathArrr);
                 // thiết lập dữ liệu cho input bên frontend để truyền lên server
                 $('#image_path').val(JSON.stringify(ImageJson));
-                console.log($('#image_path').val())
             }
             $("#product_form").submit();
             $('.start').click();
+            
         });
 
         $('#dropzoneEditProductSubmit').on('click', function (e) {

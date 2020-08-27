@@ -249,28 +249,17 @@
                                                                         placeholder="Tên sản phẩm" required>
                                                                     <small> Slug, đường dẫn tối ưu SEO </small>
                                                                 </div>
-                                                                <script>
-                                                                    function curencyFormart(number, id) {
-                                                                        // var numberFormat = new Number(number).toLocaleString(
-                                                                        // { style: 'currency', currency: 'VND', maximumFractionDigits: 12, minimumFractionDigits: 12 });
-                                                                        var numberFormat = new Intl.NumberFormat('vn', { style: 'currency', currency: 'VND' }).format(number);
-                                                                        // var numberFormat = numeral(number).format('0,0');
-                                                                        $('#product_price').val(number);
-                                                                        if (isNaN(number)) {
-                                                                            var value = $('#product_price').val();
-                                                                            $('#' + id).val(value);
-                                                                        }
-                                                                        $('#' + id).attr('placeholder', numberFormat);
-                                                                    }
-                                                                </script>
                                                                 <div class="form-group">
                                                                     <label class="font-weight-bold required-form"
                                                                         for="product_price"> Giá sản
                                                                         phẩm
                                                                     </label>
-                                                                    <input type="number" name="product_price"
-                                                                        id="product_price" class="form-control"
-                                                                        placeholder="giá sản phẩm" required>
+                                                                    <input type="text" name="product_price"                                                                    "
+                                                                        id="product_price" class="form-control price-format"
+                                                                        placeholder="giá sản phẩm" required >
+                                                                        <script>
+                                                                            $('.price-format').simpleMoneyFormat('.');
+                                                                        </script>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="font-weight-bold"
