@@ -36,14 +36,16 @@ let FrhomeController = async (req, res, next) => {
         FROM product 
         INNER JOIN categories ON product.category_id = categories.id 
         WHERE categories.id = 3`;
+
+        var queryBlog = 'Select * from blog';
         
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const streets = await service.getAllCategoryProduct(productStreetQuery);
         const racestype = await service.getAllCategoryProduct(productRaceQuery);
         const childstype = await service.getAllCategoryProduct(productChildQuery);
-
-
+        const blogs = await service.getAllBlog(queryBlog);
+        
         pool.query('SELECT * FROM `user', function (error, results, fields) {
             if (error) throw error;
             res.render('xedapphanthiet/home/home', {
@@ -54,10 +56,12 @@ let FrhomeController = async (req, res, next) => {
                 streetsTitle : streets[0],
                 races : racestype.slice(0,6),
                 childs : childstype.slice(0,6),
+                blogs : blogs,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             })
         });
+
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);

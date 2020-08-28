@@ -1,6 +1,13 @@
 
 // Frontend controller start
-var FrhomeController = require('./homeController');
+const FrhomeController = require('./homeController');
+const FrAboutController = require('./aboutController');
+const FrContactController = require('./contactController');
+const FrBlogController = require('./blogController');
+
 module.exports = {
-    FrhomeController
+    FrhomeController,
+    FrAboutController,
+    FrContactController,
+    FrBlogController
 }

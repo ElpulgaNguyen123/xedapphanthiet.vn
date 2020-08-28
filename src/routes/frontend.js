@@ -3,6 +3,10 @@ var frontendRouter = express.Router();
 var controller = require('../model/controllers/frontendController');
 
 frontendRouter.get('/', controller.FrhomeController);
+frontendRouter.get('/gioi-thieu', controller.FrAboutController);
+frontendRouter.get('/lien-he', controller.FrContactController);
+frontendRouter.get('/blog', controller.FrBlogController);
+
 
 // products router
 // adminRouter.get('/products', controller.getAllProduct);

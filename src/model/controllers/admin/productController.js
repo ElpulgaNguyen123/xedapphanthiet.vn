@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
-        let match = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp'];
+        let match = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp', 'image/gif'];
         if (match.indexOf(file.mimetype) === -1) {
             return cb(error, null);
         }

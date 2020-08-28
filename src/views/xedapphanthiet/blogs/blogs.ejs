@@ -1,0 +1,63 @@
+<% extend("../../xedapphanthiet") %>
+<section class="breacrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-12 text-center">
+                <span class=big-title> Tin tức, Kinh Nghiệm </span>
+                <nav class="breadcrumb">
+                    <a class="breadcrumb-item" href="index.html">Trang chủ</a>
+                    <span class="breadcrumb-item active">Tin tức, Kinh Nghiệm</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- news start -->
+<section id="news" class="news news_list pd-section pd-lg-section no-back">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-12 col-md-12">
+                    <div class="section-title text-left mb-5">
+                        <h2 class="news__tt text-sm text-main ut_bold"> KIẾN THỨC - KINH NGHIỆM</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <div class="row">
+                    <% blogs.forEach(function(blog){ %>
+                    <div class="col-xs-12 col-md-4">
+                    <div class="news_item">
+                        <div class="news__img news_list">
+                            <a href="news-details.html">
+                                <img src="/public/uploads/blogs/<%= blog.image %>" alt="">
+                            </a>
+                        </div>
+                        <div class="news_des">
+                            <h3 class="ut_bold text-smavg two-line mt-4"> <a
+                                    href="news-details.html"><%= blog.title %></a></h3>
+                            <p class="news__typho two-line"><%= blog.short_description %> </p>
+                            <div class="news-event__day">
+                                <ul>
+                                    <li> <i class="icofont icofont-ui-calendar"></i>
+                                        <span>
+                                            <%= blog.create_at %> </span></li>
+                                    <li> <i class="icofont-user-suited"></i> <%= blog.author %> </li>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a type="button" class="btn btn-primary Utbtn_main bg-main" href="news-detail.html"> Chi
+                                tiết <i class="icofont-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- news end -->

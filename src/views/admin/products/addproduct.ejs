@@ -254,12 +254,13 @@
                                                                         for="product_price"> Giá sản
                                                                         phẩm
                                                                     </label>
-                                                                    <input type="text" name="product_price"                                                                    "
-                                                                        id="product_price" class="form-control price-format"
-                                                                        placeholder="giá sản phẩm" required >
-                                                                        <script>
-                                                                            $('.price-format').simpleMoneyFormat('.');
-                                                                        </script>
+                                                                    <input type="text" name="product_price" "
+                                                                        id=" product_price"
+                                                                        class="form-control price-format"
+                                                                        placeholder="giá sản phẩm" required>
+                                                                    <script>
+                                                                        $('.price-format').simpleMoneyFormat('.');
+                                                                    </script>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="font-weight-bold"
@@ -368,7 +369,8 @@
                                                                                         tính
                                                                                     </option>
                                                                                     <% attributes.forEach(function(attribute, index){ %>
-                                                                                    <option id="op_<%=attribute.id%>" value="<%= attribute.id %>">
+                                                                                    <option id="op_<%=attribute.id%>"
+                                                                                        value="<%= attribute.id %>">
                                                                                         <%= attribute.attribute_name %>
                                                                                     </option>
                                                                                     <%})%>
@@ -388,12 +390,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <button type="submit" id="dropzoneSubmit"
+                                                            class="btn hor-grd btn-grd-success mt-4">
+                                                            <span><i class="icofont icofont-save"></i></span>
+                                                            Lưu sản phẩm
+                                                        </button>
                                                     </form>
-                                                    <button type="submit" id="dropzoneSubmit"
-                                                        class="btn hor-grd btn-grd-success mt-4">
-                                                        <span><i class="icofont icofont-save"></i></span>
-                                                        Lưu sản phẩm
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -410,8 +412,6 @@
     </div>
 </div>
 <script>
-
-
 
     var ProductAttrArr = [];
     var id_attribues = [];
@@ -468,49 +468,6 @@
     }
     // A $( document ).ready() block.
     $(document).ready(function () {
-        // expected output: "￥123,457"
-        $("#product_form").validate({
-            rules: {
-                product_name: {
-                    required: true,
-                    minlength: 2,
-                },
-                product_sku: {
-                    required: true,
-                    minlength: 5
-                },
-                product_price: {
-                    required: true,
-                    number: true
-                },
-                product_brand: {
-                    required: true,
-                },
-                product_category: {
-                    required: true
-                }
-            },
-            messages: {
-                product_name: {
-                    required: "Vui lòng nhập tên sản phẩm",
-                    minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
-                },
-                product_sku: {
-                    required: "Vui lòng nhập mã sản phẩm",
-                    minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
-                },
-                product_price: {
-                    required: "Vui lòng nhập giá sản phẩm",
-                    number: 'giá sản phẩm phải là số'
-                },
-                product_brand: {
-                    required: "Vui lòng chọn hãng sản xuất",
-                },
-                product_category: {
-                    required: 'Vui lòng chọn danh mục cho sản phẩm'
-                }
-            }
-        });
 
         //end validate product form
 
@@ -576,7 +533,7 @@
             getAttributeServer(valueSelect);
         });
         // end send attribute id ======================
-        
+
         // start remove attribute id ==================
         // xóa id thuộc tính khi không muốn thêm nữa.
         $(document).on("click", ".minus-button", function () {

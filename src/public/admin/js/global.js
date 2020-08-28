@@ -15,7 +15,7 @@ function updateUserInfo() {
         userInfo.name = $(this).val();
     })
     $('#profile-email').bind('change', function () {
-        userInfo.email = $(this).val();image_path
+        userInfo.email = $(this).val(); image_path
     })
     $('#profile-phone').bind('change', function () {
         userInfo.phone = $(this).val();
@@ -177,7 +177,7 @@ $(document).ready(function () {
     $('.show-image-add').on('click', function () {
         $('.dropzone-edit-more').toggleClass('show');
     });
-    
+
     // summernote editor
     $('#summernote').summernote({
         placeholder: 'Chi tiết sản phẩm',
@@ -196,7 +196,7 @@ $(document).ready(function () {
     =============================================*/
 
     /*=====  Tags Input auto complete ======*/
-   
+
     if (document.querySelector(".template")) {
         var previewNode = document.querySelector(".template");
         previewNode.id = "";
@@ -221,57 +221,157 @@ $(document).ready(function () {
             previewsContainer: "#previews", // Define the container to display the previews
             clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
         });
-       
+
+
         // thực hiện thêm hình ảnh
         $('#dropzoneSubmit').on('click', function (e) {
-            myDropzone.processQueue();
-            var imgPathArrr = [];
-            if (myDropzone.files != "") {
-                for (var index = 0; index < myDropzone.files.length; index++) {
-                    imgPathArrr.push(myDropzone.files[index].upload.filename);
+            //e.preventDefault();
+            //console.log('Clicked');
+            $("#product_form").validate({
+                rules: {
+                    product_name: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    product_sku: {
+                        required: true,
+                        minlength: 5
+                    },
+                    product_price: {
+                        required: true,
+                        number: true
+                    },
+                    product_brand: {
+                        required: true,
+                    },
+                    product_category: {
+                        required: true
+                    }
+                },
+                messages: {
+                    product_name: {
+                        required: "Vui lòng nhập tên sản phẩm",
+                        minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
+                    },
+                    product_sku: {
+                        required: "Vui lòng nhập mã sản phẩm",
+                        minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
+                    },
+                    product_price: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'giá sản phẩm phải là số'
+                    },
+                    product_brand: {
+                        required: "Vui lòng chọn hãng sản xuất",
+                    },
+                    product_category: {
+                        required: 'Vui lòng chọn danh mục cho sản phẩm'
+                    }
+                },
+                invalidHandler: function (event, validator) {
+                    var errors = validator.numberOfInvalids();
+                    /*Here you will get your errors
+                        if (errors) {
+                          var message = errors == 1
+                                ? 'You missed 1 field. It has been highlighted'
+                                : 'You missed ' + errors + ' fields. They have been highlighted';
+                          $("div.error span").html(message);
+                          $("div.error").show();
+                    } else {
+                      $("div.error").hide();
+                    }*/
+                    alert("Vui lòng Validate " + errors);
+                },
+                submitHandler: function (element) {
+                    myDropzone.processQueue();
+                    var imgPathArrr = [];
+                    if (myDropzone.files != "") {
+                        for (var index = 0; index < myDropzone.files.length; index++) {
+                            imgPathArrr.push(myDropzone.files[index].upload.filename);
+                        }
+                        var ImageJson = Object.assign({}, imgPathArrr);
+                        // thiết lập dữ liệu cho input bên frontend để truyền lên server
+                        $('#image_path').val(JSON.stringify(ImageJson));
+                    }
+                    $('.start').click();
                 }
-                var ImageJson = Object.assign({}, imgPathArrr);
-                // thiết lập dữ liệu cho input bên frontend để truyền lên server
-                $('#image_path').val(JSON.stringify(ImageJson));
-            }
-            $("#product_form").submit();
-            $('.start').click();
-            
+            });
         });
 
         $('#dropzoneEditProductSubmit').on('click', function (e) {
-            myDropzone.processQueue();
-            var imgPathArrr = [];
-            if (myDropzone.files != "") {
-                for (var index = 0; index < myDropzone.files.length; index++) {
-                    imgPathArrr.push(myDropzone.files[index].upload.filename);
+            //e.preventDefault();
+            //console.log('Clicked');
+            $("#product-edit-form").validate({
+                rules: {
+                    product_name: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    product_sku: {
+                        required: true,
+                        minlength: 5
+                    },
+                    product_price: {
+                        required: true,
+                        number: true
+                    },
+                    product_brand: {
+                        required: true,
+                    },
+                    product_category: {
+                        required: true
+                    }
+                },
+                messages: {
+                    product_name: {
+                        required: "Vui lòng nhập tên sản phẩm",
+                        minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
+                    },
+                    product_sku: {
+                        required: "Vui lòng nhập mã sản phẩm",
+                        minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
+                    },
+                    product_price: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: 'giá sản phẩm phải là số'
+                    },
+                    product_brand: {
+                        required: "Vui lòng chọn hãng sản xuất",
+                    },
+                    product_category: {
+                        required: 'Vui lòng chọn danh mục cho sản phẩm'
+                    }
+                },
+                invalidHandler: function (event, validator) {
+                    var errors = validator.numberOfInvalids();
+                    /*Here you will get your errors
+                        if (errors) {
+                          var message = errors == 1
+                                ? 'You missed 1 field. It has been highlighted'
+                                : 'You missed ' + errors + ' fields. They have been highlighted';
+                          $("div.error span").html(message);
+                          $("div.error").show();
+                    } else {
+                      $("div.error").hide();
+                    }*/
+                    alert("Vui lòng Validate " + errors);
+                },
+                submitHandler: function (element) {
+                    myDropzone.processQueue();
+                    var imgPathArrr = [];
+                    if (myDropzone.files != "") {
+                        for (var index = 0; index < myDropzone.files.length; index++) {
+                            imgPathArrr.push(myDropzone.files[index].upload.filename);
+                        }
+                        var ImageJson = Object.assign({}, imgPathArrr);
+                        // thiết lập dữ liệu cho input bên frontend để truyền lên server
+                        $('#image_path').val(JSON.stringify(ImageJson));
+                    }
+                    $('.start').click();
                 }
-                var ImageJson = Object.assign({}, imgPathArrr);
-                // thiết lập dữ liệu cho input bên frontend để truyền lên server
-                $('#image_path').val(JSON.stringify(ImageJson));
-            }
-            $("#product-edit-form").submit();
-            $('.start').click();
+            });
         });
 
-        // edit product submit.
-        $('#dropzoneEditProductSubmitss').on('click', function (e) {
-            myDropzone.processQueue();
-            console.log('Đã click');
-            var imgPathArrr = [];
-            if (myDropzone.files != "") {
-                for (var index = 0; index < myDropzone.files.length; index++) {
-                    imgPathArrr.push(myDropzone.files[index].upload.filename);
-                }
-                console.log(imgPathArrr);
-                var ImageJson = Object.assign({}, imgPathArrr);
-                // thiết lập dữ liệu cho input bên frontend để truyền lên server
-                $('#image_path').val(JSON.stringify(ImageJson));
-            }else {
-                $("#product-edit-form").submit();
-                //$('.start').click();
-            }
-        });
 
         // thực hiện update hoặc thêm hình ảnh.
         $('#save-button-product-image').on('click', function (param) {
