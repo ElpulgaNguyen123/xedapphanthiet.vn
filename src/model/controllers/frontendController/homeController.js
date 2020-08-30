@@ -11,7 +11,8 @@ let FrhomeController = async (req, res, next) => {
         var productStreetQuery = `
         SELECT product.id, product.name, product.short_description, 
         product.image, 
-        product.sku, 
+        product.sku,
+        product.slug, 
         product.quantity,
         product.price,
         categories.category_name 
@@ -20,7 +21,8 @@ let FrhomeController = async (req, res, next) => {
         WHERE categories.id = 1`;
         var productRaceQuery = `SELECT product.id, product.name, product.short_description, 
         product.image, 
-        product.sku, 
+        product.sku,
+        product.slug, 
         product.quantity,
         product.price,
         categories.category_name 
@@ -29,7 +31,8 @@ let FrhomeController = async (req, res, next) => {
         WHERE categories.id = 2`;
         var productChildQuery = `SELECT product.id, product.name, product.short_description, 
         product.image, 
-        product.sku, 
+        product.sku,
+        product.slug, 
         product.quantity,
         product.price,
         categories.category_name 

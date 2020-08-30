@@ -14,14 +14,14 @@
                         <div class="news_item">
                             <div class="row">
                                 <div class="col-sm-12 col-md-5">
-                                    <h3 class="ut_bold"> <%= blog.title %> </h3>
+                                    <h3 class="ut_bold"> <a href="/blog/<%= blog.slug %>.<%= blog.id %>" title="<%= blog.title %>"><%= blog.title %> </a> </h3>
                                     <p class="news__typho"> <%= blog.short_description %> </p>
-                                    <a type="button" class="btn btn-primary Utbtn_main bg-main" href="news-detail.html"> Chi
+                                    <a type="button" class="btn btn-primary Utbtn_main bg-main" href="/blog/<%= blog.slug %>.<%= blog.id %>"> Chi
                                         tiết <i class="icofont-long-arrow-right"></i></a>
                                 </div>
                                 <div class="col-sm-12 col-md-7">
                                     <div class="news__img">
-                                        <img src="/public/uploads/blogs/<%= blog.image %>" alt="">
+                                        <img src="/public/uploads/blogs/<%= blog.image %>" alt="<%= blog.title %>">
                                     </div>
                                 </div>
                             </div>

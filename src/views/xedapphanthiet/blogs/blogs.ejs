@@ -29,35 +29,38 @@
                 <div class="row">
                     <% blogs.forEach(function(blog){ %>
                     <div class="col-xs-12 col-md-4">
-                    <div class="news_item">
-                        <div class="news__img news_list">
-                            <a href="news-details.html">
-                                <img src="/public/uploads/blogs/<%= blog.image %>" alt="">
-                            </a>
-                        </div>
-                        <div class="news_des">
-                            <h3 class="ut_bold text-smavg two-line mt-4"> <a
-                                    href="news-details.html"><%= blog.title %></a></h3>
-                            <p class="news__typho two-line"><%= blog.short_description %> </p>
-                            <div class="news-event__day">
-                                <ul>
-                                    <li> <i class="icofont icofont-ui-calendar"></i>
-                                        <span>
-                                            <%= blog.create_at %> </span></li>
-                                    <li> <i class="icofont-user-suited"></i> <%= blog.author %> </li>
-                                    </li>
-                                </ul>
+                        <div class="news_item">
+                            <div class="news__img news_list">
+                                <a href="/blog/<%= blog.slug %>.<%= blog.id %>" title="<%= blog.title %>">
+                                    <img src="/public/uploads/blogs/<%= blog.image %>" alt="<%= blog.title %>">
+                                </a>
                             </div>
-                            <a type="button" class="btn btn-primary Utbtn_main bg-main" href="news-detail.html"> Chi
-                                tiết <i class="icofont-long-arrow-right"></i>
-                            </a>
+                            <div class="news_des">
+                                <h3 class="ut_bold text-smavg two-line mt-4"> <a
+                                        href="/blog/<%= blog.slug %>.<%= blog.id %>"
+                                        title="<%= blog.title %>"><%= blog.title %></a></h3>
+                                <p class="news__typho two-line"><%= blog.short_description %> </p>
+                                <div class="news-event__day">
+                                    <ul>
+                                        <li> <i class="icofont icofont-ui-calendar"></i>
+                                            <span>
+                                                <%= blog.create_at %> </span></li>
+                                        <li> <i class="icofont-user-suited"></i>
+                                            <%= blog.author %> </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a type="button" class="btn btn-primary Utbtn_main bg-main"
+                                    href="/blog/<%= blog.slug %>.<%= blog.id %>" title="<%= blog.title %>"> Chi
+                                    tiết <i class="icofont-long-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
+                    <% }); %>
                 </div>
-                <% }); %>
             </div>
         </div>
-    </div>
     </div>
 </section>
 <!-- news end -->

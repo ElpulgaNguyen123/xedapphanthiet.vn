@@ -33,13 +33,13 @@
                                 <% streets.forEach(function(street){ %>
                                 <div class="soph__it">
                                     <div class="soph__img">
-                                        <a href="bikes-details.html" title="<%= street.name %>">
+                                        <a href="/bike/<%= street.slug %>.<%= street.id %>" title="<%= street.name %>">
                                             <img src="/public/uploads/products/<%= JSON.parse(street.image)[0]  %>"
                                                 alt="<%= street.name %>">
                                         </a>
                                     </div>
                                     <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html"
+                                        <h3 class="soph__tt ut_bold"> <a href="/bike/<%= street.slug %>.<%= street.id %>"
                                                 title="<%= street.name %>"> <%= street.name %> </a>
                                         </h3>
                                         <p class="line-clamp"> <%= street.short_description %> </p>
@@ -89,13 +89,13 @@
                                 <% races.forEach(function(race){ %>
                                 <div class="soph__it">
                                     <div class="soph__img">
-                                        <a href="bikes-details.html" title="<%= race.name %>">
+                                        <a href="/bike/<%= race.slug %>.<%= race.id %>" title="<%= race.name %>">
                                             <img src="/public/uploads/products/<%=JSON.parse(race.image)[0] %>"
                                                 alt="<%= race.name %>">
                                         </a>
                                     </div>
                                     <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="product-detail.html"
+                                        <h3 class="soph__tt ut_bold"> <a href="/bike/<%= race.slug %>.<%= race.id %>"
                                                 title="<%= race.name %>"> <%= race.name %> </a>
                                         </h3>
                                         <p class="line-clamp"><%= race.short_description	 %></p>
@@ -145,13 +145,13 @@
                                 <% childs.forEach(function(child){ %>
                                     <div class="soph__it">
                                         <div class="soph__img">
-                                            <a href="bikes-details.html" title="<%= child.name %>">
+                                            <a href="/bike/<%= child.slug %>.<%= child.id %>" title="<%= child.name %>">
                                                 <img src="/public/uploads/products/<%=JSON.parse(child.image)[0] %>"
                                                     alt="<%= child.name %>">
                                             </a>
                                         </div>
                                         <div class="soph__ct">
-                                            <h3 class="soph__tt ut_bold"> <a href="product-detail.html"
+                                            <h3 class="soph__tt ut_bold"> <a href="/bike/<%= child.slug %>.<%= child.id %>"
                                                     title="<%= child.name %>"> <%= child.name %> </a>
                                             </h3>
                                             <p class="line-clamp"><%= child.short_description %></p>
