@@ -9,15 +9,17 @@ var adminRouter = require('./src/routes/admin');
 var frontendRouter = require('./src/routes/frontend');
 var configviewEngine = require('./src/model/config/viewEngine');
 var passport = require('passport');
+var path = require('path');
 
 // db
 var pool = require('./src/model/config/connectDb');
-
 var app = express();
 var port = 4000;
 
 // view engine setup start
 configviewEngine(app);
+//app.use(express.static(path.join(__dirname, 'src')));
+//app.use('/public', express.static(__dirname + "/public"));
 // view engine setup end
 
 app.use(logger('dev'));

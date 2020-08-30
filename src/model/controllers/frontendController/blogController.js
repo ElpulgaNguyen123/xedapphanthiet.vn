@@ -22,10 +22,10 @@ let FrBlogController = async (req, res, next) => {
 let FrBlogDetailController = async (req, res, next) => {
     try {
         var id = req.params.id;
+        console.log('Id bài viết là');
         console.log(id);
-        const queryBlog = `Select * from blog where id = ${id}`;
+        const queryBlog = `Select * from blog where id = ${1}`;
         const blog = await service.getBlog(queryBlog);
-        console.log('Thông tin chi tiết bải viết !');
         console.log(blog);
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/blogs/blog-detail', {

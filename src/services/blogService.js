@@ -53,5 +53,6 @@ let getBlog = (query) => {
 
 module.exports = {
     queryActionBlogelete,
-    getAllBlog
+    getAllBlog,
+    getBlog
 }
