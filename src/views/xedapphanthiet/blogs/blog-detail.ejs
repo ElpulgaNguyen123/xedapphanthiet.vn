@@ -3,10 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-md-12">
-          <span class=big-title> Chi tiết tin tức </span>
+          <span class=big-title> <%= blog.title  %> </span>
           <nav class="breadcrumb">
             <a class="breadcrumb-item" href="/">Trang chủ</a>
-            <span class="breadcrumb-item active">Chi tiết tin tức</span>
+            <span class="breadcrumb-item active"><%= blog.title  %></span>
           </nav>
         </div>
       </div>
@@ -14,7 +14,7 @@
   </section>
 
   <!-- news start -->
-  <section id="news" class="news-details mt-4">
+  <section id="news" class="news-details mt-4 page-relative">
     <div class="container">
       <div class="news-detail-box">
         <div class="row bg-white">
@@ -22,100 +22,18 @@
             <div class="top-details">
               <img src="images/news/012.jpg" alt="">
             </div>
-            <h1 class="ut_bold mt-4 mb-4">TẠI SAO BẠN NÊN CHỌN ĐI LÀM BẰNG XE ĐẠP?</h1>
+            <h1 class="ut_bold mt-4 mb-4"><%= blog.title  %></h1>
             <div class="news-event__day">
               <ul class="d-flex">
                 <li> <i class="icofont icofont-ui-calendar"></i>
                   <span>
-                    06/02/2020 </span></li>
-                <li> <i class="icofont-user-suited"></i> Thắng Nguyễn </li>
+                    <%= blog.create_at  %> </span></li>
+                <li> <i class="icofont-user-suited"></i> <%= blog.author  %> </li>
                 </li>
               </ul>
             </div>
             <div class="entry-content single-page">
-              <h3>Giúp bạn sống lâu hơn</h3>
-              <p>Theo nghiên cứu của đại học Glasgow Anh công bố trên tạp chí Y Khoa nước này năm 2017 cho thấy rằng
-                những người sử dụng xe đạp hằng ngày có nguy cơ tử vong thấp hơn 41% so với người bình thường, nguy cơ
-                phát triển ung thư thấp hơn 45% và các nguy cơ mắc bệnh về tim mạch thấp hơn 46%.</p>
-              <h3>Tăng cường sức khoẻ não bộ</h3>
-              <figure class="wp-block-image"><img src="https://giant.vn/wp-content/uploads/2020/06/blog1-1.jpg" alt=""
-                  class="wp-image-24169"></figure>
-              <p>Đạp xe tác động trực tiếp đến hệ thần kinh trung ương. Trong suốt quá trình đạp xe, lượng oxy sẽ được
-                lưu thông vào não, giúp phát triển các mao mạch thần kinh, tăng cường chất xám, thúc đẩy quá trình
-                phục
-                hồi tế bào não khi bị căng thẳng. </p>
-              <p>Đi xe đạp giúp bạn đem lại những nụ cười rạng rỡ trên khuôn mặt của hầu hết mọi người và trên một mức
-                độ vô hình nó cũng thúc đẩy bộ não của chúng ta . Tất cả những giờ bạn dành để quay bàn đạp không chỉ
-                làm hết việc trên vùng cơ quan của bạn mà còn trên cả vùng chất xám của bạn . Khi các mạch máu trong
-                não
-                của bạn có thể nhận được những nguồn cấp dinh dưỡng và oxy được cải thiện , chúng dường như có thể
-                hoạt
-                động tốt hơn.</p>
-              <h3>Giúp giảm ô nhiễm môi trường</h3>
-              <figure class="wp-block-image"><img src="https://giant.vn/wp-content/uploads/2020/06/blog3.jpg" alt=""
-                  class="wp-image-24172"></figure>
-              <p>Theo Royal College of Physicians có tới 40.000 ca tử vong do ô nhiễm không khí gây ra mỗi năm ở Anh –
-                hút thuốc lá cũng góp phần dẫn đến việc tử vong sớm. Trong đó các hoạt động giao thông vận tải chiếm
-                tới
-                80% nguyên nhân dẫn đến tình trạng ô nhiễm không khí. Nghiên cứu cũng chỉ ra rằng những ngưởi tham gia
-                giao thông bằng xe ô tô có thể chịu mức ảnh hưởng của ô nhiễm không khí cao gấp năm lần người đi xe
-                đạp
-                và gấp 3,5 lần so với những người tham gia giao thông bằng phương tiện khác. </p>
-              <h3>Nâng cao trí nhớ và lập luận</h3>
-              <p>Khi chúng ta già đi , dường như chúng ta có thể phát triển các loại vấn đề bao gồm cả những vấn đề
-                liên
-                quan tới quá trình lão hóa chẳng hạn như vấn đề cân bằng . Những việc tiếp tục đạp xe có thể bảo tồn
-                nhiều khía cạnh cũng như các chức năng của não , kể cả trí nhớ. Vì vậy, bạn có thể chọn việc đạp xe để
-                chống lại sự lão hoá.</p>
-              <p>Khi mà chúng ta già đi tất cả chúng ta đều có thể phát triển các bệnh với các vấn đề liên quan đến
-                lão
-                hóa như cân bằng . Nhưng việc tiếp tục đạp xe đạp sẽ đem lại bảo tổn khả năng về chức năng của bộ não
-                cũng như trí nhớ.</p>
-              <h3>Tận hưởng niềm vui mỗi khi đi làm</h3>
-              <figure class="wp-block-image"><img src="https://giant.vn/wp-content/uploads/2020/06/blog4.jpg" alt=""
-                  class="wp-image-24170"></figure>
-              <p>Trong cuộc sống hối hả như bây giờ, ai ai cũng bị gò bó trong những khuôn khổ của những lo toan của
-                độ
-                tuổi trưởng thành, ngày nào cũng leo lên những chiếc xe máy khi xung quanh bao người nào là khói bụi,
-                ồn
-                ào, chật chội.., ngày này qua ngày khác khiến chúng ta không còn chậm lại dù chỉ một phút để ngẫm
-                nghĩ,
-                để hiểu về bản thân nhiều hơn, được sắp xếp lại mọi thứ cuộc sống một cách kỹ càng hơn. Đạp xe đi làm
-                không chỉ mang lại sức khoẻ, nó còn là một cách để dung dưỡng tâm trí theo cách tối giản nhất trong
-                cái
-                guồng quay tấc bậc của cuộc sống.</p>
-              <p>Còn gì bằng khi được một vé trở lại tuổi thơ dù chỉ trong khoảng thời gian ngắn, mỗi ngày vi vu và
-                những cơn gió thoảng lướt nhẹ qua bạn, nhìn làn người lướt đều qua, và chỉ có bạn phía nơi sau, dõi
-                theo
-                mọi thứ xung quanh từ nhành cây, nhánh lá, tiếng chim cho đến con người… Ngoài ra, đạp xe&nbsp;giúp
-                tăng
-                lượng hormone endorphin còn gọi là hormone của sự hạnh phúc, giúp giảm lo lắng, căng thẳng, nâng cao
-                cảm
-                xúc tích cực, cho bạn một ngày mới rạng rỡ hơn rất nhiều.</p>
-              <h3>An toàn hơn các phương tiện khác</h3>
-              <figure class="wp-block-image"><img src="https://giant.vn/wp-content/uploads/2020/06/blog5.jpg" alt=""
-                  class="wp-image-24171"></figure>
-              <p>Nếu so sánh vận tốc của phương tiện như xe máy hoặc xe ô tô và xe đạp thì có lẽ chúng ta đều biết vận
-                tốc của xe đạp thấp hơn rất nhiều. Hiện nay nhiều quốc gia trên thế giới, đặc biệt là Netherland có
-                đến
-                hơn 90% số người sử dụng xe đạp trong nhiều hoạt động thường ngày như đạp xe đi học, đạp xe đi
-                làm..v..v.. , và đây cũng được xem là một trong những quốc gia có tỉ lệ tai nạn giao thông thấp nhất.
-                Về
-                mặt lý tính, xe đạp thông thường được cấu tạo từ nhôm hoặc carbon, không chỉ cứng cáp, bền bỉ mà còn
-                rất
-                dễ xử lý tình huống khi tham gia giao thông hơn so với phương tiện khác và về mặt tinh thần, xe đạp
-                góp
-                phần nâng cao nhận thức, thúc đẩy những cảm xúc tích cực và nâng cao hành vi trong quá trình tham gia
-                giao thông. </p>
-              <p>Đừng quên Like trang fanpage&nbsp;<a
-                  href="https://www.facebook.com/giantinternational/?epa=SEARCH_BOX">Giant International&nbsp;</a>để
-                thường xuyên cập nhật những sản phẩm mới nhất cũng như tin tức về kiến thức, kinh nghiệm luyện tập và
-                các chương tình khuyến mãi nhé! </p>
-              <p> Nếu có bất kì thắc mắc xin vui lòng liên hệ&nbsp;<strong><em>HOTLINE:&nbsp;0937 440
-                    550</em></strong>
-              </p>
-              <!-- wp:shortcode -->
-              </p>
+              <%- blog.content  %>
             </div>
           </div>
           <div class="col-sm-12 col-md-4">
@@ -124,97 +42,26 @@
                 <h4 class="text_P text-main ut_bold"> TIN TỨC NỔI BẬT </h4>
                 <div class="relate-list">
                   <ul>
+                    <% blogFeature.forEach((blogfea) => { %>
                     <li>
-                      <a class="feature_item" href="news-details.html">
+                      <a class="feature_item" href="/blog/<%= blogfea.slug %>.<%= blogfea.id %>" title="<%= blogfea.title %>">
                         <div class="left_img">
-                          <img src="images/news/01.jpg" alt="">
+                          <img src="/public/uploads/blogs/<%= blogfea.image %>" alt="<%= blogfea.title %>">
                         </div>
                         <div class="right_feature">
-                          <h5>Đạp xe bao nhiêu phút mỗi ngày là đủ</h5>
+                          <h5><%= blogfea.title %></h5>
                           <div class="news-event__day">
                             <ul class="d-flex">
                               <li> <i class="icofont icofont-ui-calendar"></i>
                                 <span>
-                                  06/02/2020 </span></li>
-                              <li> <i class="icofont-user-suited"></i> Thắng Nguyễn </li>
+                                  <%= blogfea.create_at %> </span></li>
+                              <li> <i class="icofont-user-suited"></i> <%= blogfea.author %> </li>
                             </ul>
                           </div>
                         </div>
                       </a>
                     </li>
-                    <li>
-                      <a class="feature_item" href="news-details.html">
-                        <div class="left_img">
-                          <img src="images/news/01.jpg" alt="">
-                        </div>
-                        <div class="right_feature">
-                          <h5>Đạp xe bao nhiêu phút mỗi ngày là đủ</h5>
-                          <div class="news-event__day">
-                            <ul class="d-flex">
-                              <li> <i class="icofont icofont-ui-calendar"></i>
-                                <span>
-                                  06/02/2020 </span></li>
-                              <li> <i class="icofont-user-suited"></i> Thắng Nguyễn </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="feature_item" href="news-details.html">
-                        <div class="left_img">
-                          <img src="images/news/01.jpg" alt="">
-                        </div>
-                        <div class="right_feature">
-                          <h5>Đạp xe bao nhiêu phút mỗi ngày là đủ</h5>
-                          <div class="news-event__day">
-                            <ul class="d-flex">
-                              <li> <i class="icofont icofont-ui-calendar"></i>
-                                <span>
-                                  06/02/2020 </span></li>
-                              <li> <i class="icofont-user-suited"></i> Thắng Nguyễn </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="feature_item" href="news-details.html">
-                        <div class="left_img">
-                          <img src="images/news/01.jpg" alt="">
-                        </div>
-                        <div class="right_feature">
-                          <h5>Đạp xe bao nhiêu phút mỗi ngày là đủ</h5>
-                          <div class="news-event__day">
-                            <ul class="d-flex">
-                              <li> <i class="icofont icofont-ui-calendar"></i>
-                                <span>
-                                  06/02/2020 </span></li>
-                              <li> <i class="icofont-user-suited"></i> Thắng Nguyễn </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="feature_item" href="news-details.html">
-                        <div class="left_img">
-                          <img src="images/news/01.jpg" alt="">
-                        </div>
-                        <div class="right_feature">
-                          <h5>Đạp xe bao nhiêu phút mỗi ngày là đủ</h5>
-                          <div class="news-event__day">
-                            <ul class="d-flex">
-                              <li> <i class="icofont icofont-ui-calendar"></i>
-                                <span>
-                                  06/02/2020 </span></li>
-                              <li> <i class="icofont-user-suited"></i> Thắng Nguyễn </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-
+                    <% }) %>
                   </ul>
                 </div>
               </div>

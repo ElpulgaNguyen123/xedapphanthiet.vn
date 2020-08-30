@@ -482,12 +482,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <button type="submit" id="dropzoneEditProductSubmit"
+                                            <button type="submit" id="dropzoneEditProductSubmit"
                                             class="btn hor-grd btn-grd-success mt-4 mb-4">
                                             <span><i class="icofont icofont-save"></i></span>
                                             Lưu lại
                                         </button>
+                                        </form>
+                                       
                                     </div>
                                     <!-- end add product info -->
                                 </div>
@@ -689,48 +690,48 @@
             $('#product_image').trigger('click', getProductImageUpdate());
         });
         // expected output: "￥123,457"
-        $("#product-edit-form").validate({
-            rules: {
-                product_name: {
-                    required: true,
-                    minlength: 2,
-                },
-                product_sku: {
-                    required: true,
-                    minlength: 5
-                },
-                product_price: {
-                    required: true,
-                    number: true
-                },
-                product_brand: {
-                    required: true,
-                },
-                product_category: {
-                    required: true
-                }
-            },
-            messages: {
-                product_name: {
-                    required: "Vui lòng nhập tên sản phẩm",
-                    minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
-                },
-                product_sku: {
-                    required: "Vui lòng nhập mã sản phẩm",
-                    minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
-                },
-                product_price: {
-                    required: "Vui lòng nhập giá sản phẩm",
-                    number: 'giá sản phẩm phải là số'
-                },
-                product_brand: {
-                    required: "Vui lòng chọn hãng sản xuất",
-                },
-                product_category: {
-                    required: 'Vui lòng chọn danh mục cho sản phẩm'
-                }
-            }
-        });
+        // $("#product-edit-form").validate({
+        //     rules: {
+        //         product_name: {
+        //             required: true,
+        //             minlength: 2,
+        //         },
+        //         product_sku: {
+        //             required: true,
+        //             minlength: 5
+        //         },
+        //         product_price: {
+        //             required: true,
+        //             number: true
+        //         },
+        //         product_brand: {
+        //             required: true,
+        //         },
+        //         product_category: {
+        //             required: true
+        //         }
+        //     },
+        //     messages: {
+        //         product_name: {
+        //             required: "Vui lòng nhập tên sản phẩm",
+        //             minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
+        //         },
+        //         product_sku: {
+        //             required: "Vui lòng nhập mã sản phẩm",
+        //             minlength: "Mã sản phẩm phảo có ít nhất 2 ký tự"
+        //         },
+        //         product_price: {
+        //             required: "Vui lòng nhập giá sản phẩm",
+        //             number: 'giá sản phẩm phải là số'
+        //         },
+        //         product_brand: {
+        //             required: "Vui lòng chọn hãng sản xuất",
+        //         },
+        //         product_category: {
+        //             required: 'Vui lòng chọn danh mục cho sản phẩm'
+        //         }
+        //     }
+        // });
 
         // start ajax ==================
         function getAttributeServer(id) {

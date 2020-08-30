@@ -3,14 +3,14 @@ const { query } = require('express');
 const service = require('../../../services');
 const { response } = require('../../../../app');
 
-let FrBlogController = async (req, res, next) => {
+let FrBikeController = async (req, res, next) => {
     try {
-        const queryBlog = 'Select * from blog';
-        const blogs = await service.getAllBlog(queryBlog);
+        const queryBikes = 'Select * from product';
+        const bikes = await service.getAllProductFr(queryBikes);
         // Lấy tất cả sản phẩm và hiển thị ra table
-        res.render('xedapphanthiet/blogs/blogs', {
-            title: 'Blog',
-            blogs: blogs,
+        res.render('xedapphanthiet/bikes/bikes', {
+            title: 'Bikes',
+            bikes: bikes,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         })
@@ -20,7 +20,7 @@ let FrBlogController = async (req, res, next) => {
     }
 }
 
-let FrBlogDetailController = async (req, res, next) => {
+let FrBikeDetailController = async (req, res, next) => {
     try {
         const queryBlogDetail = 'SELECT * from blog WHERE id = ?';
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 4`;
@@ -46,6 +46,6 @@ let FrBlogDetailController = async (req, res, next) => {
     }
 }
 module.exports = {
-    FrBlogController,
-    FrBlogDetailController
+    FrBikeController,
+    FrBikeDetailController
 };

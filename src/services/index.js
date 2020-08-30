@@ -12,7 +12,8 @@ var { queryAction,
     queryActionNoParamsreturn,
     getProductAttributes,
     getImageProduct,
-    getAllCategoryProduct} = require('./productservice');
+    getAllCategoryProduct,
+    getAllProductFr} = require('./productservice');
 
     var {queryActionBrandDelete,
         getAllBrand} = require('./brandService');
@@ -43,6 +44,7 @@ module.exports = {
     getProductAttributes,
     getImageProduct,
     getAllCategoryProduct,
+    getAllProductFr,
 
 
     // brand service

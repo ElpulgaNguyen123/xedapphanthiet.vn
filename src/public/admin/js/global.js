@@ -367,6 +367,7 @@ $(document).ready(function () {
                         // thiết lập dữ liệu cho input bên frontend để truyền lên server
                         $('#image_path').val(JSON.stringify(ImageJson));
                     }
+                    $('#product-edit-form').submit();
                     $('.start').click();
                 }
             });

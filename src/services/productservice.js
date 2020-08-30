@@ -43,7 +43,6 @@ let queryActionNoParamsreturn = (query) => {
     })
 }
 
-
 let newAttributeVal = (query) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -174,6 +173,25 @@ let getAllCategoryProduct = (query) => {
     })
 }
 
+
+// FRONTEND START
+let getAllProductFr = (query, params) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            pool.query(query, params, function (error, rows, fields) {
+                if (error) throw error;
+                if (!rows[0]) {
+                    reject([]);
+                }
+                return resolve(rows);
+            })
+        } catch (error) {
+            console.log('caught', error);
+        }
+    })
+}
+
+
 module.exports = {
     queryAction,
     queryActionNoParams,
@@ -186,5 +204,8 @@ module.exports = {
     getProductAttributes,
 
     getImageProduct,
-    getAllCategoryProduct
+    getAllCategoryProduct,
+
+
+    getAllProductFr
 }

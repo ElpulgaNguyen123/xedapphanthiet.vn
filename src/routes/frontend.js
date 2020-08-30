@@ -10,7 +10,7 @@ frontendRouter.get('/lien-he', controller.FrContactController);
 frontendRouter.get('/blog', controller.FrBlogController);
 frontendRouter.get('/blog/*.:id', controller.FrBlogDetailController);
 
-// frontendRouter.get('/bikes', controller.FrBlogController);
+frontendRouter.get('/xe-dap', controller.FrBikeController);
 // frontendRouter.get('/bike/?.:id', controller.FrBlogController);
 
 

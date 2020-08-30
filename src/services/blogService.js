@@ -34,10 +34,10 @@ let getAllBlog = (query) => {
 }
 
 
-let getBlog = (query) => {
+let getBlog = (query, param) => {
     return new Promise(async (resolve, reject) => {
         try {
-            pool.query(query, function (error, rows, fields) {
+            pool.query(query, param, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
                     return resolve(rows);

@@ -1,0 +1,258 @@
+<% extend("../../xedapphanthiet") %>
+
+<section class="breacrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-12 text-center">
+                <span class=big-title> Xe Đạp </span>
+                <nav class="breadcrumb">
+                    <a class="breadcrumb-item" href="index.html">Trang chủ</a>
+                    <span class="breadcrumb-item active">Xe đạp</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- shopping start -->
+<section id="shopping" class="soph mt-4 page-relative">
+    <div class="container">
+        <div class="soph_cate_ soph--white adsolute_sec shadows_sec mb-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 sidebar">
+                    <div class="bg_grey"></div>
+                    <div class="sidebar__right products_filter bg_white">
+                        <div class="item">
+                            <div class="wrapper">
+                                <div class="right-pane">
+                                    <div class="searchbox js-searchbox">
+                                        <div class="searchbox-icon js-searchbox-icon">
+                                            <i class="icofont-search"></i>
+                                        </div>
+                                        <div class="searchbox-input">
+                                            <input type="text" class="input js-input" id="searchInput js-searchInput"
+                                                placeholder="Tìm kiếm">
+                                        </div>
+                                    </div>
+                                    <div class="searchlist js-searchlist">
+                                        <div class="searchlist-header">
+                                            <div class="searchlist-header-title">Recientes</div>
+                                            <div class="searchlist-header-clear js-searchlist-header-clear"
+                                                onclick="clearInnerHtml('.searchlist')">Borrar todo</div>
+                                        </div>
+                                        <div class="searchlist-item-wrapper js-searchlist-item-wrapper">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <div class="item">
+                                <h3> <a href="#danhmuc" data-toggle="collapse" href="#danhmuc" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample"> DANH MỤC SẢN PHẨM
+                                        <span><i class="icofont-rounded-down"></i></span></a>
+                                </h3>
+                                <div id="danhmuc" class="list-group">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="check1" checked>
+                                                <label class="custom-control-label" for="check1"> Xe đạp đua <span
+                                                        class="woof_checkbox_count">(59)</span></label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="check2">
+                                                <label class="custom-control-label" for="check2"> Xe đạp địa hình <span
+                                                        class="woof_checkbox_count">(59)</span></label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="check3">
+                                                <label class="custom-control-label" for="check3">Xe đạp trẻ em <span
+                                                        class="woof_checkbox_count">(59)</span></label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="check4">
+                                                <label class="custom-control-label" for="check4">Xe đạp đường phố <span
+                                                        class="woof_checkbox_count">(59)</span></label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="check5">
+                                                <label class="custom-control-label" for="check5">Xem đạp phụ nữ <span
+                                                        class="woof_checkbox_count">(59)</span></label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <h3> <a href="#thuonghieu" data-toggle="collapse" href="#thuonghieu" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample"> THƯƠNG HIỆU
+                                        <span><i class="icofont-rounded-down"></i></span></a>
+                                </h3>
+                                <div id="thuonghieu" class="list-group">
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox1" />
+                                            <label for="myCheckbox1"><img src="images/brands/asama1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox2" />
+                                            <label for="myCheckbox2"><img
+                                                    src="images/brands/bridgestone1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox3" />
+                                            <label for="myCheckbox3"><img src="images/brands/giant1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox4" />
+                                            <label for="myCheckbox4"><img
+                                                    src="images/brands/bridgestone1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox5" />
+                                            <label for="myCheckbox5"><img src="images/brands/hkbike1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox6" />
+                                            <label for="myCheckbox6"><img src="images/brands/jett1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox7" />
+                                            <label for="myCheckbox7"><img src="images/brands/ninja1x.jpg" /></label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="myCheckbox8" />
+                                            <label for="myCheckbox8"><img src="images/brands/trinx1x.jpg" /></label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item radio-button">
+                                <h3> <a href="#sort" data-toggle="collapse" href="#sort" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample"> SẮP XẾP
+                                        <span><i class="icofont-rounded-down"></i></span></a>
+                                </h3>
+                                <div id="sort" class="list-group">
+                                    <p>
+                                        <input type="radio" id="radio_sort01" name="radio-group" checked>
+                                        <label for="radio_sort01">Giá tăng dần</label>
+                                    </p>
+                                    <p>
+                                        <input type="radio" id="radio_sort02" name="radio-group">
+                                        <label for="radio_sort02">Giá giảm dần</label>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="button-ctr">
+                                <a type="button" href="#" class="btn btn-primary btn-main"> Duyệt </a>
+                                <a type="button" href="#" class="btn btn-primary btn-noef"> Thiết lập lại&nbsp;<i
+                                        class="icofont-long-arrow-right"></i></a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar__right mobie_screen">
+                        <button type="button" class="btn btn-primary filter-button"><i
+                                class="icofont-filter"></i>&nbsp;Bộ lọc
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-9">
+                    <div class="soph__box">
+                        <div class="section-title section-page-title text-left">
+                            <h1 class="page-title text_P ut_bold"> TẤT CẢ </h1>
+                            <div class="form-filter">
+                                <form class="form-inline">
+                                    <label>
+                                        Hiển thị 1–12 trong 102 kết quả</label>
+                                    <div class="form-group">
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                            <option>Thứ tự theo thứ tự phổ biến</option>
+                                            <option>Mới nhất</option>
+                                            <option>Thứ tự theo giá : thấp đến cao</option>
+                                            <option>Thứ tự theo giá : cao đến thấp</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="soph__lst">
+                            <div class="row">
+                                <% bikes.forEach((bike) => { %>
+                                <div class="col-6 col-sm-6 col-md-4">
+                                    <div class="soph__it">
+                                        <div class="soph__img">
+                                            <a href="bikes-details.html" title="<%= bike.name %>">
+                                                <% if(bike.image.length > 0){ %>
+                                                <img src="/public/uploads/products/<%=JSON.parse(bike.image)[0] %>"
+                                                    alt="">
+                                                <% } else{ %>
+                                                <img src="/public/xedapphanthiet/images/example.jpg" alt="">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <div class="soph__ct">
+                                            <span class="badge badge-info">SKU : <%= bike.sku %></span>
+                                            <h3 class="soph__tt ut_bold"> <a href="bikes-details.html"><%= bike.name %></a> </h3>
+                                            <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing
+                                                elit. Corporis
+                                                voluptatum
+                                                dolore at. Illum
+                                                iusto exercitationem aut est sapiente voluptates nobis excepturi commodi
+                                                assumenda. Ab
+                                                blanditiis temporibus nihil quasi, ex expedita.</p>
+                                            <div class="soph-box d-flex">
+                                                <div class="price ut_bold text-secondary"><%= bike.price %> <sup>đ</sup></div>
+                                                <% if(bike.quantity > 0) {%>
+                                                    <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                        (<%= bike.quantity %>)
+                                                    </span>
+                                                <% }else{ %>
+                                                    <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                                    </span>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- shopping end -->

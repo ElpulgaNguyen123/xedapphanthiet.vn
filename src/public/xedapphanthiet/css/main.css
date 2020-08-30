@@ -7598,6 +7598,10 @@ h4.title-section {
 .pd-lg-section {
   padding: 150px 0px; }
 
+.page-relative {
+  position: relative;
+  top: -100px; }
+
 @media (max-width: 768px) {
   .pd-lg-section {
     padding: 50px 0px; }
@@ -8425,7 +8429,8 @@ header .navbar.fixed-menu {
 .sr_tabs {
   border-radius: 20px;
   background: #ffffff;
-  box-shadow: 21px 21px 42px #ededed, -21px -21px 42px #ffffff; }
+  box-shadow: 21px 21px 42px #ededed,
+ -21px -21px 42px #ffffff; }
 
 #ser {
   background-image: url("../images/slider/03.jpg");
@@ -8439,7 +8444,8 @@ header .navbar.fixed-menu {
     border: 0px;
     border-radius: 20px;
     background: #ffffff;
-    box-shadow: 21px 21px 42px #ededed, -21px -21px 42px #ffffff; }
+    box-shadow: 21px 21px 42px #ededed,
+ -21px -21px 42px #ffffff; }
     .sr_tabs_lt .nav-item .nav-link:hover {
       background: #15215F;
       color: white; }
@@ -8497,7 +8503,8 @@ header .navbar.fixed-menu {
 
 .brand__item {
   border-radius: 20px;
-  box-shadow: 30px 30px 72px #ebebeb, -30px -30px 72px #ffffff;
+  box-shadow: 30px 30px 72px #ebebeb,
+ -30px -30px 72px #ffffff;
   margin-bottom: 20px; }
   .brand__item img {
     border-radius: 20px; }
@@ -8676,7 +8683,7 @@ header .navbar.fixed-menu {
 
 /*=====  End of Section NEWS SCSS  ======*/
 .breacrumb_bg {
-  padding: 200px 0px;
+  padding: 100px 0px;
   background-image: url(../images/breadcrume.jpg);
   background-position: right center;
   background-size: cover; }

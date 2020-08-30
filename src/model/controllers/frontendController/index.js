@@ -5,6 +5,8 @@ const FrAboutController = require('./aboutController');
 const FrContactController = require('./contactController');
 const {FrBlogController,
     FrBlogDetailController} = require('./blogController');
+    const {FrBikeController,
+        FrBikeDetailController} = require('./bikeController');
 
 module.exports = {
     FrhomeController,
@@ -13,5 +15,8 @@ module.exports = {
 
 
     FrBlogController,
-    FrBlogDetailController
+    FrBlogDetailController,
+
+    FrBikeController,
+    FrBikeDetailController
 }
