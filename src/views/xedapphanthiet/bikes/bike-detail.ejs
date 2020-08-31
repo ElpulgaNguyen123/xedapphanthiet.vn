@@ -3,9 +3,9 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-md-12 text-center">
-              <span class=big-title> Chi tiết sản phẩm </span>
+              <span class=big-title> <%= bike.name %> </span>
               <nav class="breadcrumb">
-                <a class="breadcrumb-item" href="index.html">Trang chủ</a>
+                <a class="breadcrumb-item" href="/">Trang chủ</a>
                 <span class="breadcrumb-item active">Xe đạp</span>
               </nav>
             </div>
@@ -34,20 +34,10 @@
               <div class="col-sm-12 col-md-6">
                 <div class="right-content mt-5">
                   <h1 class="bike-title entry-title ut_bold">
-                    Xe Đạp Địa Hình MTB GIANT ATX 3 Disc 27.5 – Phanh Đĩa, Bánh 27.5 Inch – 2020</h1>
-                  <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-                    voluptatum
-                    dolore at. Illum
-                    iusto exercitationem aut est sapiente voluptates nobis excepturi commodi assumenda. Ab
-                    blanditiis temporibus nihil quasi, ex expedita.</p>
-                  <ul class="soph__color">
-                    <li> <span class="red" href="#"></span> </li>
-                    <li> <span class="yellow" href="#"></span> </li>
-                    <li> <span class="blue" href="#"></span> </li>
-                    <li> <span class="black" href="#"></span> </li>
-                  </ul>
+                    <%= bike.name %></h1>
+                  <p class="line-clamp"><%= bike.short_description %></p>
                   <div class="soph-box d-flex">
-                    <div class="price ut_bold text-secondary">4.200.000 vnđ</div>
+                    <div class="price ut_bold text-secondary"><%= bike.price %> <sup>đ</sup> </div>
                   </div>
                   <div class="list-details">
                     <li> <Strong> Số lượng : </Strong> 25 </li>

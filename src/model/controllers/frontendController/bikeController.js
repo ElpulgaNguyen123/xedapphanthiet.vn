@@ -13,13 +13,12 @@ let FrBikeController = async (req, res, next) => {
             bikes: bikes,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
-        })
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
     }
 }
-
 let FrBikeDetailController = async (req, res, next) => {
     try {
         const getAllProductFr = 'SELECT * from product WHERE id = ?';

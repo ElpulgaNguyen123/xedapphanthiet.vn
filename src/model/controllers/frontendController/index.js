@@ -13,7 +13,6 @@ module.exports = {
     FrAboutController,
     FrContactController,
 
-
     FrBlogController,
     FrBlogDetailController,
 
