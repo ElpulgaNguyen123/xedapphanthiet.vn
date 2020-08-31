@@ -11,7 +11,7 @@ frontendRouter.get('/blog', controller.FrBlogController);
 frontendRouter.get('/blog/*.:id', controller.FrBlogDetailController);
 
 frontendRouter.get('/xe-dap', controller.FrBikeController);
-// frontendRouter.get('/bike/?.:id', controller.FrBlogController);
+frontendRouter.get('/xe-dap/*.:id', controller.FrBikeDetailController);
 
 
 // products router

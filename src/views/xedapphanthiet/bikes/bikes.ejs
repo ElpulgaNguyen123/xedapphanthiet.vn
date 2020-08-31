@@ -194,7 +194,7 @@
                                 <div class="col-6 col-sm-6 col-md-4">
                                     <div class="soph__it">
                                         <div class="soph__img">
-                                            <a href="bikes-details.html" title="<%= bike.name %>">
+                                            <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>" title="<%= bike.name %>">
                                                 <% if(bike.image.length > 0){ %>
                                                 <img src="/public/uploads/products/<%=JSON.parse(bike.image)[0] %>"
                                                     alt="">
@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="soph__ct">
                                             <span class="badge badge-info">SKU : <%= bike.sku %></span>
-                                            <h3 class="soph__tt ut_bold"> <a href="bikes-details.html"><%= bike.name %></a> </h3>
+                                            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a> </h3>
                                             <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing
                                                 elit. Corporis
                                                 voluptatum

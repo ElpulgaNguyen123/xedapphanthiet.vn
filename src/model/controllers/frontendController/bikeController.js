@@ -22,18 +22,18 @@ let FrBikeController = async (req, res, next) => {
 
 let FrBikeDetailController = async (req, res, next) => {
     try {
-        const queryBlogDetail = 'SELECT * from blog WHERE id = ?';
-        const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 4`;
+        const getAllProductFr = 'SELECT * from product WHERE id = ?';
+        //const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
         //const queryBlog = `Select * from blog ${req.params.id}`;
-        const blogFeature = await service.getAllBlog(queryFeature);
-        console.log(blogFeature);
-        const blog = await service.getBlog(queryBlogDetail, req.params.id);
-        if (blog[0]) {
+        //const blogFeature = await service.getAllBlog(queryFeature);
+        //console.log(blogFeature);
+        const bike = await service.getAllProductFr(getAllProductFr, req.params.id);
+        console.log(bike);
+        if (bike[0]) {
             //Lấy tất cả sản phẩm và hiển thị ra table
-            res.render('xedapphanthiet/blogs/blog-detail', {
-                title: 'Blog',
-                blog: blog[0],
-                blogFeature:blogFeature,
+            res.render('xedapphanthiet/bikes/bike-detail', {
+                title: 'Xe đạp',
+                bike: bike[0],
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
             });
