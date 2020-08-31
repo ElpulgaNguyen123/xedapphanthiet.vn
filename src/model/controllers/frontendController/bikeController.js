@@ -22,23 +22,30 @@ let FrBikeController = async (req, res, next) => {
 let FrBikeDetailController = async (req, res, next) => {
     try {
         const getAllProductFr = 'SELECT * from product WHERE id = ?';
-        //const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
-        //const queryBlog = `Select * from blog ${req.params.id}`;
-        //const blogFeature = await service.getAllBlog(queryFeature);
-        //console.log(blogFeature);
+        const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
+        const queryBikeRelate = `SELECT * FROM product WHERE product.category_id = ? ORDER BY id DESC LIMIT 8        `
+        const blogFeature = await service.getAllBlog(queryFeature);
         const bike = await service.getAllProductFr(getAllProductFr, req.params.id);
-        console.log(bike);
+        const relateBikes = await service.getAllProductFr(queryBikeRelate, bike[0].category_id);
+        var images = '';
+        var imagesArr = [];
+        console.log(bike[0].image);
         if (bike[0]) {
-            //Lấy tất cả sản phẩm và hiển thị ra table
-            res.render('xedapphanthiet/bikes/bike-detail', {
-                title: 'Xe đạp',
-                bike: bike[0],
-                errors: req.flash('Errors'),
-                success: req.flash('Success'),
-            });
-        }else {
-            res.send('Lỗi không tìm thấy');
+            images = JSON.parse(bike[0].image);
+            imagesArr = Object.keys(images);
         }
+        //Lấy tất cả sản phẩm và hiển thị ra table
+        res.render('xedapphanthiet/bikes/bike-detail', {
+            title: 'Xe đạp',
+            bike: bike[0],
+            blogFeature : blogFeature,
+            images: images,
+            relateBikes : relateBikes,
+            imagearr: imagesArr,
+            errors: req.flash('Errors'),
+            success: req.flash('Success'),
+        });
+
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
