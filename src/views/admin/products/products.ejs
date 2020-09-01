@@ -71,29 +71,28 @@
                             <input type="text" id="search_value" class="form-control"
                                 placeholder="Tìm sản phẩm theo mã Sku" data-original-title="Tìm sản phẩm...">
                             <ul class="result_rows">
-                                <li> <a href="">sku : 20202 <span> name </span></a></li>
                             </ul>
                         </div>
                         <script>
-
+                            var string = '';
                             var stringAppend = function (id, sku, name) {
                                 return `<li> 
-                                            <a href="admin/product/edit-product/${id}"> sku : ${sku} <span> ${name} </span></a>
+                                            <a href="/admin/product/edit-product/${id}"> sku : ${sku} <span> ${name} </span></a>
                                             </li>`;
                             }
                             function getSearchData(sku) {
+                                string = '';
                                 $.ajax({
                                     url: '/admin/product/search/' + sku,
                                     type: 'GET',
                                     success: function (result) {
                                         // cập nhật ngay lập tức avatar trên giao diện
-                                        var string = '';
                                         if (result.results) {
                                             for (var i = 0; i < result.results.length; i++) {
                                                 string += stringAppend(result.results[i].id, result.results[i].sku, result.results[i].name)
                                             }
-                                            $('.result_rows').append(string);
                                         }
+                                        $('.result_rows').append(string);
                                     },
                                     error: function (error) {
                                         notify(error, 'danger');
@@ -102,10 +101,11 @@
                                 })
                             }
                             $('#search_value').on('keyup', function () {
+                                $('.result_rows').remove('li');
                                 var search_value = $(this).val();
-                                console.log(search_value);
                                 if (search_value == '') {
                                     $('.result_rows').css('display', 'none');
+                                    string = '';
                                 } else {
                                     getSearchData(search_value);
                                     $('.result_rows').css('display', 'block');
