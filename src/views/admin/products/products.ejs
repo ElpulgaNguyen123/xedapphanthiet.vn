@@ -75,10 +75,18 @@
                         </div>
                         <script>
                             var string = '';
-                            var stringAppend = function (id, sku, name) {
-                                return `<li> 
-                                            <a href="/admin/product/edit-product/${id}"> sku : ${sku} <span> ${name} </span></a>
-                                            </li>`;
+                            var stringAppend = function (id, sku, image, name) {
+                                return `<li> <a href="/admin/product/edit-product/${id}">
+                                    <div class="main"> 
+                                        <div class="left-side">
+                                            <img src="/public/uploads/products/${image}"/> 
+                                        </div>
+                                        <div class="right-side"> 
+                                            sku : ${sku} <span> ${name} </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>`;
                             }
                             function getSearchData(sku) {
                                 string = '';
@@ -87,12 +95,22 @@
                                     type: 'GET',
                                     success: function (result) {
                                         // cập nhật ngay lập tức avatar trên giao diện
-                                        if (result.results) {
+                                        if (result.results.length > 0) {
                                             for (var i = 0; i < result.results.length; i++) {
-                                                string += stringAppend(result.results[i].id, result.results[i].sku, result.results[i].name)
+                                                var image = {};
+                                                if (result.results[i].image.length > 0) {
+                                                    image = JSON.parse(result.results[i].image);
+                                                } else {
+                                                    image = '';
+                                                }
+                                                string += stringAppend(result.results[i].id, result.results[i].sku, image[0], result.results[i].name)
                                             }
+                                            $('.result_rows').append(string);
+                                        } else {
+                                            $('.result_rows').append(`<li>  <span> Không tìm thấy... </span></a>
+                                        </li>`);
                                         }
-                                        $('.result_rows').append(string);
+
                                     },
                                     error: function (error) {
                                         notify(error, 'danger');
@@ -101,11 +119,10 @@
                                 })
                             }
                             $('#search_value').on('keyup', function () {
-                                $('.result_rows').remove('li');
+                                $('.result_rows li').remove();
                                 var search_value = $(this).val();
                                 if (search_value == '') {
                                     $('.result_rows').css('display', 'none');
-                                    string = '';
                                 } else {
                                     getSearchData(search_value);
                                     $('.result_rows').css('display', 'block');
@@ -120,9 +137,9 @@
                                 <span class="sr-only">THƯƠNG HIỆU</span>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">ASAMA</a>
-                                <a class="dropdown-item" href="#"> GIANT </a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <% brands.forEach(function(brand, index){ %>
+                                <a class="dropdown-item" href="#"><%= brand.name %></a>
+                                <% }); %>
                             </div>
                         </div>
                         <div class="btn-group">
@@ -133,9 +150,9 @@
                                 <span class="sr-only">Danh mục</span>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">ASAMA</a>
-                                <a class="dropdown-item" href="#"> GIANT </a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <% categories.forEach(function(category, index){ %>
+                                 <a class="dropdown-item" href="#"><%= category.category_name %></a>
+                                <% }); %>
                             </div>
                         </div>
                         <div class="btn-group">

@@ -480,13 +480,16 @@ sup {
     background: white;
     list-style: none;
     border-bottom: 1px solid #00968805;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     transition: background 0.2s;
     display: flex;
     justify-content: space-between;
     text-transform: capitalize;
+}
+
+.result_rows li:hover {
+    background: #80808026;
 }
 ul.result_rows {
     position: absolute;
@@ -496,6 +499,22 @@ ul.result_rows {
     z-index: 99;
     top: 43px;
     display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+}
+
+.result_rows img {
+    max-width: 50px;
+}
+
+.result_rows li a {
+    display: block;
+}
+.result_rows .main {
+    display: flex;
+}
+
+.result_rows .left-side {
+    margin-right: 10px;
 }
 
 @media (min-width: 576px) {

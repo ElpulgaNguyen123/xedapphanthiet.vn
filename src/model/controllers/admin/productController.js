@@ -31,6 +31,11 @@ var productUpdateFile = multer({ storage: storage }).single('product-image', 1);
 let getAllProduct = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
+        const queryBrands = 'SELECT * FROM brand';
+        const queryCategories = 'SELECT * FROM categories';
+        const brands = await service.getAllBrand(queryBrands);
+        const categories = await service.getAllCategoryProduct(queryCategories);
+
         pool.query('SELECT * FROM `product', function (error, results, fields) {
             if (error) throw error;
             var page = parseInt(req.query.page) || 1; // n
@@ -44,6 +49,8 @@ let getAllProduct = async (req, res, next) => {
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
+                brands : brands,
+                categories : categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -308,7 +315,6 @@ let editProductGet = async (req, res, next) => {
         for (var i = 0; i < productAttributes.length; i++) {
             idtype02Arr.push(productAttributes[i].id);
         }
-
         // danh sách dữ liệu thuộc tính sản phẩm
         var attributesValues = await service.getProductAttributes(queryattributesValue);
 
@@ -784,7 +790,7 @@ let searchData = async (req, res, next) => {
         var queryBike =`
         SELECT * FROM product WHERE sku LIKE 
         '%${product_sku}%' 
-        ORDER BY ID DESC LIMIT 2`;
+        ORDER BY ID DESC LIMIT 6`;
         var result = {};
         await pool.query(queryBike, function (error, results, fields) {
             if (error) throw error;
