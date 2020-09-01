@@ -138,7 +138,7 @@
                             </button>
                             <div class="dropdown-menu">
                                 <% brands.forEach(function(brand, index){ %>
-                                <a class="dropdown-item" href="#"><%= brand.name %></a>
+                                <a class="dropdown-item" href="/admin/product-brand/<%= brand.id %>"><%= brand.name %></a>
                                 <% }); %>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                             </button>
                             <div class="dropdown-menu">
                                 <% categories.forEach(function(category, index){ %>
-                                 <a class="dropdown-item" href="#"><%= category.category_name %></a>
+                                 <a class="dropdown-item" href="/admin/product-category/<%= category.id %>"><%= category.category_name %></a>
                                 <% }); %>
                             </div>
                         </div>
@@ -163,9 +163,8 @@
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Tăng dần</a>
-                                <a class="dropdown-item" href="#">Giảm dần</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="/admin/products">Thứ tự Tăng dần</a>
+                                <a class="dropdown-item" href="/admin/products/giam-dan">Thứ tự Giảm dần</a>
                             </div>
                         </div>
                         <div class="ml-3 btn-group">

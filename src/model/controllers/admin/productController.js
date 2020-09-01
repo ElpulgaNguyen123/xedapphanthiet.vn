@@ -62,6 +62,111 @@ let getAllProduct = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+let getAllProductCategory = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        const queryBrands = 'SELECT * FROM brand';
+        const queryCategories = 'SELECT * FROM categories';
+        const brands = await service.getAllBrand(queryBrands);
+        const categories = await service.getAllCategoryProduct(queryCategories);
+
+        pool.query(`SELECT * FROM product WHERE category_id = ${req.params.idcategory}`, function (error, results, fields) {
+            if (error) throw error;
+            var page = parseInt(req.query.page) || 1; // n
+            var perPage = 10; // x
+            var start = (page - 1) * perPage;
+            var end = page * perPage;
+            var totalPage = Math.ceil(results.length / 10);
+            var pageDistance = page + 3;
+
+            res.render('admin/products/products', {
+                title: 'Sản phẩm',
+                products: results.slice(start, end),
+                pages: pageDistance,
+                page: page,
+                brands : brands,
+                categories : categories,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
+                user: req.user
+            });
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
+let getAllProductBrand = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        const queryBrands = 'SELECT * FROM brand';
+        const queryCategories = 'SELECT * FROM categories';
+        const brands = await service.getAllBrand(queryBrands);
+        const categories = await service.getAllCategoryProduct(queryCategories);
+
+        pool.query(`SELECT * FROM product WHERE brand_id = ${req.params.idbrand}`, function (error, results, fields) {
+            if (error) throw error;
+            var page = parseInt(req.query.page) || 1; // n
+            var perPage = 10; // x
+            var start = (page - 1) * perPage;
+            var end = page * perPage;
+            var totalPage = Math.ceil(results.length / 10);
+            var pageDistance = page + 3;
+            res.render('admin/products/products', {
+                title: 'Sản phẩm',
+                products: results.slice(start, end),
+                pages: pageDistance,
+                page: page,
+                brands : brands,
+                categories : categories,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
+                user: req.user
+            });
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
+let getAllProductDesc = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        const queryBrands = 'SELECT * FROM brand';
+        const queryCategories = 'SELECT * FROM categories';
+        const brands = await service.getAllBrand(queryBrands);
+        const categories = await service.getAllCategoryProduct(queryCategories);
+
+        pool.query(`SELECT * FROM product ORDER BY id DESC`, function (error, results, fields) {
+            if (error) throw error;
+            var page = parseInt(req.query.page) || 1; // n
+            var perPage = 10; // x
+            var start = (page - 1) * perPage;
+            var end = page * perPage;
+            var totalPage = Math.ceil(results.length / 10);
+            var pageDistance = page + 3;
+            res.render('admin/products/products', {
+                title: 'Sản phẩm',
+                products: results.slice(start, end),
+                pages: pageDistance,
+                page: page,
+                brands : brands,
+                categories : categories,
+                errors: req.flash('Errors'),
+                success: req.flash('Success'),
+                user: req.user
+            });
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
 // chuyển qua trang thêm sản phẩm   
 let addProductGet = async (req, res, next) => {
     try {
@@ -241,7 +346,6 @@ let addProductPost = (req, res, next) => {
         }
     })
 }
-
 // Thêm hình ảnh sản phẩm
 let addProductImage = (req, res, next) => {
     productUploadFile(req, res, (error) => {
@@ -669,7 +773,6 @@ let editProductPost = (req, res, next) => {
         }
     })
 }
-
 // lấy hình ảnh được sửa update để gửi xuống cho client
 let editProductImage = (req, res, next) => {
     productUpdateFile(req, res, async (error) => {
@@ -694,7 +797,6 @@ let editProductImage = (req, res, next) => {
         // Everything went fine.
     })
 }
-
 // thực hiện update hình ảnh đã được chọn lên server
 let updateProductImagePost = (req, res, next) => {
     productUpdateFile(req, res, async (error) => {
@@ -747,7 +849,6 @@ let updateProductImagePost = (req, res, next) => {
         // Everything went fine.
     });
 }
-
 // Xóa cụ thể hình ảnh sản phẩm
 let deleteProductImage = async (req, res, next) => {
     let successArr = [];
@@ -782,7 +883,6 @@ let deleteProductImage = async (req, res, next) => {
         return res.status(500).send('Lôi');
     }
 }
-
 let searchData = async (req, res, next) => {
     let successArr = [];
     try {
@@ -817,5 +917,8 @@ module.exports = {
     updateProductImagePost,
     deleteProductImage,
     editProductPost,
-    searchData
+    searchData,
+    getAllProductCategory,
+    getAllProductBrand,
+    getAllProductDesc
 };

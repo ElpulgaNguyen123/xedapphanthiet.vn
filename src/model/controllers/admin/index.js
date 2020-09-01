@@ -11,7 +11,10 @@ var { getAllProduct,
     updateProductImagePost,
     deleteProductImage,
     editProductPost,
-    searchData } = require('./productController');
+    searchData,
+    getAllProductCategory,
+    getAllProductBrand,
+    getAllProductDesc } = require('./productController');
 
 var {getAllAttribute, 
     postAddAttribute,
@@ -89,7 +92,12 @@ module.exports = {
     updateProductImagePost,
     deleteProductImage,
     editProductPost,
+    getAllProductCategory,
+    getAllProductBrand,
+    getAllProductDesc,
     searchData,
+
+
 
 
     // attributes
