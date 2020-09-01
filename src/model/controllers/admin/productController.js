@@ -264,7 +264,7 @@ let addProductImage = (req, res, next) => {
 let editProductGet = async (req, res, next) => {
     let successArr = [];
     try {
-        var product_id =  parseInt(req.params.id);
+        var product_id = parseInt(req.params.id);
         if (typeof product_id !== "number") {
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
@@ -358,7 +358,7 @@ let editProductGet = async (req, res, next) => {
             var imagesArr = [];
             if (rows[0].image != '') {
                 images = JSON.parse(rows[0].image);
-                imagesArr = Object.keys(images); 
+                imagesArr = Object.keys(images);
             }
             var option = {
                 title: 'Chỉnh Sửa Sản Phẩm',
@@ -373,7 +373,7 @@ let editProductGet = async (req, res, next) => {
                 producidtype02: producidtype02,
                 attributeValueArr: attributeValueArr,
                 images: images,
-                imagearr : imagesArr,
+                imagearr: imagesArr,
                 user: req.user
             }
             res.render('admin/products/editProduct', option);
@@ -404,95 +404,96 @@ let editProductPost = (req, res, next) => {
             // lấy ra danh sách thuộc tính hiên tại của sản phẩm
             var prd_attributes = await service.queryActionNoParams(queryattribute);
             // thêm vào chuỗi query;
-            
-                // lấy danh sách thuộc tính sản phẩm và id.
-                if (req.body.product_attributes_type02.length > 0) {
-                    // lấy danh sách thuộc tính loại 2 của sản phẩm
-                    // lấy danh sách thuộc tính loại 2 client đưa lên.
-                    var gettype02Val = req.body.product_attributes_type02;
-                    var attributes = gettype02Val.slice(0, -1);
-                    var attributes_arr = attributes.split(",");
-                    var newAttribute_arr = [];
-                    var oldAttribute02_arr = [];
-                    var deleteAttribute_arr = [];
-                    // đưa danh sách id thành mảng.
-                    // danh sách thuộc tính sản phẩm loại 2
-                    var prdAttrType02 = [];
-                    // lấy danh sách id của thuộc tính đã tồn tại.
-                    for (var i = 0; i < prd_attributes.length; i++) {
-                        if (prd_attributes[i].attribute_type == 2) {
-                            prdAttrType02.push(prd_attributes[i].attributevalueId);
-                        }
+
+            // lấy danh sách thuộc tính sản phẩm và id.
+            if (req.body.product_attributes_type02.length > 0) {
+                // lấy danh sách thuộc tính loại 2 của sản phẩm
+                // lấy danh sách thuộc tính loại 2 client đưa lên.
+                var gettype02Val = req.body.product_attributes_type02;
+                var attributes = gettype02Val.slice(0, -1);
+                var attributes_arr = attributes.split(",");
+                var newAttribute_arr = [];
+                var oldAttribute02_arr = [];
+                var deleteAttribute_arr = [];
+                // đưa danh sách id thành mảng.
+                // danh sách thuộc tính sản phẩm loại 2
+                var prdAttrType02 = [];
+                // lấy danh sách id của thuộc tính đã tồn tại.
+                for (var i = 0; i < prd_attributes.length; i++) {
+                    if (prd_attributes[i].attribute_type == 2) {
+                        prdAttrType02.push(prd_attributes[i].attributevalueId);
                     }
-                    // lọc mảng và lấy ra các thuộc tính mới được thêm vào.
-                    for (var i = 0; i < attributes_arr.length; i++) {
-                        var value = prdAttrType02.indexOf(parseInt(attributes_arr[i]));
-                        if (value == -1) {
-                            newAttribute_arr.push(attributes_arr[i]);
-                        } else if (value != -1) {
-                            oldAttribute02_arr.push(parseInt(attributes_arr[i]));
-                        }
+                }
+                // lọc mảng và lấy ra các thuộc tính mới được thêm vào.
+                for (var i = 0; i < attributes_arr.length; i++) {
+                    var value = prdAttrType02.indexOf(parseInt(attributes_arr[i]));
+                    if (value == -1) {
+                        newAttribute_arr.push(attributes_arr[i]);
+                    } else if (value != -1) {
+                        oldAttribute02_arr.push(parseInt(attributes_arr[i]));
                     }
-                    // so sánh thuộc tính đã tồn tại của sản phẩm có bị xóa thuộc tính không ?
-                    for (var i = 0; i < prdAttrType02.length; i++) {
-                        var value = oldAttribute02_arr.indexOf(prdAttrType02[i]);
-                        if (value == -1) {
-                            deleteAttribute_arr.push(prdAttrType02[i]);
-                        }
+                }
+                // so sánh thuộc tính đã tồn tại của sản phẩm có bị xóa thuộc tính không ?
+                for (var i = 0; i < prdAttrType02.length; i++) {
+                    var value = oldAttribute02_arr.indexOf(prdAttrType02[i]);
+                    if (value == -1) {
+                        deleteAttribute_arr.push(prdAttrType02[i]);
                     }
-                    // thêm vào chuỗi query;
-                    // nếu có thuộc tính mới được thêm vào thì chèn vào sản phẩm.
-                    if (newAttribute_arr.length > 0) {
-                        var valuestring = '';
-                        for (var index = 0; index < newAttribute_arr.length; index++) {
-                            valuestring += `(${product_id}, ${newAttribute_arr[index]}),`;
-                        }
-                        // xóa ký tự , cuối chuỗi.
-                        var str = valuestring.slice(0, -1);
-                        var queryType02 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
+                }
+                // thêm vào chuỗi query;
+                // nếu có thuộc tính mới được thêm vào thì chèn vào sản phẩm.
+                if (newAttribute_arr.length > 0) {
+                    var valuestring = '';
+                    for (var index = 0; index < newAttribute_arr.length; index++) {
+                        valuestring += `(${product_id}, ${newAttribute_arr[index]}),`;
+                    }
+                    // xóa ký tự , cuối chuỗi.
+                    var str = valuestring.slice(0, -1);
+                    var queryType02 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
                         ${str}`;
-                        await service.queryActionNoParamsreturn(queryType02);
+                    await service.queryActionNoParamsreturn(queryType02);
+                }
+                // nếu có thuộc tính nào bị xóa đi thì đưa vào trường hợp này và xóa đi
+                // nếu trường hợp danh sách id loại 2 bị xóa hết thì duyệt xóa hết.
+                if (deleteAttribute_arr.length > 0) {
+                    var valuestring = '';
+                    for (var index = 0; index < deleteAttribute_arr.length; index++) {
+                        valuestring += `${deleteAttribute_arr[index]},`;
                     }
-                    // nếu có thuộc tính nào bị xóa đi thì đưa vào trường hợp này và xóa đi
-                    // nếu trường hợp danh sách id loại 2 bị xóa hết thì duyệt xóa hết.
-                    if (deleteAttribute_arr.length > 0) {
-                        var valuestring = '';
-                        for (var index = 0; index < deleteAttribute_arr.length; index++) {
-                            valuestring += `${deleteAttribute_arr[index]},`;
-                        }
-                        // xóa dấu phẩy ở cuối chuỗi.
-                        var str = valuestring.slice(0, -1);
-                        var queryDelete = `DELETE FROM 
+                    // xóa dấu phẩy ở cuối chuỗi.
+                    var str = valuestring.slice(0, -1);
+                    var queryDelete = `DELETE FROM 
                         prd_attribute 
                         WHERE product_id = ${product_id}  
                         AND attribute_value_id IN (${str})`;
-                        await service.queryActionNoParamsreturn(queryDelete);
+                    await service.queryActionNoParamsreturn(queryDelete);
+                }
+            }
+            if (req.body.product_attributes_type01.length > 4) {
+
+                var attributefromInput = req.body.product_attributes_type01;
+                var attributeType01 = JSON.parse(attributefromInput);
+                var oldAttribute01_arr = [];
+                var deleteAttributeType01_arr = [];
+                var prdAttrType01 = [];
+                var newAttribute_arr = [];
+                var convertArr = [];
+                // lấy danh sách id của thuộc tính đã tồn tại.
+                for (var i = 0; i < prd_attributes.length; i++) {
+                    if (prd_attributes[i].attribute_type == 1) {
+                        prdAttrType01.push(prd_attributes[i].attribute_id);
                     }
                 }
-                if (req.body.product_attributes_type01.length > 4) {
-
-                    var attributefromInput = req.body.product_attributes_type01;
-                    var attributeType01 = JSON.parse(attributefromInput);
-                    var oldAttribute01_arr = [];
-                    var deleteAttributeType01_arr = [];
-                    var prdAttrType01 = [];
-                    var newAttribute_arr = [];
-                    var convertArr = [];
-                    // lấy danh sách id của thuộc tính đã tồn tại.
-                    for (var i = 0; i < prd_attributes.length; i++) {
-                        if (prd_attributes[i].attribute_type == 1) {
-                            prdAttrType01.push(prd_attributes[i].attribute_id);
-                        }
-                    }
-                    // so sánh danh sách thuộc tính ban đầu vs sau khi cập nhật
-                    // nếu bằng nhau thì không làm gì cả
-                    // có thay đổi thì update.
+                // so sánh danh sách thuộc tính ban đầu vs sau khi cập nhật
+                // nếu bằng nhau thì không làm gì cả
+                // có thay đổi thì update.
+                for (var i = 0; i < attributeType01.length; i++) {
+                    convertArr.push(parseInt(attributeType01[i]));
+                }
+                if (convertArr != prdAttrType01) {
+                    // lấy ra danh sách thuộc tính loại 1 mới được thêm vào.
                     for (var i = 0; i < attributeType01.length; i++) {
-                        convertArr.push(parseInt(attributeType01[i]));
-                    }
-                    if (convertArr != prdAttrType01) {
-                        // lấy ra danh sách thuộc tính loại 1 mới được thêm vào.
-                        for (var i = 0; i < attributeType01.length; i++) {
+                        if(attributeType01[i] != ''){
                             var value = prdAttrType01.indexOf(parseInt(attributeType01[i]));
                             if (value == -1) {
                                 newAttribute_arr.push(parseInt(attributeType01[i]));
@@ -500,55 +501,57 @@ let editProductPost = (req, res, next) => {
                                 oldAttribute01_arr.push(parseInt(attributeType01[i]));
                             }
                         }
-                        // nếu có thuộc tính mới được thêm vào thì thực hiện thay đổi.
-                        if (newAttribute_arr.length > 0) {
-                            // nếu có dữ liệu mới được thêm vào, thì thêm dữ liệu vào sản phẩm // start ===============
-                            var valueStringValue = '';
-                            for (var index = 0; index < newAttribute_arr.length; index++) {
-                                var newsattr = eval(`req.body.product_${newAttribute_arr[index]}`);
-                                valueStringValue += `(${newAttribute_arr[index]}, '${newsattr}'),`;
-                            }
-                            var str = valueStringValue.slice(0, -1);
-                            var queryAddAtrrVal = `INSERT INTO prd_attribute_value(attribute_id, name) VALUES 
+                    }
+                    // nếu có thuộc tính mới được thêm vào thì thực hiện thay đổi.
+                    if (newAttribute_arr.length > 0) {
+                        // nếu có dữ liệu mới được thêm vào, thì thêm dữ liệu vào sản phẩm // start ===============
+                        var valueStringValue = '';
+                        for (var index = 0; index < newAttribute_arr.length; index++) {
+                            var newsattr = eval(`req.body.product_${newAttribute_arr[index]}`);
+                            valueStringValue += `(${newAttribute_arr[index]}, '${newsattr}'),`;
+                        }
+
+                        var str = valueStringValue.slice(0, -1);
+                        var queryAddAtrrVal = `INSERT INTO prd_attribute_value(attribute_id, name) VALUES 
                             ${str}`;
 
-                            var queryLastId = 'SELECT MAX(ID) as id FROM prd_attribute_value';
-                            var lastId = await service.getLastId(queryLastId);
-                            var lastIdRow = lastId[0].id;
+                        var queryLastId = 'SELECT MAX(ID) as id FROM prd_attribute_value';
+                        var lastId = await service.getLastId(queryLastId);
+                        var lastIdRow = lastId[0].id;
 
-                            // thêm dữ liệu vào danh sách dữ liệu.
-                            await service.newAttributeVal(queryAddAtrrVal);
-                            var lastsIdInsert = `SELECT id from prd_attribute_value where id > ${lastIdRow}`
-                            var lastvalueIds = await service.getLastsId(lastsIdInsert);
-                            // thêm dữ liệu vào cho sản Phẩm
-                            var valueProduct = '';
-                            for (var index = 0; index < newAttribute_arr.length; index++) {
-                                valueProduct += `(${req.params.id}, ${lastvalueIds[index].id}),`;
-                            }
-                            var strproductAdd = valueProduct.slice(0, -1);
-                            var queryType01 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
+                        // thêm dữ liệu vào danh sách dữ liệu.
+                        await service.newAttributeVal(queryAddAtrrVal);
+                        var lastsIdInsert = `SELECT id from prd_attribute_value where id > ${lastIdRow}`
+                        var lastvalueIds = await service.getLastsId(lastsIdInsert);
+
+                        // thêm dữ liệu vào cho sản Phẩm.
+                        var valueProduct = '';
+                        for (var index = 0; index < newAttribute_arr.length; index++) {
+                            valueProduct += `(${req.params.id}, ${lastvalueIds[index].id}),`;
+                        }
+                        var strproductAdd = valueProduct.slice(0, -1);
+                        var queryType01 = `INSERT INTO prd_attribute(product_id, attribute_value_id) VALUES 
                             ${strproductAdd}`;
-                            await service.queryActionNoParamsreturn(queryType01);
-                            // nếu có dữ liệu mới được thêm vào, thì thêm dữ liệu vào sản phẩm // end ========================
-                        }
+                        await service.queryActionNoParamsreturn(queryType01);
+                        // nếu có dữ liệu mới được thêm vào, thì thêm dữ liệu vào sản phẩm // end ========================
+                    }
 
-                        // so sánh thuộc tính đã tồn tại của sản phẩm có bị xóa thuộc tính không ?
-                        // nếu có thì xóa thuộc tính đó đi.
-                        for (var i = 0; i < prdAttrType01.length; i++) {
-                            var value = oldAttribute01_arr.indexOf(prdAttrType01[i]);
-                            if (value == -1) {
-                                deleteAttributeType01_arr.push(prdAttrType01[i]);
-                            }
+                    // so sánh thuộc tính đã tồn tại của sản phẩm có bị xóa thuộc tính không ?
+                    // nếu có thì xóa thuộc tính đó đi.
+                    for (var i = 0; i < prdAttrType01.length; i++) {
+                        var value = oldAttribute01_arr.indexOf(prdAttrType01[i]);
+                        if (value == -1) {
+                            deleteAttributeType01_arr.push(prdAttrType01[i]);
                         }
-
-                        if (deleteAttributeType01_arr.length > 0) {
-                            var valuestringDeleteAttr = '';
-                            for (var index = 0; index < deleteAttributeType01_arr.length; index++) {
-                                valuestringDeleteAttr += `(${deleteAttributeType01_arr[index]}),`;
-                            }
-                            // xóa ký tự , cuối chuỗi.
-                            var strAttrDelete = valuestringDeleteAttr.slice(0, -1);
-                            var deleteAttributeQuery = `
+                    }
+                    if (deleteAttributeType01_arr.length > 0) {
+                        var valuestringDeleteAttr = '';
+                        for (var index = 0; index < deleteAttributeType01_arr.length; index++) {
+                            valuestringDeleteAttr += `(${deleteAttributeType01_arr[index]}),`;
+                        }
+                        // xóa ký tự , cuối chuỗi.
+                        var strAttrDelete = valuestringDeleteAttr.slice(0, -1);
+                        var deleteAttributeQuery = `
                             SELECT prd_attribute_value.id 
                             FROM prd_attribute_value 
                             INNER JOIN prd_attribute 
@@ -559,31 +562,31 @@ let editProductPost = (req, res, next) => {
                             AND attributes.id 
                             IN (${strAttrDelete})`;
 
-                            // láy ra danh sách attribute value id bị xóa đi khi chỉnh sửa.
-                            var arrDeleteValue = [];
-                            var idAttrDeleteValue = await service.queryActionNoParamsreturn(deleteAttributeQuery);
-                            for (var i = 0; i < idAttrDeleteValue.length; i++) {
-                                arrDeleteValue.push(idAttrDeleteValue[i].id);
-                            }
-                            var valuestringDeleteAttrFformat = '';
-                            for (var index = 0; index < arrDeleteValue.length; index++) {
-                                valuestringDeleteAttrFformat += `${arrDeleteValue[index]},`;
-                            }
-                            // xóa ký tự , cuối chuỗi.
-                            var strAttrDeleteFormat = valuestringDeleteAttrFformat.slice(0, -1);
-                            var queryDelectIdAttributeVal = `DELETE FROM prd_attribute_value WHERE id IN (${strAttrDeleteFormat})`;
-                            var queryDeleteProductAttr = `DELETE FROM prd_attribute 
+                        // láy ra danh sách attribute value id bị xóa đi khi chỉnh sửa.
+                        var arrDeleteValue = [];
+                        var idAttrDeleteValue = await service.queryActionNoParamsreturn(deleteAttributeQuery);
+                        for (var i = 0; i < idAttrDeleteValue.length; i++) {
+                            arrDeleteValue.push(idAttrDeleteValue[i].id);
+                        }
+                        var valuestringDeleteAttrFformat = '';
+                        for (var index = 0; index < arrDeleteValue.length; index++) {
+                            valuestringDeleteAttrFformat += `${arrDeleteValue[index]},`;
+                        }
+                        // xóa ký tự , cuối chuỗi.
+                        var strAttrDeleteFormat = valuestringDeleteAttrFformat.slice(0, -1);
+                        var queryDelectIdAttributeVal = `DELETE FROM prd_attribute_value WHERE id IN (${strAttrDeleteFormat})`;
+                        var queryDeleteProductAttr = `DELETE FROM prd_attribute 
                             WHERE product_id = ${req.params.id} 
                             AND attribute_value_id IN (${strAttrDeleteFormat})`;
-                            await service.queryActionNoParamsreturn(queryDelectIdAttributeVal);
-                            await service.queryActionNoParamsreturn(queryDeleteProductAttr);
-                        }
-
-                    } else {
-                        console.log('Không có sự thay đổi nào !');
+                        await service.queryActionNoParamsreturn(queryDelectIdAttributeVal);
+                        await service.queryActionNoParamsreturn(queryDeleteProductAttr);
                     }
+
+                } else {
+                    console.log('Không có sự thay đổi nào !');
                 }
-            
+            }
+
             var queryUpdate = `UPDATE product
             SET  
             sku = ?, 
@@ -612,7 +615,6 @@ let editProductPost = (req, res, next) => {
             var query = `SELECT image from product WHERE id = ${req.params.id}`
             var imageLink = await service.getImageProduct(query);
             // kiểm tra hình ảnh up lên vào cập nhật vàn danh sách
-            console.log(imageLink);
             if (imageLink[0].image == '' && req.body.image_path != '') {
                 productItem[6] = req.body.image_path;
             }
@@ -638,6 +640,7 @@ let editProductPost = (req, res, next) => {
             productItem[9] = req.body.product_meta_title;
             productItem[10] = req.body.product_meta_keyword;
             productItem[11] = req.body.product_meta_description;
+
             if (req.body.product_quantity <= 0) {
                 productItem[12] = 0;
             }
@@ -653,6 +656,7 @@ let editProductPost = (req, res, next) => {
             });
 
         } catch (error) {
+            return res.status(500).send(error);
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
             });
@@ -729,6 +733,7 @@ let updateProductImagePost = (req, res, next) => {
             }
 
         } catch (error) {
+            console.log(error);
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
             });
@@ -755,13 +760,10 @@ let deleteProductImage = async (req, res, next) => {
             Obj,
             product_id
         ];
-        console.log('Danh sách hình ảnh');
-        console.log(Obj);
-        var queryUpdateImage = `
+        var queryUpdateImage =`
         UPDATE product
         SET image = '${Obj}' 
         WHERE id = ${product_id}`;
-
         await pool.query(queryUpdateImage, function (error, results, fields) {
             if (error) throw error;
             successArr.push(Transuccess.deleteSuccess('Xóa hình ảnh thành công !'));

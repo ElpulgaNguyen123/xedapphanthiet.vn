@@ -9,12 +9,13 @@ let FrBikeController = async (req, res, next) => {
         var queryattributes = 'SELECT * FROM `attributes';
         var querycategories = 'SELECT * FROM `categories';
         var querybrands = 'SELECT * FROM brand';
-
+        const brands = await service.getAllBrand(querybrands);
         const bikes = await service.getAllProductFr(queryBikes);
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bikes', {
             title: 'Bikes',
             bikes: bikes,
+            brands:brands,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         });
@@ -38,41 +39,27 @@ let FrBikeDetailController = async (req, res, next) => {
             images = JSON.parse(bike[0].image);
             imagesArr = Object.keys(images);
         }
-
-
-        var queryProductAttributes = `SELECT DISTINCT attributes.id, 
-        attributes.attribute_name, type 
+        var queryAllAttribute = `
+        SELECT prd_attribute_value.name, 
+        attributes.attribute_name,
+        attributes.type
         FROM prd_attribute_value 
-        INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
+        INNER JOIN prd_attribute 
+        ON prd_attribute_value.id = prd_attribute.attribute_value_id 
         INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
-        WHERE prd_attribute.product_id = ${req.params.id}`;
-        // lấy ra danh sách thuộc tính và id thuộc tính có trong sản phẩm.
-        var productAttributes = await service.getProductAttributes(queryProductAttributes);
+        WHERE prd_attribute.product_id = ?`;
 
-        var queryattributeValue = `
-        SELECT prd_attribute_value.id, 
-        prd_attribute_value.name, 
-        attributes.id as attribute_id, attribute_name 
-        FROM prd_attribute_value 
-        LEFT JOIN attributes 
-        ON prd_attribute_value.attribute_id=attributes.id 
-        WHERE attributes.id = ?`;
-        var idtype02 = [];
-        var idtype01 = [];
-        for (var i = 0; i < productAttributes.length; i++) {
-            if (productAttributes[i].type == 2) {
-                idtype02.push(productAttributes[i].id);
-            } else if (productAttributes[i].type == 1) {
-                idtype01.push(productAttributes[i].id);
+        const bikeAttribute = await service.getAllProductFr(queryAllAttribute, bike[0].id);
+        const idtype02Arrs = [];
+        const idtype01Arrs = [];
+
+        for (var i = 0; i < bikeAttribute.length; i++) {
+            if (bikeAttribute[i].type == 2) {
+                idtype02Arrs.push(bikeAttribute[i]);
+            } else if (bikeAttribute[i].type == 1) {
+                idtype01Arrs.push(bikeAttribute[i]);
             }
         }
-        // danh sách thuộc tính loại 2 của sản phẩm
-        var attributeValueArr = [];
-        for (var i = 0; i < idtype02.length; i++) {
-            var x = await service.queryAction(queryattributeValue, idtype02[i]);
-            attributeValueArr.push(x);
-        }
-        console.log(attributeValueArr);
 
         //Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bike-detail', {
@@ -80,6 +67,8 @@ let FrBikeDetailController = async (req, res, next) => {
             bike: bike[0],
             blogFeature: blogFeature,
             images: images,
+            idtype01Arrs : idtype01Arrs,
+            idtype02Arrs : idtype02Arrs,
             relateBikes: relateBikes,
             imagearr: imagesArr,
             errors: req.flash('Errors'),

@@ -103,40 +103,19 @@
                                 </h3>
                                 <div id="thuonghieu" class="list-group">
                                     <ul>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox1" />
-                                            <label for="myCheckbox1"><img src="images/brands/asama1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox2" />
-                                            <label for="myCheckbox2"><img
-                                                    src="images/brands/bridgestone1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox3" />
-                                            <label for="myCheckbox3"><img src="images/brands/giant1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox4" />
-                                            <label for="myCheckbox4"><img
-                                                    src="images/brands/bridgestone1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox5" />
-                                            <label for="myCheckbox5"><img src="images/brands/hkbike1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox6" />
-                                            <label for="myCheckbox6"><img src="images/brands/jett1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox7" />
-                                            <label for="myCheckbox7"><img src="images/brands/ninja1x.jpg" /></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="myCheckbox8" />
-                                            <label for="myCheckbox8"><img src="images/brands/trinx1x.jpg" /></label>
-                                        </li>
+                                        <% brands.forEach((brand) => { %>
+                                            <li>
+                                                <input type="checkbox" id="<%= brand.id %>" />
+                                                <label for="myCheckbox1">
+                                                    <% if(brand.image.length > 0){ %>
+                                                        <img src="/public/uploads/brands/<%= brand.image %>"
+                                                            alt="<%= brand.name %>">
+                                                        <% } else{ %>
+                                                        <img src="/public/xedapphanthiet/images/example.jpg" alt="">
+                                                        <% } %>
+                                                </label>
+                                            </li>
+                                        <% }) %>
                                     </ul>
                                 </div>
                             </div>
@@ -205,7 +184,9 @@
                                         </div>
                                         <div class="soph__ct">
                                             <span class="badge badge-info">SKU : <%= bike.sku %></span>
-                                            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a> </h3>
+                                            <h3 class="soph__tt ut_bold"> <a
+                                                    href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a>
+                                            </h3>
                                             <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing
                                                 elit. Corporis
                                                 voluptatum
@@ -214,14 +195,15 @@
                                                 assumenda. Ab
                                                 blanditiis temporibus nihil quasi, ex expedita.</p>
                                             <div class="soph-box d-flex">
-                                                <div class="price ut_bold text-secondary"><%= bike.price %> <sup>đ</sup></div>
+                                                <div class="price ut_bold text-secondary"><%= bike.price %> <sup>đ</sup>
+                                                </div>
                                                 <% if(bike.quantity > 0) {%>
-                                                    <span class="status text-right"><i class="icofont-cube"></i> còn
-                                                        (<%= bike.quantity %>)
-                                                    </span>
+                                                <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                    (<%= bike.quantity %>)
+                                                </span>
                                                 <% }else{ %>
-                                                    <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
-                                                    </span>
+                                                <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                                </span>
                                                 <% } %>
                                             </div>
                                         </div>

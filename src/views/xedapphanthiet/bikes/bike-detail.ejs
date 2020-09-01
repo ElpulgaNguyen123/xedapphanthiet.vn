@@ -41,9 +41,36 @@
             <h1 class="bike-title entry-title ut_bold">
               <%= bike.name %></h1>
             <p class="line-clamp"><%= bike.short_description %></p>
-            <div class="soph-box d-flex">
+            <div class="sku">Sku : <span class="badge badge-info mb-4"><%= bike.sku %></span></div>
+            <div class="soph-box d-flex mb-3">
               <div class="price ut_bold text-secondary"><%= bike.price %> <sup>đ</sup> </div>
             </div>
+            <table class="table">
+              <tbody>
+                <% if(idtype01Arrs.length > 0){ %>
+                <% idtype01Arrs.forEach((idtype01Arr) => { %>
+                <tr>
+                  <td> <strong><%= idtype01Arr.attribute_name %></strong></td>
+                  <td><%= idtype01Arr.name %></td>
+                </tr>
+                <% }) %>
+                <% }else{ %>
+                <% }%>
+                <% if(idtype02Arrs.length > 0){ %>
+                <% idtype02Arrs.forEach((idtype02Arr) => { %>
+                <tr>
+                  <td> <strong><%= idtype02Arr.attribute_name %></strong></td>
+                  <td>
+                    <ul>
+                      <li> <%= idtype02Arr.name %> </li>
+                    </ul>
+                  </td>
+                </tr>
+                <% }) %>
+                <% }else{ %>
+                <% }%>
+              </tbody>
+            </table>
             <div class="list-details">
               <li> <Strong> Số lượng : </Strong> 25 </li>
               <li> <Strong> Kích thước : </Strong> 1m x 2m </li>
