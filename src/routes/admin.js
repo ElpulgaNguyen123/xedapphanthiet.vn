@@ -45,6 +45,8 @@ adminRouter.post('/product/add-product-attribute/:id', controller.checkloggedIn,
 adminRouter.get('/product/edit-product-image/:id', controller.checkloggedIn, controller.editProductImage);
 adminRouter.post('/product/edit-product-image/:id', controller.checkloggedIn, controller.updateProductImagePost);
 adminRouter.get('/product/delete-product-image/:id', controller.checkloggedIn, controller.deleteProductImage);
+adminRouter.get('/product/search/:sku', controller.checkloggedIn, controller.searchData);
+
 // products router end
 
 // attribute start

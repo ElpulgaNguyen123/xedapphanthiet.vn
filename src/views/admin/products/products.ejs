@@ -53,157 +53,205 @@
                     <div class="card">
                         <div class="card-header">
                             <h5> <%= title %> </h5>
-                            <div class="card-header-right">
-                                <ul class="list-unstyled card-option">
-                                    <li><i class="icofont icofont-simple-left "></i></li>
-                                    <li><i class="icofont icofont-maximize full-card"></i></li>
-                                    <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                    <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                    <li><i class="icofont icofont-error close-card"></i></li>
-                                </ul>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="icofont icofont-simple-left "></i></li>
+                                <li><i class="icofont icofont-maximize full-card"></i></li>
+                                <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                <li><i class="icofont icofont-error close-card"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter-block card-header text-right">
+                        <!-- Example split danger button -->
+                        <div class="input-group form-search">
+                            <span class="input-group-addon btn-inverse" id="name"><i
+                                    class="icofont icofont-search"></i></span>
+                            <input type="text" id="search_value" class="form-control"
+                                placeholder="Tìm sản phẩm theo mã Sku" data-original-title="Tìm sản phẩm...">
+                            <ul class="result_rows">
+                                <li> <a href="">sku : 20202 <span> name </span></a></li>
+                            </ul>
+                        </div>
+                        <script>
+
+                            var stringAppend = function (id, sku, name) {
+                                return `<li> 
+                                            <a href="admin/product/edit-product/${id}"> sku : ${sku} <span> ${name} </span></a>
+                                            </li>`;
+                            }
+                            function getSearchData(sku) {
+                                $.ajax({
+                                    url: '/admin/product/search/' + sku,
+                                    type: 'GET',
+                                    success: function (result) {
+                                        // cập nhật ngay lập tức avatar trên giao diện
+                                        var string = '';
+                                        if (result.results) {
+                                            for (var i = 0; i < result.results.length; i++) {
+                                                string += stringAppend(result.results[i].id, result.results[i].sku, result.results[i].name)
+                                            }
+                                            $('.result_rows').append(string);
+                                        }
+                                    },
+                                    error: function (error) {
+                                        notify(error, 'danger');
+                                        console.log(error);
+                                    }
+                                })
+                            }
+                            $('#search_value').on('keyup', function () {
+                                var search_value = $(this).val();
+                                console.log(search_value);
+                                if (search_value == '') {
+                                    $('.result_rows').css('display', 'none');
+                                } else {
+                                    getSearchData(search_value);
+                                    $('.result_rows').css('display', 'block');
+                                }
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-inverse btn-outline-inverse">Thương hiệu</button>
+                            <button type="button"
+                                class="btn btn-inverse btn-outline-inverse dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">THƯƠNG HIỆU</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">ASAMA</a>
+                                <a class="dropdown-item" href="#"> GIANT </a>
+                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div>
-                        <div class="filter-block card-header text-right">
-                            <!-- Example split danger button -->
-                            <div class="input-group form-search">
-                                <span class="input-group-addon btn-inverse" id="name"><i class="icofont icofont-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Tìm sản phẩm theo mã Sku" title="" data-toggle="tooltip" data-original-title="Tìm sản phẩm...">
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-inverse btn-outline-inverse">Thương hiệu</button>
-                                <button type="button" class="btn btn-inverse btn-outline-inverse dropdown-toggle dropdown-toggle-split"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">THƯƠNG HIỆU</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">ASAMA</a>
-                                    <a class="dropdown-item" href="#"> GIANT </a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-inverse btn-outline-inverse">Danh mục</button>
-                                <button type="button" class="btn btn-inverse btn-outline-inverse dropdown-toggle dropdown-toggle-split"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Danh mục</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">ASAMA</a>
-                                    <a class="dropdown-item" href="#"> GIANT </a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-inverse btn-outline-inverse">Sắp xếp</button>
-                                <button type="button" class="btn btn-inverse btn-outline-inverse dropdown-toggle dropdown-toggle-split"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Tăng dần</a>
-                                    <a class="dropdown-item" href="#">Giảm dần</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                            <div class="ml-3 btn-group">
-                                <a href='/admin/products/add-product' class="btn btn-inverse" title="<%= title %>">Thêm sản phẩm <i class="icofont icofont-plus"></i></a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-inverse btn-outline-inverse">Danh mục</button>
+                            <button type="button"
+                                class="btn btn-inverse btn-outline-inverse dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Danh mục</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">ASAMA</a>
+                                <a class="dropdown-item" href="#"> GIANT </a>
+                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div>
-                        <div class="card-block table-border-style mt-2">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th> STT </th>
-                                            <th> Ảnh Sản Phẩm </th>
-                                            <th> Tên Sản Phẩm </th>
-                                            <th> Giá(VNĐ) </th>
-                                            <th> Trạng thái </th>
-                                            <th> Số lượng </th>
-                                            <th> hành động </th>
-                                            </tr>
-                                        </thead>
-                                    <tbody>
-                                        <% products.forEach(function(product, index){ %>
-                                        <tr>
-                                            <td scope="row"><%= index %></th>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-inverse btn-outline-inverse">Sắp xếp</button>
+                            <button type="button"
+                                class="btn btn-inverse btn-outline-inverse dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Tăng dần</a>
+                                <a class="dropdown-item" href="#">Giảm dần</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                        <div class="ml-3 btn-group">
+                            <a href='/admin/products/add-product' class="btn btn-inverse" title="<%= title %>">Thêm sản
+                                phẩm <i class="icofont icofont-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-block table-border-style mt-2">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th> STT </th>
+                                        <th> Ảnh Sản Phẩm </th>
+                                        <th> Tên Sản Phẩm </th>
+                                        <th> Giá(VNĐ) </th>
+                                        <th> Trạng thái </th>
+                                        <th> Số lượng </th>
+                                        <th> hành động </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% products.forEach(function(product, index){ %>
+                                    <tr>
+                                        <td scope="row"><%= index %></th>
                                             <% if(product.image.length > 0){ %>
-                                            <th class="product-image">
-                                                <img class="sp_img-<%= product.id%>"
-                                                    src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>"
-                                                    alt="">
-                                                    <p class="mt-2"> <span class="label label-primary">Sku:</span>&nbsp;<%= product.sku %> </p>
+                                        <th class="product-image">
+                                            <img class="sp_img-<%= product.id%>"
+                                                src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>"
+                                                alt="">
+                                            <p class="mt-2"> <span
+                                                    class="label label-primary">Sku:</span>&nbsp;<%= product.sku %> </p>
                                             </td>
                                             <% } else{ %>
-                                            <td class="product-image">
-                                                <img class="sp_img-<%= product.id%>"
-                                                    src="/public/admin/images/example.png" alt="">
-                                                    <p class="mt-2"><span class="label label-primary">Sku:</span>&nbsp;<%= product.sku %> </p>
-                                            </td>
-                                            <% } %>
-                                            <td class="font-weight-bold">
-                                                <p class="text-break"> <%= product.name %> </p>
-                                            </td>
-                                            <td class="price-show"> <span class="product-price"> <%= product.price %> </span> <sup> VNĐ </sup>
-                                            </td>
-                                            <td>
-                                                <label
-                                                    class="label text-center <%= product.stock === 1 ? 'label-success' : 'label-warning' %> ">
-                                                    <%= product.stock === 1 ? 'Còn hàng' : 'Hết hàng' %> </label>
-                                            </td>
-                                            <td> <%= product.quantity %> </td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="/admin/product/edit-product/<%= product.id %>"
-                                                        type="button" class="btn hor-grd btn-grd-warning "
-                                                        title="Sửa sản phẩm">
-                                                        <i class="icofont icofont-edit"></i> </a>
-                                                    <a href="/admin/product/delete-product/<%= product.id %>"
-                                                        type="button" class="btn hor-grd btn-grd-danger "> <i
-                                                            class="icofont icofont-ui-delete" title="Xóa sản phẩm"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        <td class="product-image">
+                                            <img class="sp_img-<%= product.id%>" src="/public/admin/images/example.png"
+                                                alt="">
+                                            <p class="mt-2"><span
+                                                    class="label label-primary">Sku:</span>&nbsp;<%= product.sku %> </p>
+                                        </td>
+                                        <% } %>
+                                        <td class="font-weight-bold">
+                                            <p class="text-break"> <%= product.name %> </p>
+                                        </td>
+                                        <td class="price-show"> <span class="product-price"> <%= product.price %>
+                                            </span> <sup> VNĐ </sup>
+                                        </td>
+                                        <td>
+                                            <label
+                                                class="label text-center <%= product.stock === 1 ? 'label-success' : 'label-warning' %> ">
+                                                <%= product.stock === 1 ? 'Còn hàng' : 'Hết hàng' %> </label>
+                                        </td>
+                                        <td> <%= product.quantity %> </td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="/admin/product/edit-product/<%= product.id %>" type="button"
+                                                    class="btn hor-grd btn-grd-warning " title="Sửa sản phẩm">
+                                                    <i class="icofont icofont-edit"></i> </a>
+                                                <a href="/admin/product/delete-product/<%= product.id %>" type="button"
+                                                    class="btn hor-grd btn-grd-danger "> <i
+                                                        class="icofont icofont-ui-delete" title="Xóa sản phẩm"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-sm-12">
-                            <nav class="text-center" aria-label="Page navigation example">
-                                <ul class="pagination mb-4">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <% for(var i=1; i < pages; i++) {%>
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                            href="/admin/products?page=<%= i %>"><%= i %>
-                                        </a></li>
-                                    <% } %>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <script>
-                                var pageli = $('.pagination .page-item');
-                                //pageli[0].addClass('active');
-                                console.log(pageli[<%= page %>].classList.add('active'));
-                            </script>
-                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <nav class="text-center" aria-label="Page navigation example">
+                            <ul class="pagination mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <% for(var i=1; i < pages; i++) {%>
+                                <li class="page-item">
+                                    <a class="page-link" href="/admin/products?page=<%= i %>"><%= i %>
+                                    </a></li>
+                                <% } %>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <script>
+                            var pageli = $('.pagination .page-item');
+                            //pageli[0].addClass('active');
+                            console.log(pageli[<%= page %>].classList.add('active'));
+                        </script>
                     </div>
                 </div>
             </div>
-            <div id="styleSelector">
-            </div>
+        </div>
+        <div id="styleSelector">
         </div>
     </div>
+</div>
 </div>

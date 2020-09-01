@@ -8863,7 +8863,7 @@ header .navbar.fixed-menu {
   flex: 1;
   width: 49%; }
 
-#thuonghieu input[type="checkbox"][id^="myCheckbox"] {
+#thuonghieu input[type="checkbox"] {
   display: none; }
 
 #thuonghieu label {
@@ -8872,10 +8872,14 @@ header .navbar.fixed-menu {
   display: block;
   position: relative;
   margin: 10px;
-  cursor: pointer;
   box-shadow: 30px 30px 72px #ebebeb, -30px -30px 72px #ffffff;
   background: white;
-  border-radius: 10px; }
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.4s; }
+  #thuonghieu label:hover {
+    box-shadow: 0 3px 6px #009688, 0 3px 6px #009688;
+    transition: 0.4s; }
 
 #thuonghieu label:before {
   background-color: #C6504E;
