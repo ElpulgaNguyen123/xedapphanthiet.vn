@@ -53,46 +53,19 @@
                                 </h3>
                                 <div id="danhmuc" class="list-group">
                                     <ul class="list-group list-group-flush">
+                                        <% categories.forEach((category) => { %>
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check1" checked>
-                                                <label class="custom-control-label" for="check1"> Xe đạp đua <span
-                                                        class="woof_checkbox_count">(59)</span></label>
+                                                <a href="/xe-dap/danh-muc/<%= category.category_slug %>.<%= category.id %>"
+                                                    title="<%= category.category_name %>"> <%= category.category_name %>
+                                                    <span>(59)</span> </a>
+                                                <!-- <input type="checkbox" class="custom-control-input" id="<%= category.id %>">
+                                                <label class="custom-control-label" for="<%= category.id %>"> <%= category.category_name %> <span
+                                                        class="woof_checkbox_count">(59)</span></label> -->
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check2">
-                                                <label class="custom-control-label" for="check2"> Xe đạp địa hình <span
-                                                        class="woof_checkbox_count">(59)</span></label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check3">
-                                                <label class="custom-control-label" for="check3">Xe đạp trẻ em <span
-                                                        class="woof_checkbox_count">(59)</span></label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check4">
-                                                <label class="custom-control-label" for="check4">Xe đạp đường phố <span
-                                                        class="woof_checkbox_count">(59)</span></label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check5">
-                                                <label class="custom-control-label" for="check5">Xem đạp phụ nữ <span
-                                                        class="woof_checkbox_count">(59)</span></label>
-                                            </div>
-                                        </li>
+                                        <% }) %>
                                     </ul>
                                 </div>
                             </div>
@@ -104,17 +77,17 @@
                                 <div id="thuonghieu" class="list-group">
                                     <ul>
                                         <% brands.forEach((brand) => { %>
-                                            <li>
-                                                <input type="checkbox" id="<%= brand.id %>" />
-                                                <label for="myCheckbox1">
-                                                    <% if(brand.image.length > 0){ %>
-                                                        <img src="/public/uploads/brands/<%= brand.image %>"
-                                                            alt="<%= brand.name %>">
-                                                        <% } else{ %>
-                                                        <img src="/public/xedapphanthiet/images/example.jpg" alt="">
-                                                        <% } %>
-                                                </label>
-                                            </li>
+                                        <li>
+                                            <input type="checkbox" id="<%= brand.id %>" />
+                                            <a href="/xe-dap/thuong-hieu/<%= brand.slug %>.<%= brand.id%>">
+                                                <% if(brand.image.length > 0){ %>
+                                                <img src="/public/uploads/brands/<%= brand.image %>"
+                                                    alt="<%= brand.name %>">
+                                                <% } else{ %>
+                                                <img src="/public/xedapphanthiet/images/example.jpg" alt="">
+                                                <% } %>
+                                            </a>
+                                        </li>
                                         <% }) %>
                                     </ul>
                                 </div>
