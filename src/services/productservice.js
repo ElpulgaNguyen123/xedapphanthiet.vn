@@ -6,7 +6,7 @@ let queryAction = (query, params) => {
             pool.query(query, params, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
-                    reject([]);
+                    resolve(rows);
                 }
                 return resolve(rows);
             })
@@ -15,6 +15,7 @@ let queryAction = (query, params) => {
         }
     })
 }
+
 let queryActionNoParams = (query) => {
     return new Promise(async (resolve, reject) => {
         try {

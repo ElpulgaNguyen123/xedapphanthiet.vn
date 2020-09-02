@@ -1,23 +1,20 @@
 var pool = require('../../config/connectDb');
-const { query } = require('express');
 const service = require('../../../services');
-const { response } = require('../../../../app');
 
 let FrBikeController = async (req, res, next) => {
     try {
         const queryBikes = 'Select * from product';
-        var queryattributes = 'SELECT * FROM `attributes';
-        var querycategories = 'SELECT * FROM `categories';
-        var querybrands = 'SELECT * FROM brand';
+        const querycategories = 'SELECT * FROM `categories';
+        const querybrands = 'SELECT * FROM brand';
         const brands = await service.getAllBrand(querybrands);
         const categories = await service.getAllCategoryProduct(querycategories);
         const bikes = await service.getAllProductFr(queryBikes);
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bikes', {
-            title: 'Bikes',
+            title: 'Xe đạp',
             bikes: bikes,
             brands: brands,
-            categories : categories,
+            categories: categories,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         });
@@ -31,28 +28,25 @@ let FrBikeController = async (req, res, next) => {
 let getAllBikeCategory = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBikes = 'Select * from product';
-        var querycategories = 'SELECT * FROM `categories';
-        var querybrands = 'SELECT * FROM brand';
+        const querycategories = 'SELECT * FROM categories';
+        const querybrands = 'SELECT * FROM brand';
+        const queryBike = `SELECT * FROM product WHERE category_id = ?`;
         const brands = await service.getAllBrand(querybrands);
-        const bikes = await service.getAllProductFr(queryBikes);
+        const categories = await service.getAllCategoryProduct(querycategories);
 
-        pool.query(`SELECT * FROM product WHERE category_id = ${req.params.idcategory}`, function (error, results, fields) {
+        pool.query(queryBike, req.params.iddanhmuc, async function (error, results, fields) {
             if (error) throw error;
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
 
+            const queryTittle = `SELECT * FROM categories WHERE id = ?`;
+            const categoriesTitle = await service.queryActionCategoriesParams(queryTittle, req.params.iddanhmuc);
+            if(categoriesTitle.length > 0){
+                title = categoriesTitle[0].category_name;
+            }
             res.render('xedapphanthiet/bikes/bikes', {
-                title: 'Sản phẩm',
-                products: results.slice(start, end),
-                pages: pageDistance,
-                page: page,
-                bikes: bikes,
+                title: title,
+                bikes: results,
                 brands: brands,
+                categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -68,24 +62,23 @@ let getAllBikeCategory = async (req, res, next) => {
 let getAllBikeBrand = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        const queryBrands = 'SELECT * FROM brand';
-        const queryCategories = 'SELECT * FROM categories';
-        const brands = await service.getAllBrand(queryBrands);
-        const categories = await service.getAllCategoryProduct(queryCategories);
-
-        pool.query(`SELECT * FROM product WHERE brand_id = ${req.params.idthuonghieu}`, function (error, results, fields) {
+        const querycategories = 'SELECT * FROM categories';
+        const querybrands = 'SELECT * FROM brand';
+        const queryBike = `SELECT * FROM product WHERE brand_id = ?`;
+        const brands = await service.getAllBrand(querybrands);
+        const categories = await service.getAllCategoryProduct(querycategories);
+        pool.query(queryBike, req.params.idthuonghieu, async function (error, results, fields) {
             if (error) throw error;
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
+
+            const queryTittle = `SELECT * FROM brand WHERE id = ?`;
+            const brandsTitle = await service.queryActionBrandsParams(queryTittle, req.params.idthuonghieu);
+            if(brandsTitle.length > 0){
+                title = brandsTitle[0].name;
+            }
+
             res.render('xedapphanthiet/bikes/bikes', {
-                title: 'Sản phẩm',
-                products: results.slice(start, end),
-                pages: pageDistance,
-                page: page,
+                title: title,
+                bikes: results,
                 brands: brands,
                 categories: categories,
                 errors: req.flash('Errors'),
@@ -171,6 +164,8 @@ let FrBikeDetailController = async (req, res, next) => {
                 idtype01Arrs.push(bikeAttribute[i]);
             }
         }
+
+        console.log(bike);
 
         //Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bike-detail', {

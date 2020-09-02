@@ -49,6 +49,8 @@ adminRouter.get('/product-category/:idcategory', controller.checkloggedIn, contr
 adminRouter.get('/product-brand/:idbrand', controller.checkloggedIn, controller.getAllProductBrand);
 adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAllProductDesc);
 adminRouter.get('/product/search/:sku', controller.checkloggedIn, controller.searchData);
+adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
+
 
 // products router end
 

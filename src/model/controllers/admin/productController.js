@@ -49,8 +49,8 @@ let getAllProduct = async (req, res, next) => {
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
-                brands : brands,
-                categories : categories,
+                brands: brands,
+                categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -84,8 +84,8 @@ let getAllProductCategory = async (req, res, next) => {
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
-                brands : brands,
-                categories : categories,
+                brands: brands,
+                categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -119,8 +119,8 @@ let getAllProductBrand = async (req, res, next) => {
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
-                brands : brands,
-                categories : categories,
+                brands: brands,
+                categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -154,8 +154,8 @@ let getAllProductDesc = async (req, res, next) => {
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
-                brands : brands,
-                categories : categories,
+                brands: brands,
+                categories: categories,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -603,7 +603,7 @@ let editProductPost = (req, res, next) => {
                 if (convertArr != prdAttrType01) {
                     // lấy ra danh sách thuộc tính loại 1 mới được thêm vào.
                     for (var i = 0; i < attributeType01.length; i++) {
-                        if(attributeType01[i] != ''){
+                        if (attributeType01[i] != '') {
                             var value = prdAttrType01.indexOf(parseInt(attributeType01[i]));
                             if (value == -1) {
                                 newAttribute_arr.push(parseInt(attributeType01[i]));
@@ -867,7 +867,7 @@ let deleteProductImage = async (req, res, next) => {
             Obj,
             product_id
         ];
-        var queryUpdateImage =`
+        var queryUpdateImage = `
         UPDATE product
         SET image = '${Obj}' 
         WHERE id = ${product_id}`;
@@ -887,7 +887,7 @@ let searchData = async (req, res, next) => {
     let successArr = [];
     try {
         var product_sku = req.params.sku;
-        var queryBike =`
+        var queryBike = `
         SELECT * FROM product WHERE sku LIKE 
         '%${product_sku}%' 
         ORDER BY ID DESC LIMIT 6`;
@@ -906,6 +906,64 @@ let searchData = async (req, res, next) => {
 }
 
 
+let deleteProductController = async (req, res, next) => {
+    let successArr = [];
+
+    try {
+        var iddelete = req.params.iddelete;
+        const queryProductAttrVal = `SELECT prd_attribute_value.id 
+        FROM prd_attribute_value 
+        INNER JOIN prd_attribute 
+        ON prd_attribute.attribute_value_id = prd_attribute_value.id 
+        WHERE prd_attribute.product_id = ?`;
+        const querydeleteProduct = `DELETE FROM product where id = ${iddelete}`;
+        const queryImage = `SELECT image FROM product WHERE id = ${iddelete}`;
+        const queryDeleteProductAttr = `DELETE FROM 
+        prd_attribute 
+        WHERE product_id = ${iddelete}`;
+        const productAttributeIds = await service.queryAction(queryProductAttrVal, iddelete);
+        const images = await service.queryActionNoParams(queryImage);
+
+        let imagesParse = '';
+        let imagesArr = [];
+        if (images[0].image != '') {
+            imagesParse = JSON.parse(images[0].image);
+            imagesArr = Object.keys(imagesParse);
+
+            for (var i = 0; i < imagesArr.length; i++) {
+                await fsExtras.remove(`${app.directory_products}/${imagesParse[imagesArr[i]]}`);
+            }
+        }
+
+    
+        if (productAttributeIds.length > 0) {
+            var valuestring = '';
+            for (var index = 0; index < productAttributeIds.length; index++) {
+                valuestring += `${productAttributeIds[index].id},`;
+            }
+            // xóa dấu phẩy ở cuối chuỗi.
+            var str = valuestring.slice(0, -1);
+            var queryDeleteProductAttrValue = `DELETE FROM 
+            prd_attribute_value 
+                        WHERE id IN (${str})`;
+            await service.queryActionNoParams(queryDeleteProductAttrValue);
+        }
+
+        await service.queryActionNoParams(queryDeleteProductAttr);
+        await service.queryActionNoParams(querydeleteProduct);
+
+        successArr.push(Transuccess.deleteSuccess('sản phẩm'));
+        req.flash('Success', successArr);
+        return res.redirect('/admin/products');
+
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
+
 module.exports = {
     getAllProduct,
     addProductGet,
@@ -917,6 +975,7 @@ module.exports = {
     updateProductImagePost,
     deleteProductImage,
     editProductPost,
+    deleteProductController,
     searchData,
     getAllProductCategory,
     getAllProductBrand,

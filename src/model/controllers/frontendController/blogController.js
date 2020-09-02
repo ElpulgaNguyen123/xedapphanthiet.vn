@@ -24,9 +24,7 @@ let FrBlogDetailController = async (req, res, next) => {
     try {
         const queryBlogDetail = 'SELECT * from blog WHERE id = ?';
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 4`;
-        //const queryBlog = `Select * from blog ${req.params.id}`;
         const blogFeature = await service.getAllBlog(queryFeature);
-        console.log(blogFeature);
         const blog = await service.getBlog(queryBlogDetail, req.params.id);
         if (blog[0]) {
             //Lấy tất cả sản phẩm và hiển thị ra table
