@@ -166,7 +166,6 @@ $(function () {
     /*---------- tittle backgroud randome / start  ----------*/
     var colors = ['#C6504E', '#3C8386'];
     var random_color = colors[Math.floor(Math.random() * colors.length)];
-    console.log(random_color);
     $('.soph__title').css("background-color", random_color)
     /*---------- tittle backgroud randome / end  ----------*/
 

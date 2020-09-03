@@ -182,7 +182,7 @@ let getAllProductFr = (query, params) => {
             pool.query(query, params, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
-                    reject([]);
+                     resolve(rows);
                 }
                 return resolve(rows);
             })

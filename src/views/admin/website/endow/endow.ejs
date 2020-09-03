@@ -1,0 +1,130 @@
+@@ -0,0 +1,294 @@
+<% extend("../../../admin.ejs") %>
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4> <%= title %> </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="/admin" title="Trang chủ">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><%= title %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page-header end -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5> <strong> Danh sách <%= title %></strong></h5>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="icofont icofont-simple-left "></i></li>
+                                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                            <li><i class="icofont icofont-error close-card"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="filter-block card-header text-right">
+                                    <div class="ml-3 btn-group">
+                                        <a href="/admin/endow/add-endow" class="btn btn-inverse" title="Sản phẩm"> Ưu đãi <i class="icofont icofont-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-block table-border-style mt-2">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th> STT </th>
+                                                    <th> Hình ảnh </th>
+                                                    <th> Tiêu đề </th>
+                                                    <th> Mô tả </th>
+                                                    <th> hành động </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% blogs.forEach(function(blog, index){ %>
+                                                <tr>
+                                                    <th scope="row"><%= index %></th>
+                                                    <% if(blog.image != '' && blog.image != null){ %>
+                                                    <td class="product-image">
+                                                        <img class="sp_img-<%= blog.id%>"
+                                                            src="/public/uploads/blogs/<%= blog.image %>"
+                                                            alt="<%= blog.title %>">
+                                                    </td>
+                                                    <% } else{ %>
+                                                    <td class="product-image">
+                                                        <img class="sp_img-<%= blog.id%>"
+                                                            src="/admin/public/images/example.png"
+                                                            alt="<%= blog.title %>">
+                                                    </td>
+                                                    <% } %>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= blog.title %> </p>
+                                                    </td>
+                                                    <td class="font-weight-bold">
+                                                        <p> <%= blog.short_description %> </p>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <a href="/admin/blog/edit-blog/<%= blog.id %>"
+                                                                class="btn hor-grd btn-grd-warning" title="Sửa blog">
+                                                                <i class="icofont icofont-edit"></i>
+                                                            </a>
+                                                            <a href="/admin/slide/delete-blog/<%= blog.id %>"
+                                                                class="delete-blog-confirm btn hor-grd btn-grd-danger"
+                                                                data-url="/admin/blog/delete-blog/<%= blog.id %>"
+                                                                title="Xóa blog" data-target="#blog-delete-modal"
+                                                                data-toggle="modal">
+                                                                <i class="icofont icofont-ui-delete"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="styleSelector">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.delete-blog-confirm').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        $('#delete-blog-link').attr('href', url);
+    });
+</script>
+
+<%- include("../../modal/blog-delete-modal.ejs") %>

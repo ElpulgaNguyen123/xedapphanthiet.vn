@@ -155,6 +155,7 @@ let postEditBrand = (req, res, next) => {
     })
 }
 
+
 // xóa dữ liệu của 1 brand
 let postDeleteBrand = async (req, res, next) => {
     try {
@@ -163,24 +164,26 @@ let postDeleteBrand = async (req, res, next) => {
             successArr = [];
 
         var brand_id = req.params.id;
+        var querySetnull = `UPDATE product SET brand_id = NULL WHERE brand_id = ${brand_id}`;
         var query = `SELECT * FROM brand WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
         var Image_delete = await service.queryActionBrandDelete(query, brand_id);
+        if (Image_delete[0].image != null) {
+            await fsExtras.remove(`${app.directory_brands}/${Image_delete[0].image}`);
+        }
+        await service.queryActionBrandsNoParams(querySetnull);
 
         var querydeleteBrand = `
         DELETE FROM 
         brand 
         WHERE id = ${brand_id}`
-
         pool.query(querydeleteBrand, async function (error, results, fields) {
             if (error) throw error;
-            if (Image_delete != null || Image_delete != '') {
-                await fsExtras.remove(`${app.directory_brands}/${Image_delete}`);
-            }
             successArr.push(Transuccess.deleteSuccess('Thương hiệu'));
             req.flash('Success', successArr);
             res.redirect('/admin/brands');
         });
+
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);

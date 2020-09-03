@@ -35,7 +35,7 @@ var {getAllBrand,
         addCategory,
         getEditCategory,
         postEditCategory,
-        postDeleteCategory}= require('./categoriesController');
+        DeleteCategory}= require('./categoriesController');
 
 var { loginController,
     registerController,
@@ -77,6 +77,10 @@ var {
     postEditBlog,
     postDeleteBlog} = require('./website/blogController');
 
+    var {
+        getAllEndow,
+        addEndowGet} = require('./website/endowController');
+
 
 module.exports = {
 
@@ -110,7 +114,7 @@ module.exports = {
     postDeleteAttribute,
     postAddAttributeValue,
     postDeleteAttributeValue,
-    postDeleteCategory,
+    DeleteCategory,
     
 
     // Brands
@@ -163,5 +167,10 @@ module.exports = {
     addBlogPost,
     getEditBlog,
     postEditBlog,
-    postDeleteBlog
+    postDeleteBlog,
+
+
+    //endow
+    getAllEndow,
+    addEndowGet
 }

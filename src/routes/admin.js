@@ -80,7 +80,7 @@ adminRouter.get('/categories', controller.checkloggedIn, controller.getAllCatego
 adminRouter.post('/category/add-category', controller.checkloggedIn, controller.addCategory);
 adminRouter.get('/category/edit-category/:id', controller.checkloggedIn, controller.getEditCategory);
 adminRouter.post('/category/edit-category/:id', controller.checkloggedIn, controller.postEditCategory);
-adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, controller.postDeleteCategory);
+adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, controller.DeleteCategory);
 //brand end
 /*=============================================
 =            Website template / start        =
@@ -102,6 +102,11 @@ adminRouter.post('/blog/edit-blog/:id', controller.checkloggedIn, controller.pos
 adminRouter.get('/blog/delete-blog/:id', controller.checkloggedIn, controller.postDeleteBlog);
 // Blog / end
 
+// endow / start
+adminRouter.get('/endow', controller.checkloggedIn, controller.getAllEndow);
+adminRouter.get('/endow/add-endow', controller.checkloggedIn, controller.addEndowGet);
+
+// endow / end
 /*=====   Website template / end  ======*/
 
 adminRouter.use((req, res, next) => {

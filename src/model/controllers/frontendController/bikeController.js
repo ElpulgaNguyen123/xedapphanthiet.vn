@@ -130,11 +130,12 @@ let getAllBikeDesc = async (req, res, next) => {
 
 let FrBikeDetailController = async (req, res, next) => {
     try {
-        const getAllProductFr = 'SELECT * from product WHERE id = ?';
+        const getAllProductFrs = 'SELECT * from product WHERE id = ?';
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
         const queryBikeRelate = `SELECT * FROM product WHERE product.category_id = ? ORDER BY id DESC LIMIT 8        `
         const blogFeature = await service.getAllBlog(queryFeature);
-        const bike = await service.getAllProductFr(getAllProductFr, req.params.id);
+        console.log(req.params.id);
+        const bike = await service.getAllProductFr(getAllProductFrs, req.params.id);
         const relateBikes = await service.getAllProductFr(queryBikeRelate, bike[0].category_id);
         var images = '';
         var imagesArr = [];

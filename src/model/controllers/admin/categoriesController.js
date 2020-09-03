@@ -3,7 +3,7 @@ var app = require('../../config/app');
 var service = require('../../../services');
 var multer = require('multer');
 var { uuid } = require('uuidv4');
-var { Transuccess} = require('../../../../lang/vi');
+var { Transuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
@@ -160,27 +160,31 @@ let postEditCategory = (req, res, next) => {
 }
 
 // xóa dữ liệu của 1 brand
-let postDeleteCategory = async (req, res, next) => {
+let DeleteCategory = async (req, res, next) => {
     try {
         var arrayError = [],
             successArr = [];
 
-        var category_id = req.params.id; 
+        var category_id = req.params.id;
+        var querySetnull = `UPDATE product SET category_id = NULL WHERE category_id = ${category_id}`;
         var query = `SELECT * FROM categories WHERE id = ?`;
         var Image_delete = await service.queryActionCategoryDelete(query, category_id);
+        if (Image_delete[0].image != null) {
+            await fsExtras.remove(`${app.directory_categories}/${Image_delete[0].image}`);
+        }
+        await service.queryActionCategoriesNoParams(querySetnull);
         var querydeleteCategory = `
         DELETE FROM 
         categories 
-        WHERE id = ${category_id}`
+        WHERE id = ${category_id}`;
+
         pool.query(querydeleteCategory, async function (error, results, fields) {
             if (error) throw error;
-            if (Image_delete != null || Image_delete != '') {
-                await fsExtras.remove(`${app.directory_categories}/${Image_delete}`);
-            }
             successArr.push(Transuccess.deleteSuccess('Danh mục'));
             req.flash('Success', successArr);
             res.redirect('/admin/categories');
         });
+
     } catch (error) {
         res.render('admin/notfound/notfound', {
             title: 'Trang Không tìm thấy'
@@ -193,5 +197,5 @@ module.exports = {
     addCategory,
     getEditCategory,
     postEditCategory,
-    postDeleteCategory
+    DeleteCategory
 };

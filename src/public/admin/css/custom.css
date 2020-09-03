@@ -517,9 +517,14 @@ ul.result_rows {
     margin-right: 10px;
 }
 
+.modal-body span {
+    font-size: 15px;
+    display: block;
+}
+
 @media (min-width: 576px) {
     .modal-dialog.small {
-        max-width: 300px;
+        max-width: 400px;
         margin: 30px auto;
     }
 }

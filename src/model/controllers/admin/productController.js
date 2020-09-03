@@ -935,7 +935,6 @@ let deleteProductController = async (req, res, next) => {
             }
         }
 
-    
         if (productAttributeIds.length > 0) {
             var valuestring = '';
             for (var index = 0; index < productAttributeIds.length; index++) {

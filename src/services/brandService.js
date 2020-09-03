@@ -6,9 +6,9 @@ let queryActionBrandDelete = (query, params) => {
             pool.query(query, params, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
-                    reject([]);
+                    resolve(rows);
                 }
-                return resolve(rows[0].image);
+                return resolve(rows);
             })
         } catch (error) {
             console.log('caught', error);
@@ -16,6 +16,22 @@ let queryActionBrandDelete = (query, params) => {
     })
 }
 
+
+let queryActionBrandsNoParams = (query) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            pool.query(query, function (error, rows, fields) {
+                if (error) throw error;
+                if (!rows[0]) {
+                    resolve(rows);
+                }
+                return resolve(rows);
+            })
+        } catch (error) {
+            console.log('caught', error);
+        }
+    })
+}
 
 let getAllBrand = (query) => {
     return new Promise(async (resolve, reject) => {
@@ -51,5 +67,6 @@ let queryActionBrandsParams = (query, params) => {
 module.exports = {
     queryActionBrandDelete,
     getAllBrand,
-    queryActionBrandsParams
+    queryActionBrandsParams,
+    queryActionBrandsNoParams
 }
