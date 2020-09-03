@@ -79,7 +79,10 @@ var {
 
     var {
         getAllEndow,
-        addEndowGet} = require('./website/endowController');
+        addEndowGet,
+        addEndowPost,
+        getEditEndow,
+        postEditEndow} = require('./website/endowController');
 
 
 module.exports = {
@@ -172,5 +175,8 @@ module.exports = {
 
     //endow
     getAllEndow,
-    addEndowGet
+    addEndowGet,
+    addEndowPost,
+    getEditEndow,
+    postEditEndow
 }

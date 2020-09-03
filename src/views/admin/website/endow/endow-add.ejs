@@ -56,15 +56,15 @@
                                         <div class="update-avatar-form">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    <form action="/admin/blog/add-blog" id="endow_form" method="POST"
+                                                    <form action="/admin/endow/add-endow" id="endow_form" method="POST"
                                                         enctype="multipart/form-data">
                                                         <div class="row">
                                                             <div class="col-xs-12 col-md-12">
                                                                 <div class="form-group text-center mb-5">
                                                                     <div class="image-border">
                                                                         <label class="font-weight-bold col-form-label"
-                                                                            for="blog_image">
-                                                                            Chọn hình ảnh đại diện bài viết
+                                                                            for="endow_image">
+                                                                            Chọn icons đại diện ưu đãi
                                                                         </label>
                                                                         <div class="avatar-change">
                                                                             <img id="image-avatar-preview" src=""
@@ -74,11 +74,11 @@
                                                                             class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
                                                                             hình ảnh...</button>
                                                                         <input type="file" id="endow_image"
-                                                                            name="blog_image" required />
+                                                                            name="endow_image" required />
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input type="text" name="blog_title" id="endow_title"
+                                                                    <input type="text" name="endow_title" id="endow_title"
                                                                         class="form-control write_title"
                                                                         placeholder="Nhập tiêu đề" required>
                                                                 </div>
@@ -86,8 +86,8 @@
                                                                     <label class="font-weight-bold"
                                                                         for="short_description">
                                                                         Mô tả ngắn </label>
-                                                                    <textarea type="text" name="short_description"
-                                                                        id="short_description" class="form-control"
+                                                                    <textarea type="text" name="endow_description"
+                                                                        id="endow_description" class="form-control"
                                                                         placeholder="Mô tả ngắn" required></textarea>
                                                                 </div>
                                                             </div>
@@ -112,41 +112,29 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("#blog_form").validate({
+        $("#endow_form").validate({
             rules: {
-                blog_image: {
+                endow_image: {
                     required: true,
                 },
-                blog_title: {
+                endow_title: {
                     required: true,
                     minlength: 2,
                 },
-                blog_slug: {
+                endow_description: {
                     required: true
-                },
-                short_description: {
-                    required: true
-                },
-                blog_content: {
-                    required: true
-                },
+                }
             },
             messages: {
-                blog_image: {
-                    required: 'Bạn chưa chọn ảnh cho slide',
+                endow_image: {
+                    required: 'Bạn chưa chọn ảnh cho ưu đãi',
                 },
-                blog_title: {
+                endow_title: {
                     required: "Vui lòng nhập tiêu đề bài viết",
                     minlength: "Tên thương hiệu phải có ít nhất 2 ký tự"
                 },
-                blog_slug: {
-                    required: "Vui lòng nhập đường dẫn cho slide"
-                },
-                short_description: {
+                endow_description: {
                     required: "Vui lòng nhập mô tả ngắn"
-                },
-                blog_content: {
-                    required: "Vui lòng nhập nội dung bài viết"
                 },
             }
         });
@@ -154,11 +142,11 @@
         // click event to upload image ======================== start
         $("#trigger_button").click(function (e) {
             e.preventDefault()
-            $("#blog_image").trigger('click');
+            $("#endow_image").trigger('click');
         });
-        $('#blog_image').hide();
+        $('#endow_image').hide();
         function getBrandAvatarUpdate() {
-            $('#blog_image').bind('change', function () {
+            $('#endow_image').bind('change', function () {
                 let fileData = $(this)[0].files[0];
                 let math = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
                 let limit = 1048576;  // 1 mb 

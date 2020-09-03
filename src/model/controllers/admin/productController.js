@@ -908,7 +908,6 @@ let searchData = async (req, res, next) => {
 
 let deleteProductController = async (req, res, next) => {
     let successArr = [];
-
     try {
         var iddelete = req.params.iddelete;
         const queryProductAttrVal = `SELECT prd_attribute_value.id 

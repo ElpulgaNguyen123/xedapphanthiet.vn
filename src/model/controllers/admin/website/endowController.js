@@ -11,7 +11,7 @@ var fsExtras = require('fs-extra');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
-        cb(null, app.directory_blogs);
+        cb(null, app.directory_endows);
     },
     filename: function (req, file, cb) {
         // let match = app.avatar_type;
@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-var productUploadFile = multer({ storage: storage }).single('blog_image');
+var productUploadFile = multer({ storage: storage }).single('endow_image');
 // get all Blog
 let getAllEndow = async (req, res, next) => {
     try {
@@ -30,7 +30,7 @@ let getAllEndow = async (req, res, next) => {
             if (error) throw error;
             res.render('admin/website/endow/endow', {
                 title: 'Ưu đãi',
-                blogs: rows,
+                endows: rows,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
                 user: req.user
@@ -62,6 +62,7 @@ let addEndowGet = async (req, res, next) => {
 let addEndowPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
+            console.log(req.body);
             var arrayError = [],
                 successArr = [];
             var generatecode = uuid();
@@ -77,27 +78,18 @@ let addEndowPost = (req, res, next) => {
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            let current_datetime = new Date()
-            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-            var queryNew = `INSERT INTO blog (title,slug, 
-                content, 
-                short_description, image, 
-                author, create_at) VALUES ?`;
-            var blogValues = [
-                [req.body.blog_title,
-                req.body.blog_slug,
-                req.body.blog_content,
-                req.body.short_description,
+            var queryNew = `INSERT INTO endow (title, image, description) VALUES ?`;
+            var endowValues = [
+                [req.body.endow_title,
                     filename,
-                req.body.blog_author,
-                formatted_date]
+                req.body.endow_description]
             ];
            
-            pool.query(queryNew, [blogValues], function (error, results, fields) {
+            pool.query(queryNew, [endowValues], function (error, results, fields) {
                 if (error) throw error;
                 successArr.push(Transuccess.createSuccess('Blog'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/blog');
+                res.redirect('/admin/endow');
             });
         } catch (error) {
             console.log(error);
@@ -108,17 +100,18 @@ let addEndowPost = (req, res, next) => {
     })
 }
 // lấy thông tin chỉnh sửa thương hiệu
-let getEditBlog = async (req, res, next) => {
+let getEditEndow = async (req, res, next) => {
     try {
-        var blog_id = req.params.id;
+        var endow_id = req.params.id;
         var arrayError = [],
             successArr = [];
-        var query = `SELECT * FROM blog WHERE id = ?`;
+        var query = `SELECT * FROM endow WHERE id = ?`;
         // Lấy tất cả sản phẩm và hiển thị ra table
-        await pool.query(query, blog_id, function (error, rows, fields) {
+        await pool.query(query, endow_id, function (error, rows, fields) {
             if (error) throw error;
-            res.render('admin/website/blog/edit-blog', {
-                blog: rows[0],
+            res.render('admin/website/endow/endow-edit', {
+                title:'Chỉnh sửa Ưu đãi',
+                endow: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
                 success: req.flash('Success'),
@@ -130,7 +123,7 @@ let getEditBlog = async (req, res, next) => {
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
-let postEditBlog = (req, res, next) => {
+let postEditEndow = (req, res, next) => {
     productUploadFile(req, res, async (error) => {
         try {
             // Lấy tất cả sản phẩm và hiển thị ra table
@@ -193,36 +186,10 @@ let postEditBlog = (req, res, next) => {
     })
 }
 
-// xóa dữ liệu của 1 brand
-let postDeleteBlog = async (req, res, next) => {
-    try {
-        // Lấy tất cả sản phẩm và hiển thị ra table
-        var arrayError = [],
-            successArr = [];
-
-        var blog_id = req.params.id;
-        var query = `SELECT * FROM blog WHERE id = ?`;
-        // Lấy tất cả sản phẩm và hiển thị ra table
-        var Image_delete = await service.queryActionBlogelete(query, blog_id);
-        var querydeleteblog = `
-        DELETE FROM 
-        blog
-        WHERE id = ${blog_id}`;
-        pool.query(querydeleteblog, async function (error, results, fields) {
-            if (error) throw error;
-            if (Image_delete != null || Image_delete != '') {
-                await fsExtras.remove(`${app.directory_blogs}/${Image_delete}`);
-            }
-            successArr.push(Transuccess.deleteSuccess('Blog'));
-            req.flash('Success', successArr);
-            res.redirect('/admin/blog');
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-}
 module.exports = {
     getAllEndow,
-    addEndowGet
+    addEndowGet,
+    addEndowPost,
+    getEditEndow,
+    postEditEndow
 };

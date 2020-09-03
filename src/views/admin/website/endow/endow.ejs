@@ -65,40 +65,33 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% blogs.forEach(function(blog, index){ %>
+                                                <% endows.forEach(function(endow, index){ %>
                                                 <tr>
                                                     <th scope="row"><%= index %></th>
-                                                    <% if(blog.image != '' && blog.image != null){ %>
+                                                    <% if(endow.image != '' && endow.image != null){ %>
                                                     <td class="product-image">
-                                                        <img class="sp_img-<%= blog.id%>"
-                                                            src="/public/uploads/blogs/<%= blog.image %>"
-                                                            alt="<%= blog.title %>">
+                                                        <img class="sp_img-<%= endow.id%>"
+                                                            src="/public/uploads/endows/<%= endow.image %>"
+                                                            alt="<%= endow.title %>">
                                                     </td>
                                                     <% } else{ %>
                                                     <td class="product-image">
-                                                        <img class="sp_img-<%= blog.id%>"
+                                                        <img class="sp_img-<%= endow.id%>"
                                                             src="/admin/public/images/example.png"
-                                                            alt="<%= blog.title %>">
+                                                            alt="<%= endow.title %>">
                                                     </td>
                                                     <% } %>
                                                     <td class="font-weight-bold">
-                                                        <p> <%= blog.title %> </p>
+                                                        <p> <%= endow.title %> </p>
                                                     </td>
                                                     <td class="font-weight-bold">
-                                                        <p> <%= blog.short_description %> </p>
+                                                        <p> <%= endow.description %> </p>
                                                     </td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a href="/admin/blog/edit-blog/<%= blog.id %>"
-                                                                class="btn hor-grd btn-grd-warning" title="Sửa blog">
+                                                            <a href="/admin/endow/edit-endow/<%= endow.id %>"
+                                                                class="btn hor-grd btn-grd-warning" title="Sửa Ưu đãi">
                                                                 <i class="icofont icofont-edit"></i>
-                                                            </a>
-                                                            <a href="/admin/slide/delete-blog/<%= blog.id %>"
-                                                                class="delete-blog-confirm btn hor-grd btn-grd-danger"
-                                                                data-url="/admin/blog/delete-blog/<%= blog.id %>"
-                                                                title="Xóa blog" data-target="#blog-delete-modal"
-                                                                data-toggle="modal">
-                                                                <i class="icofont icofont-ui-delete"></i>
                                                             </a>
                                                         </div>
                                                     </td>

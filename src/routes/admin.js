@@ -5,7 +5,6 @@ var controller = require('../model/controllers/admin');
 var passport = require('passport');
 var { initPassportLocal } = require('../model/controllers/admin/passportController');
 
-
 initPassportLocal();
 // authencation ===============
 adminRouter.get('/login', controller.checkloggedOut, controller.loginController);
@@ -105,6 +104,11 @@ adminRouter.get('/blog/delete-blog/:id', controller.checkloggedIn, controller.po
 // endow / start
 adminRouter.get('/endow', controller.checkloggedIn, controller.getAllEndow);
 adminRouter.get('/endow/add-endow', controller.checkloggedIn, controller.addEndowGet);
+adminRouter.post('/endow/add-endow', controller.checkloggedIn, controller.addEndowPost);
+adminRouter.get('/endow/edit-endow/:id', controller.checkloggedIn, controller.getEditEndow);
+adminRouter.post('/endow/edit-endow/:id', controller.checkloggedIn, controller.postEditEndow);
+
+
 
 // endow / end
 /*=====   Website template / end  ======*/

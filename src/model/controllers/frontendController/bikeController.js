@@ -39,7 +39,7 @@ let getAllBikeCategory = async (req, res, next) => {
 
             const queryTittle = `SELECT * FROM categories WHERE id = ?`;
             const categoriesTitle = await service.queryActionCategoriesParams(queryTittle, req.params.iddanhmuc);
-            if(categoriesTitle.length > 0){
+            if (categoriesTitle.length > 0) {
                 title = categoriesTitle[0].category_name;
             }
             res.render('xedapphanthiet/bikes/bikes', {
@@ -72,7 +72,7 @@ let getAllBikeBrand = async (req, res, next) => {
 
             const queryTittle = `SELECT * FROM brand WHERE id = ?`;
             const brandsTitle = await service.queryActionBrandsParams(queryTittle, req.params.idthuonghieu);
-            if(brandsTitle.length > 0){
+            if (brandsTitle.length > 0) {
                 title = brandsTitle[0].name;
             }
 
@@ -136,7 +136,10 @@ let FrBikeDetailController = async (req, res, next) => {
         const blogFeature = await service.getAllBlog(queryFeature);
         console.log(req.params.id);
         const bike = await service.getAllProductFr(getAllProductFrs, req.params.id);
-        const relateBikes = await service.getAllProductFr(queryBikeRelate, bike[0].category_id);
+        let relateBikes = [];
+        if (bike[0].category_id) {
+            relateBikes = await service.getAllProductFr(queryBikeRelate, bike[0].category_id);
+        }
         var images = '';
         var imagesArr = [];
         console.log(bike[0].image);
