@@ -84,7 +84,7 @@ let addEndowPost = (req, res, next) => {
                     filename,
                 req.body.endow_description]
             ];
-           
+
             pool.query(queryNew, [endowValues], function (error, results, fields) {
                 if (error) throw error;
                 successArr.push(Transuccess.createSuccess('Blog'));
@@ -110,7 +110,7 @@ let getEditEndow = async (req, res, next) => {
         await pool.query(query, endow_id, function (error, rows, fields) {
             if (error) throw error;
             res.render('admin/website/endow/endow-edit', {
-                title:'Chỉnh sửa Ưu đãi',
+                title: 'Chỉnh sửa Ưu đãi',
                 endow: rows[0],
                 user: req.user,
                 errors: req.flash('Errors'),
@@ -136,49 +136,36 @@ let postEditEndow = (req, res, next) => {
                     .resize(300, 200)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
-                        if (req.body.blog_old_image) {
-                            await fsExtras.remove(`${app.directory_blogs}/${req.body.blog_old_image}`);
+                        if (req.body.endow_old_image) {
+                            await fsExtras.remove(`${app.directory_endows}/${req.body.endow_old_image}`);
                         }
                     });
             }
-
             var filename = '';
             if (req.file) {
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
-            else if (req.body.blog_old_image) {
-                filename = `${req.body.blog_old_image}`;
+            else if (req.body.endow_old_image) {
+                filename = `${req.body.endow_old_image}`;
             }
-
-            let current_datetime = new Date()
-            let formatted_date_update = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-
             var queryUpdate = `
-            UPDATE blog
+            UPDATE endow
             SET title = ?, 
-            slug = ?, 
-            content = ?,
-            short_description = ?,
-            image = ?,
-            author = ?,
-            update_at = ?
+            image = ?, 
+            description = ?
             WHERE id = ?`
-            var blogValues = [
-                req.body.blog_title,
-                    req.body.blog_slug,
-                    req.body.blog_content,
-                    req.body.short_description,
-                        filename,
-                    req.body.blog_author,
-                    formatted_date_update,
-                    req.params.id
-                
+            var endowValues = [
+                req.body.endow_title,
+                filename,
+                req.body.endow_description,
+                req.params.id
             ]
-            await pool.query(queryUpdate, blogValues, function (error, results, fields) {
+            console.log(endowValues);
+            await pool.query(queryUpdate, endowValues, function (error, results, fields) {
                 if (error) throw error;
                 successArr.push(Transuccess.saveSuccess('BLog'));
                 req.flash('Success', successArr);
-                res.redirect('/admin/blog');
+                res.redirect('/admin/endow');
             });
         } catch (error) {
             console.log(error);

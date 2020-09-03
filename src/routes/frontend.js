@@ -16,12 +16,4 @@ frontendRouter.get('/xe-dap/thuong-hieu/*.:idthuonghieu', controller.getAllBikeB
 frontendRouter.get('/xe-dap/giam-dan', controller.FrBikeController);
 frontendRouter.get('/xe-dap/*.:id', controller.FrBikeDetailController);
 
-
-// products router
-// adminRouter.get('/products', controller.getAllProduct);
-// adminRouter.get('/products/add-product', controller.addProductGet);
-// adminRouter.post('/product/add-product-image', controller.addProductImage);
-// adminRouter.post('/products/add-product', controller.addProductPost);
-// adminRouter.get('/product/edit-product/:id', controller.editProductGet);
-
 module.exports = frontendRouter;

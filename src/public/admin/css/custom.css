@@ -521,6 +521,9 @@ ul.result_rows {
     font-size: 15px;
     display: block;
 }
+.image-border.endow_image {
+    max-width: 200px;
+}
 
 @media (min-width: 576px) {
     .modal-dialog.small {
