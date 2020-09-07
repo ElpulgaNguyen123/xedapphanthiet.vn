@@ -2,7 +2,16 @@ var pool = require('../../config/connectDb');
 const service = require('../../../services');
 
 let FrBikeController = async (req, res, next) => {
+
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
+
         const queryBikes = 'Select * from product';
         const querycategories = 'SELECT * FROM `categories';
         const querybrands = 'SELECT * FROM brand';
@@ -12,6 +21,7 @@ let FrBikeController = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bikes', {
             title: 'Xe đạp',
+            userInfo : userInfo,
             bikes: bikes,
             brands: brands,
             categories: categories,
@@ -27,6 +37,13 @@ let FrBikeController = async (req, res, next) => {
 
 let getAllBikeCategory = async (req, res, next) => {
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
         // Lấy tất cả sản phẩm và hiển thị ra table
         const querycategories = 'SELECT * FROM categories';
         const querybrands = 'SELECT * FROM brand';
@@ -44,6 +61,7 @@ let getAllBikeCategory = async (req, res, next) => {
             }
             res.render('xedapphanthiet/bikes/bikes', {
                 title: title,
+                userInfo : userInfo,
                 bikes: results,
                 brands: brands,
                 categories: categories,
@@ -61,6 +79,13 @@ let getAllBikeCategory = async (req, res, next) => {
 
 let getAllBikeBrand = async (req, res, next) => {
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
         // Lấy tất cả sản phẩm và hiển thị ra table
         const querycategories = 'SELECT * FROM categories';
         const querybrands = 'SELECT * FROM brand';
@@ -78,6 +103,7 @@ let getAllBikeBrand = async (req, res, next) => {
 
             res.render('xedapphanthiet/bikes/bikes', {
                 title: title,
+                userInfo : userInfo,
                 bikes: results,
                 brands: brands,
                 categories: categories,
@@ -95,6 +121,13 @@ let getAllBikeBrand = async (req, res, next) => {
 
 let getAllBikeDesc = async (req, res, next) => {
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
         // Lấy tất cả sản phẩm và hiển thị ra table
         const queryBrands = 'SELECT * FROM brand';
         const queryCategories = 'SELECT * FROM categories';
@@ -111,6 +144,7 @@ let getAllBikeDesc = async (req, res, next) => {
             var pageDistance = page + 3;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
+                userInfo : userInfo,
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
@@ -130,6 +164,14 @@ let getAllBikeDesc = async (req, res, next) => {
 
 let FrBikeDetailController = async (req, res, next) => {
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
+
         const getAllProductFrs = 'SELECT * from product WHERE id = ?';
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
         const queryBikeRelate = `SELECT * FROM product WHERE product.category_id = ? ORDER BY id DESC LIMIT 8        `
@@ -168,13 +210,11 @@ let FrBikeDetailController = async (req, res, next) => {
                 idtype01Arrs.push(bikeAttribute[i]);
             }
         }
-
-        console.log(bike);
-
         //Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bike-detail', {
             title: 'Xe đạp',
             bike: bike[0],
+            userInfo : userInfo,
             blogFeature: blogFeature,
             images: images,
             idtype01Arrs: idtype01Arrs,

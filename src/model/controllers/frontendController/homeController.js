@@ -9,11 +9,18 @@ let FrhomeController = async (req, res, next) => {
         let streets = [];
         let racestype = []; 
         let childstype = [];
-
+        
         var slideQuery = 'SELECT * FROM slide';
         var brandQuery = 'SELECT * FROM brand';
         var queryCategory = 'SELECT * FROM categories';
         var queryEndow = 'SELECT * FROM endow';
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
         const categories = await service.getAllCategoryProduct(queryCategory);
 
         var productStreetQuery = '';
@@ -62,7 +69,6 @@ let FrhomeController = async (req, res, next) => {
         }
 
         var queryBlog = 'Select * from blog';
-
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const endows = await service.getAllEndow(queryEndow);
@@ -82,8 +88,9 @@ let FrhomeController = async (req, res, next) => {
                 races: racestype.slice(0, 6),
                 childs: childstype.slice(0, 6),
                 blogs: blogs,
+                userInfo : userInfo,
                 errors: req.flash('Errors'),
-                success: req.flash('Success'),
+                success: req.flash('Success')
             })
         });
 

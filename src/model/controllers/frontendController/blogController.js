@@ -5,11 +5,19 @@ const { response } = require('../../../../app');
 
 let FrBlogController = async (req, res, next) => {
     try {
+
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
+
         const queryBlog = 'Select * from blog';
         const blogs = await service.getAllBlog(queryBlog);
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/blogs/blogs', {
             title: 'Blog',
+            userInfo : userInfo,
             blogs: blogs,
             errors: req.flash('Errors'),
             success: req.flash('Success'),

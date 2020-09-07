@@ -29,7 +29,7 @@ var { queryAction,
         queryActionCategoriesNoParams} = require('./categoryService');
 
         var {getAllEndow} = require('./endowService');
-
+        var {getAllUser} = require('./userService');
 
 
 module.exports = {
@@ -71,5 +71,7 @@ module.exports = {
     getAllBlog,
     getBlog,
 
-    getAllEndow
+    getAllEndow,
+
+    getAllUser
 }

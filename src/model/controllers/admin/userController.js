@@ -8,7 +8,6 @@ var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
 
-
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // đưa đường dẫn chính xác để có thể update dữ liệu
@@ -43,7 +42,7 @@ let updateUserData = (req, res, next) => {
                         if (req.body.auth_old_image) {
                             await fsExtras.remove(`${app.directory_auth}/${req.body.auth_old_image}`);
                         }
-                    });
+                });
             }
             var filename = '';
             if (req.file) {
@@ -52,6 +51,7 @@ let updateUserData = (req, res, next) => {
             else if (req.body.auth_old_image) {
                 filename = `${req.body.auth_old_image}`;
             }
+
             var queryUpdate = `
             UPDATE user
             SET name = ?, 
@@ -62,7 +62,6 @@ let updateUserData = (req, res, next) => {
             instagram = ?, 
             avatar = ?
             WHERE user_id = ?`;
-
             var userValues = [
                 req.body.username,
                 req.body.phone,
@@ -73,7 +72,7 @@ let updateUserData = (req, res, next) => {
                 filename,
                 req.params.id
             ];
-            console.log(filename);
+            console.log('Tên file của hình ảnh')
             await pool.query(queryUpdate, userValues, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
@@ -88,6 +87,7 @@ let updateUserData = (req, res, next) => {
             //     message: Transuccess.user_updated,
             //     imageSrc : req.file.filename
             // }
+
             //return res.status(200).send(Transuccess.userinfoNotChange);
         } catch (error) {
             console.log(error);
@@ -138,7 +138,6 @@ let getUser = async (req, res, next) => {
         console.log(error);
         return res.status(500).send(error);
     }
-
 }
 
 module.exports = {

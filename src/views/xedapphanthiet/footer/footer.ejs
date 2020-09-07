@@ -10,18 +10,18 @@
                     <img src="/xedapphanthiet/images/logo.png" alt="">
                   </a>
                   <ul class="social-widget">
-                    <li><a href="#" title="facebook"> <i class="icofont-facebook"></i> </a> </li>
-                    <li><a href="#" title="instagram"> <i class="icofont-instagram"></i> </a> </li>
-                    <li><a href="#" title="twitter"> <i class="icofont-twitter"></i> </a> </li>
+                    <li><a href="<%= userInfo.facebook %>" title="facebook" target="_blank"> <i class="icofont-facebook"></i> </a> </li>
+                    <li><a href="#" title="instagram" target="_blank"> <i class="icofont-instagram"></i> </a> </li>
+                    <li><a href="#" title="twitter" target="_blank"> <i class="icofont-twitter"></i> </a> </li>
                   </ul>
                 </div>
               </div>
               <div class="col-lg-4">
                 <h5>XE ĐẠP PHƯƠNG ĐÔNG</h5>
                 <div class="link-list">
-                  <li><strong> Địa chỉ : </strong>50 Hải Thượng Lãn Ông & 04 Đinh Tiên Hoàng, Phan Thiết</li>
-                  <li><strong>Điện thoại:</strong> 028 7300 6609</li>
-                  <li><strong>email : </strong> phuongdong@gmail.com</li>
+                  <li><strong> Địa chỉ : </strong><%= userInfo.address  %></li>
+                  <li><strong>Điện thoại:</strong> <%= userInfo.phone  %></li>
+                  <li><strong>email : </strong> <%= userInfo.email  %></li>
                 </div>
               </div>
               <div class="col-lg-4 col-md-6">

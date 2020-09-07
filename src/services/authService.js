@@ -125,7 +125,6 @@ let resetpassword_service =  (email, protocol, host) => {
                         rejectUnauthorized: false,
                     }
                 };
-
                 let transporter = nodeMailer.createTransport(smtpConfig);
                 let options = {
                     from: email,

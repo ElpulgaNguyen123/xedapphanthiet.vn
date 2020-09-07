@@ -4,9 +4,17 @@ const service = require('../../../services');
 
 let FrContactController = async (req, res, next) => {
     try {
+
+        let userInfo = {};
+        var queryUser = 'SELECT * FROM user';
+        var user = await service.getAllUser(queryUser);
+        if(user[0]){
+            userInfo = user[0];
+        }
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/contact/contact', {
             title: 'Liên hệ',
+            userInfo : userInfo,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
         })
