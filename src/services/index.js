@@ -28,6 +28,8 @@ var { queryAction,
         queryActionCategoriesParams,
         queryActionCategoriesNoParams} = require('./categoryService');
 
+        var {getAllEndow} = require('./endowService');
+
 
 
 module.exports = {
@@ -67,5 +69,7 @@ module.exports = {
     getAllSlide,
     queryActionBlogelete,
     getAllBlog,
-    getBlog
+    getBlog,
+
+    getAllEndow
 }

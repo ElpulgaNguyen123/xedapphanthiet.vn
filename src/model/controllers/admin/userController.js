@@ -3,7 +3,10 @@ var multer = require('multer');
 var { app } = require('../../config/app');
 var { uuid } = require('uuidv4');
 var pool = require('../../config/connectDb');
-var {Transuccess} = require('../../../../lang/vi');
+var { Transuccess } = require('../../../../lang/vi');
+var sharp = require('sharp');
+var fs = require('fs');
+var fsExtras = require('fs-extra');
 
 
 var storage = multer.diskStorage({
@@ -24,38 +27,68 @@ var storage = multer.diskStorage({
 });
 
 var avatarUploadFile = multer({ storage: storage }).single('avatar');
-let updateUserAvatar = (req, res, next) => {
+
+let updateUserData = (req, res, next) => {
     avatarUploadFile(req, res, async (error) => {
         try {
+            var arrayError = [],
+                successArr = [];
+            var generatecode = uuid();
             if (req.file) {
-                let userUpdate = {
-                     avatar : req.file.filename || '',
-                }
-                var queryUser = `UPDATE user SET avatar = ? WHERE user_id = '${req.params.id}'`;
-                await pool.query(queryUser,[userUpdate.avatar
-                ],function (error, rows, fields) {
-                    if (error) {
-                        console.log(error);
-                        return res.status(500).send(error);
-                    }
-                    return res.status(200).send(Transuccess.user_updated);
-                });
-                // let userUpdate = {
-                //     avatar : req.file.filename,
-                //     updateAt : Date.now()
-                // }
-                // // Cập nhật sư, cập nhật hình ảnh và đường dẫn.
-                // let olduser = await userModel.findUserById(req.user._id);
-                // let userOldAvatar = olduser.avatar; // Path to delete avatar update
-                // let userupdate = await userService.updateUserService(req.user._id, userUpdate);
-                // await fsExtras.remove(`${app.directory_auth}/${userOldAvatar}`);
-
-                // let result = {
-                //     message: Transuccess.user_updated,
-                //     imageSrc : req.file.filename
-                // }
+                // resize image before uploads.
+                sharp(`${req.file.destination}/${req.file.filename}`)
+                    .resize(300, 200)
+                    .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
+                        fs.unlinkSync(req.file.path);
+                        if (req.body.auth_old_image) {
+                            await fsExtras.remove(`${app.directory_auth}/${req.body.auth_old_image}`);
+                        }
+                    });
             }
-            return res.status(200).send(Transuccess.userinfoNotChange);
+            var filename = '';
+            if (req.file) {
+                filename = `${req.file.filename}-${generatecode}.webp`;
+            }
+            else if (req.body.auth_old_image) {
+                filename = `${req.body.auth_old_image}`;
+            }
+            var queryUpdate = `
+            UPDATE user
+            SET name = ?, 
+            phone = ?,
+            email = ?,
+            address = ?,
+            facebook = ?,
+            instagram = ?, 
+            avatar = ?
+            WHERE user_id = ?`;
+
+            var userValues = [
+                req.body.username,
+                req.body.phone,
+                req.body.email,
+                req.body.address,
+                req.body.profile_facebook,
+                req.body.profile_instagram,
+                filename,
+                req.params.id
+            ];
+            console.log(filename);
+            await pool.query(queryUpdate, userValues, function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send(error);
+                }
+                successArr.push(Transuccess.saveSuccess('thông tin người dùng'));
+                req.flash('Success', successArr);
+                res.redirect(`/admin/user/${req.params.id}`);
+            });
+
+            // let result = {
+            //     message: Transuccess.user_updated,
+            //     imageSrc : req.file.filename
+            // }
+            //return res.status(200).send(Transuccess.userinfoNotChange);
         } catch (error) {
             console.log(error);
             return res.status(500).send(error);
@@ -65,15 +98,18 @@ let updateUserAvatar = (req, res, next) => {
 }
 
 // Update user data
-let updateUserData = async (req, res, next) => {
+let updateUserAvatar = async (req, res, next) => {
     try {
         let userItem = {};
         userItem.name = req.body.name || '';
         userItem.phone = req.body.phone || '';
         userItem.email = req.body.email || '';
         userItem.address = req.body.address || '';
+        userItem.facebook = req.body.profile_facebook || '';
+        userItem.instagram = req.body.profile_instagram || '';
         var queryUser = `UPDATE user SET name = ?, phone = ?, email = ?, address = ? WHERE user_id = '${req.params.id}'`;
-        pool.query(queryUser,[userItem.name, userItem.phone, userItem.email, userItem.address,
+        pool.query(queryUser, [userItem.name, userItem.phone, userItem.email, userItem.address, userItem.profile_facebook,
+        userItem.profile_instagram
         ], async function (error, rows, fields) {
             if (error) {
                 console.log(error);

@@ -69,7 +69,7 @@ let addEndowPost = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(950, 500)
+                    .resize(200, 200)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -133,7 +133,7 @@ let postEditEndow = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
+                    .resize(200, 200)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
                         if (req.body.endow_old_image) {

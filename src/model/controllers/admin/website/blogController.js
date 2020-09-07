@@ -22,6 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
+
 var productUploadFile = multer({ storage: storage }).single('blog_image');
 // get all Blog
 let getAllBlog = async (req, res, next) => {
@@ -62,13 +63,14 @@ let addBlogGet = async (req, res, next) => {
 let addBlogPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
+
             var arrayError = [],
                 successArr = [];
             var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(950, 500)
+                    .resize(600, 400)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, (err, info) => {
                         fs.unlinkSync(req.file.path);
                     });
@@ -140,7 +142,7 @@ let postEditBlog = (req, res, next) => {
             if (req.file) {
                 // resize image before uploads.
                 sharp(`${req.file.destination}/${req.file.filename}`)
-                    .resize(300, 200)
+                    .resize(600, 400)
                     .toFile(`${req.file.destination}/${req.file.filename}-${generatecode}.webp`, async (err, info) => {
                         fs.unlinkSync(req.file.path);
                         if (req.body.blog_old_image) {
@@ -159,6 +161,7 @@ let postEditBlog = (req, res, next) => {
 
             let current_datetime = new Date()
             let formatted_date_update = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+            console.log(formatted_date);
 
             var queryUpdate = `
             UPDATE blog

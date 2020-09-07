@@ -6,6 +6,7 @@
                     <h2 class="text_P text-main ut_bold"> MUA THEO THƯƠNG HIỆU </h2>
                 </div>
             </div>
+            <% if(brands){ %>
             <% brands.forEach(function(brand){ %>
             <div class="col-6 col-sm-3 col-md-2">
                 <div class="brand__item">
@@ -15,6 +16,8 @@
                 </div>
             </div>
             <% }); %>
+            <% }else{ %>
+            <% } %>
         </div>
     </div>
 </section>

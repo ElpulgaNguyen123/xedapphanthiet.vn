@@ -1,64 +1,28 @@
 <section id="endow" class="endow pd-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-12">
-          <div class="section-title text-center mb-5">
-            <h2 class="text_P text-main ut_bold"> XE ĐẠP PHƯƠNG ĐÔNG </h2>
-            <p class="text-xs text-grey"> Nhận ngay ưu đãi lớn khi mua xe đạp tại Phương Đông </p>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <div class="endow__box text-center">
-            <div class="image">
-              <img src="/public/xedapphanthiet/images/icons/Artboard 11x.png" alt="">
-            </div>
-            <div class="content">
-              <h3 class="text-sm ut_bold">Bảo hành sên 2 năm</h3>
-              <p class="text-xs text-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, magnam
-                ducimus. Illum, cupiditate
-                corporis</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <div class="endow__box text-center">
-            <div class="image">
-              <img src="/public/xedapphanthiet/images/icons/Artboard 21x.png" alt="">
-            </div>
-            <div class="content">
-              <h3 class="text-sm ut_bold">Bảo hành sên 2 năm</h3>
-              <p class="text-xs text-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, magnam
-                ducimus. Illum, cupiditate
-                corporis</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <div class="endow__box text-center">
-            <div class="image">
-              <img src="/public/xedapphanthiet/images/icons/Artboard 31x.png" alt="">
-            </div>
-            <div class="content">
-              <h3 class="text-sm ut_bold">Bảo hành sên 2 năm</h3>
-              <p class="text-xs text-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, magnam
-                ducimus. Illum, cupiditate
-                corporis</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <div class="endow__box text-center">
-            <div class="image">
-              <img src="/public/xedapphanthiet/images/icons/Artboard 41x.png" alt="">
-            </div>
-            <div class="content">
-              <h3 class="text-sm ut_bold">Bảo hành sên 2 năm</h3>
-              <p class="text-xs text-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, magnam
-                ducimus. Illum, cupiditate
-                corporis</p>
-            </div>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <div class="section-title text-center mb-5">
+          <h2 class="text_P text-main ut_bold"> XE ĐẠP PHƯƠNG ĐÔNG </h2>
+          <p class="text-xs text-grey"> Nhận ngay ưu đãi lớn khi mua xe đạp tại Phương Đông </p>
         </div>
       </div>
+      <% if(endows){ %>
+        <% endows.forEach(function(endow){ %>
+        <div class="col-sm-12 col-md-3">
+          <div class="endow__box text-center">
+            <div class="image">
+              <img src="/public/uploads/endows/<%= endow.image %>" alt="">
+            </div>
+            <div class="content">
+              <h3 class="text-sm ut_bold"><%= endow.title  %></h3>
+              <p class="text-xs text-grey"><%= endow.description %></p>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      <% }else{ %>
+      <%}%>
     </div>
-  </section>
+  </div>
+</section>

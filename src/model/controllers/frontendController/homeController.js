@@ -6,52 +6,68 @@ let FrhomeController = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
 
+        let streets = [];
+        let racestype = []; 
+        let childstype = [];
+
         var slideQuery = 'SELECT * FROM slide';
         var brandQuery = 'SELECT * FROM brand';
         var queryCategory = 'SELECT * FROM categories';
+        var queryEndow = 'SELECT * FROM endow';
         const categories = await service.getAllCategoryProduct(queryCategory);
 
-        var productStreetQuery = `
-        SELECT product.id, product.name, product.short_description, 
-        product.image, 
-        product.sku,
-        product.slug, 
-        product.quantity,
-        product.price,
-        categories.category_name 
-        FROM product 
-        INNER JOIN categories ON product.category_id = categories.id 
-        WHERE categories.id = ${categories[0].id}`;
+        var productStreetQuery = '';
+        var productRaceQuery = '';
+        var productChildQuery = '';
 
-        var productRaceQuery = `SELECT product.id, product.name, product.short_description, 
-        product.image, 
-        product.sku,
-        product.slug, 
-        product.quantity,
-        product.price,
-        categories.category_name 
-        FROM product 
-        INNER JOIN categories ON product.category_id = categories.id 
-        WHERE categories.id = ${categories[1].id}`;
-        
-        var productChildQuery = `SELECT product.id, product.name, product.short_description, 
-        product.image, 
-        product.sku,
-        product.slug, 
-        product.quantity,
-        product.price,
-        categories.category_name 
-        FROM product 
-        INNER JOIN categories ON product.category_id = categories.id 
-        WHERE categories.id = ${categories[2].id}`;
+        if(categories[0].id){
+            productStreetQuery = `
+            SELECT product.id, product.name, product.short_description, 
+            product.image, 
+            product.sku,
+            product.slug, 
+            product.quantity,
+            product.price,
+            categories.category_name 
+            FROM product 
+            INNER JOIN categories ON product.category_id = categories.id 
+            WHERE categories.id = ${categories[0].id}`;
+            streets = await service.getAllCategoryProduct(productStreetQuery);
+        }
+        if(categories[1].id){
+            productRaceQuery = `SELECT product.id, product.name, product.short_description, 
+            product.image, 
+            product.sku,
+            product.slug, 
+            product.quantity,
+            product.price,
+            categories.category_name 
+            FROM product 
+            INNER JOIN categories ON product.category_id = categories.id 
+            WHERE categories.id = ${categories[1].id}`;
+            racestype = await service.getAllCategoryProduct(productRaceQuery);
+        }
+        if(categories[2].id){
+            productChildQuery = `SELECT product.id, product.name, product.short_description, 
+            product.image, 
+            product.sku,
+            product.slug, 
+            product.quantity,
+            product.price,
+            categories.category_name 
+            FROM product 
+            INNER JOIN categories ON product.category_id = categories.id 
+            WHERE categories.id = ${categories[2].id}`;
+            childstype = await service.getAllCategoryProduct(productChildQuery);
+        }
 
         var queryBlog = 'Select * from blog';
 
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
-        const streets = await service.getAllCategoryProduct(productStreetQuery);
-        const racestype = await service.getAllCategoryProduct(productRaceQuery);
-        const childstype = await service.getAllCategoryProduct(productChildQuery);
+        const endows = await service.getAllEndow(queryEndow);
+
+        console.log(endows);
         const blogs = await service.getAllBlog(queryBlog);
 
         pool.query('SELECT * FROM `user', function (error, results, fields) {
@@ -59,6 +75,7 @@ let FrhomeController = async (req, res, next) => {
             res.render('xedapphanthiet/home/home', {
                 title: 'Trang chủ',
                 slides: slide,
+                endows : endows,
                 brands: brand.slice(0, 8),
                 streets: streets.slice(0, 6),
                 streetsTitle: streets[0],

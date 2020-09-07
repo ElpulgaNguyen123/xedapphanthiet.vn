@@ -147,15 +147,17 @@ $(document).ready(function () {
     updateUserInfo();
     // update user info
     $('#checkinfo-change').bind('click', function () {
-        if ($.isEmptyObject(userInfo) && !userAvatar) {
+        if ($.isEmptyObject(userInfo)) {
             notify('Không có sự thay đổi nào', 'info');
             return false;
+        }else {
+            $('#user_form').submit();
         }
         // upload data change to backend
-        var user_id = $(this).attr('data-id');
-        userInfoUpdate(user_id);
-        userAvatarUpdate(user_id);
-        userInfo = {};
+        // var user_id = $(this).attr('data-id');
+        // userInfoUpdate(user_id);
+        // userAvatarUpdate(user_id);
+        // userInfo = {};
         // upload data to server        console.log(userInfo);
     })
 
@@ -168,12 +170,7 @@ $(document).ready(function () {
     addProduct();
     // getProductImageUpdate();
     // khai báo thứ tự hình ảnh để upload
-    var id_image = '',
-        img_item_afterload = null;
-
     // thực hiện gửi data lên server và back lại cho client
-
-
     $('.show-image-add').on('click', function () {
         $('.dropzone-edit-more').toggleClass('show');
     });
@@ -432,9 +429,6 @@ $(document).ready(function () {
             myDropzone.removeAllFiles(true);
         };
     }
-
-
-    
     /*=============================================
     =            Section Search block            =
     =============================================*/

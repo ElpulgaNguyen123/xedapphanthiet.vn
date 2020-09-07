@@ -1,17 +1,21 @@
-
 <% extend("../../xedapphanthiet") %>
+
 <!-- slider start -->
 <%- include('./slider', {slides: slides})%>
 <!-- slider end -->
-  <!-- endow / start -->
-  <%- include('./endow')%>
-  <!-- endow / end -->
-  <!-- brand start -->
-  <%- include('./brand', {brands: brands})%>
-  <!-- brand end -->
 
-  <!-- shopping start -->
-  <%- include('./bike', {streets: streets, races : races, childs : childs})%>  <!-- shopping end -->
-  <!-- news start -->
-  <%- include('./blog', {blogs : blogs})%>  <!-- shopping end -->
-  <!-- news end -->
+<!-- endow / start -->
+<%- include('./endow')%>
+<!-- endow / end -->
+
+<!-- brand start -->
+<%- include('./brand', {brands: brands})%>
+<!-- brand end -->
+
+<!-- shopping start -->
+<%- include('./bike', {streets: streets, races : races, childs : childs})%>
+<!-- shopping end -->
+
+<!-- news start -->
+<%- include('./blog', {blogs : blogs})%>
+<!-- news end -->
