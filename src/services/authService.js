@@ -169,7 +169,6 @@ let resetPassword = (token) => {
         }
     })
 }
-
 module.exports = {
     register_service,
     resetpassword_service,
