@@ -8347,7 +8347,13 @@ header .navbar.fixed-menu {
 .sidebar-right .feature_item {
   display: flex !important; }
   .sidebar-right .feature_item h5 {
-    font-size: 16px; }
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden; }
   .sidebar-right .feature_item .left_img {
     flex: 1;
     width: 30%;

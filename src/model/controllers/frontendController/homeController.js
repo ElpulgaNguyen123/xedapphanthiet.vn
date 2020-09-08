@@ -81,8 +81,6 @@ let FrhomeController = async (req, res, next) => {
         const slide = await service.getAllSlide(slideQuery);
         const brand = await service.getAllBrand(brandQuery);
         const endows = await service.getAllEndow(queryEndow);
-
-        console.log(endows);
         const blogs = await service.getAllBlog(queryBlog);
 
         pool.query('SELECT * FROM `user', function (error, results, fields) {

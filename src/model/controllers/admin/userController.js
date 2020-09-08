@@ -1,6 +1,6 @@
 var express = require('express');
 var multer = require('multer');
-var { app } = require('../../config/app');
+var app = require('../../config/app');
 var { uuid } = require('uuidv4');
 var pool = require('../../config/connectDb');
 var { Transuccess } = require('../../../../lang/vi');
@@ -25,8 +25,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var avatarUploadFile = multer({ storage: storage }).single('avatar');
-
+var avatarUploadFile = multer({ storage: storage }).single('user_image');
 let updateUserData = (req, res, next) => {
     avatarUploadFile(req, res, async (error) => {
         try {
@@ -42,7 +41,7 @@ let updateUserData = (req, res, next) => {
                         if (req.body.auth_old_image) {
                             await fsExtras.remove(`${app.directory_auth}/${req.body.auth_old_image}`);
                         }
-                });
+                    });
             }
             var filename = '';
             if (req.file) {
@@ -51,7 +50,6 @@ let updateUserData = (req, res, next) => {
             else if (req.body.auth_old_image) {
                 filename = `${req.body.auth_old_image}`;
             }
-
             var queryUpdate = `
             UPDATE user
             SET name = ?, 
@@ -72,7 +70,8 @@ let updateUserData = (req, res, next) => {
                 filename,
                 req.params.id
             ];
-            console.log('Tên file của hình ảnh')
+            console.log('Tên file của hình ảnh');
+            console.log(filename);
             await pool.query(queryUpdate, userValues, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
@@ -82,13 +81,6 @@ let updateUserData = (req, res, next) => {
                 req.flash('Success', successArr);
                 res.redirect(`/admin/user/${req.params.id}`);
             });
-
-            // let result = {
-            //     message: Transuccess.user_updated,
-            //     imageSrc : req.file.filename
-            // }
-
-            //return res.status(200).send(Transuccess.userinfoNotChange);
         } catch (error) {
             console.log(error);
             return res.status(500).send(error);

@@ -33,7 +33,7 @@
                             <div class="soph__1 owl-carousel has-owl owl-theme">
                                 <% streets.forEach(function(street, index){ %>
                                 <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
-                                    data-wow-duration="2s">
+                                    data-wow-duration="<%= index %>">
                                     <div class="soph__img">
                                         <a href="/xe-dap/<%= street.slug %>.<%= street.id %>"
                                             title="<%= street.name %>">
@@ -93,7 +93,7 @@
                             <div class="soph__1 owl-carousel has-owl owl-theme">
                                 <% races.forEach(function(race, index){ %>
                                 <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
-                                    data-wow-duration="2s">
+                                    data-wow-duration="<%= index %>">
                                     <div class="soph__img">
                                         <a href="/xe-dap/<%= race.slug %>.<%= race.id %>" title="<%= race.name %>">
                                             <img src="/public/uploads/products/<%=JSON.parse(race.image)[0] %>"
@@ -151,7 +151,7 @@
                             <div class="soph__1 owl-carousel has-owl owl-theme">
                                 <% childs.forEach(function(child, index){ %>
                                 <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
-                                    data-wow-duration="2s">
+                                    data-wow-duration="<%= index %>">
                                     <div class="soph__img">
                                         <a href="/xe-dap/<%= child.slug %>.<%= child.id %>" title="<%= child.name %>">
                                             <img src="/public/uploads/products/<%=JSON.parse(child.image)[0] %>"
