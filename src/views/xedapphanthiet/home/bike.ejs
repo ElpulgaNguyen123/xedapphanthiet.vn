@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="section-title text-left mb-5">
-                    <h2 class="text_P text-main ut_bold"> MUA SẮM </h2>
+                    <h2 class="text_P text-main ut_bold wow fadeInDown" data-wow-delay="0.4" data-wow-duration="1"> MUA
+                        SẮM </h2>
                 </div>
             </div>
         </div>
@@ -11,12 +12,12 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-7">
                     <div class="banner-top">
-                        <img src="images/banner/01.jpg" alt="">
+                        <img src="/public/xedapphanthiet/images/banner/01.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-5">
                     <div class="banner-top">
-                        <img src="images/banner/GiantBanner_022.jpg" alt="">
+                        <img src="/public/xedapphanthiet/images/banner/GiantBanner_022.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -25,33 +26,37 @@
                     <div class="soph__box">
                         <div class="section-title text-left">
                             <h3 class="soph__title text_P text-white ut_bold"> <%= streetsTitle.category_name %> </h3>
-                            <a href="bikes.html" class="link-more"> <span>Xem thêm&nbsp;</span><i
+                            <a href="/xe-dap/danh-muc/<%= streetsTitle.category_slug %>.<%= streetsTitle.id %>" class="link-more"> <span>Xem thêm&nbsp;</span><i
                                     class="icofont-long-arrow-right"></i></a>
                         </div>
                         <div class="soph__lst">
                             <div class="soph__1 owl-carousel has-owl owl-theme">
-                                <% streets.forEach(function(street){ %>
-                                <div class="soph__it">
+                                <% streets.forEach(function(street, index){ %>
+                                <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
+                                    data-wow-duration="2s">
                                     <div class="soph__img">
-                                        <a href="/xe-dap/<%= street.slug %>.<%= street.id %>" title="<%= street.name %>">
+                                        <a href="/xe-dap/<%= street.slug %>.<%= street.id %>"
+                                            title="<%= street.name %>">
                                             <img src="/public/uploads/products/<%= JSON.parse(street.image)[0]  %>"
                                                 alt="<%= street.name %>">
                                         </a>
                                     </div>
                                     <div class="soph__ct">
-                                        <h3 class="soph__tt ut_bold"> <a href="/xe-dap/<%= street.slug %>.<%= street.id %>"
+                                        <h3 class="soph__tt ut_bold"> <a
+                                                href="/xe-dap/<%= street.slug %>.<%= street.id %>"
                                                 title="<%= street.name %>"> <%= street.name %> </a>
                                         </h3>
                                         <p class="line-clamp"> <%= street.short_description %> </p>
                                         <div class="soph-box d-flex">
-                                            <div class="price ut_bold text-secondary"><%= street.price %> <sup>VNĐ</sup></div>
+                                            <div class="price ut_bold text-secondary"><%= street.price %> <sup>VNĐ</sup>
+                                            </div>
                                             <% if(street.quantity > 0) {%>
-                                                <span class="status text-right"><i class="icofont-cube"></i> còn
-                                                    (<%= street.quantity %>)
-                                                </span>
+                                            <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                (<%= street.quantity %>)
+                                            </span>
                                             <% }else{ %>
-                                                <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
-                                                </span>
+                                            <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                            </span>
                                             <% } %>
                                         </div>
                                     </div>
@@ -67,12 +72,12 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-7">
                     <div class="banner-top">
-                        <img src="images/banner/01.jpg" alt="">
+                        <img src="/public/xedapphanthiet/images/banner/01.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-5">
                     <div class="banner-top">
-                        <img src="images/banner/GiantBanner_022.jpg" alt="">
+                        <img src="/public/xedapphanthiet/images/banner/GiantBanner_022.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -80,14 +85,15 @@
                 <div class="col-sm-12 col-md-12">
                     <div class="soph__box">
                         <div class="section-title text-left">
-                            <h3 class="soph__title text_P text-white ut_bold"> Xe Đạp Điện </h3>
-                            <a href="bikes.html" class="link-more"> <span>Xem thêm&nbsp;</span><i
+                            <h3 class="soph__title text_P text-white ut_bold"> <%= raceTitle.category_name %> </h3>
+                            <a href="/xe-dap/danh-muc/<%= raceTitle.category_slug %>.<%= raceTitle.id %>" class="link-more"> <span>Xem thêm&nbsp;</span><i
                                     class="icofont-long-arrow-right"></i></a>
                         </div>
                         <div class="soph__lst">
                             <div class="soph__1 owl-carousel has-owl owl-theme">
-                                <% races.forEach(function(race){ %>
-                                <div class="soph__it">
+                                <% races.forEach(function(race, index){ %>
+                                <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
+                                    data-wow-duration="2s">
                                     <div class="soph__img">
                                         <a href="/xe-dap/<%= race.slug %>.<%= race.id %>" title="<%= race.name %>">
                                             <img src="/public/uploads/products/<%=JSON.parse(race.image)[0] %>"
@@ -99,17 +105,18 @@
                                                 title="<%= race.name %>"> <%= race.name %> </a>
                                         </h3>
                                         <p class="line-clamp"><%= race.short_description	 %></p>
-                                            <div class="soph-box d-flex">
-                                                <div class="price ut_bold text-secondary"><%= race.price %> <sup>VNĐ<sup></div>
-                                                <% if(race.quantity > 0) {%>
-                                                    <span class="status text-right"><i class="icofont-cube"></i> còn
-                                                        (<%= race.quantity %>)
-                                                    </span>
-                                                <% }else{ %>
-                                                    <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
-                                                    </span>
-                                                <% } %>
+                                        <div class="soph-box d-flex">
+                                            <div class="price ut_bold text-secondary"><%= race.price %> <sup>VNĐ<sup>
                                             </div>
+                                            <% if(race.quantity > 0) {%>
+                                            <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                (<%= race.quantity %>)
+                                            </span>
+                                            <% }else{ %>
+                                            <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                            </span>
+                                            <% } %>
+                                        </div>
                                     </div>
                                 </div>
                                 <% }); %>
@@ -123,12 +130,12 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-7">
                     <div class="banner-top">
-                        <img src="images/banner/01.jpg" alt="">
+                        <img src="/public/xedapphanthiet/images/banner/01.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-5">
                     <div class="banner-top">
-                        <img src="images/banner/GiantBanner_022.jpg" alt="">
+                        <img src="/public/xedapphanthiet/images/banner/GiantBanner_022.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -136,39 +143,42 @@
                 <div class="col-sm-12 col-md-12">
                     <div class="soph__box">
                         <div class="section-title text-left">
-                            <h3 class="soph__title text_P text-white ut_bold"> Xe Đạp Trẻ Em </h3>
-                            <a href="bikes.html" class="link-more"> <span>Xem thêm&nbsp;</span><i
+                            <h3 class="soph__title text_P text-white ut_bold"> <%= childTitle.category_name %> </h3>
+                            <a href="/xe-dap/danh-muc/<%= childTitle.category_slug %>.<%= childTitle.id %>" class="link-more"> <span>Xem thêm&nbsp;</span><i
                                     class="icofont-long-arrow-right"></i></a>
                         </div>
                         <div class="soph__lst">
                             <div class="soph__1 owl-carousel has-owl owl-theme">
-                                <% childs.forEach(function(child){ %>
-                                    <div class="soph__it">
-                                        <div class="soph__img">
-                                            <a href="/xe-dap/<%= child.slug %>.<%= child.id %>" title="<%= child.name %>">
-                                                <img src="/public/uploads/products/<%=JSON.parse(child.image)[0] %>"
-                                                    alt="<%= child.name %>">
-                                            </a>
-                                        </div>
-                                        <div class="soph__ct">
-                                            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/<%= child.slug %>.<%= child.id %>"
-                                                    title="<%= child.name %>"> <%= child.name %> </a>
-                                            </h3>
-                                            <p class="line-clamp"><%= child.short_description %></p>
-                                                <div class="soph-box d-flex">
-                                                    <div class="price ut_bold text-secondary"><%= child.price %> <sup>VNĐ<sup></div>
-                                                    <% if(child.quantity > 0) {%>
-                                                        <span class="status text-right"><i class="icofont-cube"></i> còn
-                                                            (<%= child.quantity %>)
-                                                        </span>
-                                                    <% }else{ %>
-                                                        <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
-                                                        </span>
-                                                    <% } %>
-                                                </div>
+                                <% childs.forEach(function(child, index){ %>
+                                <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
+                                    data-wow-duration="2s">
+                                    <div class="soph__img">
+                                        <a href="/xe-dap/<%= child.slug %>.<%= child.id %>" title="<%= child.name %>">
+                                            <img src="/public/uploads/products/<%=JSON.parse(child.image)[0] %>"
+                                                alt="<%= child.name %>">
+                                        </a>
+                                    </div>
+                                    <div class="soph__ct">
+                                        <h3 class="soph__tt ut_bold"> <a
+                                                href="/xe-dap/<%= child.slug %>.<%= child.id %>"
+                                                title="<%= child.name %>"> <%= child.name %> </a>
+                                        </h3>
+                                        <p class="line-clamp"><%= child.short_description %></p>
+                                        <div class="soph-box d-flex">
+                                            <div class="price ut_bold text-secondary"><%= child.price %> <sup>VNĐ<sup>
+                                            </div>
+                                            <% if(child.quantity > 0) {%>
+                                            <span class="status text-right"><i class="icofont-cube"></i> còn
+                                                (<%= child.quantity %>)
+                                            </span>
+                                            <% }else{ %>
+                                            <span class="status text-right"><i class="icofont-cube"></i> Hết hàng
+                                            </span>
+                                            <% } %>
                                         </div>
                                     </div>
-                                    <% }); %>
+                                </div>
+                                <% }); %>
                             </div>
                         </div>
                     </div>

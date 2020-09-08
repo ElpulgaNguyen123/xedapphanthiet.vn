@@ -1,6 +1,8 @@
 $(function () {
 
 
+    new WOW().init();
+
     /*----------  slider index / START  ----------*/
 
     $('.slOw__sl').owlCarousel({

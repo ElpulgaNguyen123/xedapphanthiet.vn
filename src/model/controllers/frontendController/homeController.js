@@ -35,7 +35,10 @@ let FrhomeController = async (req, res, next) => {
             product.slug, 
             product.quantity,
             product.price,
-            categories.category_name 
+            categories.category_name,
+            categories.category_name,
+            categories.category_slug,
+            categories.id  
             FROM product 
             INNER JOIN categories ON product.category_id = categories.id 
             WHERE categories.id = ${categories[0].id}`;
@@ -48,7 +51,9 @@ let FrhomeController = async (req, res, next) => {
             product.slug, 
             product.quantity,
             product.price,
-            categories.category_name 
+            categories.category_name,
+            categories.category_slug,
+            categories.id 
             FROM product 
             INNER JOIN categories ON product.category_id = categories.id 
             WHERE categories.id = ${categories[1].id}`;
@@ -61,12 +66,16 @@ let FrhomeController = async (req, res, next) => {
             product.slug, 
             product.quantity,
             product.price,
-            categories.category_name 
+            categories.category_name,
+            categories.category_slug,
+            categories.id  
             FROM product 
             INNER JOIN categories ON product.category_id = categories.id 
             WHERE categories.id = ${categories[2].id}`;
             childstype = await service.getAllCategoryProduct(productChildQuery);
         }
+
+        console.log(streets[0]);
 
         var queryBlog = 'Select * from blog';
         const slide = await service.getAllSlide(slideQuery);
@@ -85,6 +94,8 @@ let FrhomeController = async (req, res, next) => {
                 brands: brand.slice(0, 8),
                 streets: streets.slice(0, 6),
                 streetsTitle: streets[0],
+                raceTitle: racestype[0],
+                childTitle: childstype[0],
                 races: racestype.slice(0, 6),
                 childs: childstype.slice(0, 6),
                 blogs: blogs,
