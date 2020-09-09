@@ -1,8 +1,8 @@
 
 $(function () {
   var string = '';
-  var stringAppend = function (id, sku, image, name) {
-      return `<li> <a href="/admin/product/edit-product/${id}" title="${name}">
+  var stringAppend = function (id, sku, image, slug,  name) {
+      return `<li> <a href="/xe-dap/${slug}.${id}" title="${name}">
           <div class="main"> 
               <div class="left-side">
                   <img src="/public/uploads/products/${image}"/> 
@@ -30,7 +30,7 @@ $(function () {
                       } else {
                           image = '';
                       }
-                      string += stringAppend(result.results[i].id, result.results[i].sku, image[0], result.results[i].name)
+                      string += stringAppend(result.results[i].id, result.results[i].sku, image[0], result.results[i].slug, result.results[i].name)
                   }
                   $('.result_rows').append(string);
               } else {

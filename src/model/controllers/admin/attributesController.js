@@ -148,21 +148,37 @@ let postDeleteAttribute = async (req, res, next) => {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
-        var id_attribute = req.query.id_attribute;
+        var id_attribute = req.params.id;
+
         var querydeleteAttributeVal = `
         DELETE FROM 
+        prd_attribute_value 
+        WHERE attribute_id = ${id_attribute}`;
+
+        var querydeleteAttribute = `
+        DELETE FROM 
         attributes 
-        WHERE id = ${req.params.id}`
-        await pool.query(querydeleteAttributeVal, function (error, results, fields) {
-            if (error) throw error;
-            successArr.push(Transuccess.deleteSuccess('thuộc tính'));
-            req.flash('Success', successArr);
+        WHERE id = ${id_attribute}`;
+
+        var deletes = await service.queryActionAttributeDelete(querydeleteAttributeVal);
+
+        if (deletes) {
+            await pool.query(querydeleteAttribute, function (error, results, fields) {
+                if (error) throw error;
+                console.log('xóa thành công.')
+                successArr.push(Transuccess.deleteSuccess('thuộc tính'));
+                req.flash('Success', successArr);
+                res.redirect('/admin/attributes');
+            });
+        } else {
+            arrayError.push(Transuccess('Không xóa được thuộc tính !'));
+            req.flash('errors', arrayError);
             res.redirect('/admin/attributes');
-        });
+        }
     } catch (error) {
         arrayError.push('Không thể xóa');
         req.flash('errors', arrayError);
-        res.redirect('/admin/attributes');
+        res.redirect('/admin/attribute');
     }
 }
 

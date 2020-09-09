@@ -30,6 +30,7 @@ var { queryAction,
 
         var {getAllEndow} = require('./endowService');
         var {getAllUser} = require('./userService');
+        var {queryActionAttributeDelete} = require('./attributeService');
 
 
 module.exports = {
@@ -73,5 +74,7 @@ module.exports = {
 
     getAllEndow,
 
-    getAllUser
+    getAllUser,
+
+    queryActionAttributeDelete
 }
