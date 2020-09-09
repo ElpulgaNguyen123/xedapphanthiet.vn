@@ -15,5 +15,7 @@ frontendRouter.get('/xe-dap/danh-muc/*.:iddanhmuc', controller.getAllBikeCategor
 frontendRouter.get('/xe-dap/thuong-hieu/*.:idthuonghieu', controller.getAllBikeBrand);
 frontendRouter.get('/xe-dap/giam-dan', controller.FrBikeController);
 frontendRouter.get('/xe-dap/*.:id', controller.FrBikeDetailController);
+frontendRouter.get('/xe-dap/search/:sku', controller.searchData);
+
 
 module.exports = frontendRouter;

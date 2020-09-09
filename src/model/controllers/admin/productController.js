@@ -883,6 +883,7 @@ let deleteProductImage = async (req, res, next) => {
         return res.status(500).send('Lôi');
     }
 }
+
 let searchData = async (req, res, next) => {
     let successArr = [];
     try {

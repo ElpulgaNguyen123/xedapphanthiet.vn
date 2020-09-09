@@ -357,7 +357,6 @@ label.error {
     padding: 20px 0px;
     border: 2px dotted #8080806b;
 }
-
 /* form search css start */
 .input-group.form-search {
     position: relative;
@@ -520,7 +519,7 @@ ul.result_rows {
 .modal-body span {
     font-size: 15px;
     display: block;
-}
+}   
 .image-border.endow_image {
     max-width: 200px;
 }

@@ -28,8 +28,57 @@
                                             <i class="icofont-search"></i>
                                         </div>
                                         <div class="searchbox-input">
-                                            <input type="text" class="input js-input" id="searchInput js-searchInput"
+                                            <input type="text" class="input js-input" id="searchInput"
                                                 placeholder="Tìm kiếm">
+                                            <ul class="result_rows">
+                                                <li> <a href="/admin/product/edit-product/${id}">
+                                                        <div class="main">
+                                                            <div class="left-side">
+                                                                <img src="images/products/01.png" />
+                                                            </div>
+                                                            <div class="right-side">
+                                                                <p>
+                                                                    Xe
+                                                                    Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa,
+                                                                    Bánh 700c – 2020
+                                                                </p>
+                                                                <span>sku : 273232 </span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li> <a href="/admin/product/edit-product/${id}">
+                                                        <div class="main">
+                                                            <div class="left-side">
+                                                                <img src="images/products/01.png" />
+                                                            </div>
+                                                            <div class="right-side">
+                                                                <p>
+                                                                    Xe
+                                                                    Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa,
+                                                                    Bánh 700c – 2020
+                                                                </p>
+                                                                <span>sku : 273232 </span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li> <a href="/admin/product/edit-product/${id}">
+                                                        <div class="main">
+                                                            <div class="left-side">
+                                                                <img src="images/products/01.png" />
+                                                            </div>
+                                                            <div class="right-side">
+                                                                <p>
+                                                                    Xe
+                                                                    Đạp Đường Trường Road GIANT Speeder-D – Phanh Đĩa,
+                                                                    Bánh 700c – 2020
+                                                                </p><span>sku : 273232 </span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                     <div class="searchlist js-searchlist">
@@ -55,11 +104,11 @@
                                         <% categories.forEach((category) => { %>
                                         <li class="list-group-item">
                                             <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <a href="/xe-dap/danh-muc/<%= category.category_slug %>.<%= category.id %>"
-                                                    title="<%= category.category_name %>"> <%= category.category_name %>
-                                                     </a>
-                                            </div>
+                                            <a href="/xe-dap/danh-muc/<%= category.category_slug %>.<%= category.id %>"
+                                                title="<%= category.category_name %>"><span><i
+                                                        class="icofont-dotted-right"></i></span>
+                                                <%= category.category_name %>
+                                            </a>
                                         </li>
                                         <% }) %>
                                     </ul>
@@ -87,7 +136,7 @@
                                         <% }) %>
                                     </ul>
                                 </div>
-                            </div>                            
+                            </div>
                         </form>
                     </div>
                     <div class="sidebar__right mobie_screen">

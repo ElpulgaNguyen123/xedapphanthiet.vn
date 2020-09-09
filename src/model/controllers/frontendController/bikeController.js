@@ -230,9 +230,33 @@ let FrBikeDetailController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+
+let searchData = async (req, res, next) => {
+    let successArr = [];
+    try {
+        var product_sku = req.params.sku;
+        var queryBike = `
+        SELECT * FROM product WHERE sku LIKE 
+        '%${product_sku}%' 
+        ORDER BY ID DESC LIMIT 6`;
+        var result = {};
+        await pool.query(queryBike, function (error, results, fields) {
+            if (error) throw error;
+            console.log(results);
+            result.results = results;
+            return res.status(200).send(result);
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Lôi');
+    }
+}
+
 module.exports = {
     FrBikeController,
     FrBikeDetailController,
     getAllBikeCategory,
-    getAllBikeBrand
+    getAllBikeBrand,
+    searchData
 };

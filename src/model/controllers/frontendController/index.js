@@ -8,7 +8,9 @@ const {FrBlogController,
     const {FrBikeController,
         FrBikeDetailController,
         getAllBikeCategory,
-        getAllBikeBrand} = require('./bikeController');
+        getAllBikeBrand,
+        searchData} = require('./bikeController');
+        
 
 module.exports = {
     FrhomeController,
@@ -21,5 +23,6 @@ module.exports = {
     FrBikeController,
     FrBikeDetailController,
     getAllBikeCategory,
-    getAllBikeBrand
+    getAllBikeBrand,
+    searchData
 }
