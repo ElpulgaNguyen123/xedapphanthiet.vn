@@ -9,6 +9,7 @@ var fs = require('fs');
 var fsExtras = require('fs-extra');
 const { json } = require('express');
 
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
@@ -62,6 +63,7 @@ let getAllProduct = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+
 let getAllProductCategory = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -766,7 +768,6 @@ let editProductPost = (req, res, next) => {
             });
 
         } catch (error) {
-            return res.status(500).send(error);
             res.render('admin/notfound/notfound', {
                 title: 'Trang Không tìm thấy'
             });

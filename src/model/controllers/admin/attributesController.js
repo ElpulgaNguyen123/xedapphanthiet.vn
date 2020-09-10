@@ -3,7 +3,6 @@ var app = require('../../config/app');
 var service = require('../../../services');
 var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../lang/vi');
 
-
 // get all products
 let getAllAttribute = async (req, res, next) => {
     try {
@@ -15,6 +14,7 @@ let getAllAttribute = async (req, res, next) => {
         FROM attributes 
         LEFT JOIN attribute_group 
         ON attributes.attribute_group_id=attribute_group.id`;
+        
         // Lấy tất cả sản phẩm và hiển thị ra table
         pool.query(query, async function (error, results_01, fields) {
             if (error) throw error;

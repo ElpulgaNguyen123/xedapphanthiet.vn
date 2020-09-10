@@ -108,11 +108,9 @@
                                     <label>
                                         Hiển thị 1–12 trong 102 kết quả</label>
                                     <div class="form-group">
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>Thứ tự theo thứ tự phổ biến</option>
-                                            <option>Mới nhất</option>
-                                            <option>Thứ tự theo giá : thấp đến cao</option>
-                                            <option>Thứ tự theo giá : cao đến thấp</option>
+                                        <select class="form-control" id="filter_select">
+                                            <option onclick="location.href='/xe-dap'">Thấp đến cao</option>
+                                            <option onclick="location.href='/xe-dap/giam-dan'">Cao đến thấp</option>
                                         </select>
                                     </div>
                                 </form>
@@ -125,7 +123,7 @@
                                 <div class="col-6 col-sm-6 col-md-4">
                                     <div class="soph__it">
                                         <div class="soph__img">
-                                            <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>" title="<%= bike.name %>">
+                                            <a href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= bike.id %>" title="<%= bike.name %>">
                                                 <% if(bike.image.length > 0){ %>
                                                 <img src="/public/uploads/products/<%=JSON.parse(bike.image)[0] %>"
                                                     alt="">
@@ -137,7 +135,7 @@
                                         <div class="soph__ct">
                                             <span class="badge badge-info mb-3">SKU : <%= bike.sku %></span>
                                             <h3 class="soph__tt ut_bold"> <a
-                                                    href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a>
+                                                    href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a>
                                             </h3>
                                             <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing
                                                 elit. Corporis

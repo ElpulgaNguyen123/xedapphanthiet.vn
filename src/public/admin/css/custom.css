@@ -524,6 +524,15 @@ ul.result_rows {
     max-width: 200px;
 }
 
+.card .card-block p {
+    line-height: 25px;
+    color: black;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 400px;

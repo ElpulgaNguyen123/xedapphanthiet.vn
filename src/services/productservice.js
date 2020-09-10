@@ -178,12 +178,15 @@ let getAllCategoryProduct = (query) => {
 // FRONTEND START
 let getAllProductFr = (query, params) => {
     return new Promise(async (resolve, reject) => {
+        console.log(query);
+        console.log(params);
         try {
             pool.query(query, params, function (error, rows, fields) {
                 if (error) throw error;
                 if (!rows[0]) {
                      resolve(rows);
                 }
+                console.log(rows)
                 return resolve(rows);
             })
         } catch (error) {

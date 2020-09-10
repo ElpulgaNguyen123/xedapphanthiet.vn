@@ -29,7 +29,7 @@ let FrhomeController = async (req, res, next) => {
 
         if(categories[0].id){
             productStreetQuery = `
-            SELECT product.id, product.name, product.short_description, 
+            SELECT product.id as product_id, product.name, product.short_description, 
             product.image, 
             product.sku,
             product.slug, 
@@ -45,7 +45,7 @@ let FrhomeController = async (req, res, next) => {
             streets = await service.getAllCategoryProduct(productStreetQuery);
         }
         if(categories[1].id){
-            productRaceQuery = `SELECT product.id, product.name, product.short_description, 
+            productRaceQuery = `SELECT product.id as product_id, product.name, product.short_description, 
             product.image, 
             product.sku,
             product.slug, 
@@ -60,7 +60,7 @@ let FrhomeController = async (req, res, next) => {
             racestype = await service.getAllCategoryProduct(productRaceQuery);
         }
         if(categories[2].id){
-            productChildQuery = `SELECT product.id, product.name, product.short_description, 
+            productChildQuery = `SELECT product.id as product_id, product.name, product.short_description, 
             product.image, 
             product.sku,
             product.slug, 
