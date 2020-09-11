@@ -65,7 +65,6 @@ let PostRegisterController = async (req, res, next) => {
         return res.redirect('/admin/login');
 
     }).catch(function (error) {
-        console.log('Lỗi chỗ này nek');
         console.log(error);
         arrayError.push(error);
         req.flash('Errors', arrayError);

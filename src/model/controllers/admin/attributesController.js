@@ -3,7 +3,7 @@ var app = require('../../config/app');
 var service = require('../../../services');
 var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../lang/vi');
 
-// get all products
+// get all products start
 let getAllAttribute = async (req, res, next) => {
     try {
         var query = `
@@ -43,8 +43,10 @@ let getAllAttribute = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// get all products end
 
-// thêm thuộc tính
+
+// add more attribute products start
 let postAddAttribute = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -68,8 +70,10 @@ let postAddAttribute = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// add more attribute products // end
 
-// lấy thông tin thuộc tính và dữ liệu thuộc tính
+
+// get more attribute products // start
 let getEditAttribute = async (req, res, next) => {
     try {
         var id = req.params.id, title = '', attribute_name, slug;
@@ -111,9 +115,10 @@ let getEditAttribute = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// get more attribute products // end
 
 
-// update thuộc tính
+// add more attribute products method post // start
 let postEditAttribute = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -142,7 +147,9 @@ let postEditAttribute = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-// xóa thuộc tính
+// add more attribute products method post // end
+
+// delete attribute products // start
 let postDeleteAttribute = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -165,7 +172,6 @@ let postDeleteAttribute = async (req, res, next) => {
         if (deletes) {
             await pool.query(querydeleteAttribute, function (error, results, fields) {
                 if (error) throw error;
-                console.log('xóa thành công.')
                 successArr.push(Transuccess.deleteSuccess('thuộc tính'));
                 req.flash('Success', successArr);
                 res.redirect('/admin/attributes');
@@ -181,8 +187,9 @@ let postDeleteAttribute = async (req, res, next) => {
         res.redirect('/admin/attribute');
     }
 }
+// delete attribute products // end
 
-// thêm dữ liệu cho thuộc tính.
+// add more value attribute products // start
 let postAddAttributeValue = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -205,11 +212,11 @@ let postAddAttributeValue = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// add attribute value products // end
 
-// Xóa giá trị thuộc tính.
+// delete attribute value products start
 let postDeleteAttributeValue = async (req, res, next) => {
     try {
-        // Lấy tất cả sản phẩm và hiển thị ra table
         var arrayError = [],
             successArr = [];
         var id_attribute = req.query.id_attribute;
@@ -228,6 +235,7 @@ let postDeleteAttributeValue = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// delete attribute value products // end
 
 module.exports = {
     postAddAttribute,

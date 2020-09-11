@@ -18,12 +18,12 @@ adminRouter.post('/login', controller.checkloggedOut, passport.authenticate('loc
 // authencation =============
 adminRouter.get('/logout', controller.checkloggedIn, controller.getLogout);
 adminRouter.get('/register', controller.registerController);
-adminRouter.post('/register', controller.checkloggedOut,validateRegister, controller.PostRegisterController);
-adminRouter.get('/reset-password',controller.checkloggedOut, controller.resetPasswordController);
-adminRouter.post('/reset-password',controller.checkloggedOut, validateEmailResetpassword, controller.PostResetPasswordController);
+adminRouter.post('/register', controller.checkloggedOut, validateRegister, controller.PostRegisterController);
+adminRouter.get('/reset-password', controller.checkloggedOut, controller.resetPasswordController);
+adminRouter.post('/reset-password', controller.checkloggedOut, validateEmailResetpassword, controller.PostResetPasswordController);
 adminRouter.get('/reset-password/:token', controller.checkloggedOut, controller.resetPasswordGetToken);
-adminRouter.get('/change-password/:token',controller.checkloggedOut, controller.changePasswordController);
-adminRouter.post('/change-password/:token',controller.checkloggedOut, validateChangePassword, controller.changePassword)
+adminRouter.get('/change-password/:token', controller.checkloggedOut, controller.changePasswordController);
+adminRouter.post('/change-password/:token', controller.checkloggedOut, validateChangePassword, controller.changePassword)
 // authencation / end =============
 
 // userupdate data ===========
@@ -49,9 +49,7 @@ adminRouter.get('/product-brand/:idbrand', controller.checkloggedIn, controller.
 adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAllProductDesc);
 adminRouter.get('/product/search/:sku', controller.checkloggedIn, controller.searchData);
 adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
-
-
-// products router end
+// products router // end
 
 // attribute start
 adminRouter.get('/attributes', controller.checkloggedIn, controller.getAllAttribute);
@@ -61,10 +59,10 @@ adminRouter.post('/attribute/edit-attribute/:id', controller.checkloggedIn, cont
 adminRouter.get('/attribute/delete-attribute/:id', controller.checkloggedIn, controller.postDeleteAttribute);
 // attribute end
 
-// attribute value start
+// attribute value // start
 adminRouter.post('/attribute/edit-attribute-value/:id', controller.checkloggedIn, controller.postAddAttributeValue);
 adminRouter.get('/attribute/delete-attribute-value/:id', controller.checkloggedIn, controller.postDeleteAttributeValue);
-// attribute value end
+// attribute value // end
 
 //brand start
 adminRouter.get('/brands', controller.checkloggedIn, controller.getAllBrand);
@@ -81,9 +79,11 @@ adminRouter.get('/category/edit-category/:id', controller.checkloggedIn, control
 adminRouter.post('/category/edit-category/:id', controller.checkloggedIn, controller.postEditCategory);
 adminRouter.get('/category/delete-category/:id', controller.checkloggedIn, controller.DeleteCategory);
 //brand end
+
 /*=============================================
 =            Website template / start        =
 =============================================*/
+
 // slider /start ==============================================
 adminRouter.get('/slides', controller.checkloggedIn, controller.getAllSlide);
 adminRouter.post('/slide/add-slide', controller.checkloggedIn, controller.addSlide);
@@ -107,14 +107,13 @@ adminRouter.get('/endow/add-endow', controller.checkloggedIn, controller.addEndo
 adminRouter.post('/endow/add-endow', controller.checkloggedIn, controller.addEndowPost);
 adminRouter.get('/endow/edit-endow/:id', controller.checkloggedIn, controller.getEditEndow);
 adminRouter.post('/endow/edit-endow/:id', controller.checkloggedIn, controller.postEditEndow);
-
-
-
 // endow / end
+
 /*=====   Website template / end  ======*/
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {
-    title: 'Trang Không tìm thấy'
+    title: 'Trang Không tìm thấy',
+    user : user
   });
 })
 

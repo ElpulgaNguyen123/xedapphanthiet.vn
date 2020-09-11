@@ -3,11 +3,12 @@ var app = require('../../../config/app');
 var service = require('../../../../services');
 var multer = require('multer');
 var { uuid } = require('uuidv4');
-var { Transuccess, saveSuccess, deleteSuccess } = require('../../../../../lang/vi');
+var { Transuccess} = require('../../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
 
+// initial storage. // start
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, app.directory_products);
@@ -22,9 +23,10 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
 var productUploadFile = multer({ storage: storage }).single('blog_image');
-// get all Blog
+// initial storage. // end
+
+// get all Blog // start
 let getAllBlog = async (req, res, next) => {
     try {
         await pool.query('SELECT * FROM `blog', function (error, rows, fields) {
@@ -42,8 +44,9 @@ let getAllBlog = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// get all Blog // end
 
-// dẫn đến trang thêm blog
+// add more Blog // start
 let addBlogGet = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -59,7 +62,9 @@ let addBlogGet = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-// thêm hình ảnh cho thương hiệu
+// add more Blog // end
+
+// add image Blog // start
 let addBlogPost = (req, res, next) => {
     productUploadFile(req, res, (error) => {
         try {
@@ -109,7 +114,9 @@ let addBlogPost = (req, res, next) => {
         }
     })
 }
-// lấy thông tin chỉnh sửa thương hiệu
+// add more Blog // end
+
+// edit Blog get method // start
 let getEditBlog = async (req, res, next) => {
     try {
         var blog_id = req.params.id;
@@ -131,7 +138,9 @@ let getEditBlog = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-// lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
+// edit Blog get method // end
+
+// edit blog post method // start
 let postEditBlog = (req, res, next) => {
     productUploadFile(req, res, async (error) => {
         try {
@@ -195,8 +204,9 @@ let postEditBlog = (req, res, next) => {
         }
     })
 }
+// edit blog post method // end
 
-// xóa dữ liệu của 1 brand
+// delete blog // start
 let postDeleteBlog = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -225,6 +235,8 @@ let postDeleteBlog = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+// delete blog // end
+
 module.exports = {
     getAllBlog,
     addBlogGet,

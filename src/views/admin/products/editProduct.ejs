@@ -221,15 +221,15 @@
                                                         <select class="form-control custom-select" name="product_brand"
                                                             id="product_brand">
                                                             <% brands.forEach(function(brand, index){ %>
-                                                            <% if(product.brand_id == brand.id ){%>
-                                                            <option value="<%= brand.id %>" selected>
-                                                                <%= brand.name %>
-                                                            </option>
-                                                            <%}else {%>
-                                                            <option value="<%= brand.id %>">
-                                                                <%= brand.name %>
-                                                            </option>
-                                                            <%}%>
+                                                                <% if(product.brand_id == brand.id ){%>
+                                                                <option value="<%= brand.id %>" selected>
+                                                                    <%= brand.name %>
+                                                                </option>
+                                                                <%}else {%>
+                                                                <option value="<%= brand.id %>">
+                                                                    <%= brand.name %>
+                                                                </option>
+                                                                <%}%>
                                                             <%})%>
                                                         </select>
                                                     </div>
