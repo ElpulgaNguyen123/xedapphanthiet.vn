@@ -31,6 +31,7 @@ let updateUserData = (req, res, next) => {
         try {
             var arrayError = [],
                 successArr = [];
+            var filename = '';
             var generatecode = uuid();
             if (req.file) {
                 // resize image before uploads.
@@ -42,9 +43,7 @@ let updateUserData = (req, res, next) => {
                             await fsExtras.remove(`${app.directory_auth}/${req.body.auth_old_image}`);
                         }
                     });
-            }
-            var filename = '';
-            if (req.file) {
+
                 filename = `${req.file.filename}-${generatecode}.webp`;
             }
             else if (req.body.auth_old_image) {
@@ -70,8 +69,6 @@ let updateUserData = (req, res, next) => {
                 filename,
                 req.params.id
             ];
-            console.log('Tên file của hình ảnh');
-            console.log(filename);
             await pool.query(queryUpdate, userValues, function (error, rows, fields) {
                 if (error) {
                     console.log(error);

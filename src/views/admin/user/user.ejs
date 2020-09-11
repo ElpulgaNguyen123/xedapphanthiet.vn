@@ -83,7 +83,9 @@
                                                             placeholder="Địa chỉ">
                                                     </div>
                                                     <br>
-                                                    <span><h4> <strong>Mạng xã hội</strong></h4></span>
+                                                    <span>
+                                                        <h4> <strong>Mạng xã hội</strong></h4>
+                                                    </span>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label class="font-weight-bold" for="profile-facebook"> Facebook
@@ -113,13 +115,15 @@
                                                 <img id="image-avatar-info" class="sp_img_main"
                                                     src="/public/uploads/auth/<%= user.avatar %>"
                                                     alt="<%= user.name %>">
-                                                <input type="hidden" name="auth_old_image" value="<%= user.image %>">
+                                                <input type="hidden" name="auth_old_image" value="<%= user.avatar %>">
                                                 <button id="trigger_button"
                                                     class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
                                                     hình ảnh...</button>
                                                 <% }else{ %>
                                                 <img id="image-avatar-info" class="sp_img_main"
                                                     src="/admin/images/example.png" alt="<%= user.name %>">
+                                                <input type="hidden" name="auth_old_image" value="<%= user.avatar %>">
+
                                                 <button id="trigger_button"
                                                     class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
                                                     hình ảnh...</button>

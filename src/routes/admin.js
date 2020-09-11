@@ -112,8 +112,7 @@ adminRouter.post('/endow/edit-endow/:id', controller.checkloggedIn, controller.p
 /*=====   Website template / end  ======*/
 adminRouter.use((req, res, next) => {
   res.render('admin/notfound/notfound', {
-    title: 'Trang Không tìm thấy',
-    user : user
+    title: 'Trang Không tìm thấy'
   });
 })
 
