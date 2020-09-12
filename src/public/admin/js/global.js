@@ -79,9 +79,6 @@ function getUserAvatarUpdate() {
             var formData = new FormData(); // Currently empty
             formData.append('avatar', fileData);
             userAvatar = formData;
-            // sau khi xong hết mọi thứ thì đưa vào fileReader để đọc.
-            // Truyền `File` vào đối tượng `FileReader` và chỉ thị đọc ra dữ liệu dưới dạng `data URL`
-            // Sau khi load thành công sẽ thực hiện đoạn code trong `onload` function phía trên
             fileReader.readAsDataURL(fileData);
         }
     })
@@ -108,10 +105,7 @@ function userAvatarUpdate(id) {
         }
     })
 }
-
-
 // ============================================================================================
-
 // Products action
 let productItem = {};
 
@@ -133,7 +127,6 @@ $(document).ready(function () {
     // PRODUCT ADD FORM SUBMIT;
     // user Action start
     // ==========================================
-
     // gọi hàm userinfo lấy dữ liệu
     oringinUserInfo = {
         name: $('#profile-username').val(),
@@ -153,12 +146,6 @@ $(document).ready(function () {
         }else {
             $('#user_form').submit();
         }
-        // upload data change to backend
-        // var user_id = $(this).attr('data-id');
-        // userInfoUpdate(user_id);
-        // userAvatarUpdate(user_id);
-        // userInfo = {};
-        // upload data to server        console.log(userInfo);
     })
 
     // user Action END
@@ -168,9 +155,6 @@ $(document).ready(function () {
     // product Action START
     // ==========================================
     addProduct();
-    // getProductImageUpdate();
-    // khai báo thứ tự hình ảnh để upload
-    // thực hiện gửi data lên server và back lại cho client
     $('.show-image-add').on('click', function () {
         $('.dropzone-edit-more').toggleClass('show');
     });
@@ -184,10 +168,6 @@ $(document).ready(function () {
     // product action end 
     // =============================================================
 
-    // var price = $('.product-price').text();
-    // var string = numeral(parseInt(price)).format('0,0');
-    // $('.product-price').text(string);
-    // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
     /*=============================================
     =            Tags input auto complete           =
     =============================================*/

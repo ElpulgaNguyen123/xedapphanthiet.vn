@@ -39,6 +39,11 @@ let getAllProduct = async (req, res, next) => {
 
         pool.query('SELECT * FROM `product', function (error, results, fields) {
             if (error) throw error;
+            let count = 0;
+            for(var i = 0; i < results.length; i++){
+                count++;
+            }
+
             var page = parseInt(req.query.page) || 1; // n
             var perPage = 10; // x
             var start = (page - 1) * perPage;
@@ -50,6 +55,7 @@ let getAllProduct = async (req, res, next) => {
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
+                count : count,
                 brands: brands,
                 categories: categories,
                 errors: req.flash('Errors'),
@@ -63,6 +69,29 @@ let getAllProduct = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+
+let getPageLoad = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        pool.query('SELECT * FROM `product', function (error, results, fields) {
+            if (error) throw error;
+            console.log('Page');
+            console.log(req.params.page);
+            let count = 0;
+            for(var i = 0; i < results.length; i++){
+                count++;
+            }
+            let result = {};
+            result.page = req.params.page;
+            return res.status(200).send(result);
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
 
 let getAllProductCategory = async (req, res, next) => {
     try {
@@ -979,5 +1008,6 @@ module.exports = {
     searchData,
     getAllProductCategory,
     getAllProductBrand,
-    getAllProductDesc
+    getAllProductDesc,
+    getPageLoad
 };

@@ -15,7 +15,8 @@ var { getAllProduct,
     searchData,
     getAllProductCategory,
     getAllProductBrand,
-    getAllProductDesc } = require('./productController');
+    getAllProductDesc,
+    getPageLoad } = require('./productController');
 
 var {getAllAttribute, 
     postAddAttribute,
@@ -105,6 +106,7 @@ module.exports = {
     getAllProductBrand,
     getAllProductDesc,
     searchData,
+    getPageLoad,
 
 
 

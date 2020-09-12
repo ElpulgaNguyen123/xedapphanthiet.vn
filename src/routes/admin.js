@@ -4,6 +4,7 @@ var { validateRegister, validateEmailResetpassword, validateChangePassword } = r
 var controller = require('../model/controllers/admin');
 var passport = require('passport');
 var { initPassportLocal } = require('../model/controllers/admin/passportController');
+const admin = require('../model/controllers/admin');
 
 initPassportLocal();
 // authencation ===============
@@ -49,6 +50,7 @@ adminRouter.get('/product-brand/:idbrand', controller.checkloggedIn, controller.
 adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAllProductDesc);
 adminRouter.get('/product/search/:sku', controller.checkloggedIn, controller.searchData);
 adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
+adminRouter.get('/product/get-more/:page', controller.checkloggedIn, controller.getPageLoad);
 // products router // end
 
 // attribute start

@@ -16,11 +16,12 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="/public/admin/css/bootstrap/css/bootstrap.min.css">
-    <!-- themify-icons line icon -->    
+    <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="/public/admin/icon/themify-icons/themify-icons.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="/public/admin/icon/icofont/css/icofont.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="/public/admin/pages/notification/notification.css">
     <!-- notifi.css -->
@@ -33,6 +34,7 @@
     <script type="text/javascript" src="/public/admin/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/public/admin/js/currency/simple.money.format.js"></script>
 </head>
+
 <body>
     <!-- Pre-loader start -->
     <%- include('./admin/themeloader/themeloader')%>
@@ -48,7 +50,13 @@
                     <!-- Navbar start -->
                     <%- include('./admin/navbar/navbar')%>
                     <!-- Navbar end -->
-                    <%- content %>
+                   
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <%- content %>
+                        </div>
+                        <%- include('./admin/footer/footer')%>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +97,7 @@
     <script type="text/javascript" src="/public/admin/js/bootstrap-tagsinput.min.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-        <script type="text/javascript" src="/public/admin/js/validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/public/admin/js/validate/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script type="text/javascript" src="/public/admin/js/global.js"></script>
     <script>
