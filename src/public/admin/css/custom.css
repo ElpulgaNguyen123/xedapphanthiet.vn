@@ -532,7 +532,11 @@ ul.result_rows {
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-
+button.buttonload {
+    width: 100%;
+    border: 0px;
+    padding: 20px 0px;
+}
 @media (min-width: 576px) {
     .modal-dialog.small {
         max-width: 400px;

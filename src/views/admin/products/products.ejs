@@ -31,6 +31,7 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col-sm-12">
                 <% if(errors != ""){%>
                 <% errors.forEach((item) => {%>
@@ -128,6 +129,7 @@
                         }
                     });
                 </script>
+                <input type="hidden" id="query_id" name="query" value="<%= query %>">
                 <div class="btn-group">
                     <button type="button" class="btn btn-inverse btn-outline-inverse">Thương hiệu</button>
                     <button type="button"
@@ -186,10 +188,10 @@
                                 <th> hành động </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="product_table">
                             <% products.forEach(function(product, index){ %>
                             <tr>
-                                <td scope="row"><%= index %></th>
+                                <td scope="row"><%= product.id %></th>
                                     <% if(product.image.length > 0){ %>
                                 <th class="product-image">
                                     <img class="sp_img-<%= product.id%>"
@@ -231,35 +233,10 @@
                             <% }); %>
                         </tbody>
                     </table>
+                    <button class="buttonload">
+                        <i class="fa fa-spinner fa-spin"></i>Loading
+                    </button>
                 </div>
-            </div>
-            <div class="col-sm-12">
-                <nav class="text-center" aria-label="Page navigation example">
-                    <ul class="pagination mb-4">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <% for(var i=1; i < pages; i++) {%>
-                        <li class="page-item">
-                            <a class="page-link" href="/admin/products?page=<%= i %>"><%= i %>
-                            </a></li>
-                        <% } %>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <script>
-                    var pageli = $('.pagination .page-item');
-                    //pageli[0].addClass('active');
-                    console.log(pageli[<%= page %>].classList.add('active'));
-                </script>
             </div>
         </div>
     </div>
@@ -268,29 +245,77 @@
 </div>
 </div>
 <script>
-    
-    var count = <%= count %>;
+
+    var product_table = $('#product_table');
+
+    var trItem = function (value, index) {
+        return `<tr>
+    <td scope="row">${value.id}</th>
+    <th class="product-image">
+        <img class="sp_img"
+            src="/public/uploads/products/${JSON.parse(value.image)[0]}" alt="">
+        <p class="mt-2"><span
+                class="label label-primary">Sku:</span>&nbsp;${value.sku}</p>
+        </td>
+    <td class="font-weight-bold">
+        <p class="text-break"> ${value.name} </p>
+    </td>
+    <td class="price-show"> <span class="product-price"> ${value.price}
+        </span> <sup> VNĐ </sup>
+    </td>
+    <td>
+        <label class="label text-center ${value.stock === 1 ? 'label-success' : 'label-warning'}">
+            ${value.stock === 1 ? 'Còn hàng' : 'Hết hàng'}
+        </label>
+    </td>
+    <td> ${value.quantity} </td>
+    <td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="/admin/product/edit-product/${value.id}" type="button"
+                class="btn hor-grd btn-grd-warning " title="Sửa sản phẩm">
+                <i class="icofont icofont-edit"></i> </a>
+            <a href="/admin/product/delete-product/${value.id}" type="button"
+                class="btn hor-grd btn-grd-danger "> <i class="icofont icofont-ui-delete"
+                    title="Xóa sản phẩm"></i>
+            </a>
+        </div>
+    </td>
+</tr>`;
+    }
+
     $(function () {
         const footer = document.querySelector('#footer');
+        var page = 2;
+        var query = $('#query_id').val();
+        var data = {};
+        data.query = query;
         let callback = (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     $.ajax({
-                        url: '/admin/product/get-more/'+count,
-                        type: 'GET',
+                        url: '/admin/product/get-more/' + page,
+                        type: 'POST',
                         cache: false,
-                        contentType: false, // kiểu dữ liệu được đửa lên
-                        processData: false, // Set giá trị này là false nếu bạn không muốn dữ liệu được truyền vào thiết lập data sẽ được xử lý và biến thành một query kiểu chuỗi.
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        processData: false,
                         success: function (result) {
-                            // cập nhật ngay lập tức avatar trên giao diện
-                          alert(result.page);
+                            page++;
+                            if (result.products.length > 0) {
+                                setTimeout(function () {
+                                    result.products.forEach((value, index) => {
+                                        product_table.append(trItem(value, index));
+                                    });
+                                }, 2000);
+                            }
+                            if (result.products.length == 0) {
+                                $('.buttonload').css('display', 'none');
+                            }
                         },
                         error: function (error) {
                             notify(error, 'danger');
                         }
-                    })
-                    count++;
-                    //alert(count);
+                    });
                 }
             });
         };

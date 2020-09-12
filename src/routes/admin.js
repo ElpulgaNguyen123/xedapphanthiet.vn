@@ -50,7 +50,7 @@ adminRouter.get('/product-brand/:idbrand', controller.checkloggedIn, controller.
 adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAllProductDesc);
 adminRouter.get('/product/search/:sku', controller.checkloggedIn, controller.searchData);
 adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
-adminRouter.get('/product/get-more/:page', controller.checkloggedIn, controller.getPageLoad);
+adminRouter.post('/product/get-more/:page', controller.checkloggedIn, controller.getPageLoad);
 // products router // end
 
 // attribute start

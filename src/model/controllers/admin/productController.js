@@ -7,8 +7,7 @@ var { Transuccess } = require('../../../../lang/vi');
 var sharp = require('sharp');
 var fs = require('fs');
 var fsExtras = require('fs-extra');
-const { json } = require('express');
-
+const { json, query } = require('express');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -36,26 +35,13 @@ let getAllProduct = async (req, res, next) => {
         const queryCategories = 'SELECT * FROM categories';
         const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
-
+        const query = `SELECT * FROM product`;
         pool.query('SELECT * FROM `product', function (error, results, fields) {
             if (error) throw error;
-            let count = 0;
-            for(var i = 0; i < results.length; i++){
-                count++;
-            }
-
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results.slice(start, end),
-                pages: pageDistance,
-                page: page,
-                count : count,
+                query : query,
+                products: results.slice(0, 10),
                 brands: brands,
                 categories: categories,
                 errors: req.flash('Errors'),
@@ -73,17 +59,27 @@ let getAllProduct = async (req, res, next) => {
 let getPageLoad = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
-        pool.query('SELECT * FROM `product', function (error, results, fields) {
+        var query = req.body.query;
+        console.log(query);
+        pool.query(query, function (error, results, fields) {
             if (error) throw error;
-            console.log('Page');
-            console.log(req.params.page);
             let count = 0;
             for(var i = 0; i < results.length; i++){
                 count++;
             }
+            let page = parseInt(req.params.page) || 1;
+            // số sản phẩm trên 1 trang.
+            let perPage = 10;
+            let start = (page - 1) * perPage;
+            let end = page * perPage;
             let result = {};
+
+            result.products = results.slice(start, end);
+            results.count = req.params.page;
             result.page = req.params.page;
+
             return res.status(200).send(result);
+
         });
 
     } catch (error) {
@@ -100,7 +96,7 @@ let getAllProductCategory = async (req, res, next) => {
         const queryCategories = 'SELECT * FROM categories';
         const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
-
+        const query = `SELECT * FROM product WHERE category_id = ${req.params.idcategory}`;
         pool.query(`SELECT * FROM product WHERE category_id = ${req.params.idcategory}`, function (error, results, fields) {
             if (error) throw error;
             var page = parseInt(req.query.page) || 1; // n
@@ -109,10 +105,10 @@ let getAllProductCategory = async (req, res, next) => {
             var end = page * perPage;
             var totalPage = Math.ceil(results.length / 10);
             var pageDistance = page + 3;
-
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
                 products: results.slice(start, end),
+                query : query,
                 pages: pageDistance,
                 page: page,
                 brands: brands,
