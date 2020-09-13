@@ -40,7 +40,7 @@ let getAllProduct = async (req, res, next) => {
             if (error) throw error;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                query : query,
+                query: query,
                 products: results.slice(0, 10),
                 brands: brands,
                 categories: categories,
@@ -60,11 +60,10 @@ let getPageLoad = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
         var query = req.body.query;
-        console.log(query);
         pool.query(query, function (error, results, fields) {
             if (error) throw error;
             let count = 0;
-            for(var i = 0; i < results.length; i++){
+            for (var i = 0; i < results.length; i++) {
                 count++;
             }
             let page = parseInt(req.params.page) || 1;
@@ -99,18 +98,10 @@ let getAllProductCategory = async (req, res, next) => {
         const query = `SELECT * FROM product WHERE category_id = ${req.params.idcategory}`;
         pool.query(`SELECT * FROM product WHERE category_id = ${req.params.idcategory}`, function (error, results, fields) {
             if (error) throw error;
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results.slice(start, end),
-                query : query,
-                pages: pageDistance,
-                page: page,
+                products: results.slice(0,10),
+                query: query,
                 brands: brands,
                 categories: categories,
                 errors: req.flash('Errors'),
@@ -132,20 +123,13 @@ let getAllProductBrand = async (req, res, next) => {
         const queryCategories = 'SELECT * FROM categories';
         const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
-
+        const query = `SELECT * FROM product WHERE brand_id = ${req.params.idbrand}`;
         pool.query(`SELECT * FROM product WHERE brand_id = ${req.params.idbrand}`, function (error, results, fields) {
             if (error) throw error;
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results.slice(start, end),
-                pages: pageDistance,
-                page: page,
+                products: results.slice(0, 10),
+                query: query,
                 brands: brands,
                 categories: categories,
                 errors: req.flash('Errors'),
@@ -167,20 +151,14 @@ let getAllProductDesc = async (req, res, next) => {
         const queryCategories = 'SELECT * FROM categories';
         const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
+        const query = `SELECT * FROM product ORDER BY id DESC`;
 
         pool.query(`SELECT * FROM product ORDER BY id DESC`, function (error, results, fields) {
             if (error) throw error;
-            var page = parseInt(req.query.page) || 1; // n
-            var perPage = 10; // x
-            var start = (page - 1) * perPage;
-            var end = page * perPage;
-            var totalPage = Math.ceil(results.length / 10);
-            var pageDistance = page + 3;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results.slice(start, end),
-                pages: pageDistance,
-                page: page,
+                products: results.slice(0, 10),
+                query, query,
                 brands: brands,
                 categories: categories,
                 errors: req.flash('Errors'),

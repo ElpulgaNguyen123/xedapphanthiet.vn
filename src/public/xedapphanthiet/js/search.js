@@ -2,7 +2,7 @@
 $(function () {
   var string = '';
   var stringAppend = function (id, sku, image, slug,  name) {
-      return `<li> <a href="/xe-dap/${slug}.${id}" title="${name}">
+      return `<li> <a href="/xe-dap/chi-tiet/${slug}.${id}" title="${name}">
           <div class="main"> 
               <div class="left-side">
                   <img src="/public/uploads/products/${image}"/> 

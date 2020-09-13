@@ -12,9 +12,10 @@
         </div>
     </div>
 </section>
-<!-- shopping start --> 
+<!-- shopping start -->
 <section id="shopping" class="soph mt-4 page-relative">
     <div class="container">
+        <input type="hidden" id="query_id" name="query" value="<%= query %>">
         <div class="soph_cate_ soph--white adsolute_sec shadows_sec mb-4">
             <div class="row">
                 <div class="col-sm-12 col-md-3 sidebar">
@@ -29,9 +30,9 @@
                                         </div>
                                         <div class="searchbox-input">
                                             <input type="text" class="input js-input" id="searchInput"
-                                                placeholder="Tìm kiếm">
+                                                placeholder="Tìm kiếm mã Sku">
                                             <ul class="result_rows">
-                                               
+
                                             </ul>
                                         </div>
                                     </div>
@@ -104,26 +105,25 @@
                         <div class="section-title section-page-title text-left">
                             <h1 class="page-title text_P ut_bold"> <%= title %> </h1>
                             <div class="form-filter">
-                                <form class="form-inline">
-                                    <label>
-                                        Hiển thị 1–12 trong 102 kết quả</label>
+                                <!-- <form class="form-inline">
                                     <div class="form-group">
                                         <select class="form-control" id="filter_select">
                                             <option onclick="location.href='/xe-dap'">Thấp đến cao</option>
                                             <option onclick="location.href='/xe-dap/giam-dan'">Cao đến thấp</option>
                                         </select>
                                     </div>
-                                </form>
+                                </form> -->
                             </div>
                         </div>
                         <div class="soph__lst">
-                            <div class="row">
+                            <div id="product_table" class="row">
                                 <% if(bikes.length > 0 ){ %>
                                 <% bikes.forEach((bike) => { %>
                                 <div class="col-6 col-sm-6 col-md-4">
                                     <div class="soph__it">
                                         <div class="soph__img">
-                                            <a href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= bike.id %>" title="<%= bike.name %>">
+                                            <a href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= bike.id %>"
+                                                title="<%= bike.name %>">
                                                 <% if(bike.image.length > 0){ %>
                                                 <img src="/public/uploads/products/<%=JSON.parse(bike.image)[0] %>"
                                                     alt="">
@@ -166,25 +166,9 @@
                                 </div>
                                 <% } %>
                             </div>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <button class="buttonload">
+                                <i class="fa fa-spinner fa-spin"></i>Tải thêm...
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -193,3 +177,73 @@
     </div>
 </section>
 <!-- shopping end -->
+<script>
+
+    var product_table = $('#product_table');
+
+    var trItem = function (value, index) {
+        return `<div class="col-6 col-sm-6 col-md-4">
+    <div class="soph__it">
+        <div class="soph__img">
+            <a href="/xe-dap/chi-tiet/${value.slug}.${value.id}" title="${value.name}">
+                <img src="/public/uploads/products/${JSON.parse(value.image)[0]}" alt="${value.name}">
+            </a>
+        </div>
+        <div class="soph__ct">
+            <span class="badge badge-info mb-3">SKU : PD20203</span>
+            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/chi-tiet/${value.slug}.${value.id}">${value.name}</a>
+            </h3>
+            <p class="line-clamp">${value.short_description}</p>
+            <div class="soph-box d-flex">
+                <div class="price ut_bold text-secondary">${value.price}<sup>đ</sup>
+                </div>
+                <span class="status text-right"><i class="icofont-cube"></i> còn
+                    (${value.quantity})
+                </span>
+            </div>
+        </div>
+    </div>
+</div>`;
+    }
+    $(function () {
+        const footer = document.querySelector('#footer');
+        var page = 2;
+        var query = $('#query_id').val();
+        var data = {};
+        data.query = query;
+        let callback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    $.ajax({
+                        url: '/xe-dap/get-more/' + page,
+                        type: 'POST',
+                        cache: false,
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        processData: false,
+                        success: function (result) {
+                            page++;
+                            console.log(result.products)
+                            if (result.products.length > 0) {
+                                setTimeout(function () {
+                                    result.products.forEach((value, index) => {
+                                        product_table.append(trItem(value, index));
+                                    });
+                                }, 1500);
+                            }
+                            if (result.products.length == 0) {
+                                $('.buttonload').css('display', 'none');
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        };
+
+        let observer = new IntersectionObserver(callback);
+        observer.observe(footer);
+    });
+</script>

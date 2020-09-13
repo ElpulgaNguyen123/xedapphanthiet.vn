@@ -2,7 +2,6 @@ var pool = require('../../config/connectDb');
 const service = require('../../../services');
 
 let FrBikeController = async (req, res, next) => {
-
     try {
 
         let userInfo = {};
@@ -17,12 +16,14 @@ let FrBikeController = async (req, res, next) => {
         const brands = await service.getAllBrand(querybrands);
         const categories = await service.getAllCategoryProduct(querycategories);
         const bikes = await service.getAllProductFr(queryBikes);
+        const query = 'Select * from product';
         // Lấy tất cả sản phẩm và hiển thị ra table
         res.render('xedapphanthiet/bikes/bikes', {
             title: 'Xe đạp',
             userInfo : userInfo,
-            bikes: bikes,
+            bikes: bikes.slice(0,9),
             brands: brands,
+            query : query,
             categories: categories,
             errors: req.flash('Errors'),
             success: req.flash('Success'),
@@ -32,7 +33,6 @@ let FrBikeController = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-
 
 let getAllBikeCategory = async (req, res, next) => {
     try {
@@ -49,7 +49,7 @@ let getAllBikeCategory = async (req, res, next) => {
         const queryBike = `SELECT * FROM product WHERE category_id = ?`;
         const brands = await service.getAllBrand(querybrands);
         const categories = await service.getAllCategoryProduct(querycategories);
-
+        const query = `SELECT * FROM product WHERE category_id = ${req.params.iddanhmuc}`;
         pool.query(queryBike, req.params.iddanhmuc, async function (error, results, fields) {
             if (error) throw error;
 
@@ -61,6 +61,7 @@ let getAllBikeCategory = async (req, res, next) => {
             res.render('xedapphanthiet/bikes/bikes', {
                 title: title,
                 userInfo : userInfo,
+                query : query,
                 bikes: results,
                 brands: brands,
                 categories: categories,
@@ -91,6 +92,7 @@ let getAllBikeBrand = async (req, res, next) => {
         const queryBike = `SELECT * FROM product WHERE brand_id = ?`;
         const brands = await service.getAllBrand(querybrands);
         const categories = await service.getAllCategoryProduct(querycategories);
+        const query = `SELECT * FROM product WHERE brand_id = ${req.params.idthuonghieu}`;
         pool.query(queryBike, req.params.idthuonghieu, async function (error, results, fields) {
             if (error) throw error;
 
@@ -103,6 +105,7 @@ let getAllBikeBrand = async (req, res, next) => {
             res.render('xedapphanthiet/bikes/bikes', {
                 title: title,
                 userInfo : userInfo,
+                query:query,
                 bikes: results,
                 brands: brands,
                 categories: categories,
@@ -224,7 +227,7 @@ let getAllBikeDesc = async (req, res, next) => {
         const queryCategories = 'SELECT * FROM categories';
         const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
-
+        const query = `SELECT * FROM product ORDER BY id DESC`;
         pool.query(`SELECT * FROM product ORDER BY id DESC`, function (error, results, fields) {
             if (error) throw error;
             var page = parseInt(req.query.page) || 1; // n
@@ -236,6 +239,7 @@ let getAllBikeDesc = async (req, res, next) => {
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
                 userInfo : userInfo,
+                query : query,
                 products: results.slice(start, end),
                 pages: pageDistance,
                 page: page,
@@ -253,11 +257,43 @@ let getAllBikeDesc = async (req, res, next) => {
     }
 }
 
+let getPageLoad = async (req, res, next) => {
+    try {
+        // Lấy tất cả sản phẩm và hiển thị ra table
+        var query = req.body.query;
+        pool.query(query, function (error, results, fields) {
+            if (error) throw error;
+            let count = 0;
+            for (var i = 0; i < results.length; i++) {
+                count++;
+            }
+            let page = parseInt(req.params.page) || 1;
+            // số sản phẩm trên 1 trang.
+            let perPage = 10;
+            let start = (page - 1) * perPage;
+            let end = page * perPage;
+            let result = {};
+
+            result.products = results.slice(start, end);
+            results.count = req.params.page;
+            result.page = req.params.page;
+
+            return res.status(200).send(result);
+
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
 module.exports = {
     FrBikeController,
     FrBikeDetailController,
     getAllBikeCategory,
     getAllBikeBrand,
     searchData,
-    getAllBikeDesc
+    getAllBikeDesc,
+    getPageLoad
 };

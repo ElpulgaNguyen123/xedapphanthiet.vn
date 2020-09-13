@@ -7610,6 +7610,11 @@ h4.title-section {
 
 /* PADDING END */
 /* BUTTON START*/
+button.buttonload {
+  width: 100%;
+  border: 0px;
+  padding: 20px 0px; }
+
 .Utbtn_main {
   padding: 5px 20px;
   border-radius: 20px;
@@ -8207,18 +8212,20 @@ header .navbar.fixed-menu {
       text-decoration: none;
       margin-left: 10px;
       transition: 0.4s; }
-  .sidebar .list-group .list-group-item .custom-control .custom-control-label {
-    position: relative;
-    margin-bottom: 0;
-    display: block;
-    font-size: 14px; }
-    .sidebar .list-group .list-group-item .custom-control .custom-control-label .custom-control-input:checked ~ .custom-control-label::before {
-      color: #fff;
-      border-color: #C6504E;
-      background-color: #C6504E; }
-    .sidebar .list-group .list-group-item .custom-control .custom-control-label span {
-      color: #adb5bd;
-      font-size: 15px; }
+  .sidebar .list-group .list-group-item .custom-control {
+    padding-left: 0rem; }
+    .sidebar .list-group .list-group-item .custom-control .custom-control-label {
+      position: relative;
+      margin-bottom: 0;
+      display: block;
+      font-size: 14px; }
+      .sidebar .list-group .list-group-item .custom-control .custom-control-label .custom-control-input:checked ~ .custom-control-label::before {
+        color: #fff;
+        border-color: #C6504E;
+        background-color: #C6504E; }
+      .sidebar .list-group .list-group-item .custom-control .custom-control-label span {
+        color: #adb5bd;
+        font-size: 15px; }
   .sidebar .list-group .list-group-items a {
     color: #242424;
     font-weight: 600;
