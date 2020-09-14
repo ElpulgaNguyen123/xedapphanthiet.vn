@@ -1,57 +1,55 @@
 <% extend("../../../admin.ejs") %>
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header card">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <i class="icofont icofont-file-code bg-c-blue"></i>
-                                <div class="d-inline">
-                                    <h4> <%= slide.name %> </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin" title="Trang chủ">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin/slides" title="Slide">
-                                            Slide
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><%= slide.name %>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4> <%= slide.name %> </h4>
                         </div>
                     </div>
                 </div>
-                <!-- Page-header end -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <% if(errors != ""){%>
-                            <% errors.forEach((item) => {%>
-                            <div class="alert alert-danger" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="/admin" title="Trang chủ">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/admin/slides" title="Slide">
+                                    Slide
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><%= slide.name %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <% if(errors != ""){%>
+                    <% errors.forEach((item) => {%>
+                    <div class="alert alert-danger" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                             <% if(success != ""){%>
-                            <% success.forEach((item) => {%>
-                            <div class="alert alert-success" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                    <% success.forEach((item) => {%>
+                    <div class="alert alert-success" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                         </div>
                         <div class="col-md-12 col-lg-4 col-xl-5">
                             <div class="card project-task">
@@ -59,68 +57,64 @@
                                     <div class="card-header-left ">
                                         <h4> <strong> <%= slide.name %></strong></h4>
 
-                        </div>
-                        <div class="card-header-right">
-                            <ul class="list-unstyled card-option">
-                                <li><i class="icofont icofont-simple-left "></i></li>
-                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                <li><i class="icofont icofont-error close-card"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-block p-b-10">
-                        <form id="brand-edit-form" action="/admin/slide/edit-slide/<%= slide.id %>" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group text-center">
-                                        <div class="image-border">
-                                            <% if(slide.image != '' && slide.image != null){ %>
-                                            <img class="sp_img_main" src="/public/uploads/slides/<%= slide.image %>"
-                                                alt="<%= slide.name %>">
-                                            <input type="hidden" name="slide_old_image" value="<%= slide.image %>">
-                                            <% } else{ %>
-                                            <img class="sp_img_main" src="/admin/images/example.png"
-                                                alt="<%= slide.name %>">
-                                            <% } %>
-                                            <button id="trigger_button"
-                                                class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
-                                                hình ảnh...</button>
-                                            <input type="file" id="slide_image" name="slide_image" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="slide_name">
-                                            <%= slide.name %>
-                                        </label>
-                                        <input type="text" name="slide_name" id="slide_name" value="<%= slide.name %>"
-                                            class="form-control" placeholder="Tên <%= slide.name %>" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="slide_link">
-                                            Link
-                                        </label>
-                                        <input type="text" name="slide_link" id="slide_link" class="form-control"
-                                            placeholder="Nhập link cho slide" value="<%= slide.link %>" required>
-                                        <small class="form-text text-muted"> Link là đường dẫn đến bài viết, sản phẩm,
-                                            hoặc danh sách mà slide mô tả </small>
-
-                                    </div>
+                </div>
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li><i class="icofont icofont-simple-left "></i></li>
+                        <li><i class="icofont icofont-maximize full-card"></i></li>
+                        <li><i class="icofont icofont-minus minimize-card"></i></li>
+                        <li><i class="icofont icofont-refresh reload-card"></i></li>
+                        <li><i class="icofont icofont-error close-card"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-block p-b-10">
+                <form id="brand-edit-form" action="/admin/slide/edit-slide/<%= slide.id %>" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="form-group text-center">
+                                <div class="image-border">
+                                    <% if(slide.image != '' && slide.image != null){ %>
+                                    <img class="sp_img_main" src="/public/uploads/slides/<%= slide.image %>"
+                                        alt="<%= slide.name %>">
+                                    <input type="hidden" name="slide_old_image" value="<%= slide.image %>">
+                                    <% } else{ %>
+                                    <img class="sp_img_main" src="/admin/images/example.png" alt="<%= slide.name %>">
+                                    <% } %>
+                                    <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                        hình ảnh...</button>
+                                    <input type="file" id="slide_image" name="slide_image" />
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-grd-success mt-3">Lưu lại</button>
-                        </form>
+                            <div class="form-group">
+                                <label class="font-weight-bold col-form-label" for="slide_name">
+                                    <%= slide.name %>
+                                </label>
+                                <input type="text" name="slide_name" id="slide_name" value="<%= slide.name %>"
+                                    class="form-control" placeholder="Tên <%= slide.name %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold col-form-label" for="slide_link">
+                                    Link
+                                </label>
+                                <input type="text" name="slide_link" id="slide_link" class="form-control"
+                                    placeholder="Nhập link cho slide" value="<%= slide.link %>" required>
+                                <small class="form-text text-muted"> Link là đường dẫn đến bài viết, sản phẩm,
+                                    hoặc danh sách mà slide mô tả </small>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-grd-success mt-3">Lưu lại</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+</div>
+</div>
 <div id="styleSelector">
-</div>
-</div>
 </div>
 </div>
 <script>

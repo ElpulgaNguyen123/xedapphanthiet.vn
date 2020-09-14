@@ -41,9 +41,9 @@ let getAllCategories = async (req, res, next) => {
         });
 
     } catch (error) {
-        res.render('admin/notfound/notfound', {
-            title: 'Trang Không tìm thấy'
-        });
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/categories');
     }
 }
 // thêm hình ảnh cho thương hiệu
@@ -101,9 +101,9 @@ let getEditCategory = async (req, res, next) => {
             });
         });
     } catch (error) {
-        res.render('admin/notfound/notfound', {
-            title: 'Trang Không tìm thấy'
-        });
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/categories');
     }
 }
 
@@ -152,9 +152,9 @@ let postEditCategory = (req, res, next) => {
                 res.redirect('/admin/categories');
             });
         } catch (error) {
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/categories');
         }
     })
 }
@@ -186,9 +186,9 @@ let DeleteCategory = async (req, res, next) => {
         });
 
     } catch (error) {
-        res.render('admin/notfound/notfound', {
-            title: 'Trang Không tìm thấy'
-        });
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/categories');
     }
 }
 

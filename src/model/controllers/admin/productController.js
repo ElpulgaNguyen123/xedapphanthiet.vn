@@ -51,8 +51,9 @@ let getAllProduct = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 
@@ -82,8 +83,9 @@ let getPageLoad = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 
@@ -100,7 +102,7 @@ let getAllProductCategory = async (req, res, next) => {
             if (error) throw error;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
-                products: results.slice(0,10),
+                products: results.slice(0, 10),
                 query: query,
                 brands: brands,
                 categories: categories,
@@ -111,8 +113,9 @@ let getAllProductCategory = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 
@@ -139,8 +142,9 @@ let getAllProductBrand = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 
@@ -168,8 +172,9 @@ let getAllProductDesc = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 // chuyển qua trang thêm sản phẩm   
@@ -190,8 +195,9 @@ let addProductGet = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 // thêm thuộc tính vào sản phẩm
@@ -236,8 +242,9 @@ let addProductAttribute = async (req, res, next) => {
             });
         }
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 // add more product
@@ -294,8 +301,6 @@ let addProductPost = (req, res, next) => {
                     var gettype02Val = req.body.product_attributes_type02;
                     var attributes = gettype02Val.slice(0, -1);
                     var attributes_arr = attributes.split(",");
-                    console.log(attributes_arr);
-                    // thêm vào chuỗi query;
                     var valuestring = '';
                     for (var index = 0; index < attributes_arr.length; index++) {
                         valuestring += `(${id[0].id}, ${attributes_arr[index]}),`;
@@ -345,9 +350,9 @@ let addProductPost = (req, res, next) => {
                 return res.redirect('/admin/products');
             }
         } catch (error) {
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/products');
         }
     })
 }
@@ -494,9 +499,9 @@ let editProductGet = async (req, res, next) => {
             res.render('admin/products/editProduct', option);
         })
     } catch (error) {
-        res.render('admin/notfound/notfound', {
-            title: 'Trang Không tìm thấy'
-        });
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 // edit product post
@@ -771,9 +776,9 @@ let editProductPost = (req, res, next) => {
             });
 
         } catch (error) {
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/products');
         }
     })
 }
@@ -794,9 +799,9 @@ let editProductImage = (req, res, next) => {
             return res.status(200).send(result);
 
         } catch (error) {
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/products');
         }
         // Everything went fine.
     })
@@ -845,10 +850,9 @@ let updateProductImagePost = (req, res, next) => {
             }
 
         } catch (error) {
-            console.log(error);
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/products');
         }
         // Everything went fine.
     });
@@ -883,8 +887,9 @@ let deleteProductImage = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send('Lôi');
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 
@@ -899,14 +904,14 @@ let searchData = async (req, res, next) => {
         var result = {};
         await pool.query(queryBike, function (error, results, fields) {
             if (error) throw error;
-            console.log(results);
             result.results = results;
             return res.status(200).send(result);
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send('Lôi');
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 
@@ -961,8 +966,9 @@ let deleteProductController = async (req, res, next) => {
 
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/products');
     }
 }
 

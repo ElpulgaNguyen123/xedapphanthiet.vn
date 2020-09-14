@@ -79,8 +79,9 @@ let updateUserData = (req, res, next) => {
                 res.redirect(`/admin/user/${req.params.id}`);
             });
         } catch (error) {
-            console.log(error);
-            return res.status(500).send(error);
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin');
         }
         // Everything went fine.
     })
@@ -101,7 +102,6 @@ let updateUserAvatar = async (req, res, next) => {
         userItem.profile_instagram
         ], async function (error, rows, fields) {
             if (error) {
-                console.log(error);
                 return res.status(500).send(error);
             }
             return res.status(200).send(Transuccess.user_updated);
@@ -123,8 +123,9 @@ let getUser = async (req, res, next) => {
             user: user
         })
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin');
     }
 }
 

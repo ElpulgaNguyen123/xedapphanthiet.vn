@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="col-lg-8 col-md-12" id="lazy-container">
-          <form accept-charset="utf-8" action="/contact" id="contact" method="post" class="has-validation-callback">
+          <form accept-charset="utf-8" action="/lien-he/send-mail" id="contact_form" method="post" class="has-validation-callback">
             <div class="form-signup clearfix">
               <div class="row">
                 <div class="col-sm-4 col-xs-12">
@@ -101,14 +101,14 @@
                 <div class="col-sm-4 col-xs-12">
                   <fieldset class="form-group">
                     <label>Điện thoại<span class="required">*</span></label>
-                    <input placeholder="Nhập số điện thoại" type="tel" name="customer_phone" id="customer_phone" class="number-sidebar form-control"
+                    <input placeholder="Nhập số điện thoại" type="tel" minlength="10" name="customer_phone" id="customer_phone" class="number-sidebar form-control"
                       required=>
                   </fieldset>
                 </div>
                 <div class="col-sm-12 col-xs-12">
                   <fieldset class="form-group">
                     <label>Nội dung<span class="required">*</span></label>
-                    <textarea placeholder="Nội dung" name="customer_comment" id="customer_comment" class="form-control"
+                    <textarea placeholder="Nội dung" name="customer_content" id="customer_comment" class="form-control"
                       rows="5" required=""></textarea>
                   </fieldset>
                 </div>

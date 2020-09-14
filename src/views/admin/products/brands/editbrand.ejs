@@ -1,57 +1,55 @@
 <% extend("../../../admin.ejs") %>
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header card">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <i class="icofont icofont-file-code bg-c-blue"></i>
-                                <div class="d-inline">
-                                    <h4> <%= brand.name %> </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin" title="Trang chủ">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin/brands" title="Thương hiệu">
-                                            Thương hiệu
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><%= brand.name %>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4> <%= brand.name %> </h4>
                         </div>
                     </div>
                 </div>
-                <!-- Page-header end -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <% if(errors != ""){%>
-                            <% errors.forEach((item) => {%>
-                            <div class="alert alert-danger" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="/admin" title="Trang chủ">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/admin/brands" title="Thương hiệu">
+                                    Thương hiệu
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><%= brand.name %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <% if(errors != ""){%>
+                    <% errors.forEach((item) => {%>
+                    <div class="alert alert-danger" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                             <% if(success != ""){%>
-                            <% success.forEach((item) => {%>
-                            <div class="alert alert-success" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                    <% success.forEach((item) => {%>
+                    <div class="alert alert-success" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                         </div>
                         <div class="col-md-12 col-lg-4 col-xl-5">
                             <div class="card project-task">
@@ -59,99 +57,96 @@
                                     <div class="card-header-left ">
                                         <h4> <strong> <%= brand.name %></strong></h4>
 
-                        </div>
-                        <div class="card-header-right">
-                            <ul class="list-unstyled card-option">
-                                <li><i class="icofont icofont-simple-left "></i></li>
-                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                <li><i class="icofont icofont-error close-card"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <script>
-                        function to_slug(str, id) {
-                            // Chuyển hết sang chữ thường
-                            str = str.toLowerCase();
-                            // xóa dấu
-                            str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
-                            str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
-                            str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
-                            str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
-                            str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
-                            str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
-                            str = str.replace(/(đ)/g, 'd');
-                            // Xóa ký tự đặc biệt
-                            str = str.replace(/([^0-9a-z-\s])/g, '');
-                            // Xóa khoảng trắng thay bằng ký tự -
-                            str = str.replace(/(\s+)/g, '-');
-                            // xóa phần dự - ở đầu
-                            str = str.replace(/^-+/g, '');
-                            // xóa phần dư - ở cuối
-                            str = str.replace(/-+$/g, '');
-                            document.getElementById(id).value = str;
-                            // return
-                            return str;
-                        }
-                    </script>
-                    <div class="card-block p-b-10">
-                        <form id="brand-edit-form" action="/admin/brand/edit-brand/<%= brand.id %>" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group text-center">
-                                        <div class="image-border">
-                                            <% if(brand.image != '' && brand.image != null){ %>
-                                            <img class="sp_img_main" src="/public/uploads/brands/<%= brand.image %>"
-                                                alt="<%= brand.name %>">
-                                                <input type="hidden" name="brand_old_image" value="<%= brand.image %>">
-                                            <% } else{ %>
-                                            <img class="sp_img_main" src="/admin/images/example.png"
-                                                alt="<%= brand.name %>">
-                                            <% } %>
-                                            <button id="trigger_button"
-                                                class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
-                                                hình ảnh...</button>
-                                            <input type="file" id="brand_image" name="brand_image" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="brand_name">
-                                            <%= brand.name %>
-                                        </label>
-                                        <input type="text" name="brand_name" id="brand_name"
-                                            onkeyup="to_slug($(this).val(),'brand_slug')" value="<%= brand.name %>"
-                                            class="form-control" placeholder="Tên <%= brand.name %>" required>
-                                        <small class="form-text text-muted"><%= brand.name %>
-                                            sẽ xuất hiện ở
-                                            trên giao diện website của bạn </small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="brand_slug">
-                                            Slug
-                                        </label>
-                                        <input type="text" name="brand_slug" id="brand_slug" class="form-control"
-                                            placeholder="Slug" value="<%= brand.slug %>">
-                                        <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
-                                            ngắn gọn của tên <%= brand.name %>
-                                        </small>
-                                    </div>
+                </div>
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li><i class="icofont icofont-simple-left "></i></li>
+                        <li><i class="icofont icofont-maximize full-card"></i></li>
+                        <li><i class="icofont icofont-minus minimize-card"></i></li>
+                        <li><i class="icofont icofont-refresh reload-card"></i></li>
+                        <li><i class="icofont icofont-error close-card"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                function to_slug(str, id) {
+                    // Chuyển hết sang chữ thường
+                    str = str.toLowerCase();
+                    // xóa dấu
+                    str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                    str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                    str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                    str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                    str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                    str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                    str = str.replace(/(đ)/g, 'd');
+                    // Xóa ký tự đặc biệt
+                    str = str.replace(/([^0-9a-z-\s])/g, '');
+                    // Xóa khoảng trắng thay bằng ký tự -
+                    str = str.replace(/(\s+)/g, '-');
+                    // xóa phần dự - ở đầu
+                    str = str.replace(/^-+/g, '');
+                    // xóa phần dư - ở cuối
+                    str = str.replace(/-+$/g, '');
+                    document.getElementById(id).value = str;
+                    // return
+                    return str;
+                }
+            </script>
+            <div class="card-block p-b-10">
+                <form id="brand-edit-form" action="/admin/brand/edit-brand/<%= brand.id %>" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="form-group text-center">
+                                <div class="image-border">
+                                    <% if(brand.image != '' && brand.image != null){ %>
+                                    <img class="sp_img_main" src="/public/uploads/brands/<%= brand.image %>"
+                                        alt="<%= brand.name %>">
+                                    <input type="hidden" name="brand_old_image" value="<%= brand.image %>">
+                                    <% } else{ %>
+                                    <img class="sp_img_main" src="/admin/images/example.png" alt="<%= brand.name %>">
+                                    <% } %>
+                                    <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                        hình ảnh...</button>
+                                    <input type="file" id="brand_image" name="brand_image" />
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-grd-success mt-3">Lưu lại</button>
-                        </form>
+                            <div class="form-group">
+                                <label class="font-weight-bold col-form-label" for="brand_name">
+                                    <%= brand.name %>
+                                </label>
+                                <input type="text" name="brand_name" id="brand_name"
+                                    onkeyup="to_slug($(this).val(),'brand_slug')" value="<%= brand.name %>"
+                                    class="form-control" placeholder="Tên <%= brand.name %>" required>
+                                <small class="form-text text-muted"><%= brand.name %>
+                                    sẽ xuất hiện ở
+                                    trên giao diện website của bạn </small>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold col-form-label" for="brand_slug">
+                                    Slug
+                                </label>
+                                <input type="text" name="brand_slug" id="brand_slug" class="form-control"
+                                    placeholder="Slug" value="<%= brand.slug %>">
+                                <small class="form-text text-muted"> Slug là đường dẫn thân thiện và
+                                    ngắn gọn của tên <%= brand.name %>
+                                </small>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-grd-success mt-3">Lưu lại</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+</div>
+</div>
 <div id="styleSelector">
 </div>
 </div>
-</div>
-</div>
+
 <script>
 
 

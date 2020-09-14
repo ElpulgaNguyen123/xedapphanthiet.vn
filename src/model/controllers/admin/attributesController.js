@@ -14,7 +14,7 @@ let getAllAttribute = async (req, res, next) => {
         FROM attributes 
         LEFT JOIN attribute_group 
         ON attributes.attribute_group_id=attribute_group.id`;
-        
+
         // Lấy tất cả sản phẩm và hiển thị ra table
         pool.query(query, async function (error, results_01, fields) {
             if (error) throw error;
@@ -40,7 +40,7 @@ let getAllAttribute = async (req, res, next) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).send(error);
+        return res.redirect('/attributes')
     }
 }
 // get all products end
@@ -67,7 +67,7 @@ let postAddAttribute = async (req, res, next) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).send(error);
+        return res.redirect('/attributes');
     }
 }
 // add more attribute products // end
@@ -111,8 +111,9 @@ let getEditAttribute = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/attribute');
     }
 }
 // get more attribute products // end
@@ -143,8 +144,9 @@ let postEditAttribute = async (req, res, next) => {
             res.redirect('/admin/attribute/edit-attribute/' + req.params.id);
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/attribute');
     }
 }
 // add more attribute products method post // end
@@ -182,7 +184,7 @@ let postDeleteAttribute = async (req, res, next) => {
             res.redirect('/admin/attributes');
         }
     } catch (error) {
-        arrayError.push('Không thể xóa');
+        arrayError.push('Có lỗi xảy ra');
         req.flash('errors', arrayError);
         res.redirect('/admin/attribute');
     }
@@ -208,8 +210,9 @@ let postAddAttributeValue = async (req, res, next) => {
             res.redirect('/admin/attribute/edit-attribute/' + req.params.id);
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/attribute');
     }
 }
 // add attribute value products // end
@@ -231,8 +234,9 @@ let postDeleteAttributeValue = async (req, res, next) => {
             res.redirect('/admin/attribute/edit-attribute/' + id_attribute);
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/attribute');
     }
 }
 // delete attribute value products // end

@@ -41,8 +41,9 @@ let homeController = async (req, res, next) => {
             user: user
         })
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin');
     }
 }
 module.exports = homeController;

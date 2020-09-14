@@ -1,179 +1,172 @@
 <% extend("../../../admin.ejs") %>
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header card">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <i class="icofont icofont-file-code bg-c-blue"></i>
-                                <div class="d-inline">
-                                    <h4> <%= title %> </h4>
-                                    <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.html">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="/admin/blog">Danh sách bài viết</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><%= title %>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4> <%= title %> </h4>
+                            <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
                         </div>
                     </div>
                 </div>
-                <!-- Page-header end -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-md-12 col-xl-9">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3> <Strong> Thêm bài viết </Strong></h3>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="icofont icofont-simple-left "></i></li>
-                                            <li><i class="icofont icofont-maximize full-card"></i></li>
-                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                            <li><i class="icofont icofont-error close-card"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-block table-border-style mt-2">
-                                    <div class="col-md-12 col-xl-12">
-                                        <div class="update-avatar-form">
-                                            <div class="row">
-                                                <script>
-                                                    function to_slug(str) {
-                                                        // Chuyển hết sang chữ thường
-                                                        str = str.toLowerCase();
-                                                        // xóa dấu
-                                                        str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
-                                                        str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
-                                                        str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
-                                                        str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
-                                                        str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
-                                                        str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
-                                                        str = str.replace(/(đ)/g, 'd');
-                                                        // Xóa ký tự đặc biệt
-                                                        str = str.replace(/([^0-9a-z-\s])/g, '');
-                                                        // Xóa khoảng trắng thay bằng ký tự -
-                                                        str = str.replace(/(\s+)/g, '-');
-                                                        // xóa phần dự - ở đầu
-                                                        str = str.replace(/^-+/g, '');
-                                                        // xóa phần dư - ở cuối
-                                                        str = str.replace(/-+$/g, '');
-                                                        // return
-                                                        document.getElementById('product_slug').value = str;
-                                                        document.getElementById('product_meta_title').value = str;
-                                                        document.getElementById('product_meta_keyword').value = str;
-                                                        document.getElementById('product_meta_description').value = str;
-                                                        return str;
-                                                    }
-                                                </script>
-                                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    <form action="/admin/blog/add-blog" id="blog_form" method="POST"
-                                                        enctype="multipart/form-data">
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-md-12">
-                                                                <div class="form-group text-center mb-5">
-                                                                    <div class="image-border">
-                                                                        <label class="font-weight-bold col-form-label"
-                                                                            for="blog_image">
-                                                                            Chọn hình ảnh đại diện bài viết
-                                                                        </label>
-                                                                        <div class="avatar-change">
-                                                                            <img id="image-avatar-preview" src=""
-                                                                                alt="">
-                                                                        </div>
-                                                                        <button id="trigger_button"
-                                                                            class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
-                                                                            hình ảnh...</button>
-                                                                        <input type="file" id="blog_image"
-                                                                            name="blog_image" required />
-                                                                    </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="/admin/blog">Danh sách bài viết</a>
+                            </li>
+                            <li class="breadcrumb-item"><%= title %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-md-12 col-xl-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3> <Strong> Thêm bài viết </Strong></h3>
+                            <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                    <li><i class="icofont icofont-simple-left "></i></li>
+                                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                    <li><i class="icofont icofont-error close-card"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-block table-border-style mt-2">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="update-avatar-form">
+                                    <div class="row">
+                                        <script>
+                                            function to_slug(str) {
+                                                // Chuyển hết sang chữ thường
+                                                str = str.toLowerCase();
+                                                // xóa dấu
+                                                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                                str = str.replace(/(đ)/g, 'd');
+                                                // Xóa ký tự đặc biệt
+                                                str = str.replace(/([^0-9a-z-\s])/g, '');
+                                                // Xóa khoảng trắng thay bằng ký tự -
+                                                str = str.replace(/(\s+)/g, '-');
+                                                // xóa phần dự - ở đầu
+                                                str = str.replace(/^-+/g, '');
+                                                // xóa phần dư - ở cuối
+                                                str = str.replace(/-+$/g, '');
+                                                // return
+                                                document.getElementById('product_slug').value = str;
+                                                document.getElementById('product_meta_title').value = str;
+                                                document.getElementById('product_meta_keyword').value = str;
+                                                document.getElementById('product_meta_description').value = str;
+                                                return str;
+                                            }
+                                        </script>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <form action="/admin/blog/add-blog" id="blog_form" method="POST"
+                                                enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <div class="form-group text-center mb-5">
+                                                            <div class="image-border">
+                                                                <label class="font-weight-bold col-form-label"
+                                                                    for="blog_image">
+                                                                    Chọn hình ảnh đại diện bài viết
+                                                                </label>
+                                                                <div class="avatar-change">
+                                                                    <img id="image-avatar-preview" src="" alt="">
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" name="blog_title" id="blog_title"
-                                                                         onkeyup="to_slug($(this).val())"
-                                                                        class="form-control write_title"
-                                                                        placeholder="Nhập tiêu đề" required>
-
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" name="blog_slug" id="blog_slug"
-                                                                        class="form-control write_title write_title_small"
-                                                                        placeholder="Slug" readonly required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" name="blog_author" id="blog_author"
-                                                                        class="form-control write_title write_title_small"
-                                                                        placeholder="Tác giả">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="font-weight-bold"
-                                                                        for="short_description">
-                                                                        Mô tả ngắn </label>
-                                                                    <input type="text" name="short_description"
-                                                                        id="short_description" class="form-control"
-                                                                        placeholder="Mô tả ngắn" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="font-weight-bold"
-                                                                        for="blog_content">
-                                                                        Mô tả
-                                                                    </label>
-                                                                    <textarea id="summernote" id="blog_content"
-                                                                        name="blog_content"></textarea>
-                                                                </div>
-                                                                <script>
-                                                                    function to_slug(str) {
-                                                                        // Chuyển hết sang chữ thường
-                                                                        str = str.toLowerCase();
-                                                                        // xóa dấu
-                                                                        str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
-                                                                        str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
-                                                                        str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
-                                                                        str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
-                                                                        str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
-                                                                        str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
-                                                                        str = str.replace(/(đ)/g, 'd');
-
-                                                                        // Xóa ký tự đặc biệt
-                                                                        str = str.replace(/([^0-9a-z-\s])/g, '');
-
-                                                                        // Xóa khoảng trắng thay bằng ký tự -
-                                                                        str = str.replace(/(\s+)/g, '-');
-
-                                                                        // xóa phần dự - ở đầu
-                                                                        str = str.replace(/^-+/g, '');
-
-                                                                        // xóa phần dư - ở cuối
-                                                                        str = str.replace(/-+$/g, '');
-                                                                        document.getElementById('blog_slug').value = str;
-                                                                        // return
-                                                                        return str;
-                                                                    }
-                                                                </script>
+                                                                <button id="trigger_button"
+                                                                    class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                                                    hình ảnh...</button>
+                                                                <input type="file" id="blog_image" name="blog_image"
+                                                                    required />
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-grd-success mt-3">Thêm
-                                                            vào</button>
-                                                    </form>
+                                                        <div class="form-group">
+                                                            <input type="text" name="blog_title" id="blog_title"
+                                                                onkeyup="to_slug($(this).val())"
+                                                                class="form-control write_title"
+                                                                placeholder="Nhập tiêu đề" required>
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="blog_slug" id="blog_slug"
+                                                                class="form-control write_title write_title_small"
+                                                                placeholder="Slug" readonly required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="blog_author" id="blog_author"
+                                                                class="form-control write_title write_title_small"
+                                                                placeholder="Tác giả">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" for="short_description">
+                                                                Mô tả ngắn </label>
+                                                            <input type="text" name="short_description"
+                                                                id="short_description" class="form-control"
+                                                                placeholder="Mô tả ngắn" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" for="blog_content">
+                                                                Mô tả
+                                                            </label>
+                                                            <textarea id="summernote" id="blog_content"
+                                                                name="blog_content"></textarea>
+                                                        </div>
+                                                        <script>
+                                                            function to_slug(str) {
+                                                                // Chuyển hết sang chữ thường
+                                                                str = str.toLowerCase();
+                                                                // xóa dấu
+                                                                str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+                                                                str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+                                                                str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+                                                                str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+                                                                str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+                                                                str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+                                                                str = str.replace(/(đ)/g, 'd');
+
+                                                                // Xóa ký tự đặc biệt
+                                                                str = str.replace(/([^0-9a-z-\s])/g, '');
+
+                                                                // Xóa khoảng trắng thay bằng ký tự -
+                                                                str = str.replace(/(\s+)/g, '-');
+
+                                                                // xóa phần dự - ở đầu
+                                                                str = str.replace(/^-+/g, '');
+
+                                                                // xóa phần dư - ở cuối
+                                                                str = str.replace(/-+$/g, '');
+                                                                document.getElementById('blog_slug').value = str;
+                                                                // return
+                                                                return str;
+                                                            }
+                                                        </script>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <button type="submit" class="btn btn-grd-success mt-3">Thêm
+                                                    vào</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -182,9 +175,9 @@
                     </div>
                 </div>
             </div>
-            <div id="styleSelector">
-            </div>
         </div>
+    </div>
+    <div id="styleSelector">
     </div>
 </div>
 <script>

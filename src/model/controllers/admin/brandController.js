@@ -38,8 +38,9 @@ let getAllBrand = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/brands');
     }
 }
 
@@ -76,10 +77,9 @@ let addBrandImage = (req, res, next) => {
                 res.redirect('/admin/brands');
             });
         } catch (error) {
-            console.log(error);
-            res.render('admin/notfound/notfound', {
-                title: 'Trang Không tìm thấy'
-            });
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/brands');
         }
     })
 }
@@ -101,8 +101,9 @@ let getEditBrand = async (req, res, next) => {
             });
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/brands');
     }
 }
 // lấy thông tin chỉnh sửa thương hiệu gửi lên update lên server
@@ -150,7 +151,9 @@ let postEditBrand = (req, res, next) => {
                 res.redirect('/admin/brands');
             });
         } catch (error) {
-            console.log(error);
+            arrayError.push('Có lỗi xảy ra');
+            req.flash('errors', arrayError);
+            res.redirect('/admin/brands');
         }
     })
 }
@@ -185,8 +188,9 @@ let postDeleteBrand = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
+        arrayError.push('Có lỗi xảy ra');
+        req.flash('errors', arrayError);
+        res.redirect('/admin/brands');
     }
 }
 

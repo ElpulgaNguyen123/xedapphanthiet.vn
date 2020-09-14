@@ -1,70 +1,71 @@
 let tranvalidation_register = {
-    email_incorrect: 'Vui lòng nhập email theo đúng cú pháp example@gmail.com',
-    gender_incorrect: 'Vui lòng chọn giới tính',
-    password_incorrect: "Mật khẩu bao gồm số và chữ viết hoa và phải hơn 6 số !",
-    password_confirm_incorrect: "Mật khẩu nhập lại phải giống với mật khẩu bên trên !"
+  email_incorrect: 'Vui lòng nhập email theo đúng cú pháp example@gmail.com',
+  gender_incorrect: 'Vui lòng chọn giới tính',
+  password_incorrect: "Mật khẩu bao gồm số và chữ viết hoa và phải hơn 6 số !",
+  password_confirm_incorrect: "Mật khẩu nhập lại phải giống với mật khẩu bên trên !"
 }
 let tranvalidation_resetPassword = {
-    email_notavailable:'Email này chưa được đăng ký, vui lòng nhập',
-    email_incorrect: 'Vui lòng nhập email theo đúng cú pháp example@gmail.com',
-    email_correct: '1 Email đã được gửi cho bạn, Vui lòng đăng nhập email xác nhận !',
-    password_incorrect: "Mật khẩu bao gồm số và chữ viết hoa và phải hơn 6 số !",
-    password_confirm_incorrect: "Mật khẩu nhập lại phải giống với mật khẩu bên trên !",
+  email_notavailable: 'Email này chưa được đăng ký, vui lòng nhập',
+  email_incorrect: 'Vui lòng nhập email theo đúng cú pháp example@gmail.com',
+  email_correct: '1 Email đã được gửi cho bạn, Vui lòng đăng nhập email xác nhận !',
+  password_incorrect: "Mật khẩu bao gồm số và chữ viết hoa và phải hơn 6 số !",
+  password_confirm_incorrect: "Mật khẩu nhập lại phải giống với mật khẩu bên trên !",
 }
 let TranProductSuccess = {
-    createNewSuccess : 'Thêm mới sản phẩm thành công !',
-    deleteProducts : 'Xóa sản phẩm thành công !',
-    editSuccess : 'Sửa sản phẩm thành công !',
+  createNewSuccess: 'Thêm mới sản phẩm thành công !',
+  deleteProducts: 'Xóa sản phẩm thành công !',
+  editSuccess: 'Sửa sản phẩm thành công !',
 }
 let TranAuthSuccess = {
-    createNewAccountsuccess : 'Tạo tài khoản thành công !, vui lòng đăng nhập email để xác nhận !',
+  createNewAccountsuccess: 'Tạo tài khoản thành công !, vui lòng đăng nhập email để xác nhận !',
 }
 let Tranerrors = {
-    user_created_errors: 'Đăng ký lỗi !',
-    user_email_inuse: 'Email này đã được sử dụng, vui lòng kiểm tra nếu chưa kích hoạt',
-    account_removed: 'Tài khoản email này đã bị khóa và xóa khỏi hệ thống, vui lòng liên hệ bộ phận hỗ trợ.',
-    account_notActive: 'Email này đã được đăng ký nhưng chưa kích hoạt, vui lòng kiểm tra email để kích hoạt tài khoản.',
-    account_undefind : "Token không tồn tại !",
-    login_failed : 'Mật khẩu hoặc tài khoản không đúng',
-    server_error : 'Server lỗi !',
-    Login_success : 'Đăng nhập thành công !',
-    hasErrors : 'Có lỗi xảy ra',
-    emailinvalid: 'Email này không tồn tại, vui lòng nhập lại !',
-    userinvalid: 'Tài khoản này không tồn tại'
+  user_created_errors: 'Đăng ký lỗi !',
+  user_email_inuse: 'Email này đã được sử dụng, vui lòng kiểm tra nếu chưa kích hoạt',
+  account_removed: 'Tài khoản email này đã bị khóa và xóa khỏi hệ thống, vui lòng liên hệ bộ phận hỗ trợ.',
+  account_notActive: 'Email này đã được đăng ký nhưng chưa kích hoạt, vui lòng kiểm tra email để kích hoạt tài khoản.',
+  account_undefind: "Token không tồn tại !",
+  login_failed: 'Mật khẩu hoặc tài khoản không đúng',
+  server_error: 'Server lỗi !',
+  Login_success: 'Đăng nhập thành công !',
+  hasErrors: 'Có lỗi xảy ra',
+  emailinvalid: 'Email này không tồn tại, vui lòng nhập lại !',
+  userinvalid: 'Tài khoản này không tồn tại'
 
 }
 let Transuccess = {
-    user_created: function (username) {
-        return `Chào mừng ${username}, Đăng ký tài khoản thành công !`;
-    },
-    account_remind_active : 'Vui lòng vào email để kích hoạt tài khoản',
-    account_actived : 'Kích hoạt tài khoản thành công, bạn có thể đăng nhập vào ứng dụng',
-    logout_success : 'Đăng xuất thành công !',
-    user_updated : 'Cập nhật thành công',
-    product_updated : 'Cập nhật sản phẩm thành công',
-    reset_passwordsendsuccess:'Email reset password đã được gửi, vui lòng đến email để reset password',
-    reset_passwordsuccess : 'Đổi mật khẩu thành công !',
-    userinfoNotChange : 'Không có sự thay đổi nào !',
-    createSuccess : function (text){
-      return `Thêm ${text} thành công !`;
-    },
-    saveSuccess : function (text){
-      return `Lưu ${text} thành công !`;
-    },
-    deleteSuccess : function (text){
-      return `Xóa ${text} thành công !`;
-    }
+  user_created: function (username) {
+    return `Chào mừng ${username}, Đăng ký tài khoản thành công !`;
+  },
+  account_remind_active: 'Vui lòng vào email để kích hoạt tài khoản',
+  account_actived: 'Kích hoạt tài khoản thành công, bạn có thể đăng nhập vào ứng dụng',
+  logout_success: 'Đăng xuất thành công !',
+  user_updated: 'Cập nhật thành công',
+  product_updated: 'Cập nhật sản phẩm thành công',
+  reset_passwordsendsuccess: 'Email reset password đã được gửi, vui lòng đến email để reset password',
+  reset_passwordsuccess: 'Đổi mật khẩu thành công !',
+  userinfoNotChange: 'Không có sự thay đổi nào !',
+  createSuccess: function (text) {
+    return `Thêm ${text} thành công !`;
+  },
+  saveSuccess: function (text) {
+    return `Lưu ${text} thành công !`;
+  },
+  deleteSuccess: function (text) {
+    return `Xóa ${text} thành công !`;
+  }
 }
 let tranMail = {
-    subject: "Xe Đạp Phương Đông : Xác nhận tài khoản !",
-    template: (linkverify) => {
-        return `<h2> Bạn nhận được email này và đã đăng ký tài khoản trên ứng dụng Funny chat. </h2>
+  subject: "Xe Đạp Phương Đông : Xác nhận tài khoản !",
+  sendmailSubject : 'Gửi xe đạp Phương Đông',
+  template: (linkverify) => {
+    return `<h2> Bạn nhận được email này và đã đăng ký tài khoản trên ứng dụng Funny chat. </h2>
         <h3> Vui lòng click vào liên kết bên dưới để kích hoạt tài khoản. </h3>
         <h3> <a href="${linkverify}" target=""blank> ${linkverify} </h3>
         <p> Nếu tin rằng email này là nhầm lẫn, hãy bỏ qua nó ! </p>`
-    },
-    templateResetPass: (linkverify) => {
-        return `<style type="text/css">    
+  },
+  templateResetPass: (linkverify) => {
+    return `<style type="text/css">    
         /* CLIENT-SPECIFIC STYLES */
         body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
         table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
@@ -259,17 +260,25 @@ let tranMail = {
             </td>
         </tr>
     </table>`
-    },
-    send_success : 'Gửi mail thành công. chúng tôi sẽ phản hồi ngay !',
-    send_failed: "Có lỗi, vui lòng liên hệ vơi bộ phận hỗ trợ để được giúp đỡ !"
+  },
+  sendmailInfo:(user) => {
+  return `<ul class="list-group">
+      <li class="list-group-item"><strong>Họ tên : </strong> ${user.name}</li>
+      <li class="list-group-item"><strong>Điện thoại : </strong> ${user.phone}</li>
+      <li class="list-group-item"><strong>Email : </strong>${user.email}</li>
+      <li class="list-group-item"><strong>Nội dung : </strong>${user.content}</li>
+    </ul>`
+},
+send_success: 'Gửi mail thành công. chúng tôi sẽ phản hồi ngay !',
+  send_failed: "Có lỗi, vui lòng liên hệ vơi bộ phận hỗ trợ để được giúp đỡ !"
 }
 
 module.exports = {
-    tranvalidation_register,
-    TranProductSuccess,
-    Tranerrors,
-    TranAuthSuccess,
-    tranMail,
-    Transuccess,
-    tranvalidation_resetPassword
+  tranvalidation_register,
+  TranProductSuccess,
+  Tranerrors,
+  TranAuthSuccess,
+  tranMail,
+  Transuccess,
+  tranvalidation_resetPassword
 }   

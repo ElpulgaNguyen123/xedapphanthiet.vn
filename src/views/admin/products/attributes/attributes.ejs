@@ -1,52 +1,50 @@
 <% extend("../../../admin.ejs") %>
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header card">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <i class="icofont icofont-file-code bg-c-blue"></i>
-                                <div class="d-inline">
-                                    <h4> <%= title %> </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin" title="Trang chủ">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><%= title %>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4> <%= title %> </h4>
                         </div>
                     </div>
                 </div>
-                <!-- Page-header end -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <% if(errors != ""){%>
-                            <% errors.forEach((item) => {%>
-                            <div class="alert alert-danger" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="/admin" title="Trang chủ">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><%= title %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <% if(errors != ""){%>
+                    <% errors.forEach((item) => {%>
+                    <div class="alert alert-danger" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                             <% if(success != ""){%>
-                            <% success.forEach((item) => {%>
-                            <div class="alert alert-success" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                    <% success.forEach((item) => {%>
+                    <div class="alert alert-success" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                         </div>
                         <div class="col-md-12 col-lg-4 col-xl-4">
                             <div class="card project-task">
@@ -130,37 +128,37 @@
                                                             name="attribute_group_id" id="attribute_group_id">
                                                             
                                                             <% attribute_groups.forEach(function(item, index){ %>
-                            <option value="<%= item.id %>">
-                                <%= item.attribute_group_name %>
-                            </option>
-                            <%})%>
-                            </select>
+                    <option value="<%= item.id %>">
+                        <%= item.attribute_group_name %>
+                    </option>
+                    <%})%>
+                    </select>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12">
-                        <div class="row">
-                            <label class="font-weight-bold col-form-label" for="attribute_type_id">
-                                Chọn loại thuộc tính
-                            </label>
-                            <select class="form-control custom-select col-md-12 mb-3" name="attribute_type_id"
-                                id="attribute_type_id">
-
-                                <% attribute_types.forEach(function(item, index){ %>
-                                <option value="<%= item.id %>">
-                                    <%= item.attribute_type_name %>
-                                </option>
-                                <%})%>
-                            </select>
-
-                        </div>
-                    </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-grd-success mt-3">Thêm thuộc tính</button>
-            </form>
+            <div class="form-group col-sm-12">
+                <div class="row">
+                    <label class="font-weight-bold col-form-label" for="attribute_type_id">
+                        Chọn loại thuộc tính
+                    </label>
+                    <select class="form-control custom-select col-md-12 mb-3" name="attribute_type_id"
+                        id="attribute_type_id">
+
+                        <% attribute_types.forEach(function(item, index){ %>
+                        <option value="<%= item.id %>">
+                            <%= item.attribute_type_name %>
+                        </option>
+                        <%})%>
+                    </select>
+
+                </div>
+            </div>
         </div>
     </div>
+    <button type="submit" class="btn btn-grd-success mt-3">Thêm thuộc tính</button>
+    </form>
+</div>
+</div>
 </div>
 <div class="col-md-12 col-lg-8 col-xl-8">
     <div class="card">
@@ -229,8 +227,6 @@
 </div>
 </div>
 <div id="styleSelector">
-</div>
-</div>
 </div>
 </div>
 <script>

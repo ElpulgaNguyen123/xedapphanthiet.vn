@@ -5,6 +5,7 @@ var controller = require('../model/controllers/frontendController');
 frontendRouter.get('/', controller.FrhomeController);
 frontendRouter.get('/gioi-thieu', controller.FrAboutController);
 frontendRouter.get('/lien-he', controller.FrContactController);
+frontendRouter.post('/lien-he/send-mail', controller.FrSendmailController);
 
 
 frontendRouter.get('/blog', controller.FrBlogController);

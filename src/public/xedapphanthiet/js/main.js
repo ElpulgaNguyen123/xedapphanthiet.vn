@@ -9,7 +9,7 @@ $(function () {
         loop: true,
         margin: 10,
         nav: true,
-        dots:true,
+        dots: true,
         animateOut: 'fadeOut',
         smartSpeed: 450,
         navText: [
@@ -22,17 +22,17 @@ $(function () {
             0: {
                 items: 1,
                 nav: true,
-                dost:true
+                dost: true
             },
             600: {
                 items: 1,
                 nav: true,
-                dost:true
+                dost: true
             },
             1000: {
                 items: 1,
                 nav: true,
-                dost:true
+                dost: true
             }
         }
     });
@@ -171,19 +171,19 @@ $(function () {
     $('.soph__title').css("background-color", random_color)
     /*---------- tittle backgroud randome / end  ----------*/
 
-     /*---------- Filter button / start  ----------*/
-     
-     $('.filter-button').on('click', function(){
+    /*---------- Filter button / start  ----------*/
+
+    $('.filter-button').on('click', function () {
         $('.sidebar__right').addClass('showed');
         $('.bg_grey').addClass('showed');
-     });
+    });
 
-     $('.bg_grey').on('click', function(){
+    $('.bg_grey').on('click', function () {
         $('.sidebar__right').removeClass('showed');
         $(this).removeClass('showed');
-     })
+    });
 
-     /*---------- tFilter button / end  ----------*/
+    /*---------- tFilter button / end  ----------*/
 })
 
 

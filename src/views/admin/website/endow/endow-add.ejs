@@ -1,102 +1,96 @@
 <% extend("../../../admin.ejs") %>
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header card">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <i class="icofont icofont-file-code bg-c-blue"></i>
-                                <div class="d-inline">
-                                    <h4> <%= title %> </h4>
-                                    <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.html">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="/admin/endow">Danh sách ưu đãi</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><%= title %>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4> <%= title %> </h4>
+                            <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
                         </div>
                     </div>
                 </div>
-                <!-- Page-header end -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-md-12 col-xl-9">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3> <Strong> <%= title %> </Strong></h3>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="icofont icofont-simple-left "></i></li>
-                                            <li><i class="icofont icofont-maximize full-card"></i></li>
-                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                            <li><i class="icofont icofont-error close-card"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-block table-border-style mt-2">
-                                    <div class="col-md-12 col-xl-12">
-                                        <div class="update-avatar-form">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    <form action="/admin/endow/add-endow" id="endow_form" method="POST"
-                                                        enctype="multipart/form-data">
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-md-12">
-                                                                <div class="form-group text-center mb-5">
-                                                                    <div class="image-border">
-                                                                        <label class="font-weight-bold col-form-label"
-                                                                            for="endow_image">
-                                                                            Chọn icons đại diện ưu đãi
-                                                                        </label>
-                                                                        <div class="avatar-change">
-                                                                            <img id="image-avatar-preview" src=""
-                                                                                alt="">
-                                                                        </div>
-                                                                        <button id="trigger_button"
-                                                                            class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
-                                                                            hình ảnh...</button>
-                                                                        <input type="file" id="endow_image"
-                                                                            name="endow_image" required />
-                                                                    </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="/admin">Trang chủ</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="/admin/endow">Danh sách ưu đãi</a>
+                            </li>
+                            <li class="breadcrumb-item"><%= title %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-md-12 col-xl-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3> <Strong> <%= title %> </Strong></h3>
+                            <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                    <li><i class="icofont icofont-simple-left "></i></li>
+                                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                    <li><i class="icofont icofont-error close-card"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-block table-border-style mt-2">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="update-avatar-form">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <form action="/admin/endow/add-endow" id="endow_form" method="POST"
+                                                enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <div class="form-group text-center mb-5">
+                                                            <div class="image-border">
+                                                                <label class="font-weight-bold col-form-label"
+                                                                    for="endow_image">
+                                                                    Chọn icons đại diện ưu đãi
+                                                                </label>
+                                                                <div class="avatar-change">
+                                                                    <img id="image-avatar-preview" src="" alt="">
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" name="endow_title" id="endow_title"
-                                                                        class="form-control write_title"
-                                                                        placeholder="Nhập tiêu đề" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="font-weight-bold"
-                                                                        for="short_description">
-                                                                        Mô tả ngắn </label>
-                                                                    <textarea type="text" name="endow_description"
-                                                                        id="endow_description" class="form-control"
-                                                                        placeholder="Mô tả ngắn" required></textarea>
-                                                                </div>
+                                                                <button id="trigger_button"
+                                                                    class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                                                    hình ảnh...</button>
+                                                                <input type="file" id="endow_image" name="endow_image"
+                                                                    required />
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-grd-success mt-3">Thêm
-                                                            vào</button>
-                                                    </form>
+                                                        <div class="form-group">
+                                                            <input type="text" name="endow_title" id="endow_title"
+                                                                class="form-control write_title"
+                                                                placeholder="Nhập tiêu đề" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold" for="short_description">
+                                                                Mô tả ngắn </label>
+                                                            <textarea type="text" name="endow_description"
+                                                                id="endow_description" class="form-control"
+                                                                placeholder="Mô tả ngắn" required></textarea>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <button type="submit" class="btn btn-grd-success mt-3">Thêm
+                                                    vào</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -105,9 +99,9 @@
                     </div>
                 </div>
             </div>
-            <div id="styleSelector">
-            </div>
         </div>
+    </div>
+    <div id="styleSelector">
     </div>
 </div>
 <script>

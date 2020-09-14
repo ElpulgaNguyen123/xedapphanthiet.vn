@@ -1,57 +1,55 @@
 <% extend("../../../admin.ejs") %>
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header card">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <i class="icofont icofont-file-code bg-c-blue"></i>
-                                <div class="d-inline">
-                                    <h4> <%= endow.name %> </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin" title="Trang chủ">
-                                            <i class="icofont icofont-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="/admin/endow" title="<%= title %>">
-                                            <%= title %>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><%= endow.title %>
-                                    </li>
-                                </ul>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4> <%= endow.name %> </h4>
                         </div>
                     </div>
                 </div>
-                <!-- Page-header end -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <% if(errors != ""){%>
-                            <% errors.forEach((item) => {%>
-                            <div class="alert alert-danger" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="/admin" title="Trang chủ">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/admin/endow" title="<%= title %>">
+                                    <%= title %>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><%= endow.title %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <% if(errors != ""){%>
+                    <% errors.forEach((item) => {%>
+                    <div class="alert alert-danger" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                             <% if(success != ""){%>
-                            <% success.forEach((item) => {%>
-                            <div class="alert alert-success" role="alert">
-                                <strong class="alert-link"><%- item %></strong>.
-                            </div>
-                            <%})%>
-                            <%}%>
+                    <% success.forEach((item) => {%>
+                    <div class="alert alert-success" role="alert">
+                        <strong class="alert-link"><%- item %></strong>.
+                    </div>
+                    <%})%>
+                    <%}%>
                         </div>
                         <div class="col-md-12 col-lg-12 col-xl-12">
                             <div class="card project-task">
@@ -59,66 +57,62 @@
                                     <div class="card-header-left ">
                                         <h4> <strong> <%= endow.title %></strong></h4>
 
-                        </div>
-                        <div class="card-header-right">
-                            <ul class="list-unstyled card-option">
-                                <li><i class="icofont icofont-simple-left "></i></li>
-                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                <li><i class="icofont icofont-error close-card"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-block p-b-10">
-                        <form id="endow_edit_form" action="/admin/endow/edit-endow/<%= endow.id %>" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xs-8 col-md-8">
-                                    <div class="form-group text-center">
-                                        <div class="image-border endow_image">
-                                            <% if(endow.image != '' && endow.image != null){ %>
-                                            <img class="sp_img_main" src="/public/uploads/endows/<%= endow.image %>"
-                                                alt="<%= endow.title %>">
-                                            <input type="hidden" name="endow_old_image" value="<%= endow.image %>">
-                                            <% } else{ %>
-                                            <img class="sp_img_main" src="/admin/images/example.png"
-                                                alt="<%= endow.name %>">
-                                            <% } %>
-                                            <button id="trigger_button"
-                                                class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
-                                                hình ảnh...</button>
-                                            <input type="file" id="endow_image" name="endow_image" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold col-form-label" for="endow_title">
-                                            Title
-                                        </label>
-                                        <textarea type="text" name="endow_title" id="endow_title"
-                                            class="form-control write_title"
-                                            placeholder="Tên <%= endow.title %>" required> <%= endow.title %> </textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold" for="endow_description">
-                                            Mô tả ngắn </label>
-                                        <textarea type="text" name="endow_description" id="endow_description"
-                                            class="form-control write_title write_title_small" rows="4"
-                                            placeholder="Mô tả ngắn" required> <%= endow.description %> </textarea>
-                                    </div>
+                </div>
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li><i class="icofont icofont-simple-left "></i></li>
+                        <li><i class="icofont icofont-maximize full-card"></i></li>
+                        <li><i class="icofont icofont-minus minimize-card"></i></li>
+                        <li><i class="icofont icofont-refresh reload-card"></i></li>
+                        <li><i class="icofont icofont-error close-card"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-block p-b-10">
+                <form id="endow_edit_form" action="/admin/endow/edit-endow/<%= endow.id %>" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xs-8 col-md-8">
+                            <div class="form-group text-center">
+                                <div class="image-border endow_image">
+                                    <% if(endow.image != '' && endow.image != null){ %>
+                                    <img class="sp_img_main" src="/public/uploads/endows/<%= endow.image %>"
+                                        alt="<%= endow.title %>">
+                                    <input type="hidden" name="endow_old_image" value="<%= endow.image %>">
+                                    <% } else{ %>
+                                    <img class="sp_img_main" src="/admin/images/example.png" alt="<%= endow.name %>">
+                                    <% } %>
+                                    <button id="trigger_button" class="btn btn-out-dotted btn-grd-primary mt-4">Chọn
+                                        hình ảnh...</button>
+                                    <input type="file" id="endow_image" name="endow_image" />
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-grd-success mt-3">Lưu lại</button>
-                        </form>
+                            <div class="form-group">
+                                <label class="font-weight-bold col-form-label" for="endow_title">
+                                    Title
+                                </label>
+                                <textarea type="text" name="endow_title" id="endow_title"
+                                    class="form-control write_title" placeholder="Tên <%= endow.title %>"
+                                    required> <%= endow.title %> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="endow_description">
+                                    Mô tả ngắn </label>
+                                <textarea type="text" name="endow_description" id="endow_description"
+                                    class="form-control write_title write_title_small" rows="4" placeholder="Mô tả ngắn"
+                                    required> <%= endow.description %> </textarea>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-grd-success mt-3">Lưu lại</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+</div>
+</div>
 <div id="styleSelector">
-</div>
-</div>
 </div>
 </div>
 <script>
