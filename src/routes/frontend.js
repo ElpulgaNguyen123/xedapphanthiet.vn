@@ -15,7 +15,7 @@ frontendRouter.get('/xe-dap/danh-muc/*.:iddanhmuc', controller.getAllBikeCategor
 frontendRouter.get('/xe-dap/thuong-hieu/*.:idthuonghieu', controller.getAllBikeBrand);
 frontendRouter.get('/xe-dap/giam-dan', controller.FrBikeController);
 frontendRouter.get('/xe-dap/chi-tiet/*.:id', controller.FrBikeDetailController);
-frontendRouter.get('/xe-dap/search/:sku', controller.searchData);
+frontendRouter.get('/xe-dap/search/:name', controller.searchData);
 frontendRouter.get('/xe-dap/giam-dan',controller.getAllBikeDesc);
 frontendRouter.post('/xe-dap/get-more/:page',controller.getPageLoad);
 

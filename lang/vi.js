@@ -260,6 +260,7 @@ let tranMail = {
         </tr>
     </table>`
     },
+    send_success : 'Gửi mail thành công. chúng tôi sẽ phản hồi ngay !',
     send_failed: "Có lỗi, vui lòng liên hệ vơi bộ phận hỗ trợ để được giúp đỡ !"
 }
 

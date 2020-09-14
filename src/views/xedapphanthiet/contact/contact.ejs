@@ -83,42 +83,33 @@
         </div>
         <div class="col-lg-8 col-md-12" id="lazy-container">
           <form accept-charset="utf-8" action="/contact" id="contact" method="post" class="has-validation-callback">
-            <input name="FormType" type="hidden" value="contact">
-            <input name="utf8" type="hidden" value="true"><input type="hidden"
-              id="Token-8772963fc82c4214a2ecfa426585202c" name="Token"
-              value="03AGdBq26BMLqgL3s2x1mbMqiIy0sVHTj1o6ZTGRcKdMGzORU76APtXv5x_yMDYiO6CcxqWsTuZhUY5L-Z3TzckvH1f3Z8y_ygqTRKCdEW1mp7hcTm1qcufVNd-HmS6qFOf4s1oYgtVTQdI25NGGiB9EtJp__FN94YiUzMyalIm-uWg47EpRMsQM3DZLFb17hcLlTzBmsnCT2JD6InWJQyitgfLWCU_cw1nSc1sC0CwO2krDwGVjSk2o_ia7sTUjZicYymCy7IocOMRqChn4LD-pu-MZX8_CDFUzeuORZJliEJTzoGVI6ZuxRYHGNAuHgVgBGB1Hs89y7FVSm4-POAN7Hv2S9DRy5GnRm6mKVRe_5y3-737D8SFSRmuQTShcFjcH-65eTAFfiq8pAIAQVa8wn8j5m-2-KpsQ">
             <div class="form-signup clearfix">
               <div class="row">
                 <div class="col-sm-4 col-xs-12">
                   <fieldset class="form-group">
                     <label>Họ và tên<span class="required">*</span></label>
-                    <input placeholder="Nhập họ và tên" type="text" name="contact[name]" id="name"
-                      class="form-control" data-validation-error-msg="Không được để trống" data-validation="required"
-                      required="">
+                    <input placeholder="Nhập họ và tên" type="text" name="customer_name" id="customer_name"
+                      class="form-control" required>
                   </fieldset>
                 </div>
                 <div class="col-sm-4 col-xs-12">
                   <fieldset class="form-group">
                     <label>Email<span class="required">*</span></label>
-                    <input placeholder="Nhập địa chỉ Email" type="email" name="contact[email]" data-validation="email"
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$"
-                      data-validation-error-msg="Email sai định dạng" id="email" class="form-control" required="">
+                    <input placeholder="Nhập địa chỉ Email" type="email" name="customer_email" id="customer_email" class="form-control" required="">
                   </fieldset>
                 </div>
                 <div class="col-sm-4 col-xs-12">
                   <fieldset class="form-group">
                     <label>Điện thoại<span class="required">*</span></label>
-                    <input placeholder="Nhập số điện thoại" type="tel" name="contact[phone]" data-validation="tel"
-                      data-validation-error-msg="Không được để trống" id="tel" class="number-sidebar form-control"
-                      required="">
+                    <input placeholder="Nhập số điện thoại" type="tel" name="customer_phone" id="customer_phone" class="number-sidebar form-control"
+                      required=>
                   </fieldset>
                 </div>
                 <div class="col-sm-12 col-xs-12">
                   <fieldset class="form-group">
                     <label>Nội dung<span class="required">*</span></label>
-                    <textarea placeholder="Nội dung liên hệ" name="contact[body]" id="comment" class="form-control"
-                      rows="5" data-validation-error-msg="Không được để trống" data-validation="required"
-                      required=""></textarea>
+                    <textarea placeholder="Nội dung" name="customer_comment" id="customer_comment" class="form-control"
+                      rows="5" required=""></textarea>
                   </fieldset>
                 </div>
                 <div class="col-sm-12 col-xs-12">

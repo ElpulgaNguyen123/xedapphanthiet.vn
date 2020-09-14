@@ -194,10 +194,10 @@ let FrBikeDetailController = async (req, res, next) => {
 let searchData = async (req, res, next) => {
     let successArr = [];
     try {
-        var product_sku = req.params.sku;
+        var product_name = req.params.name;
         var queryBike = `
-        SELECT * FROM product WHERE sku LIKE 
-        '%${product_sku}%' 
+        SELECT * FROM product WHERE name LIKE 
+        '%${product_name}%' 
         ORDER BY ID DESC LIMIT 6`;
         var result = {};
         await pool.query(queryBike, function (error, results, fields) {

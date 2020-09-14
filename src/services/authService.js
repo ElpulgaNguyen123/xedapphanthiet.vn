@@ -92,7 +92,6 @@ let register_service = (email, password, protocol, host) => {
         }
     })
 }
-
 let resetpassword_service =  (email, protocol, host) => {
     return new Promise((resolve, reject) => {
         try {
@@ -110,7 +109,6 @@ let resetpassword_service =  (email, protocol, host) => {
                         return reject(Tranerrors.accout_notActive);// kiểm tra tài khoản đã đăng ký nhưng chưa active.     
                     }
                 }
-
                 let linkVerify = `${protocol}://${host}/admin/reset-password/${checkUserAvaliable.verifyToken}`;
                 var smtpConfig = {
                     host: 'smtp.gmail.com',
@@ -121,7 +119,6 @@ let resetpassword_service =  (email, protocol, host) => {
                         pass: 'Leo769183'
                     },
                     tls: {
-                        // từ chối nhận diện
                         rejectUnauthorized: false,
                     }
                 };
@@ -132,7 +129,6 @@ let resetpassword_service =  (email, protocol, host) => {
                     subject: tranMail.subject,
                     html: tranMail.templateResetPass(linkVerify)
                 }
-                // Sendmail
                 await transporter.sendMail(options)
                     .then((success) => {
                         console.log('Gửi thành công');
@@ -149,7 +145,6 @@ let resetpassword_service =  (email, protocol, host) => {
         }
     })
 }
-
 let resetPassword = (token) => {
     return new Promise(async (resolve, reject) => {
         try {

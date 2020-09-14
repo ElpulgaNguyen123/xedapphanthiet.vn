@@ -68,7 +68,7 @@
                 <!-- Example split danger button -->
                 <div class="input-group form-search">
                     <span class="input-group-addon btn-inverse" id="name"><i class="icofont icofont-search"></i></span>
-                    <input type="text" id="search_value" class="form-control" placeholder="Tìm sản phẩm theo mã Sku"
+                    <input type="text" id="search_value" class="form-control" placeholder="Tìm sản phẩm"
                         data-original-title="Tìm sản phẩm...">
                     <ul class="result_rows">
                     </ul>
@@ -203,7 +203,7 @@
                                 <td class="product-image">
                                     <img class="sp_img-<%= product.id%>" src="/public/admin/images/example.png" alt="">
                                     <p class="mt-2"><span
-                                            class="label label-primary">Sku:</span>&nbsp;<%= product.sku %> </p>
+                                            class="label label-primary sku-label">Sku:</span>&nbsp;<%= product.sku %> </p>
                                 </td>
                                 <% } %>
                                 <td class="font-weight-bold">

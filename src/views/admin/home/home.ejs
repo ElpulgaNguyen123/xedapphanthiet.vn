@@ -127,7 +127,7 @@
                                                     src="/public/uploads/products/<%=JSON.parse(product.image)[0] %>"
                                                     alt="">
                                                 <p class="mt-2"> <span
-                                                        class="label label-primary">Sku:&nbsp;<%= product.sku %></span>
+                                                        class="label label-primary d-inline-block">Sku:&nbsp;</span><%= product.sku %>
                                                 </p>
                                                 </td>
                                                 <% } else{ %>
@@ -135,7 +135,7 @@
                                                 <img class="sp_img-<%= product.id%>"
                                                     src="/public/admin/images/example.png" alt="">
                                                 <p class="mt-2"><span
-                                                        class="label label-primary">Sku:&nbsp;<%= product.sku %></span>
+                                                        class="label label-primary d-inline-block">Sku:&nbsp;</span><%= product.sku %>
                                                 </p>
                                             </td>
                                             <% } %>

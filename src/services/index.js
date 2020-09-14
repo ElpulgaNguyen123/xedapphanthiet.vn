@@ -31,14 +31,12 @@ var { queryAction,
         var {getAllEndow} = require('./endowService');
         var {getAllUser} = require('./userService');
         var {queryActionAttributeDelete} = require('./attributeService');
-        var {sendmessage_service} = require('./messageService');
 
 
 module.exports = {
     register_service,
     resetpassword_service,
     resetPassword,
-
 
     // product service
     queryAction,
@@ -65,19 +63,13 @@ module.exports = {
     queryActionCategoryDelete,
     queryActionCategoriesParams,
     queryActionCategoriesNoParams,
-
-
     queryActionSlideDelete,
     getAllSlide,
     queryActionBlogelete,
     getAllBlog,
     getBlog,
-
     getAllEndow,
-
     getAllUser,
-
     queryActionAttributeDelete,
 
-    sendmessage_service
 }

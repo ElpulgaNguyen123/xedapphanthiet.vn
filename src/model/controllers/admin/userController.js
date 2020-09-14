@@ -111,7 +111,6 @@ let updateUserAvatar = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
-
 // Get user info for show
 let getUser = async (req, res, next) => {
     try {

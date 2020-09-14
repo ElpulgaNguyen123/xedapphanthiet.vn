@@ -48,7 +48,7 @@ adminRouter.get('/product/delete-product-image/:id', controller.checkloggedIn, c
 adminRouter.get('/product-category/:idcategory', controller.checkloggedIn, controller.getAllProductCategory);
 adminRouter.get('/product-brand/:idbrand', controller.checkloggedIn, controller.getAllProductBrand);
 adminRouter.get('/products/giam-dan', controller.checkloggedIn, controller.getAllProductDesc);
-adminRouter.get('/product/search/:sku', controller.checkloggedIn, controller.searchData);
+adminRouter.get('/product/search/:name', controller.checkloggedIn, controller.searchData);
 adminRouter.get('/product/delete-product/:iddelete', controller.checkloggedIn, controller.deleteProductController);
 adminRouter.post('/product/get-more/:page', controller.checkloggedIn, controller.getPageLoad);
 // products router // end

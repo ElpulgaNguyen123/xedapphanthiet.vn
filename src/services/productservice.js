@@ -15,7 +15,6 @@ let queryAction = (query, params) => {
         }
     })
 }
-
 let queryActionNoParams = (query) => {
     return new Promise(async (resolve, reject) => {
         try {
