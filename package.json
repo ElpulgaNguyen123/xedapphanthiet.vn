@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon app.js",
-    "build": "node ./bin/www"
+    "test": "nodemon app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
