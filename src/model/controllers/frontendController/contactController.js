@@ -62,13 +62,7 @@ let FrSendmailController = async (req, res, next) => {
         // Sendmail
         await transporter.sendMail(options)
             .then((success) => {
-                
-                res.render('xedapphanthiet/contact/contact', {
-                    title: 'Liên hệ',
-                    userInfo: userInfo,
-                    errors: req.flash('Errors'),
-                    success: req.flash('Success'),
-                })
+                res.redirect('/lien-he');
             })
             .catch((error) => {
                 // trường hợp xảy ra xác thực lỗi thì delete user đó

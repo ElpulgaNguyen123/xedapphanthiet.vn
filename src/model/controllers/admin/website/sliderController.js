@@ -26,7 +26,7 @@ var productUploadFile = multer({ storage: storage }).single('slide_image');
 // get all products
 let getAllSlide = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM `slide', function (error, rows, fields) {
+        await pool.query('SELECT * FROM slide', function (error, rows, fields) {
             if (error) throw error;
             res.render('admin/website/sliders/slider', {
                 title: 'Slide',

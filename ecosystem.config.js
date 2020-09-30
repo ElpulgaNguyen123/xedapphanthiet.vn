@@ -6,7 +6,6 @@ module.exports = {
     script: './service-worker/',
     watch: ['./service-worker']
   }],
-
   deploy : {
     production : {
       user : 'SSH_USERNAME',

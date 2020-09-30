@@ -135,7 +135,6 @@ let FrBikeDetailController = async (req, res, next) => {
         const queryFeature = `SELECT * FROM blog ORDER BY id DESC LIMIT 10`;
         const queryBikeRelate = `SELECT * FROM product WHERE product.category_id = ? ORDER BY id DESC LIMIT 8        `
         const blogFeature = await service.getAllBlog(queryFeature);
-        console.log(req.params.id);
         let bike = await service.getAllProductFr(getAllProductFrs, req.params.id);
         let relateBikes = [];
         if (bike[0].category_id) {
@@ -202,7 +201,6 @@ let searchData = async (req, res, next) => {
         var result = {};
         await pool.query(queryBike, function (error, results, fields) {
             if (error) throw error;
-            console.log(results);
             result.results = results;
             return res.status(200).send(result);
         });

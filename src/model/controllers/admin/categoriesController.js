@@ -29,7 +29,7 @@ var productUploadFile = multer({ storage: storage }).single('category_image');
 // get all products
 let getAllCategories = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM `categories', function (error, rows, fields) {
+        await pool.query('SELECT * FROM categories', function (error, rows, fields) {
             if (error) throw error;
             res.render('admin/products/categories/categories', {
                 title: 'Danh mục',

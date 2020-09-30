@@ -19,9 +19,9 @@ let getAllAttribute = async (req, res, next) => {
         pool.query(query, async function (error, results_01, fields) {
             if (error) throw error;
             var attributes = results_01 || [];
-            await pool.query('SELECT * FROM `attribute_group', async function (error, results_02, fields) {
+            await pool.query('SELECT * FROM attribute_group', async function (error, results_02, fields) {
                 if (error) throw error;
-                await pool.query('SELECT * FROM `attribute_type', function (error, results_03, fields) {
+                await pool.query('SELECT * FROM attribute_type', function (error, results_03, fields) {
                     if (error) throw error;
                     var attribute_types = [], attribute_groups = [];
                     attribute_groups = results_02 || [];

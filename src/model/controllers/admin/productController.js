@@ -89,7 +89,6 @@ let getPageLoad = async (req, res, next) => {
     }
 }
 
-
 let getAllProductCategory = async (req, res, next) => {
     try {
         // Lấy tất cả sản phẩm và hiển thị ra table
@@ -184,7 +183,7 @@ let addProductGet = async (req, res, next) => {
         var querycategories = 'SELECT * FROM categories';
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
-        pool.query('SELECT * FROM `brand', function (error, results, fields) {
+        pool.query('SELECT * FROM brand', function (error, results, fields) {
             res.render('admin/products/addproduct', {
                 title: 'Thêm sản phẩm',
                 brands: results,
@@ -419,8 +418,8 @@ let editProductGet = async (req, res, next) => {
         INNER JOIN prd_attribute ON prd_attribute.attribute_value_id = prd_attribute_value.id 
         INNER JOIN attributes ON prd_attribute_value.attribute_id = attributes.id 
         WHERE prd_attribute.product_id = ${product_id}`;
-        var queryattributes = 'SELECT * FROM `attributes';
-        var querycategories = 'SELECT * FROM `categories';
+        var queryattributes = 'SELECT * FROM attributes';
+        var querycategories = 'SELECT * FROM categories';
         var querybrands = 'SELECT * FROM brand';
 
         // lấy ra danh sách thuộc tính và id thuộc tính có trong sản phẩm.
