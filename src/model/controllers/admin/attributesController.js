@@ -77,8 +77,8 @@ let postAddAttribute = async (req, res, next) => {
 let getEditAttribute = async (req, res, next) => {
     try {
         var id = req.params.id, title = '', attribute_name, slug;
-        var queryType = 'SELECT * FROM `attribute_type';
-        var queryGroup = 'SELECT * FROM `attribute_group';
+        var queryType = 'SELECT * FROM attribute_type';
+        var queryGroup = 'SELECT * FROM attribute_group';
         var attribute_types = await service.queryActionNoParams(queryType);
         var attribute_groups = await service.queryActionNoParams(queryGroup);
         await pool.query('SELECT * from attributes where id = ?', id, async function (error, results, fields) {
@@ -247,7 +247,6 @@ module.exports = {
     getEditAttribute,
     postEditAttribute,
     postDeleteAttribute,
-
     postAddAttributeValue,
     postDeleteAttributeValue
 };

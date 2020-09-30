@@ -3,7 +3,7 @@ var MySqlStore = require('express-mysql-session');
 var options = {
     host     : 'localhost',
     user     : 'root',
-    password : 'Leo769183',
+    password : '',
     database : 'xedapphanthiet'
 }
 var sessionStore = new MySqlStore(options);

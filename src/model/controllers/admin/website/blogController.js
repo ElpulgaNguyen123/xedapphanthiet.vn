@@ -29,7 +29,7 @@ var productUploadFile = multer({ storage: storage }).single('blog_image');
 // get all Blog // start
 let getAllBlog = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM `blog', function (error, rows, fields) {
+        await pool.query('SELECT * FROM blog', function (error, rows, fields) {
             if (error) throw error;
             res.render('admin/website/blog/blog', {
                 title: 'Blog',

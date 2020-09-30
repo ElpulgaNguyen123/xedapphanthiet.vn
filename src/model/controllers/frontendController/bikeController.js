@@ -11,7 +11,7 @@ let FrBikeController = async (req, res, next) => {
             userInfo = user[0];
         }
         const queryBikes = 'Select * from product';
-        const querycategories = 'SELECT * FROM `categories';
+        const querycategories = 'SELECT * FROM categories';
         const querybrands = 'SELECT * FROM brand';
         const brands = await service.getAllBrand(querybrands);
         const categories = await service.getAllCategoryProduct(querycategories);

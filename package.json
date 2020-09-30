@@ -2,12 +2,12 @@
   "name": "xedapphanthiet.vn",
   "version": "1.0.0",
   "engines": {
-    "node": "12.x"
+    "node": "10.22.0"
   },
   "private": true,
   "scripts": {
-    "dev":"nodemon app.js",
-    "start": "node app.js"
+    "dev": "nodemon app.js",
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

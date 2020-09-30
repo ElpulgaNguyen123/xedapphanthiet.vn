@@ -36,7 +36,7 @@ let getAllProduct = async (req, res, next) => {
         const brands = await service.getAllBrand(queryBrands);
         const categories = await service.getAllCategoryProduct(queryCategories);
         const query = `SELECT * FROM product`;
-        pool.query('SELECT * FROM `product', function (error, results, fields) {
+        pool.query('SELECT * FROM product', function (error, results, fields) {
             if (error) throw error;
             res.render('admin/products/products', {
                 title: 'Sản phẩm',
@@ -180,8 +180,8 @@ let getAllProductDesc = async (req, res, next) => {
 // chuyển qua trang thêm sản phẩm   
 let addProductGet = async (req, res, next) => {
     try {
-        var queryattributes = 'SELECT * FROM `attributes';
-        var querycategories = 'SELECT * FROM `categories';
+        var queryattributes = 'SELECT * FROM attributes';
+        var querycategories = 'SELECT * FROM categories';
         var attributes = await service.queryActionNoParams(queryattributes);
         var categories = await service.queryActionNoParams(querycategories);
         pool.query('SELECT * FROM `brand', function (error, results, fields) {

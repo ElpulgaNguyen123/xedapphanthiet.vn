@@ -26,7 +26,7 @@ var productUploadFile = multer({ storage: storage }).single('brand_image');
 // get all products
 let getAllBrand = async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM `brand', function (error, rows, fields) {
+        await pool.query('SELECT * FROM brand', function (error, rows, fields) {
             if (error) throw error;
             res.render('admin/products/brands/brands', {
                 title: 'Thương hiệu',

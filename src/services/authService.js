@@ -51,12 +51,12 @@ let register_service = (email, password, protocol, host) => {
                     let adminPort = process.env.MAILER_PORT;
 
                     var smtpConfig = {
-                        host: 'smtp.gmail.com',
-                        port: 465,
+                        host: adminHost,
+                        port: adminPort,
                         secure: true, // use SSL
                         auth: {
-                            user: 'nguyenhoangthang635@gmail.com',
-                            pass: 'Leo769183'
+                            user: adminMailer,
+                            pass: adminPassword
                         },
                         tls: {
                             // từ chối nhận diện

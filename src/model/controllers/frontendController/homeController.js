@@ -75,7 +75,6 @@ let FrhomeController = async (req, res, next) => {
             childstype = await service.getAllCategoryProduct(productChildQuery);
         }
 
-        console.log(streets[0]);
 
         var queryBlog = 'Select * from blog';
         const slide = await service.getAllSlide(slideQuery);
@@ -83,7 +82,7 @@ let FrhomeController = async (req, res, next) => {
         const endows = await service.getAllEndow(queryEndow);
         const blogs = await service.getAllBlog(queryBlog);
 
-        pool.query('SELECT * FROM `user', function (error, results, fields) {
+        pool.query('SELECT * FROM user', function (error, results, fields) {
             if (error) throw error;
             res.render('xedapphanthiet/home/home', {
                 title: 'Trang chủ',
