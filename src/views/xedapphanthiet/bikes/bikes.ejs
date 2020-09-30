@@ -122,7 +122,7 @@
                                 <div class="col-6 col-sm-6 col-md-4">
                                     <div class="soph__it">
                                         <div class="soph__img">
-                                            <a href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= bike.id %>"
+                                            <a href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"
                                                 title="<%= bike.name %>">
                                                 <% if(bike.image.length > 0){ %>
                                                 <img src="/public/uploads/products/<%=JSON.parse(bike.image)[0] %>"
@@ -135,7 +135,7 @@
                                         <div class="soph__ct">
                                             <span class="badge badge-info mb-3">SKU : <%= bike.sku %></span>
                                             <h3 class="soph__tt ut_bold"> <a
-                                                    href="/xe-dap/chi-tiet/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a>
+                                                    href="/xe-dap/<%= bike.slug %>.<%= bike.id %>"><%= bike.name %></a>
                                             </h3>
                                             <p class="line-clamp">Lorem, ipsum dolor sit amet consectetur adipisicing
                                                 elit. Corporis
@@ -185,13 +185,13 @@
         return `<div class="col-6 col-sm-6 col-md-4">
     <div class="soph__it">
         <div class="soph__img">
-            <a href="/xe-dap/chi-tiet/${value.slug}.${value.id}" title="${value.name}">
+            <a href="/xe-dap/${value.slug}.${value.id}" title="${value.name}">
                 <img src="/public/uploads/products/${JSON.parse(value.image)[0]}" alt="${value.name}">
             </a>
         </div>
         <div class="soph__ct">
             <span class="badge badge-info mb-3">SKU : PD20203</span>
-            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/chi-tiet/${value.slug}.${value.id}">${value.name}</a>
+            <h3 class="soph__tt ut_bold"> <a href="/xe-dap/${value.slug}.${value.id}">${value.name}</a>
             </h3>
             <p class="line-clamp">${value.short_description}</p>
             <div class="soph-box d-flex">

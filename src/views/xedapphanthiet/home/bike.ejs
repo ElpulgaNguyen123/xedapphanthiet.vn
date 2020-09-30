@@ -35,7 +35,7 @@
                                 <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
                                     data-wow-duration="<%= index %>">
                                     <div class="soph__img">
-                                        <a href="/xe-dap/chi-tiet/<%= street.slug %>.<%= street.product_id %>"
+                                        <a href="/xe-dap/<%= street.slug %>.<%= street.product_id %>"
                                             title="<%= street.name %>">
                                             <img src="/public/uploads/products/<%= JSON.parse(street.image)[0]  %>"
                                                 alt="<%= street.name %>">
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="soph__ct">
                                         <h3 class="soph__tt ut_bold"> <a
-                                                href="/xe-dap/chi-tiet/<%= street.slug %>.<%= street.product_id %>"
+                                                href="/xe-dap/<%= street.slug %>.<%= street.product_id %>"
                                                 title="<%= street.name %>"> <%= street.name %> </a>
                                         </h3>
                                         <p class="line-clamp"> <%= street.short_description %> </p>
@@ -86,7 +86,7 @@
                     <div class="soph__box">
                         <div class="section-title text-left">
                             <h3 class="soph__title text_P text-white ut_bold"> <%= raceTitle.category_name %> </h3>
-                            <a href="/xe-dap/danh-muc/chi-tiet/<%= raceTitle.category_slug %>.<%= raceTitle.id %>" class="link-more"> <span>Xem thêm&nbsp;</span><i
+                            <a href="/xe-dap/danh-muc/<%= raceTitle.category_slug %>.<%= raceTitle.id %>" class="link-more"> <span>Xem thêm&nbsp;</span><i
                                     class="icofont-long-arrow-right"></i></a>
                         </div>
                         <div class="soph__lst">
@@ -95,7 +95,7 @@
                                 <div class="soph__it wow fadeInUp" data-wow-delay="0.<%= index+2 %>"
                                     data-wow-duration="<%= index %>">
                                     <div class="soph__img">
-                                        <a href="/xe-dap/chi-tiet/<%= race.slug %>.<%= race.product_id %>" title="<%= race.name %>">
+                                        <a href="/xe-dap/<%= race.slug %>.<%= race.product_id %>" title="<%= race.name %>">
                                             <img src="/public/uploads/products/<%=JSON.parse(race.image)[0] %>"
                                                 alt="<%= race.name %>">
                                         </a>

@@ -148,12 +148,21 @@ $(function () {
 
     })
     /*----------  show more content details / end  ----------*/
+    var btn = $('#button');
+    /*----------  show more content details / end  ----------*/
     $(window).scroll(function () {
         if ($(this).scrollTop() >= 100) { // If page is scrolled more than 50px
             $('.header').addClass('fixed-show');
+            btn.addClass('show');
         } else {
+            btn.removeClass('show');
             $('.header').removeClass('fixed-show');
         }
+    });
+
+    btn.on('click', function (e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, '300');
     });
     /*---------- select title / start  ----------*/
     var img_tt = $('.img_tt');
